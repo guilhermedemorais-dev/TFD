@@ -1,0 +1,26 @@
+{
+  "name": "TFD-qa_spec",
+  "sector": "qa_spec",
+  "description": "Review pre-implementation artifacts independently. Cite evidence and return PASS or REWORK.",
+  "activates_on": [
+    "revisar a spec antes de implementar",
+    "revisar o PRD e o discovery antes do código",
+    "revisão das especificações no gate G3",
+    "revisão da spec de fase no gate G6"
+  ],
+  "inputs": [
+    "PRD",
+    "discovery",
+    "contracts",
+    "spec",
+    "task contract"
+  ],
+  "outputs": [
+    "findings.json"
+  ],
+  "gate": "G3/G6",
+  "validator": "harness",
+  "skills": [
+    "TFD-qa_spec"
+  ]
+}

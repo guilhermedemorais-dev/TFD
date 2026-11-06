@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "project": "REPLACE_WITH_PROJECT",
+  "baseline_revision": "REPLACE_WITH_APPROVED_REVISION",
+  "baseline_source": {
+    "path": "REPLACE_WITH_APPROVED_PLAN_PATH",
+    "sha256": "REPLACE_WITH_SHA256"
+  },
+  "stages": [
+    {
+      "id": "implementation",
+      "title": "Implementação"
+    },
+    {
+      "id": "validation",
+      "title": "Validação"
+    },
+    {
+      "id": "documentation",
+      "title": "Documentação"
+    },
+    {
+      "id": "acceptance",
+      "title": "Aceite"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "REPLACE_WITH_EXISTING_TASK_ID",
+      "title": "REPLACE_WITH_CLIENT_SAFE_TITLE",
+      "contract_revision": "REPLACE_WITH_CURRENT_REVISION",
+      "source": {
+        "path": "REPLACE_WITH_TASK_PATH",
+        "sha256": "REPLACE_WITH_SHA256"
+      },
+      "issue_url": null,
+      "documentation": {
+        "technical": {
+          "status": "PENDING",
+          "reason": "Await actual scope assessment",
+          "evidence": []
+        },
+        "user": {
+          "status": "PENDING",
+          "reason": "Await actual scope assessment",
+          "evidence": []
+        }
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "REPLACE_WITH_EXISTING_CRITERION_ID",
+      "task_id": "REPLACE_WITH_EXISTING_TASK_ID",
+      "stage_id": "implementation",
+      "status": "NOT_VALIDATED",
+      "weight": 1,
+      "evidence": []
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "owner": "security-standard",
+  "tools": [
+    {"id": "semgrep", "capabilities": ["static-security-analysis"], "repository": "https://github.com/semgrep/semgrep", "command": "semgrep", "verify_args": ["--version"], "install_policy": "official-supported-method"},
+    {"id": "trivy", "capabilities": ["container-security-analysis", "dependency-security-analysis"], "repository": "https://github.com/aquasecurity/trivy", "command": "trivy", "verify_args": ["--version"], "install_policy": "official-supported-method"},
+    {"id": "gitleaks", "capabilities": ["secret-scanning"], "repository": "https://github.com/gitleaks/gitleaks", "command": "gitleaks", "verify_args": ["version"], "install_policy": "official-supported-method"},
+    {"id": "zap", "capabilities": ["dynamic-security-analysis"], "repository": "https://github.com/zaproxy/zaproxy", "command": "zap.sh", "verify_args": ["-version"], "install_policy": "official-supported-method"},
+    {"id": "bandit", "capabilities": ["python-security-analysis"], "repository": "https://github.com/PyCQA/bandit", "command": "bandit", "verify_args": ["--version"], "install_policy": "official-supported-method"},
+    {"id": "pip-audit", "capabilities": ["python-dependency-audit"], "repository": "https://github.com/pypa/pip-audit", "command": "pip-audit", "verify_args": ["--version"], "install_policy": "official-supported-method"}
+  ]
+}

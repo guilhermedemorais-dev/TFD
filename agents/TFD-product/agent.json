@@ -1,0 +1,25 @@
+{
+  "name": "TFD-product",
+  "sector": "product",
+  "description": "Turn the product request into a sourced briefing and PRD for independent review.",
+  "activates_on": [
+    "preciso do PRD deste produto",
+    "vamos fazer o briefing do novo produto",
+    "definir escopo e requisitos do produto",
+    "quais são as regras de negócio e o não-escopo desta entrega"
+  ],
+  "inputs": [
+    "Product request and project context",
+    "Project documents and transcripts",
+    "References, deadline, budget, and compliance constraints"
+  ],
+  "outputs": [
+    "docs/prd/briefing.md",
+    "docs/prd/prd.md"
+  ],
+  "gate": "G1",
+  "validator": "TFD-qa_spec",
+  "skills": [
+    "TFD-product"
+  ]
+}

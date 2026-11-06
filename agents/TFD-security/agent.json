@@ -1,0 +1,22 @@
+{
+  "name": "TFD-security",
+  "sector": "security",
+  "description": "Assess applicable threats, permissions, data exposure and verification for the approved change.",
+  "activates_on": [
+    "revisar segurança da etapa",
+    "avaliar ameaças do contrato"
+  ],
+  "inputs": [
+    "Approved scope and trust boundaries",
+    "Data and integration contracts",
+    "Current diff and runtime evidence"
+  ],
+  "outputs": [
+    "Threats, mitigations and security review evidence"
+  ],
+  "gate": "G4/G6/G7",
+  "validator": "harness",
+  "skills": [
+    "TFD-security"
+  ]
+}

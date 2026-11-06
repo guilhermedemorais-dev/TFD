@@ -1,0 +1,23 @@
+{
+  "name": "TFD-devops",
+  "sector": "devops",
+  "description": "Verify environment readiness and prepare reproducible operations, PR evidence and rollback.",
+  "activates_on": [
+    "preparar o ambiente do projeto",
+    "revisar implantação e rollback"
+  ],
+  "inputs": [
+    "Approved scope and target environment",
+    "Repository and declared tooling"
+  ],
+  "outputs": [
+    "Environment readiness evidence",
+    "Runbook and rollback plan",
+    "PR review evidence"
+  ],
+  "gate": "G0.5/G4/G7/G8",
+  "validator": "harness",
+  "skills": [
+    "TFD-devops"
+  ]
+}

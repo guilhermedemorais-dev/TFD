@@ -1,0 +1,22 @@
+{
+  "name": "TFD-qa_backend",
+  "sector": "qa_backend",
+  "description": "Independently verify backend behavior, APIs and persistence against approved criteria.",
+  "activates_on": [
+    "validar o backend da etapa",
+    "testar a API e a persistência"
+  ],
+  "inputs": [
+    "Approved phase and criteria",
+    "Current implementation revision",
+    "Disposable environment"
+  ],
+  "outputs": [
+    "Backend QA verdict and executed evidence"
+  ],
+  "gate": "G7",
+  "validator": "harness",
+  "skills": [
+    "TFD-qa_backend"
+  ]
+}

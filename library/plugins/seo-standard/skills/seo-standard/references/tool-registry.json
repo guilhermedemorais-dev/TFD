@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "owner": "seo-standard",
+  "policy_notes": [
+    "BeyondSEO is the preferred crawler/evidence runtime for website audits.",
+    "SEO Standard owns interpretation, priorities, copy/conversion recommendations and revalidation.",
+    "The Harness owns Task scope, implementation routing and final delivery gates.",
+    "Do not claim rankings, traffic or backlink acquisition without evidence."
+  ],
+  "tools": [
+    {
+      "id": "beyondseo-runtime",
+      "capabilities": [
+        "technical-seo",
+        "on-page-seo",
+        "crawlability",
+        "indexability",
+        "schema-analysis",
+        "aeo",
+        "geo",
+        "entity-seo",
+        "competitor-analysis",
+        "reputation-analysis",
+        "backlink-planning",
+        "conversion-seo",
+        "post-change-validation"
+      ],
+      "repository": "https://github.com/beyondtahir/beyondseo",
+      "command": "beyondseo",
+      "verify_distribution": "beyondseo",
+      "install_policy": "version-pinned-local-vendored-runtime",
+      "license": "MIT",
+      "version": "2.9.1"
+    }
+  ]
+}

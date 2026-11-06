@@ -1,0 +1,22 @@
+{
+  "name": "TFD-frontend",
+  "sector": "frontend",
+  "description": "Implement approved UI flows and states, with accessibility and self-tests.",
+  "activates_on": [
+    "implementar interface aprovada",
+    "implementar estados da tela"
+  ],
+  "inputs": [
+    "Approved task, UI design and API contracts",
+    "Existing components and tests"
+  ],
+  "outputs": [
+    "Frontend changes",
+    "Self-test evidence"
+  ],
+  "gate": "G7",
+  "validator": "TFD-qa_ui",
+  "skills": [
+    "TFD-frontend"
+  ]
+}

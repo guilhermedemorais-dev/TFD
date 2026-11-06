@@ -1,0 +1,10 @@
+{
+  "name": "tfd-local",
+  "interface": {"displayName": "TFD local"},
+  "plugins": [
+    {
+      "name": "the-factory-developer",
+      "source": {"source": "local", "path": "./"}
+    }
+  ]
+}

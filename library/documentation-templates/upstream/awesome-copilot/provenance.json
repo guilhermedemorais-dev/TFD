@@ -1,0 +1,13 @@
+{
+  "origin": "https://github.com/github/awesome-copilot",
+  "revision": "613efc8c21d9b3ce642dff361d17006cd9967e28",
+  "upstream_path": "skills/documentation-writer/SKILL.md",
+  "license": "MIT",
+  "inspected": "2026-10-21",
+  "files": {
+    "GUIDE.md": "7e8244988c9f4eb63bf8c0edf160578544621eb96e5e51e2d848f1401c5de8f1",
+    "LICENSE": "e32449d23085399adc1222f7a17408b730550258e51627c153cb108ca9955823"
+  },
+  "adaptation": "docs/operations/documentation.md",
+  "execution": "No scripts, dependencies, installs or host registration"
+}

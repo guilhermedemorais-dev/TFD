@@ -1,0 +1,516 @@
+{
+  "schema_version": 1,
+  "name": "Documented stack CLI capabilities",
+  "scope": "Distributed metadata, not a bulk installer, installed state or runtime observations.",
+  "procedure": "library/tools/stack-cli-policy.md",
+  "auto_install_policy": "Selected necessary project-local tools may be installed under the owner authorization using the canonical Environment/skill-owned-tools workflow. No install-all, global runtime changes, arbitrary catalog command execution or implied network permission.",
+  "tools": [
+    {
+      "id": "python-runtime-cli",
+      "name": "Python runtime CLI",
+      "stack": "python",
+      "category": "stack-cli",
+      "kind": "language-runtime",
+      "sector": "environment",
+      "documentation": [
+        "https://docs.python.org/3/library/venv.html"
+      ],
+      "official_repository": "https://github.com/python/cpython",
+      "package": null,
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "PYTHON",
+        "--version"
+      ],
+      "install_argv_template": null,
+      "capability": "Execute Python modules and create project virtual environments.",
+      "notes": "Use discovered python/python3/py -3. venv is a Python module, not a separate pip package. Creating .venv writes files and requires selected project scope; no automatic system Python installation."
+    },
+    {
+      "id": "python-pip",
+      "name": "Python pip",
+      "stack": "python",
+      "category": "stack-cli",
+      "kind": "package-manager",
+      "sector": "environment",
+      "documentation": [
+        "https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/"
+      ],
+      "official_repository": "https://github.com/pypa/pip",
+      "package": "pip",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "VENV_PYTHON",
+        "-m",
+        "pip",
+        "--version"
+      ],
+      "install_argv_template": null,
+      "capability": "Install approved project dependencies into an isolated virtual environment.",
+      "notes": "Prefer the existing project manager, e.g. uv or Poetry if already adopted. Use venv interpreter directly; do not pip install into system Python or upgrade pip routinely."
+    },
+    {
+      "id": "react-vite-create",
+      "name": "React via create-vite",
+      "stack": "react",
+      "category": "stack-cli",
+      "kind": "documented-ecosystem-scaffolder",
+      "sector": "frontend",
+      "documentation": [
+        "https://react.dev/learn/build-a-react-app-from-scratch",
+        "https://react.dev/learn/creating-a-react-app",
+        "https://vite.dev/guide/"
+      ],
+      "official_repository": "https://github.com/vitejs/vite",
+      "package": "create-vite",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": null,
+      "install_argv_template": [
+        "npm",
+        "exec",
+        "--package=create-vite@VERSION",
+        "--",
+        "create-vite",
+        "NEW_TARGET",
+        "--template",
+        "REACT_TEMPLATE"
+      ],
+      "capability": "Bootstrap a React SPA when the approved architecture calls for Vite.",
+      "notes": "React has no single first-party generator. Vite is a tool documented by React, not a React-owned CLI. Choose architecture first; never re-scaffold existing applications or install deprecated Create React App for a new project. Choose react for JavaScript/JSX or react-ts for TypeScript; retain React 19 if that is the approved version instead of accepting a future template default."
+    },
+    {
+      "id": "nextjs-create-next-app",
+      "name": "Next.js create-next-app",
+      "stack": "nextjs",
+      "category": "stack-cli",
+      "kind": "official-scaffolder",
+      "sector": "frontend",
+      "documentation": [
+        "https://nextjs.org/docs/app/api-reference/cli/create-next-app"
+      ],
+      "official_repository": "https://github.com/vercel/next.js",
+      "package": "create-next-app",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": null,
+      "install_argv_template": [
+        "npm",
+        "exec",
+        "--package=create-next-app@VERSION",
+        "--",
+        "create-next-app",
+        "NEW_TARGET",
+        "--skip-install",
+        "--disable-git",
+        "--no-agent-feedback"
+      ],
+      "capability": "Bootstrap a new Next.js application.",
+      "notes": "New empty target only. Resolve router/TypeScript/CSS options from PRD and project conventions instead of defaulting or reusing saved preferences. Review generated AGENTS.md for conflicting instructions. Install dependencies separately with the selected package manager."
+    },
+    {
+      "id": "nextjs-cli",
+      "name": "Next.js next CLI",
+      "stack": "nextjs",
+      "category": "stack-cli",
+      "kind": "official-project-cli",
+      "sector": "frontend",
+      "documentation": [
+        "https://nextjs.org/docs/app/api-reference/cli/next"
+      ],
+      "official_repository": "https://github.com/vercel/next.js",
+      "package": "next",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "LOCAL_NEXT",
+        "--version"
+      ],
+      "install_argv_template": [
+        "PROJECT_JS_MANAGER",
+        "add",
+        "next@VERSION"
+      ],
+      "capability": "Run existing Next.js development, build and start scripts.",
+      "notes": "Prefer package.json scripts and locally declared next. Installing next alone is not a complete project setup; preserve React peer dependencies and lockfile. No production start/deploy implied."
+    },
+    {
+      "id": "nestjs-cli",
+      "name": "NestJS CLI",
+      "stack": "nestjs",
+      "category": "stack-cli",
+      "kind": "official-project-cli",
+      "sector": "backend",
+      "documentation": [
+        "https://docs.nestjs.com/cli/overview"
+      ],
+      "official_repository": "https://github.com/nestjs/nest-cli",
+      "package": "@nestjs/cli",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "LOCAL_NEST",
+        "--version"
+      ],
+      "install_argv_template": [
+        "npm",
+        "install",
+        "--save-dev",
+        "@nestjs/cli@VERSION"
+      ],
+      "capability": "Generate Nest modules/controllers/providers and manage builds.",
+      "notes": "Prefer local declared CLI and pinned runner for a new project. Inspect nest-cli.json and --help; use generate --dry-run if the installed version supports it. Do not link hosted Observe/Mau services or create accounts automatically."
+    },
+    {
+      "id": "vue-create-vue",
+      "name": "Vue create-vue",
+      "stack": "vue",
+      "category": "stack-cli",
+      "kind": "official-scaffolder",
+      "sector": "frontend",
+      "documentation": [
+        "https://vuejs.org/guide/quick-start.html",
+        "https://cli.vuejs.org/"
+      ],
+      "official_repository": "https://github.com/vuejs/create-vue",
+      "package": "create-vue",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": null,
+      "install_argv_template": [
+        "npm",
+        "exec",
+        "--package=create-vue@VERSION",
+        "--",
+        "create-vue",
+        "NEW_TARGET"
+      ],
+      "capability": "Bootstrap a new Vite-based Vue application.",
+      "notes": "Official docs use npm create vue@latest; pin a reviewed compatible version for execution. Preserve TypeScript/router/Pinia/test choices from the approved project. Never run in an existing app root."
+    },
+    {
+      "id": "vue-cli-legacy",
+      "name": "Vue CLI legacy",
+      "stack": "vue",
+      "category": "stack-cli",
+      "kind": "official-legacy-cli",
+      "sector": "frontend",
+      "documentation": [
+        "https://cli.vuejs.org/"
+      ],
+      "official_repository": "https://github.com/vuejs/vue-cli",
+      "package": "@vue/cli",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "LOCAL_VUE",
+        "--version"
+      ],
+      "install_argv_template": null,
+      "capability": "Maintain projects already using @vue/cli.",
+      "notes": "Maintenance mode. Reuse existing dependency if present; do not automatically install for a new Vue project or migrate an old project without approved scope."
+    },
+    {
+      "id": "shadcn-cli",
+      "name": "shadcn CLI",
+      "stack": "shadcn",
+      "category": "stack-cli",
+      "kind": "official-component-cli",
+      "sector": "frontend",
+      "documentation": [
+        "https://ui.shadcn.com/docs/cli",
+        "https://ui.shadcn.com/docs/registry"
+      ],
+      "official_repository": "https://github.com/shadcn-ui/ui",
+      "package": "shadcn",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "LOCAL_SHADCN",
+        "--version"
+      ],
+      "install_argv_template": [
+        "npm",
+        "install",
+        "--save-dev",
+        "shadcn@VERSION"
+      ],
+      "capability": "Search and inspect registry components, preview and add selected UI components.",
+      "notes": "Check components.json, CSS, aliases and selected registry. add --dry-run previews writes; do not use --all or --overwrite automatically. Registry compatibility does not make every component compatible with every framework."
+    },
+    {
+      "id": "django-cli",
+      "name": "Django django-admin / manage.py",
+      "stack": "django",
+      "category": "stack-cli",
+      "kind": "official-framework-cli",
+      "sector": "backend",
+      "documentation": [
+        "https://docs.djangoproject.com/en/5.2/ref/django-admin/"
+      ],
+      "official_repository": "https://github.com/django/django",
+      "package": "Django",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "VENV_PYTHON",
+        "-m",
+        "django",
+        "--version"
+      ],
+      "install_argv_template": [
+        "VENV_PYTHON",
+        "-m",
+        "pip",
+        "install",
+        "Django==VERSION"
+      ],
+      "capability": "Manage Django project commands, generate projects/apps and run checks.",
+      "notes": "Reference reviewed against Django 5.2, not a required version. Read docs matching the actual project. Prefer existing manage.py. Database migrations, shell commands and development servers have separate effects and are not installation verification."
+    },
+    {
+      "id": "fastapi-cli",
+      "name": "FastAPI CLI",
+      "stack": "fastapi",
+      "category": "stack-cli",
+      "kind": "official-framework-cli",
+      "sector": "backend",
+      "documentation": [
+        "https://fastapi.tiangolo.com/fastapi-cli/"
+      ],
+      "official_repository": "https://github.com/fastapi/fastapi-cli",
+      "package": "fastapi[standard]",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "probe_argv_template": [
+        "LOCAL_FASTAPI",
+        "--help"
+      ],
+      "install_argv_template": [
+        "VENV_PYTHON",
+        "-m",
+        "pip",
+        "install",
+        "fastapi[standard]==VERSION"
+      ],
+      "capability": "Run a FastAPI application using dev/run commands.",
+      "notes": "The CLI ships with the standard extras, not every minimal FastAPI installation. Adding extras changes dependencies and requires a real project need. --help is a capability probe, not proof the application works. Never start a listening service as a routine version check."
+    },
+    {
+      "category": "stack-cli",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse the project version and lockfile. Otherwise resolve and record an exact compatible version; VERSION is a non-executable placeholder.",
+      "id": "nx-cli",
+      "name": "Nx CLI",
+      "stack": "javascript-typescript-monorepo",
+      "kind": "workspace-generator-and-boundary-checker",
+      "sector": "architecture",
+      "consuming_sectors": [
+        "frontend",
+        "backend",
+        "environment"
+      ],
+      "documentation": [
+        "https://nx.dev/docs/technologies/node/nest/introduction",
+        "https://nx.dev/docs/features/enforce-module-boundaries"
+      ],
+      "official_repository": "https://github.com/nrwl/nx",
+      "package": "nx",
+      "probe_argv_template": [
+        "LOCAL_NX",
+        "--version"
+      ],
+      "install_argv_template": [
+        "npm",
+        "install",
+        "--save-dev",
+        "nx@VERSION"
+      ],
+      "capability": "Generate workspace applications/libraries and enforce configured module dependency boundaries.",
+      "notes": "Architecture defines domain boundaries first; Nx does not discover them or guarantee a modular monolith. Reuse native Nest/project generators when sufficient. Select matching @nx plugin versions and existing manager; inspect generator options and dry-run support. Never introduce Nx, Nx Cloud, remote caches, service-per-module containers or workspace migration without project need and approved scope. Nx Cloud and enterprise functionality are separate optional services; no account linking implied."
+    },
+    {
+      "category": "stack-cli",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse the project version and lockfile. Otherwise resolve and record an exact compatible version; VERSION is a non-executable placeholder.",
+      "id": "opentofu-cli",
+      "name": "OpenTofu CLI",
+      "stack": "cloud-infrastructure",
+      "kind": "infrastructure-as-code",
+      "sector": "devops",
+      "consuming_sectors": [
+        "architecture",
+        "environment"
+      ],
+      "documentation": [
+        "https://opentofu.org/docs/intro/",
+        "https://opentofu.org/docs/intro/install/"
+      ],
+      "official_repository": "https://github.com/opentofu/opentofu",
+      "package": null,
+      "probe_argv_template": [
+        "LOCAL_TOFU",
+        "version"
+      ],
+      "install_argv_template": null,
+      "capability": "Describe, plan and provision selected cloud or on-premises infrastructure through providers.",
+      "notes": "Catalog adoption authorizes research/selection, not provisioning. Environment chooses official OS/architecture-specific installation, pin and checksum verification; no arbitrary curl-to-shell or privileged install assumed. Reuse current Terraform/OpenTofu toolchain and state, no automatic migration. init may download provider/module code or access backend state; plan may access APIs, execute data sources, lock state and expose sensitive values. Neither is presumed offline or harmless. apply, destroy, import and state mutations require concrete target-specific authorization. Keep credentials, state and saved plans outside committed source. No resource creation, paid service, container, merge or deploy is authorized by this entry."
+    },
+    {
+      "category": "stack-cli",
+      "sector": "frontend",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "id": "tailwind-vite",
+      "name": "Tailwind CSS Vite integration",
+      "stack": "tailwind-v4-vite",
+      "kind": "official-build-plugin",
+      "package": "@tailwindcss/vite",
+      "documentation": [
+        "https://tailwindcss.com/docs/installation/using-vite"
+      ],
+      "official_repository": "https://github.com/tailwindlabs/tailwindcss",
+      "probe_argv_template": null,
+      "install_argv_template": [
+        "npm",
+        "install",
+        "--save-dev",
+        "tailwindcss@VERSION",
+        "@tailwindcss/vite@VERSION"
+      ],
+      "capability": "Integrate Tailwind v4 with an existing Vite CSS pipeline.",
+      "notes": "Prefer this integration for an approved Vite project; preserve the existing React plugin. Add tailwindcss() to Vite and @import \"tailwindcss\" to project CSS. Not a CLI. Do not also install a standalone Tailwind pipeline without need; preserve existing v3 projects unless migration is approved."
+    },
+    {
+      "category": "stack-cli",
+      "sector": "frontend",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "id": "tailwind-cli",
+      "name": "Tailwind CSS standalone CLI",
+      "stack": "tailwind-v4",
+      "kind": "official-css-cli",
+      "package": "@tailwindcss/cli",
+      "documentation": [
+        "https://tailwindcss.com/docs/installation/tailwind-cli"
+      ],
+      "official_repository": "https://github.com/tailwindlabs/tailwindcss",
+      "probe_argv_template": [
+        "LOCAL_TAILWINDCSS",
+        "--help"
+      ],
+      "install_argv_template": [
+        "npm",
+        "install",
+        "--save-dev",
+        "tailwindcss@VERSION",
+        "@tailwindcss/cli@VERSION"
+      ],
+      "capability": "Compile selected CSS outside a Vite integration.",
+      "notes": "Conditional alternative to the Vite plugin; avoid duplicate watchers. Tailwind v4 CLI lives in @tailwindcss/cli; do not apply the old v3 init -p recipe to v4."
+    },
+    {
+      "category": "stack-cli",
+      "sector": "frontend",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "id": "plop-cli",
+      "name": "Plop template fallback",
+      "stack": "template-codegen",
+      "kind": "template-generator",
+      "package": "plop",
+      "documentation": [
+        "https://plopjs.com/documentation/"
+      ],
+      "official_repository": "https://github.com/plopjs/plop",
+      "probe_argv_template": [
+        "LOCAL_PLOP",
+        "--version"
+      ],
+      "install_argv_template": [
+        "npm",
+        "install",
+        "--save-dev",
+        "plop@VERSION"
+      ],
+      "capability": "Generate repetitive code from approved versioned project templates when a stack-specific generator is unsuitable.",
+      "notes": "Optional fallback, not universal architecture or Clean Code certification. Reuse project/native generator first. Starter template and adaptation guide: library/templates/codegen/README.md. No --force, overwrite, arbitrary target path or automatic project migration."
+    },
+    {
+      "category": "stack-cli",
+      "sector": "devops",
+      "availability": "DOCUMENTED",
+      "installation": "NOT_OBSERVED",
+      "verification": "NOT_VALIDATED",
+      "reviewed_on": "2026-10-21",
+      "version_policy": "Reuse project lock and installed version; otherwise resolve and record an exact compatible version before execution. VERSION is not executable text.",
+      "id": "compose-scope",
+      "name": "Compose scope guard",
+      "stack": "docker-compose",
+      "kind": "local-scope-validator",
+      "package": null,
+      "documentation": [
+        "docs/operations/v2-execution-policy.md"
+      ],
+      "official_repository": "https://github.com/guilhermedemorais-dev/Dev-workflow",
+      "probe_argv_template": [
+        "PYTHON",
+        "library/tools/compose-scope.py",
+        "--help"
+      ],
+      "install_argv_template": null,
+      "capability": "Compare rendered Compose JSON with explicitly authorized resource changes.",
+      "notes": "Canonical V2 path; copied verbatim from V1 revision 354349c369c4deb312c5e58d729a8a17e26f1ea6. No Docker, network, installation or operational validation is performed."
+    }
+  ]
+}

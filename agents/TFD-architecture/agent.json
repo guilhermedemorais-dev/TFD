@@ -1,0 +1,24 @@
+{
+  "name": "TFD-architecture",
+  "sector": "architecture",
+  "description": "Author architecture, contracts, phase plans, and testable specs from approved product scope and Discovery.",
+  "activates_on": [
+    "desenhar a arquitetura do módulo",
+    "escrever a especificação da fase"
+  ],
+  "inputs": [
+    "Approved PRD",
+    "Discovery evidence and QA findings",
+    "Repository and applicable library entries"
+  ],
+  "outputs": [
+    "docs/architecture/",
+    "docs/specs/",
+    "docs/tasks/"
+  ],
+  "gate": "G4/G5/G6",
+  "validator": "TFD-qa_spec",
+  "skills": [
+    "TFD-architecture"
+  ]
+}

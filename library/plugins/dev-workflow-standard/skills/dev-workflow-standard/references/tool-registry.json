@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "owner": "dev-workflow-standard",
+  "policy_notes": [
+    "Context retrieval is auxiliary. Required task sources remain mandatory and cannot be replaced by retrieval.",
+    "Potpie is the preferred rich context backend when installed and healthy; local lexical retrieval is the deterministic fallback.",
+    "Installing a tool is not permission to ingest external repositories or transmit sensitive source code.",
+    "Context results never expand allowed_paths, protected paths, task scope or sector ownership."
+  ],
+  "tools": [
+    {
+      "id": "potpie",
+      "capabilities": ["context-retrieval", "codebase-context", "engineering-context-graph"],
+      "repository": "https://github.com/potpie-ai/potpie",
+      "command": "potpie",
+      "verify_distribution": "potpie",
+      "install_policy": "project-approved-isolated-official-python-package",
+      "optional": true
+    }
+  ]
+}

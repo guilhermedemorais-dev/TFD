@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "skills": [
+    {
+      "id": "delivery-metrics",
+      "sector": "orchestrator",
+      "path": "skills/delivery-metrics/SKILL.md",
+      "source": null,
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "orchestrator-core"
+      ],
+      "triggers": [
+        "delivery metrics",
+        "client report",
+        "Task closure",
+        "progresso",
+        "portal do cliente"
+      ],
+      "source_sections": [],
+      "reference_base": ".",
+      "references": [
+        "docs/operations/delivery-lifecycle.md",
+        "skills/delivery-metrics/references/measurement.md",
+        "library/integrations/client-portal.md"
+      ],
+      "description": "Verified baseline progress and client-safe report preparation."
+    }
+  ]
+}

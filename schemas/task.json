@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tfd.local/schemas/task.json",
+  "title": "TFD Task Contract",
+  "description": "Contrato de uma task por módulo, com rastreabilidade REQ/AC/TEST/MT e estimativa.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id", "contract_revision", "title", "goal", "complexity",
+    "scope", "out_of_scope", "allowed_paths", "protected_paths",
+    "requirements", "business_rules", "references", "microtasks",
+    "acceptance_criteria", "required_tests", "stop_conditions",
+    "gates", "estimate", "status"
+  ],
+  "properties": {
+    "task_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{2,63}$" },
+    "contract_revision": { "type": "integer", "minimum": 1 },
+    "title": { "type": "string", "minLength": 8 },
+    "problem": { "type": "string", "minLength": 10 },
+    "goal": { "type": "string", "minLength": 20 },
+    "complexity": { "enum": ["trivial", "normal", "complex"] },
+    "spec": { "type": "string", "minLength": 3 },
+    "scope": {
+      "type": "array", "minItems": 1,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "out_of_scope": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "allowed_paths": {
+      "type": "array", "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "protected_paths": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "requirements": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/requirement" }
+    },
+    "business_rules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/business_rule" }
+    },
+    "references": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/reference" }
+    },
+    "microtasks": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/microtask" }
+    },
+    "phases": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/phase" } },
+    "sectors": { "type": "object", "additionalProperties": { "$ref": "#/$defs/sector" } },
+    "acceptance_criteria": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/acceptance" }
+    },
+    "required_tests": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/test" }
+    },
+    "stop_conditions": {
+      "type": "array", "minItems": 1,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "estimate": { "$ref": "#/$defs/estimate" },
+    "status": { "enum": ["draft", "ready", "in_progress", "blocked", "done"] }
+  },
+  "$defs": {
+    "phase": {
+      "type": "object", "additionalProperties": false, "required": ["id", "title"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$" },
+        "title": { "type": "string", "minLength": 3 },
+        "note": { "type": "string", "minLength": 3 }
+      }
+    },
+    "sector": {
+      "type": "object", "additionalProperties": false, "required": ["label", "owner", "applicability"],
+      "properties": {
+        "label": { "type": "string", "minLength": 2 },
+        "owner": { "type": "string", "minLength": 3 },
+        "applicability": { "enum": ["REQUIRED", "N/A"] },
+        "reason": { "type": "string", "minLength": 5 }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "source", "priority"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^REQ-[0-9]{2,}$" },
+        "description": { "type": "string", "minLength": 10 },
+        "source": { "type": "string", "minLength": 3 },
+        "priority": { "enum": ["MUST", "SHOULD", "MAY"] }
+      }
+    },
+    "business_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "source"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^RULE-[0-9]{2,}$" },
+        "description": { "type": "string", "minLength": 10 },
+        "source": { "type": "string", "minLength": 3 }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "purpose"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^REF-[0-9]{2,}$" },
+        "path": { "type": "string", "minLength": 1 },
+        "purpose": { "type": "string", "minLength": 10 }
+      }
+    },
+    "microtask": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "owner", "allowed_paths", "checklist",
+                   "deliverables", "completion_condition", "validator"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^MT-[0-9]{2,}$" },
+        "title": { "type": "string", "minLength": 8 },
+        "owner": { "type": "string", "minLength": 3 },
+        "phase": { "type": "string", "minLength": 1 },
+        "sector": { "type": "string", "minLength": 1 },
+        "reference_ids": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "string", "pattern": "^REF-[0-9]{2,}$" }
+        },
+        "depends_on": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^MT-[0-9]{2,}$" }
+        },
+        "allowed_paths": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "checklist": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "string", "minLength": 5 }
+        },
+        "deliverables": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "completion_condition": { "type": "string", "minLength": 10 },
+        "validator": { "type": "string", "minLength": 3 }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "requirement_ids", "microtask_ids", "validation"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^AC-[0-9]{2,}$" },
+        "description": { "type": "string", "minLength": 10 },
+        "requirement_ids": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "string", "pattern": "^REQ-[0-9]{2,}$" }
+        },
+        "microtask_ids": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "string", "pattern": "^MT-[0-9]{2,}$" }
+        },
+        "validation": { "type": "string", "pattern": "^TEST-[0-9]{2,}$" }
+      }
+    },
+    "test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "command", "expected"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^TEST-[0-9]{2,}$" },
+        "type": { "enum": ["unit", "integration", "e2e", "manual"] },
+        "command": { "type": "string", "minLength": 3 },
+        "expected": { "type": "string", "minLength": 3 }
+      }
+    },
+    "estimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["optimistic_h", "likely_h", "pessimistic_h", "confidence", "basis"],
+      "properties": {
+        "optimistic_h": { "type": "number", "minimum": 0 },
+        "likely_h": { "type": "number", "minimum": 0 },
+        "pessimistic_h": { "type": "number", "minimum": 0 },
+        "confidence": { "enum": ["low", "medium", "high"] },
+        "basis": { "type": "string", "minLength": 10 }
+      }
+    }
+  }
+}

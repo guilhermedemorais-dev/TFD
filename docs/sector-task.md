@@ -1,0 +1,11 @@
+> Contexto TFD · 282 palavras · 411 tokens (o200k_base)
+
+# Sector task
+
+Keep one canonical JSON per module. Declare ordered phases and the sector matrix. Use REQUIRED with assigned microtasks or N/A with a reason. Each microtask identifies its phase, sector, owner, independent validator, mandatory reference IDs, writable paths, dependencies, checklist and expected output. The task view links to this JSON. From the TFD root, print the smallest applicable route with `python -B scripts/render_task.py <task.json> --sector <id> --microtask <MT-id>`. Add `--measure` to count the routed JSON before reading it. Omit `--microtask` for the entire sector. Check source size separately before loading the routed references and preserve all mandatory requirements.
+
+Dispatch independent microtasks only after their dependencies and approval gates pass. For parallel work, confirm available host slots, approved contracts and disjoint writable paths. QA may prepare tests alongside implementation. Its integrated verdict requires the delivered revision, independent reviewers and evidence. Rework the existing microtask and retest its affected checks.
+
+Keep mutable evidence in the module's existing workflow ledger. Set `task_id` and `contract_revision` for the displayed receipts. Add `sector_receipts` keyed by sector. Each entry may carry `summary`, `blockers`, observed `total_tokens` and the `token_receipt` path. Its `reviews` object is keyed by microtask ID. A review includes `role` matching the validator, distinct `reviewer` and `executor` identities, `verdict` (`PASS`, `REWORK` or `BLOCKED`), `observation` and `evidence`. Record sanitized token receipts per run and aggregate only runs attributed to that sector. Keep unavailable totals empty.
+
+Use `python -B scripts/render_task.py <task.json> --workflow <workflow.json>` to display observed checkboxes and sector totals without creating another task or changing the submitted contract view. The ledger's gate events remain the source of gate decisions. A receipt without a current independent verdict leaves both boxes open.

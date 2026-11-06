@@ -1,0 +1,22 @@
+{
+  "name": "TFD-qa_ui",
+  "sector": "qa_ui",
+  "description": "Independently verify approved user flows, UI states and accessibility.",
+  "activates_on": [
+    "validar a interface no navegador",
+    "testar a jornada e a acessibilidade"
+  ],
+  "inputs": [
+    "Approved phase and UI criteria",
+    "Current running revision",
+    "Test accounts"
+  ],
+  "outputs": [
+    "UI QA verdict and executed evidence"
+  ],
+  "gate": "G7",
+  "validator": "harness",
+  "skills": [
+    "TFD-qa_ui"
+  ]
+}

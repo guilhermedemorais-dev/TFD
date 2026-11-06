@@ -1,0 +1,22 @@
+{
+  "name": "TFD-backend",
+  "sector": "backend",
+  "description": "Implement approved API and domain behavior with reproducible self-tests.",
+  "activates_on": [
+    "implementar endpoint aprovado",
+    "implementar regra de negócio aprovada"
+  ],
+  "inputs": [
+    "Approved task, API and data contracts",
+    "Relevant implementation and tests"
+  ],
+  "outputs": [
+    "Backend changes",
+    "Self-test evidence"
+  ],
+  "gate": "G7",
+  "validator": "TFD-qa_backend",
+  "skills": [
+    "TFD-backend"
+  ]
+}

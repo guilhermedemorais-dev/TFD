@@ -1,0 +1,22 @@
+{
+  "name": "TFD-database",
+  "sector": "database",
+  "description": "Specify and implement approved schema, migrations, and data invariants.",
+  "activates_on": [
+    "modelar os dados e a migração",
+    "implementar a migração aprovada"
+  ],
+  "inputs": [
+    "Approved task and data spec",
+    "Schema, migrations, database version"
+  ],
+  "outputs": [
+    "Data model and migrations",
+    "Integrity, migration and rollback evidence"
+  ],
+  "gate": "G6/G7",
+  "validator": "TFD-qa_backend",
+  "skills": [
+    "TFD-database"
+  ]
+}

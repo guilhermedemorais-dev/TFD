@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "owner": "reverse-engineering-standard",
+  "policy_notes": [
+    "REA is the preferred external reverse-engineering tool when installed and healthy.",
+    "The skill owns interpretation, authorization boundary, evidence classification and reconstruction guidance; REA remains a replaceable tool.",
+    "Installing REA does not install Ghidra, IDA, Hopper, JADX, Binwalk, Unblob or other external engines automatically.",
+    "Do not analyze third-party targets without authorization. Do not use the tool for persistence, credential theft, evasion or destructive testing.",
+    "Cutter/Rizin are supplemental approved local CLI/GUI tools, not REA provider IDs. Use REA first for its supported target boundary; use an explicitly configured absolute local command for supplemental static inspection.",
+    "Do not automatically install or accept proprietary IDA/Hopper licenses. IDA Free is non-commercial and lacks IDAPython/SDK; Hopper has no Windows build."
+  ],
+  "tools": [
+    {
+      "id": "reverse-context-gateway",
+      "capabilities": [
+        "reverse-engineering",
+        "binary-analysis",
+        "artifact-analysis",
+        "javascript-application-analysis",
+        "electron-analysis",
+        "managed-code-analysis",
+        "android-static-analysis",
+        "firmware-analysis",
+        "runtime-observation",
+        "feature-reconstruction",
+        "evidence-comparison"
+      ],
+      "repository": "https://github.com/guilhermedemorais-dev/Dev-workflow",
+      "command": "node",
+      "verify_args": [
+        "plugins/reverse-engineering-standard/runtime/reverse-context-gateway.mjs",
+        "probe"
+      ],
+      "install_policy": "plugin-bundled-gateway-with-approved-local-runtime-dependencies"
+    },
+    {
+      "id": "rea-runtime",
+      "capabilities": [
+        "reverse-engineering-runtime"
+      ],
+      "repository": "https://github.com/morluto/rea",
+      "command": "rea",
+      "verify_args": [
+        "--version"
+      ],
+      "install_policy": "version-pinned-local-runtime-dependency",
+      "license": "MIT",
+      "version": "4.1.0"
+    },
+    {
+      "id": "cutter",
+      "capabilities": [
+        "native-artifact-inspection",
+        "visual-disassembly"
+      ],
+      "repository": "https://github.com/rizinorg/cutter",
+      "command": "cutter",
+      "verify_args": [
+        "--version"
+      ],
+      "install_policy": "approved-official-portable-user-scoped",
+      "license": "GPL-3.0",
+      "version": "2.5.0",
+      "integration": "supplemental-local-cli-gui-not-rea-provider"
+    },
+    {
+      "id": "rizin",
+      "capabilities": [
+        "native-static-disassembly",
+        "native-static-analysis"
+      ],
+      "repository": "https://github.com/rizinorg/rizin",
+      "command": "rizin",
+      "verify_args": [
+        "-v"
+      ],
+      "install_policy": "approved-official-portable-user-scoped-or-cutter-bundled",
+      "license": "LGPL-3.0",
+      "integration": "supplemental-local-cli-not-rea-provider",
+      "version": "0.9.1"
+    }
+  ]
+}

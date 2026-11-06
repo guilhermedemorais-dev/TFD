@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tfd.local/schemas/estimate.json",
+  "title": "TFD Phase Estimate",
+  "description": "Estimativa de tres pontos por fase, com base e confianca. O realizado e gravado ao fechar a fase.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "phase", "optimistic_h", "likely_h", "pessimistic_h",
+               "confidence", "basis", "updated_at"],
+  "properties": {
+    "task_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{2,63}$" },
+    "phase": { "type": "string", "minLength": 3 },
+    "optimistic_h": { "type": "number", "minimum": 0 },
+    "likely_h": { "type": "number", "minimum": 0 },
+    "pessimistic_h": { "type": "number", "minimum": 0 },
+    "confidence": { "enum": ["low", "medium", "high"] },
+    "basis": { "type": "string", "minLength": 10 },
+    "updated_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "actual_h": { "type": "number", "minimum": 0 },
+    "notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "the-factory-developer",
+  "version": "0.1.6",
+  "description": "Run evidence-based software delivery with independent QA, scoped rework, and human gates.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "The Factory Developer",
+    "shortDescription": "Software delivery with independent QA and human approval"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "task_id": "DEMO-001",
+  "contract_revision": 1,
+  "title": "Normalizar nome no cadastro de pessoas",
+  "goal": "Aceitar nome com acento, caixa variada e espaço duplicado sem quebrar a busca do cadastro.",
+  "complexity": "normal",
+  "scope": ["normalização de nome no cadastro de pessoas"],
+  "out_of_scope": ["busca global", "migração de dados existentes"],
+  "allowed_paths": ["src/cadastro/**", "tests/test_cadastro.py"],
+  "protected_paths": ["migrations/**", ".github/**"],
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "description": "Nome com acento é normalizado para forma comparável.",
+      "source": "docs/prd/cadastro.md#nome",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-02",
+      "description": "Nome vazio ou só com espaços retorna erro de validação.",
+      "source": "docs/prd/cadastro.md#validacao",
+      "priority": "MUST"
+    }
+  ],
+  "business_rules": [
+    {
+      "id": "RULE-01",
+      "description": "O nome original é preservado para exibição; a forma normalizada serve à busca.",
+      "source": "docs/prd/cadastro.md#regras"
+    }
+  ],
+  "references": [
+    {
+      "id": "REF-01",
+      "path": "docs/specs/cadastro/spec.md",
+      "purpose": "Contrato de normalização e casos de borda aprovados."
+    }
+  ],
+  "microtasks": [
+    {
+      "id": "MT-01",
+      "title": "Implementar normalização e validação",
+      "owner": "TFD-backend",
+      "depends_on": [],
+      "allowed_paths": ["src/cadastro/**"],
+      "checklist": [
+        "escrever teste que falha sem a normalização",
+        "implementar a menor mudança que passa",
+        "rodar o teste de contrato"
+      ],
+      "deliverables": ["src/cadastro/normalize.py"],
+      "completion_condition": "Teste de contrato verde e nome original preservado",
+      "validator": "TFD-qa_backend"
+    },
+    {
+      "id": "MT-02",
+      "title": "Cobrir casos de borda no teste",
+      "owner": "TFD-backend",
+      "depends_on": ["MT-01"],
+      "allowed_paths": ["tests/test_cadastro.py"],
+      "checklist": [
+        "cobrir acento, caixa e espaço duplicado",
+        "cobrir vazio e só espaços"
+      ],
+      "deliverables": ["tests/test_cadastro.py"],
+      "completion_condition": "Todos os casos de borda cobertos e verdes",
+      "validator": "TFD-qa_backend"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "description": "Nome '  João   da  Silva ' é aceito e buscável como 'joao da silva'.",
+      "requirement_ids": ["REQ-01"],
+      "microtask_ids": ["MT-01", "MT-02"],
+      "validation": "TEST-01"
+    },
+    {
+      "id": "AC-02",
+      "description": "Nome vazio retorna erro de validação, não grava registro.",
+      "requirement_ids": ["REQ-02"],
+      "microtask_ids": ["MT-01", "MT-02"],
+      "validation": "TEST-02"
+    }
+  ],
+  "required_tests": [
+    {
+      "id": "TEST-01",
+      "type": "unit",
+      "command": "python -m unittest tests.test_cadastro -q",
+      "expected": "exit 0 com os casos de normalização"
+    },
+    {
+      "id": "TEST-02",
+      "type": "unit",
+      "command": "python -m unittest tests.test_cadastro -q",
+      "expected": "exit 0 com o caso de nome vazio"
+    }
+  ],
+  "stop_conditions": [
+    "escopo cresceu além de src/cadastro",
+    "contrato conflita com o comportamento atual",
+    "teste exige banco não disponível"
+  ],
+  "gates": {
+    "implementation": "testes verdes e diff dentro de allowed_paths",
+    "review": "qa_backend valida independente",
+    "merge": "aprovação humana no PR"
+  },
+  "estimate": {
+    "optimistic_h": 2,
+    "likely_h": 4,
+    "pessimistic_h": 8,
+    "confidence": "low",
+    "basis": "sem histórico medido deste módulo; faixa por analogia"
+  },
+  "status": "draft"
+}

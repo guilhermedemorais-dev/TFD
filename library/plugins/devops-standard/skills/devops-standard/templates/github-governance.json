@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "repository": {
+    "host": "github.com",
+    "owner": "example-owner",
+    "name": "example-repository",
+    "default_branch": "main",
+    "agent_branch_prefix": "agent/",
+    "squash_only": true,
+    "delete_branch_on_merge": true
+  },
+  "project": {
+    "enabled": true,
+    "title": "Example Delivery",
+    "statuses": ["Backlog", "Discovery / SDD", "Ready for Dev", "In Progress", "Validation", "In Review", "Awaiting Final Approval", "Done"],
+    "view_name": "Delivery"
+  },
+  "labels": ["bug", "feature", "tech-debt", "high-priority", "blocked", "needs-info", "rework", "security"],
+  "human_gates": {"task": true, "pr": true, "merge": true, "deploy": true},
+  "automation": {"auto_merge": false, "auto_deploy": false, "max_rework_cycles": 3},
+  "local": {"generate": true, "codeowners": ["@example-owner"]},
+  "ci": {"enabled": true, "required_checks": []},
+  "rules": {"enabled": true, "required_approvals": 0},
+  "exceptions": []
+}

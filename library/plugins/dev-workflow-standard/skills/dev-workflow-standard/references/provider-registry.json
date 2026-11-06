@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "owner": "dev-workflow-standard",
+  "policy": {
+    "secrets": "Environment variables or host secret storage only. Never persist API keys in repository files or runtime receipts.",
+    "discovery": "Configured is not available. A provider/model becomes executable only after an observed capability probe.",
+    "routing": "Skills own methodology; providers and models are replaceable execution runtimes.",
+    "degraded_mode": "When no compatible external executor is verified, report single-agent/degraded mode instead of fabricating delegation."
+  },
+  "owner_skill_capabilities": {
+    "dev-implementation-standard": ["coding", "reasoning", "agentic"],
+    "qa-testing-standard": ["reasoning", "coding"],
+    "security-standard": ["security", "reasoning"],
+    "ui-ux-standard": ["reasoning"],
+    "devops-standard": ["coding", "reasoning", "agentic"],
+    "sdd-spec-factory": ["reasoning"],
+    "dev-environment-standard": ["reasoning"],
+    "reverse-engineering-standard": ["reasoning", "agentic"],
+    "seo-standard": ["reasoning"],
+    "dev-workflow-standard": ["reasoning", "agentic"]
+  },
+  "providers": [
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "api_style": "openai-compatible",
+      "base_url": "https://api.openai.com/v1",
+      "models_path": "/models",
+      "env_key": "OPENAI_API_KEY",
+      "docs_url": "https://platform.openai.com/docs",
+      "setup_url": "https://platform.openai.com/api-keys",
+      "priority": 10
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA NIM",
+      "api_style": "openai-compatible",
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "models_path": "/models",
+      "env_key": "NVIDIA_API_KEY",
+      "docs_url": "https://docs.nvidia.com/nim/",
+      "setup_url": "https://build.nvidia.com/",
+      "priority": 20,
+      "technology_model_hints": {
+        "coding": ["code", "coder", "codestral", "devstral", "deepseek", "starcoder"],
+        "reasoning": ["nemotron", "deepseek", "qwen", "glm", "kimi", "llama", "gemma", "mistral"],
+        "agentic": ["nemotron", "deepseek", "qwen", "glm", "kimi"],
+        "security": ["guard", "nemoguard", "safety"]
+      }
+    },
+    {
+      "id": "groq",
+      "name": "Groq",
+      "api_style": "openai-compatible",
+      "base_url": "https://api.groq.com/openai/v1",
+      "models_path": "/models",
+      "env_key": "GROQ_API_KEY",
+      "docs_url": "https://console.groq.com/docs",
+      "setup_url": "https://console.groq.com/keys",
+      "priority": 30
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "api_style": "openai-compatible",
+      "base_url": "https://openrouter.ai/api/v1",
+      "models_path": "/models",
+      "env_key": "OPENROUTER_API_KEY",
+      "docs_url": "https://openrouter.ai/docs",
+      "setup_url": "https://openrouter.ai/settings/keys",
+      "priority": 40
+    },
+    {
+      "id": "gemini",
+      "name": "Google Gemini OpenAI compatibility",
+      "api_style": "openai-compatible",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "models_path": "/models",
+      "env_key": "GEMINI_API_KEY",
+      "docs_url": "https://ai.google.dev/gemini-api/docs/openai",
+      "setup_url": "https://aistudio.google.com/apikey",
+      "priority": 50
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "api_style": "adapter-or-host-native",
+      "env_key": "ANTHROPIC_API_KEY",
+      "docs_url": "https://docs.anthropic.com/",
+      "setup_url": "https://console.anthropic.com/settings/keys",
+      "priority": 60,
+      "direct_probe_supported": false,
+      "notes": "Do not assume Codex Responses compatibility. Use a verified adapter/runtime path before routing execution."
+    }
+  ]
+}

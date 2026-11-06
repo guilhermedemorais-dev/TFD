@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "mcps": [
+    {
+      "id": "github", "name": "GitHub MCP", "provider": "GitHub",
+      "repository": "https://github.com/github/github-mcp-server",
+      "documentation": "https://github.com/github/github-mcp-server#remote-github-mcp-server",
+      "tier": "CORE", "origin": "OFFICIAL",
+      "capabilities": ["repositories", "files", "issues", "pull-requests", "collaboration", "reviews"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "http", "url": "https://api.githubcopilot.com/mcp/"},
+      "auth": {"required": true},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/github/github-mcp-server"}
+    },
+    {
+      "id": "context7", "name": "Context7", "provider": "Upstash",
+      "repository": "https://github.com/upstash/context7",
+      "documentation": "https://github.com/upstash/context7",
+      "tier": "CORE", "origin": "OFFICIAL",
+      "capabilities": ["library-documentation", "sdk-documentation", "api-examples"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "http", "url": "https://mcp.context7.com/mcp"},
+      "auth": {"required": true},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/upstash/context7"}
+    },
+    {
+      "id": "playwright", "name": "Playwright MCP", "provider": "Microsoft",
+      "repository": "https://github.com/microsoft/playwright-mcp",
+      "documentation": "https://github.com/microsoft/playwright-mcp",
+      "tier": "CORE", "origin": "OFFICIAL",
+      "capabilities": ["browser-automation", "runtime-qa", "e2e", "interaction-validation"],
+      "preparation": {"policy": "PROJECT_SCOPED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "stdio", "command": "npx", "args": ["-y", "@playwright/mcp@0.0.82"]},
+      "requirements": {"node": ">=18", "browser": "selected-only"},
+      "auth": {"required": false},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/microsoft/playwright-mcp", "package_metadata": "https://registry.npmjs.org/@playwright/mcp/0.0.82"}
+    },
+    {
+      "id": "chrome-devtools", "name": "Chrome DevTools MCP", "provider": "Chrome DevTools",
+      "repository": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "documentation": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "tier": "RECOMMENDED", "origin": "OFFICIAL",
+      "capabilities": ["browser-console", "network-debugging", "rendering", "performance"],
+      "preparation": {"policy": "PROJECT_SCOPED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "stdio", "command": "npx", "args": ["-y", "chrome-devtools-mcp@1.10.1", "--no-usage-statistics", "--no-performance-crux"]},
+      "requirements": {"node": "^20.19.0 || ^22.12.0 || >=23", "browser": "chrome"},
+      "auth": {"required": false},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/ChromeDevTools/chrome-devtools-mcp", "package_metadata": "https://registry.npmjs.org/chrome-devtools-mcp/1.10.1"}
+    },
+    {
+      "id": "docker-mcp-gateway", "name": "Docker MCP Gateway", "provider": "Docker",
+      "repository": "https://github.com/docker/mcp-gateway",
+      "documentation": "https://github.com/docker/mcp-gateway",
+      "tier": "RECOMMENDED", "origin": "OFFICIAL",
+      "capabilities": ["mcp-lifecycle", "mcp-isolation", "mcp-discovery", "secrets-auth-integration"],
+      "preparation": {"policy": "MANUAL_ONLY", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": false},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/docker/mcp-gateway"}
+    },
+    {
+      "id": "docker-mcp-registry", "name": "Docker MCP Registry", "provider": "Docker",
+      "repository": "https://github.com/docker/mcp-registry",
+      "documentation": "https://github.com/docker/mcp-registry",
+      "tier": "RECOMMENDED", "origin": "OFFICIAL", "kind": "catalog",
+      "capabilities": ["mcp-catalog", "mcp-discovery"],
+      "preparation": {"policy": "MANUAL_ONLY", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": false},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/docker/mcp-registry"}
+    },
+    {
+      "id": "figma", "name": "Figma MCP", "provider": "Figma",
+      "repository": "https://github.com/figma/mcp-server-guide",
+      "documentation": "https://github.com/figma/mcp-server-guide",
+      "tier": "OPTIONAL", "origin": "OFFICIAL",
+      "capabilities": ["design-context", "frames", "tokens", "components"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "http", "url": "https://mcp.figma.com/mcp"},
+      "auth": {"required": true},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/figma/mcp-server-guide"}
+    },
+    {
+      "id": "firecrawl", "name": "Firecrawl MCP", "provider": "Firecrawl",
+      "repository": "https://github.com/firecrawl/firecrawl-mcp-server",
+      "documentation": "https://github.com/firecrawl/firecrawl-mcp-server",
+      "tier": "OPTIONAL", "origin": "OFFICIAL",
+      "capabilities": ["web-extraction", "public-web-research", "scraping"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": true},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/firecrawl/firecrawl-mcp-server"}
+    },
+    {
+      "id": "hugging-face", "name": "Hugging Face MCP", "provider": "Hugging Face",
+      "repository": "https://github.com/huggingface/hf-mcp-server",
+      "documentation": "https://github.com/huggingface/hf-mcp-server",
+      "tier": "OPTIONAL", "origin": "OFFICIAL",
+      "capabilities": ["models", "datasets", "spaces", "hugging-face-hub"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "http", "url": "https://huggingface.co/mcp"},
+      "auth": {"required": true},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/huggingface/hf-mcp-server"}
+    },
+    {
+      "id": "sentry", "name": "Sentry MCP", "provider": "Sentry",
+      "repository": "https://github.com/getsentry/sentry-mcp",
+      "documentation": "https://github.com/getsentry/sentry-mcp",
+      "tier": "OPTIONAL", "origin": "OFFICIAL",
+      "capabilities": ["application-errors", "application-incidents", "debugging-context"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "http", "url": "https://mcp.sentry.dev/mcp"},
+      "auth": {"required": true},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/getsentry/sentry-mcp"}
+    },
+    {
+      "id": "supabase", "name": "Supabase MCP", "provider": "Supabase",
+      "repository": "https://github.com/supabase/mcp",
+      "documentation": "https://github.com/supabase/mcp",
+      "tier": "PROJECT_SPECIFIC", "origin": "OFFICIAL",
+      "capabilities": ["supabase-projects", "database-context", "backend-context"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": true},
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/supabase/mcp"}
+    },
+    {
+      "id": "hostinger", "name": "Hostinger MCP", "provider": "Hostinger",
+      "repository": "https://github.com/hostinger/api-mcp-server",
+      "documentation": "https://github.com/hostinger/api-mcp-server/blob/main/README.md",
+      "tier": "PROJECT_SPECIFIC", "origin": "OFFICIAL",
+      "capabilities": ["hostinger-account-context", "hostinger-api"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": true},
+      "handoff": "Select the intended Hostinger account and permitted capabilities, then use the official host-mediated authentication flow. No account, hosting or production changes are authorized by catalog selection.",
+      "risks": ["Provider tools may write or delete hosting resources and affect production. Review permissions and authorize each operational task separately."],
+      "provenance": {"verified_at": "2026-09-23", "source": "https://github.com/hostinger/api-mcp-server"}
+    },
+    {
+      "id": "aws", "name": "AWS API MCP Server (legacy, superseded)", "provider": "AWS Labs",
+      "repository": "https://github.com/awslabs/mcp/tree/main/src/aws-api-mcp-server",
+      "documentation": "https://awslabs.github.io/mcp/servers/aws-api-mcp-server",
+      "tier": "PROJECT_SPECIFIC", "origin": "OFFICIAL",
+      "capabilities": ["aws-service-context", "aws-api"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": true},
+      "handoff": "This AWS API MCP Server is superseded. Evaluate the official successor documentation before any new setup. If an existing project still requires this legacy server, select its account, region, profile and least-privilege permissions manually. Other AWS MCP servers are separate choices; this entry does not define a universal endpoint or install the whole family.",
+      "risks": ["AWS API calls may alter cloud resources, expose account data or incur costs. Cloud operations and infrastructure provisioning require a separately authorized task."],
+      "provenance": {"verified_at": "2026-09-23", "source": "https://awslabs.github.io/mcp/servers/aws-api-mcp-server", "lifecycle": "superseded", "successor_documentation": "https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html"}
+    },
+    {
+      "id": "wordpress", "name": "WordPress MCP Adapter", "provider": "WordPress",
+      "repository": "https://github.com/WordPress/mcp-adapter",
+      "documentation": "https://make.wordpress.org/ai/handbook/projects/mcp-adapter/",
+      "tier": "PROJECT_SPECIFIC", "origin": "OFFICIAL",
+      "capabilities": ["wordpress-site-context", "wordpress-abilities"],
+      "preparation": {"policy": "AUTH_REQUIRED", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": true},
+      "handoff": "Select the self-hosted WordPress site, exposed abilities, transport and site-specific authentication with the site administrator. This adapter is not the WordPress.com MCP service; no shared endpoint is assumed.",
+      "risks": ["Exposed abilities may modify site content, settings or privileged data. Review site permissions and authorize any site changes separately."],
+      "provenance": {"verified_at": "2026-09-23", "source": "https://make.wordpress.org/ai/handbook/projects/mcp-adapter/"}
+    },
+    {
+      "id": "grep", "name": "Grep hosted MCP", "provider": "Vercel",
+      "repository": "https://vercel.com/blog/grep-a-million-github-repositories-via-mcp",
+      "documentation": "https://vercel.com/blog/grep-a-million-github-repositories-via-mcp",
+      "tier": "OPTIONAL", "origin": "OFFICIAL",
+      "capabilities": ["public-code-search"],
+      "preparation": {"policy": "PROJECT_SCOPED", "method": "host_config", "scope": "host"},
+      "configuration": {"transport": "http", "url": "https://mcp.grep.app"},
+      "auth": {"required": false},
+      "provenance": {"verified_at": "2026-10-10", "source": "https://vercel.com/blog/grep-a-million-github-repositories-via-mcp", "result": "Official hosted HTTP endpoint and client configuration documented. The repository field identifies the provider source page, not a published source-code repository; host connection and execution remain unverified."}
+    },
+    {
+      "id": "grep-mcp", "name": "grep-mcp", "provider": "galperetz (declared by PyPI, repository unavailable)",
+      "repository": "https://github.com/galperetz/grep-mcp",
+      "documentation": "https://pypi.org/project/grep-mcp/",
+      "tier": "COMMUNITY", "origin": "UNKNOWN",
+      "capabilities": ["public-code-search"],
+      "preparation": {"policy": "MANUAL_ONLY", "method": "host_handoff", "scope": "host"},
+      "auth": {"required": false},
+      "handoff": "This community wrapper is distinct from the official hosted Grep service. Prefer the official service when available; its provider documents HTTP MCP at https://mcp.grep.app in https://vercel.com/blog/grep-a-million-github-repositories-via-mcp . Use existing host discovery/approved preparation; this note is not a configured connection or permission to install the wrapper.",
+      "provenance": {"verified_at": "2026-09-23", "source": "https://pypi.org/pypi/grep-mcp/json", "result": "Declared GitHub repository returned 404; maintainer not verified. No automatic installation."}
+    },
+    {
+      "id": "node_repl", "name": "Host Node REPL", "provider": "Current runtime host",
+      "repository": null, "documentation": null,
+      "tier": "RUNTIME_PROVIDED", "origin": "UNKNOWN",
+      "capabilities": ["host-javascript-execution"],
+      "preparation": {"policy": "RUNTIME_PROVIDED", "method": "runtime", "scope": "runtime"},
+      "auth": {"required": false},
+      "provenance": {"verified_at": "2026-09-23", "source": "runtime inventory only; no external server asserted"}
+    }
+  ]
+}

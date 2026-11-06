@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "owner": "devops-standard",
+  "policy_notes": [
+    "Catalog, not a bulk installation list. Prefer compatible project-native tools already present.",
+    "Install policy is enforced by the owner and human approval, not an automatic allowlist in tool-state.py.",
+    "Use only project-approved official packages or releases; check runtime, source integrity, privileges and actual verification before recording installed.",
+    "No silent sudo, root or global installation. Optional act can execute workflows and requires scope review, never production credentials by default.",
+    "Choose Terraform OR OpenTofu according to the project, not both automatically.",
+    "Version detection verifies the client only, not daemon, cluster, connection, authentication or production readiness.",
+    "The helper does not prepend subcommands: docker-compose run arguments must explicitly begin with compose, for example -- compose config.",
+    "Ansible syntax/check uses ansible-playbook from the same approved Ansible distribution; verify that executable before use.",
+    "Environment integration remains pending NOT VALIDATED when dev-environment-standard is absent; reuse the existing helper only."
+  ],
+  "tools": [
+    {"id": "git", "capabilities": ["version-control", "branch-inspection", "release-engineering"], "repository": "https://github.com/git/git", "command": "git", "verify_args": ["--version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "gh", "capabilities": ["github-workflows", "release-engineering", "repository-operations", "github-repository-governance", "github-projects", "github-rulesets", "github-repository-settings"], "repository": "https://github.com/cli/cli", "command": "gh", "verify_args": ["--version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "docker", "capabilities": ["container-build", "container-build-validation", "container-runtime", "container-inspection"], "repository": "https://github.com/docker/cli", "command": "docker", "verify_args": ["--version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "docker-compose", "capabilities": ["compose-validation", "service-orchestration"], "repository": "https://github.com/docker/compose", "command": "docker", "verify_args": ["compose", "version"], "install_policy": "project-approved-official-compose-plugin"},
+    {"id": "terraform", "capabilities": ["infrastructure-plan", "infrastructure-validation", "infrastructure-as-code"], "repository": "https://github.com/hashicorp/terraform", "command": "terraform", "verify_args": ["version"], "install_policy": "project-approved-official-package-or-release", "alternative_group": "infrastructure-as-code"},
+    {"id": "tofu", "capabilities": ["infrastructure-plan", "infrastructure-validation", "infrastructure-as-code"], "repository": "https://github.com/opentofu/opentofu", "command": "tofu", "verify_args": ["version"], "install_policy": "project-approved-official-package-or-release", "alternative_group": "infrastructure-as-code"},
+    {"id": "ansible", "capabilities": ["server-configuration", "configuration-management"], "repository": "https://github.com/ansible/ansible", "command": "ansible", "verify_args": ["--version"], "install_policy": "project-approved-isolated-official-python-package"},
+    {"id": "ansible-lint", "capabilities": ["ansible-validation"], "repository": "https://github.com/ansible/ansible-lint", "command": "ansible-lint", "verify_args": ["--version"], "install_policy": "project-approved-isolated-official-python-package"},
+    {"id": "kubectl", "capabilities": ["kubernetes-resource-inspection", "kubernetes-validation", "cluster-operations"], "repository": "https://github.com/kubernetes/kubernetes", "command": "kubectl", "verify_args": ["version", "--client"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "helm", "capabilities": ["helm-rendering", "helm-lint", "kubernetes-packaging"], "repository": "https://github.com/helm/helm", "command": "helm", "verify_args": ["version", "--short"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "kustomize", "capabilities": ["manifest-composition", "manifest-rendering"], "repository": "https://github.com/kubernetes-sigs/kustomize", "command": "kustomize", "verify_args": ["version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "argocd", "capabilities": ["gitops", "deployment-sync"], "repository": "https://github.com/argoproj/argo-cd", "command": "argocd", "verify_args": ["version", "--client"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "flux", "capabilities": ["gitops", "reconciliation"], "repository": "https://github.com/fluxcd/flux2", "command": "flux", "verify_args": ["version", "--client"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "actionlint", "capabilities": ["github-actions-validation"], "repository": "https://github.com/rhysd/actionlint", "command": "actionlint", "verify_args": ["-version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "act", "capabilities": ["local-github-actions-execution"], "repository": "https://github.com/nektos/act", "command": "act", "verify_args": ["--version"], "install_policy": "optional-project-approved-official-package-or-release", "optional": true},
+    {"id": "hadolint", "capabilities": ["dockerfile-lint"], "repository": "https://github.com/hadolint/hadolint", "command": "hadolint", "verify_args": ["--version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "tflint", "capabilities": ["terraform-lint"], "repository": "https://github.com/terraform-linters/tflint", "command": "tflint", "verify_args": ["--version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "kubeconform", "capabilities": ["kubernetes-schema-validation"], "repository": "https://github.com/yannh/kubeconform", "command": "kubeconform", "verify_args": ["-v"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "shellcheck", "capabilities": ["shell-validation"], "repository": "https://github.com/koalaman/shellcheck", "command": "shellcheck", "verify_args": ["--version"], "install_policy": "project-approved-official-package-or-release"},
+    {"id": "promtool", "capabilities": ["prometheus-config-validation", "prometheus-rule-validation"], "repository": "https://github.com/prometheus/prometheus", "command": "promtool", "verify_args": ["--version"], "install_policy": "project-approved-official-prometheus-package-or-release"}
+  ]
+}

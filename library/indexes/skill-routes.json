@@ -1,0 +1,2701 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "dev-workflow-standard",
+      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/SKILL.md",
+      "sha256": "0780763d5b323049addd44d0d256ad4bc64573e8d7378e6663058ffae578cfd1",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "dev-workflow-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 17,
+          "sha256": "7d105b4615f29cf1e3d14a7850720b161df2c7bac98b5369dcb631f220b1ab10",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:001",
+          "heading": "Mission",
+          "start_line": 18,
+          "end_line": 31,
+          "sha256": "37f3dd45ee999a5462c4834dc324966c97434ea964bf86dec11b3832dc0f3f27",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:002",
+          "heading": "Harness Contract",
+          "start_line": 32,
+          "end_line": 78,
+          "sha256": "43ccdbd16a54d1459af97208cd4a4e1779bf85cd6848e69ca47d65d89c915e50",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:003",
+          "heading": "Mandatory Entry Gate",
+          "start_line": 79,
+          "end_line": 99,
+          "sha256": "edb5d7644b293bc6ced7dbca41bf56cb3925f22ce877c5ad0c6a09eb042a0146",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:004",
+          "heading": "Hard Limits (non-negotiable)",
+          "start_line": 100,
+          "end_line": 126,
+          "sha256": "afcb2d8aecf50f0fa688753b2e9fa0c59da6cc1b93822e3792d5bdfe7e3e6af0",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:005",
+          "heading": "Skill Roles (who does what)",
+          "start_line": 127,
+          "end_line": 142,
+          "sha256": "37a89374849b21c25406ea261ad565b5273fdab8ed83fd918842b136f3bf6445",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:006",
+          "heading": "Practice Provenance",
+          "start_line": 143,
+          "end_line": 160,
+          "sha256": "ba7c9855fe4be221a70276f983bdfa0f5fb7e52bffaab55155f5fad98ffeb823",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:007",
+          "heading": "Task And Execution Context",
+          "start_line": 161,
+          "end_line": 196,
+          "sha256": "8643d43c2b2874a3b2afa38b20237f974fbba1e4f97556b6190de6c5a47b904b",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:008",
+          "heading": "Change Complexity Gate",
+          "start_line": 197,
+          "end_line": 217,
+          "sha256": "954518f80d558855096e8f8f28ecb66247f7199439cade46b82cb225f4d7cc41",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:009",
+          "heading": "Mandatory Flow",
+          "start_line": 218,
+          "end_line": 269,
+          "sha256": "8c65fb399fbec400d7de724a71e8bfa5b6e17a405cc0a964199cd51c12ae3290",
+          "skill_id": "orchestrator-discovery"
+        },
+        {
+          "id": "dev-workflow-standard:010",
+          "heading": "Mandatory Task Governance",
+          "start_line": 270,
+          "end_line": 376,
+          "sha256": "52c2b3a68558310db8299669a35b69b0de59b3c23333a77dbb5673b2f9a86997",
+          "skill_id": "orchestrator-task-governance"
+        },
+        {
+          "id": "dev-workflow-standard:011",
+          "heading": "Official Kanban Method",
+          "start_line": 377,
+          "end_line": 404,
+          "sha256": "902c9016517818643b202b333d9743807e1a9043d7c07b0c55f920285874b3ea",
+          "skill_id": "orchestrator-task-governance"
+        },
+        {
+          "id": "dev-workflow-standard:012",
+          "heading": "Definition of Entry / Exit",
+          "start_line": 405,
+          "end_line": 425,
+          "sha256": "36bca45abd86431c16d03e74334be4f3132a7efb616c6e2f90e014955f377aa5",
+          "skill_id": "orchestrator-task-governance"
+        },
+        {
+          "id": "dev-workflow-standard:013",
+          "heading": "Repository Readiness Bootstrap",
+          "start_line": 426,
+          "end_line": 455,
+          "sha256": "3d9d7805b0dc9d3b470f973136810760e9354cba190b714218bd5ac471034468",
+          "skill_id": "orchestrator-task-governance"
+        },
+        {
+          "id": "dev-workflow-standard:014",
+          "heading": "GitHub-Ready Task Structure",
+          "start_line": 456,
+          "end_line": 468,
+          "sha256": "31199c90f1058c54823f3d4fa202c4a2df6ffcdf3b0e539bf238ee4dedaf2b87",
+          "skill_id": "orchestrator-task-governance"
+        },
+        {
+          "id": "dev-workflow-standard:015",
+          "heading": "Recommended Task Template",
+          "start_line": 469,
+          "end_line": 477,
+          "sha256": "805010e30f23a1cf2bfe193bb235f31f8132b78678fb3d5628a2605680e896ef",
+          "skill_id": "orchestrator-task-governance"
+        },
+        {
+          "id": "dev-workflow-standard:016",
+          "heading": "Delegation Rules",
+          "start_line": 478,
+          "end_line": 518,
+          "sha256": "f6c95fd2b227bfe232b93e75de7a8e5edb0a93497373bc0fab4fda8f09c8f01b",
+          "skill_id": "orchestrator-delegation"
+        },
+        {
+          "id": "dev-workflow-standard:017",
+          "heading": "When to Trigger Each Specialist",
+          "start_line": 519,
+          "end_line": 576,
+          "sha256": "fdc4a76840c27190e4d5983dd99a83a744897e3492972cba7884adcc0a05afff",
+          "skill_id": "orchestrator-delegation"
+        },
+        {
+          "id": "dev-workflow-standard:018",
+          "heading": "Review Rules",
+          "start_line": 577,
+          "end_line": 606,
+          "sha256": "5f2c80a536d0b115102e902399006e9dd450288f5bd5bba6e9cc144bcb7a7008",
+          "skill_id": "orchestrator-review"
+        },
+        {
+          "id": "dev-workflow-standard:019",
+          "heading": "Context Budget Rules",
+          "start_line": 607,
+          "end_line": 642,
+          "sha256": "18db48f2b11ac83cd320bba2820bab453e53a01bc0999d1a76e7d39b6223241e",
+          "skill_id": "orchestrator-core"
+        },
+        {
+          "id": "dev-workflow-standard:020",
+          "heading": "Reference Routing",
+          "start_line": 643,
+          "end_line": 678,
+          "sha256": "3ee91f55e4438520623226dfe4eae324e4682bee9d8c07d3992a74888c3989c3",
+          "skill_id": "orchestrator-delegation"
+        }
+      ]
+    },
+    {
+      "id": "ui-ux-standard",
+      "path": "plugins/ui-ux-standard/skills/ui-ux-standard/SKILL.md",
+      "sha256": "1330d469dbe32d73c8f141bd49e8a3c85c12855c9631e24e292a4ee250631564",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "ui-ux-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 22,
+          "sha256": "5e87b738422aa904bb8df167a99fa9fe00424275c155efc9f225928b38e835bc",
+          "skill_id": "ux-core"
+        },
+        {
+          "id": "ui-ux-standard:001",
+          "heading": "Ownership",
+          "start_line": 23,
+          "end_line": 55,
+          "sha256": "393befb02ecaba483e772d521b57086175ebb43f5a9a0c67afd677f0124d5a67",
+          "skill_id": "ux-core"
+        },
+        {
+          "id": "ui-ux-standard:002",
+          "heading": "Non-Negotiables",
+          "start_line": 56,
+          "end_line": 81,
+          "sha256": "7d5aa27943bd70c330bf530991be75bde2a31701422b4b75621249c4f0bbbd1a",
+          "skill_id": "ux-core"
+        },
+        {
+          "id": "ui-ux-standard:003",
+          "heading": "Component Intelligence",
+          "start_line": 82,
+          "end_line": 159,
+          "sha256": "a6257a3516f71347b0314144e3260fd7aff8e73fced89df52da4d0f30fccdebb",
+          "skill_id": "ux-components"
+        },
+        {
+          "id": "ui-ux-standard:004",
+          "heading": "Registry and MCP Policy",
+          "start_line": 160,
+          "end_line": 183,
+          "sha256": "dd571ff2f99b5ecee0168d83124494a778350be2cf50bbde872c1da736b7bd34",
+          "skill_id": "ux-core"
+        },
+        {
+          "id": "ui-ux-standard:005",
+          "heading": "Minimal Workflow",
+          "start_line": 184,
+          "end_line": 202,
+          "sha256": "efb4497b01e348beefd3874a2f039c524df69b4d27bf11509705051f2f5227b5",
+          "skill_id": "ux-core"
+        },
+        {
+          "id": "ui-ux-standard:006",
+          "heading": "Default Design Structure",
+          "start_line": 203,
+          "end_line": 229,
+          "sha256": "e241ad018f9fc7bc2a2c15010d4061a45f0946da44ca977637cceb9c358b928c",
+          "skill_id": "ux-design-system"
+        },
+        {
+          "id": "ui-ux-standard:007",
+          "heading": "Visual Quality Gate",
+          "start_line": 230,
+          "end_line": 246,
+          "sha256": "51d2ecdba921a4571e74d7d719049e5cc7c16b1c283fffa71dec9c160a5fa6ff",
+          "skill_id": "ux-visual-validation"
+        },
+        {
+          "id": "ui-ux-standard:008",
+          "heading": "Visual QA Checklist",
+          "start_line": 247,
+          "end_line": 263,
+          "sha256": "11da6a06aa6583267b4e95a874e3f362b96903010ff5b730a9617c7433a554d5",
+          "skill_id": "ux-visual-validation"
+        },
+        {
+          "id": "ui-ux-standard:009",
+          "heading": "Handoff Output",
+          "start_line": 264,
+          "end_line": 276,
+          "sha256": "26122437ba3a4459ad25b671fd4ee94093a498e8511f7825602c4b93e56dcd11",
+          "skill_id": "ux-core"
+        }
+      ]
+    },
+    {
+      "id": "sdd-spec-factory",
+      "path": "plugins/sdd-spec-factory/skills/sdd-spec-factory/SKILL.md",
+      "sha256": "2b97a4cbc92474e162a40c487787eea1cf37df3ab2316ecb4e3a81214537231b",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "sdd-spec-factory:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 28,
+          "sha256": "ef11d0a1d6bb70af7850a6241a69ebd6780e5cb162290081dfb7bc3d800b38aa",
+          "skill_id": "sdd-core"
+        },
+        {
+          "id": "sdd-spec-factory:001",
+          "heading": "Mission",
+          "start_line": 29,
+          "end_line": 53,
+          "sha256": "826f120f888d4b111648a67031cd4c27199a1b834c7203351f124bd2eee8f16d",
+          "skill_id": "sdd-core"
+        },
+        {
+          "id": "sdd-spec-factory:002",
+          "heading": "Vocabulary (non-negotiable)",
+          "start_line": 54,
+          "end_line": 70,
+          "sha256": "41af71533d262e3eabe2b71067488fb7adb9ace72c212ad4267d2176242a8336",
+          "skill_id": "sdd-core"
+        },
+        {
+          "id": "sdd-spec-factory:003",
+          "heading": "Mandatory hierarchy",
+          "start_line": 71,
+          "end_line": 90,
+          "sha256": "87f8030dc914cbbf6f6f845df59f2a8ee36e0f8c30c70dd06917f183c303d3d0",
+          "skill_id": "sdd-core"
+        },
+        {
+          "id": "sdd-spec-factory:004",
+          "heading": "Mandatory separation of concerns",
+          "start_line": 91,
+          "end_line": 106,
+          "sha256": "7bb9c3bccedd21c534fb3a7ced32955e2c52491d74b9f4485c9a609adcf48707",
+          "skill_id": "sdd-core"
+        },
+        {
+          "id": "sdd-spec-factory:005",
+          "heading": "Operating principles",
+          "start_line": 107,
+          "end_line": 140,
+          "sha256": "0c96306a6847da60be05fa3080000d9f1d0827bb36eb73df309eb08d2f2c84b3",
+          "skill_id": "sdd-core"
+        },
+        {
+          "id": "sdd-spec-factory:006",
+          "heading": "Consultative Technical Knowledge Routing",
+          "start_line": 141,
+          "end_line": 158,
+          "sha256": "671bb8895cfa266c804e8cb430d274dcd36abb8b6e63180fd02b0b5fe1842002",
+          "skill_id": "sdd-specifications"
+        },
+        {
+          "id": "sdd-spec-factory:007",
+          "heading": "Phases",
+          "start_line": 159,
+          "end_line": 160,
+          "sha256": "09d270ef6bcdf2c99a76f2055775d95b3e45e2c26a3387b62b703c39bd283f67",
+          "skill_id": "sdd-discovery"
+        },
+        {
+          "id": "sdd-spec-factory:008",
+          "heading": "Studio PRD handoff",
+          "start_line": 161,
+          "end_line": 184,
+          "sha256": "8c55768fcf3babe1fc76e5eafb47bfbd8d9059abd1c44a9e3084e9f439304afd",
+          "skill_id": "sdd-discovery"
+        },
+        {
+          "id": "sdd-spec-factory:009",
+          "heading": "Fase 0 - Diagnóstico",
+          "start_line": 185,
+          "end_line": 196,
+          "sha256": "16fee6e566212c6381836db5d34822989a82ca010120b7cfc5fcdc9c772ecf21",
+          "skill_id": "sdd-discovery"
+        },
+        {
+          "id": "sdd-spec-factory:010",
+          "heading": "Fase 1 - Consolidação",
+          "start_line": 197,
+          "end_line": 219,
+          "sha256": "e72635eb0e6824d443b24e539ce79d5f391358c35fecedecb8da65634dd3c916",
+          "skill_id": "sdd-discovery"
+        },
+        {
+          "id": "sdd-spec-factory:011",
+          "heading": "Fase 2 - Geração de Specs",
+          "start_line": 220,
+          "end_line": 298,
+          "sha256": "6a7e5eaf5373b92e769426c9b2f6049e08d07c4ff0b933401256cb1c92bd5061",
+          "skill_id": "sdd-specifications"
+        },
+        {
+          "id": "sdd-spec-factory:012",
+          "heading": "Fase 3 - Geração de Task Executável",
+          "start_line": 299,
+          "end_line": 474,
+          "sha256": "69edad988ff4e33182680ca4af5bf05a9cbea5d6a7ef183976b9badf632f98f1",
+          "skill_id": "sdd-task-contracts"
+        },
+        {
+          "id": "sdd-spec-factory:013",
+          "heading": "Fase 4 - Checklist de PR/QA",
+          "start_line": 475,
+          "end_line": 487,
+          "sha256": "772140e98e42c6af3fd23c0b6719c99a22cf44b2f80c94591c05062f68043b17",
+          "skill_id": "sdd-review"
+        },
+        {
+          "id": "sdd-spec-factory:014",
+          "heading": "Integration with the other plugins",
+          "start_line": 488,
+          "end_line": 506,
+          "sha256": "d75a190dc2d9917bb62421da93a51f41039e23b00e42bac391f424b733612e0f",
+          "skill_id": "sdd-core"
+        },
+        {
+          "id": "sdd-spec-factory:015",
+          "heading": "Definition of done for this skill",
+          "start_line": 507,
+          "end_line": 523,
+          "sha256": "37a9ef006d013ffa80995989eab1be52960b2f54dc7aab8b9b549c5f7e275d8a",
+          "skill_id": "sdd-core"
+        }
+      ]
+    },
+    {
+      "id": "dev-implementation-standard",
+      "path": "plugins/dev-implementation-standard/skills/dev-implementation-standard/SKILL.md",
+      "sha256": "e7538f20d871c10c5f65bbe193cf072de6aefdc72f6da83040adc272f3666264",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "dev-implementation-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 22,
+          "sha256": "6024ad73ea2d46a6282fd4344c2ea8a0362ed8f8f75136ef124fc75923c0284c",
+          "skill_id": "implementation-core"
+        },
+        {
+          "id": "dev-implementation-standard:001",
+          "heading": "Mission",
+          "start_line": 23,
+          "end_line": 36,
+          "sha256": "a8a4517840f02cb87f012af17d1ccc3c151cf9acb6bdf8719d3549edbab0baf7",
+          "skill_id": "implementation-core"
+        },
+        {
+          "id": "dev-implementation-standard:002",
+          "heading": "Preconditions (do not start without these)",
+          "start_line": 37,
+          "end_line": 55,
+          "sha256": "b24cb385137f74d42734967451ac489c4e86349b0d6472dfbafa0c7861a83a7d",
+          "skill_id": "implementation-core"
+        },
+        {
+          "id": "dev-implementation-standard:003",
+          "heading": "Hard Limits (non-negotiable)",
+          "start_line": 56,
+          "end_line": 70,
+          "sha256": "0c190a3687284200425d2ffa9f58f59e765e4b961fba031c43806e144f660376",
+          "skill_id": "implementation-core"
+        },
+        {
+          "id": "dev-implementation-standard:004",
+          "heading": "Task Status Rules",
+          "start_line": 71,
+          "end_line": 82,
+          "sha256": "820ce4b27f3ec7613076fdf014d5187eba9b08c450ae8c9887519c6c00a9098d",
+          "skill_id": "implementation-delivery"
+        },
+        {
+          "id": "dev-implementation-standard:005",
+          "heading": "Workflow",
+          "start_line": 83,
+          "end_line": 163,
+          "sha256": "87934d7e02c4487c7a854b89afa6f29bf131adac0e6f6890b10c1f37c87e0859",
+          "skill_id": "implementation-core"
+        },
+        {
+          "id": "dev-implementation-standard:006",
+          "heading": "Frontend design sources",
+          "start_line": 164,
+          "end_line": 177,
+          "sha256": "f32ea2a24291a611ba811cce23e0832785f8cbe8e562c3dc50d81e64a269cf37",
+          "skill_id": "implementation-frontend"
+        },
+        {
+          "id": "dev-implementation-standard:007",
+          "heading": "GitHub Projects Readiness",
+          "start_line": 178,
+          "end_line": 195,
+          "sha256": "e1e2c12a56703f5cfd53bb060e34215865d9f279a53a644c26cf4f329f4c3d34",
+          "skill_id": "implementation-delivery"
+        },
+        {
+          "id": "dev-implementation-standard:008",
+          "heading": "Recommended Task Template",
+          "start_line": 196,
+          "end_line": 204,
+          "sha256": "f24128583d881834ff57512121a5d5096368f896aef9b5735d388c6db12b194c",
+          "skill_id": "implementation-delivery"
+        },
+        {
+          "id": "dev-implementation-standard:009",
+          "heading": "Escalation",
+          "start_line": 205,
+          "end_line": 220,
+          "sha256": "cc6f9d2095be9fe494573419b15a05392436e18405830318dc15b8fa9fd14e4d",
+          "skill_id": "implementation-core"
+        },
+        {
+          "id": "dev-implementation-standard:010",
+          "heading": "Interfaces with other skills",
+          "start_line": 221,
+          "end_line": 240,
+          "sha256": "b1d6a6dda8183dc7d60d58d9d6d86f9376f48aa5fc021f34d345c3edda5c9453",
+          "skill_id": "implementation-core"
+        },
+        {
+          "id": "dev-implementation-standard:011",
+          "heading": "Definition of done",
+          "start_line": 241,
+          "end_line": 255,
+          "sha256": "f09f149568cf7d214bcff122062b64ebf557a6b9c2bc32cc33a92ad9ef4135b1",
+          "skill_id": "implementation-core"
+        }
+      ]
+    },
+    {
+      "id": "dev-environment-standard",
+      "path": "plugins/dev-environment-standard/skills/dev-environment-standard/SKILL.md",
+      "sha256": "f3ee18c42d3b9550dc4bb4a4b853d7f4a64a04971677c1c4322d25fc67752ae1",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "dev-environment-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 20,
+          "sha256": "966c31cc70db5fa70c01acbdb54635b0cada3e71fc3f10488f4c6d18e6be7f54",
+          "skill_id": "environment-core"
+        },
+        {
+          "id": "dev-environment-standard:001",
+          "heading": "Choose the operation",
+          "start_line": 21,
+          "end_line": 38,
+          "sha256": "6e61589cac600bca51369dd40c157078e21e018d53ceba6d0b2d5d4f6e6e9111",
+          "skill_id": "environment-bootstrap"
+        },
+        {
+          "id": "dev-environment-standard:002",
+          "heading": "Bootstrap loop",
+          "start_line": 39,
+          "end_line": 81,
+          "sha256": "023830f62345ab4570750756340f64713cc463c855c380e924592b2e6b3b22a0",
+          "skill_id": "environment-bootstrap"
+        },
+        {
+          "id": "dev-environment-standard:003",
+          "heading": "Platform routing",
+          "start_line": 82,
+          "end_line": 99,
+          "sha256": "2e71750df4b02d773bce069ef7d2cfd3e53e2fcbf3084462123c8a4f72bd7436",
+          "skill_id": "environment-platform-state"
+        },
+        {
+          "id": "dev-environment-standard:004",
+          "heading": "Library, ownership and local state",
+          "start_line": 100,
+          "end_line": 128,
+          "sha256": "62d8b8d4daa6b94c642658c2f9498fe1804efb078d58ff6fdb599c8d5f15a629",
+          "skill_id": "environment-platform-state"
+        },
+        {
+          "id": "dev-environment-standard:005",
+          "heading": "Preparation authority",
+          "start_line": 129,
+          "end_line": 142,
+          "sha256": "c3dc2cd66979c1fe9926b4586434a08723344364bea1ac8fe24d49c9f894ff09",
+          "skill_id": "environment-core"
+        },
+        {
+          "id": "dev-environment-standard:006",
+          "heading": "Health and handoff",
+          "start_line": 143,
+          "end_line": 154,
+          "sha256": "591ae2066869019f617306c0b2475723b13780fd316d3c1a969f3ebafe1f27c8",
+          "skill_id": "environment-platform-state"
+        },
+        {
+          "id": "dev-environment-standard:007",
+          "heading": "Scope and security",
+          "start_line": 155,
+          "end_line": 169,
+          "sha256": "8518aaa04abba76bca90a445821ef43067565c46d134573bb26bbc45ff942801",
+          "skill_id": "environment-core"
+        }
+      ]
+    },
+    {
+      "id": "devops-standard",
+      "path": "plugins/devops-standard/skills/devops-standard/SKILL.md",
+      "sha256": "71e9b868f9909696648174ed03863c733f099d39ccf207bc75fae67807303719",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "devops-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 23,
+          "sha256": "5c6fac0a743d59bc7a6187efb14f5728c3edb7e4b49844511082bb1239799817",
+          "skill_id": "devops-core"
+        },
+        {
+          "id": "devops-standard:001",
+          "heading": "Responsibility boundaries",
+          "start_line": 24,
+          "end_line": 56,
+          "sha256": "fa930486d3b7b2da6465fdcdc217954d847086e0243969713126b7c32381367d",
+          "skill_id": "devops-core"
+        },
+        {
+          "id": "devops-standard:002",
+          "heading": "Operational contract",
+          "start_line": 57,
+          "end_line": 86,
+          "sha256": "1aec615d2748d2d18c1211556032e204eea1fc8f058e31c63c5e66e3a12756d4",
+          "skill_id": "devops-operations"
+        },
+        {
+          "id": "devops-standard:003",
+          "heading": "Human safety gates",
+          "start_line": 87,
+          "end_line": 101,
+          "sha256": "552eba996685277a8a95ddce1735f6b90e5957cc47934b49498b1bbb6e59ba21",
+          "skill_id": "devops-core"
+        },
+        {
+          "id": "devops-standard:004",
+          "heading": "Progressive domain routing",
+          "start_line": 102,
+          "end_line": 135,
+          "sha256": "1ce173b6d32fea27339db5802e10f17713cfb2ca5895780d17a3a11b2b221495",
+          "skill_id": "devops-operations"
+        },
+        {
+          "id": "devops-standard:005",
+          "heading": "Evidence handoff",
+          "start_line": 136,
+          "end_line": 157,
+          "sha256": "6301a4c264c2aff426a05cf546c9d89f41aa2fe86e2038ed0f12c9c1a3bacf0b",
+          "skill_id": "devops-core"
+        }
+      ]
+    },
+    {
+      "id": "qa-testing-standard",
+      "path": "plugins/qa-testing-standard/skills/qa-testing-standard/SKILL.md",
+      "sha256": "c96c6d464d4bd7dc376b35d20d1bbb739191fc8832f35d04d29d786225399838",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "qa-testing-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 19,
+          "sha256": "cacaa801479f014fce717b8aed9556de23a2a9104e2dea5196909a6296b6f615",
+          "skill_id": "qa-core"
+        },
+        {
+          "id": "qa-testing-standard:001",
+          "heading": "Context and activation",
+          "start_line": 20,
+          "end_line": 50,
+          "sha256": "edd9a416802b14c6352e72905c4a09b33cc84b66fdafc92b9d139097c54249fd",
+          "skill_id": "qa-core"
+        },
+        {
+          "id": "qa-testing-standard:002",
+          "heading": "Modes and phases",
+          "start_line": 51,
+          "end_line": 75,
+          "sha256": "c434a93c78010baa269eb2ab4933c94cd733105922af2dc8dffa72113d4d059d",
+          "skill_id": "qa-validation"
+        },
+        {
+          "id": "qa-testing-standard:003",
+          "heading": "Execution and ownership",
+          "start_line": 76,
+          "end_line": 99,
+          "sha256": "ca0a1247319fa64d08c22de29aadbcc6c76d658de9468eee0b5e6df39c1bab6d",
+          "skill_id": "qa-core"
+        },
+        {
+          "id": "qa-testing-standard:004",
+          "heading": "Shared tools, not duplicated ownership",
+          "start_line": 100,
+          "end_line": 120,
+          "sha256": "89f1e26b681e66139df033e7fca638514340818ac77299ab5cf5636e6459202b",
+          "skill_id": "qa-validation"
+        },
+        {
+          "id": "qa-testing-standard:005",
+          "heading": "Evidence gate",
+          "start_line": 121,
+          "end_line": 170,
+          "sha256": "bed5b30b4a71eb5c532190880d140ceebc752a83fbefeb3b18c8b2eb131893df",
+          "skill_id": "qa-validation"
+        },
+        {
+          "id": "qa-testing-standard:006",
+          "heading": "Provenance",
+          "start_line": 171,
+          "end_line": 176,
+          "sha256": "f5e53d7db7e594b7ba8fe410f9c50703e3410beada9b0ca370227d163f01d56b",
+          "skill_id": "qa-core"
+        }
+      ]
+    },
+    {
+      "id": "security-standard",
+      "path": "plugins/security-standard/skills/security-standard/SKILL.md",
+      "sha256": "da2e3fd55998735ba1a641a968610d13514998dee43e1a40f49ca669d50616cb",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "security-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 35,
+          "sha256": "27ffaf70d31badb679beebf6fa745d9a5f0f3f22a491d29cad2a06700cf392f1",
+          "skill_id": "security-core"
+        },
+        {
+          "id": "security-standard:001",
+          "heading": "Scope And Safety",
+          "start_line": 36,
+          "end_line": 52,
+          "sha256": "a20cd6e1473022f1627f89e2597960db8c5fda04943c7c377da6956ef04644a2",
+          "skill_id": "security-core"
+        },
+        {
+          "id": "security-standard:002",
+          "heading": "Relationship To The Main Workflow",
+          "start_line": 53,
+          "end_line": 88,
+          "sha256": "b782239c6dad46fc3d8c8b5cee9ac4cfd1f298739001c36030d47dc8fc5f92cc",
+          "skill_id": "security-core"
+        },
+        {
+          "id": "security-standard:003",
+          "heading": "Review Modes",
+          "start_line": 89,
+          "end_line": 134,
+          "sha256": "713eb7112caed8832f9f5da791d020d1166c364d4b06a123c9a9ced79cbfec8b",
+          "skill_id": "security-review"
+        },
+        {
+          "id": "security-standard:004",
+          "heading": "Risk-Adaptive Depth",
+          "start_line": 135,
+          "end_line": 150,
+          "sha256": "d9d3c286d4c34fd8e99cbf3055ecc530548ac4a6bfca6acf95aed08b4efb0b0f",
+          "skill_id": "security-review"
+        },
+        {
+          "id": "security-standard:005",
+          "heading": "Security Workflow",
+          "start_line": 151,
+          "end_line": 287,
+          "sha256": "481e61e362c7fd0e3b21033bfd2def795b8378567809d87c37c9c13e8b105579",
+          "skill_id": "security-review"
+        },
+        {
+          "id": "security-standard:006",
+          "heading": "Tool Policy",
+          "start_line": 288,
+          "end_line": 322,
+          "sha256": "3818ac4655cf1d59dadac032799bd86ea3dd2f03690693a076fc571f8f341e56",
+          "skill_id": "security-tools-reporting"
+        },
+        {
+          "id": "security-standard:007",
+          "heading": "External Publication Gate",
+          "start_line": 323,
+          "end_line": 347,
+          "sha256": "2b3440396fa91e00949db4df460d63bd3ec74a6a7c996bc0814e72b849b44388",
+          "skill_id": "security-core"
+        },
+        {
+          "id": "security-standard:008",
+          "heading": "Evidence And Reporting",
+          "start_line": 348,
+          "end_line": 393,
+          "sha256": "3d24c848e0e8519d9e1d5697f8082ecfee615255c49f8ef678031faea06f798a",
+          "skill_id": "security-tools-reporting"
+        },
+        {
+          "id": "security-standard:009",
+          "heading": "Completion Rules",
+          "start_line": 394,
+          "end_line": 405,
+          "sha256": "b5ca9668fe2e74317e7b2c352cc3c4461f5d4096baaf6eb640686c4bfceb572f",
+          "skill_id": "security-core"
+        },
+        {
+          "id": "security-standard:010",
+          "heading": "Handoff To Dev Workflow",
+          "start_line": 406,
+          "end_line": 416,
+          "sha256": "62470e806adbf64244ed016b82b0be521f6ba80e72197e09beb725957cce36d8",
+          "skill_id": "security-core"
+        }
+      ]
+    },
+    {
+      "id": "studio-prd",
+      "path": "plugins/studio-prd/skills/studio-prd/SKILL.md",
+      "sha256": "99ec843831ceff67cb1cf1bfcf9dce82139314c2ffdbeef229fdb11f81182464",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "studio-prd:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 12,
+          "sha256": "ee1afb1026adfd0bb6a6d5297a9b1740d12068565ab980ef7ffd3eaf4722cc29",
+          "skill_id": "product-core"
+        },
+        {
+          "id": "studio-prd:001",
+          "heading": "Start from evidence",
+          "start_line": 13,
+          "end_line": 56,
+          "sha256": "cf2a00de3cefd070f715a7832b4d5d151121b1f6d13a6d4015764eaec354cfe3",
+          "skill_id": "product-discovery"
+        },
+        {
+          "id": "studio-prd:002",
+          "heading": "Produce the project artifacts",
+          "start_line": 57,
+          "end_line": 87,
+          "sha256": "5f96f7ba8f5bd4a9b9b0aad2aaffa1ced10ce2eceba029942063c6f36fa2099f",
+          "skill_id": "product-planning"
+        },
+        {
+          "id": "studio-prd:003",
+          "heading": "Plan and hand off under supervision",
+          "start_line": 88,
+          "end_line": 144,
+          "sha256": "b336f3642e5667d4f0af964cd3f988911d5ed7a018201d8232f8acf9adb288eb",
+          "skill_id": "product-planning"
+        },
+        {
+          "id": "studio-prd:004",
+          "heading": "Evidence and continuation",
+          "start_line": 145,
+          "end_line": 157,
+          "sha256": "dc604cdaedab20ee82a87ba6f2a28905103cc1936626332ad7947c07a007b88f",
+          "skill_id": "product-core"
+        }
+      ],
+      "evolution": {
+        "authorization": "STUDIO-PRD-002",
+        "original_archive": "docs/migration/v1-frozen/plugins/studio-prd/skills/studio-prd/SKILL.md",
+        "note": "Current canonical content evolved after the recorded V1 baseline; original bytes remain archived."
+      }
+    },
+    {
+      "id": "reverse-engineering-standard",
+      "path": "plugins/reverse-engineering-standard/skills/reverse-engineering-standard/SKILL.md",
+      "sha256": "6102fbd4f4e8d885dc203e0eac186f1946c96fe87ff98341cc43c9d80a29ec1a",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "reverse-engineering-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 18,
+          "sha256": "9d2a8fee3471b3b3a2bc06e9709b7aeadd6662ccf87049e6e7c0e10f1e8e8757",
+          "skill_id": "reverse-engineering-core"
+        },
+        {
+          "id": "reverse-engineering-standard:001",
+          "heading": "Preconditions",
+          "start_line": 19,
+          "end_line": 30,
+          "sha256": "01ec843ddad818976da4bd9947ceef5ec71de601f8e6f0f8b6ae493fd9be241d",
+          "skill_id": "reverse-engineering-core"
+        },
+        {
+          "id": "reverse-engineering-standard:002",
+          "heading": "Workflow",
+          "start_line": 31,
+          "end_line": 49,
+          "sha256": "799f073b43f822b0aea647d8450e6d49e7f13defd3c5d62e6cfcb9359102524b",
+          "skill_id": "reverse-engineering-investigation"
+        },
+        {
+          "id": "reverse-engineering-standard:003",
+          "heading": "Safety and legal boundary",
+          "start_line": 50,
+          "end_line": 66,
+          "sha256": "eef45307ed85f7b3bbcee1ef00474c3519a4eb8cd87bc5438dac02933d3ca18a",
+          "skill_id": "reverse-engineering-core"
+        },
+        {
+          "id": "reverse-engineering-standard:004",
+          "heading": "Relationship with other skills",
+          "start_line": 67,
+          "end_line": 76,
+          "sha256": "14b411513758acc7d1dab568f1cd1eded4b36978e1f1e50dddc468463b0d0a60",
+          "skill_id": "reverse-engineering-core"
+        }
+      ]
+    },
+    {
+      "id": "seo-standard",
+      "path": "plugins/seo-standard/skills/seo-standard/SKILL.md",
+      "sha256": "929f94a70f17c4b8ca5c682f14f16843b6bbca4e68aa55cf4681b97ea83a5a7d",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "seo-standard:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 16,
+          "sha256": "c42686e2c1c55ba69ed99a7cf9cc9dc5a43c38edaafa603efd35b6306c97a323",
+          "skill_id": "seo-core"
+        },
+        {
+          "id": "seo-standard:001",
+          "heading": "Preconditions",
+          "start_line": 17,
+          "end_line": 24,
+          "sha256": "9efe80e9d826102d579dd2a5274cdb68ebd63c5f235e90f21914ece0f3bfde22",
+          "skill_id": "seo-core"
+        },
+        {
+          "id": "seo-standard:002",
+          "heading": "Workflow",
+          "start_line": 25,
+          "end_line": 35,
+          "sha256": "6dc915d00e4c6697c34910187b8ac942d87aaf2e49b9b8a05524e96accf463da",
+          "skill_id": "seo-site-analysis"
+        },
+        {
+          "id": "seo-standard:003",
+          "heading": "Commercial site standard",
+          "start_line": 36,
+          "end_line": 53,
+          "sha256": "e961c41015b03b891678f4186b50cadd812d22904e20cecd1ac2f406e537cf4e",
+          "skill_id": "seo-site-analysis"
+        },
+        {
+          "id": "seo-standard:004",
+          "heading": "Ownership boundaries",
+          "start_line": 54,
+          "end_line": 64,
+          "sha256": "a9a363d0400780f273157a92cc3a0a9b6067d9ed06c80d2500d456950ec21420",
+          "skill_id": "seo-core"
+        }
+      ]
+    },
+    {
+      "id": "parceiro-estrategico-global",
+      "path": "plugins/parceiro-estrategico-global/skills/parceiro-estrategico-global/SKILL.md",
+      "sha256": "3907fba5a095c27f44fcabf64d5902670f18304a3e8b907554b23f9e8d3facc7",
+      "body_start_line": 5,
+      "sections": [
+        {
+          "id": "parceiro-estrategico-global:000",
+          "heading": "Preamble",
+          "start_line": 5,
+          "end_line": 7,
+          "sha256": "bf5db4f6db7f407bc8f4315f2d19808a0e054115dc2f2ce3ad4c95bc1512d834",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:001",
+          "heading": "Papel e responsabilidade",
+          "start_line": 8,
+          "end_line": 15,
+          "sha256": "e13ab3f314f68a6acd56a00333b4818eeb55627b3c93d724ba680bae5f987ee4",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:002",
+          "heading": "Estilo obrigatório",
+          "start_line": 16,
+          "end_line": 27,
+          "sha256": "8b08f79560b949f4b2d9cd848d405ed44d31ac4f0a7859bf30a51d1d628f54d6",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:003",
+          "heading": "Formato padrão",
+          "start_line": 28,
+          "end_line": 39,
+          "sha256": "681435a0125b14a676fad71dacc091e4924fcb4480da200c653b2c7473fb0df9",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:004",
+          "heading": "Classificação da demanda",
+          "start_line": 40,
+          "end_line": 49,
+          "sha256": "6e1e71d98e927ae27442922cbc6d20308f41c86a8644e414e8c2c21c15fece06",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:005",
+          "heading": "Descoberta adaptativa",
+          "start_line": 50,
+          "end_line": 75,
+          "sha256": "10c440a108882abaa5181067acdbb3a163577b552b348bb4182b5169cdba8fe5",
+          "skill_id": "global-discovery"
+        },
+        {
+          "id": "parceiro-estrategico-global:006",
+          "heading": "Comando `SemPerguntas`",
+          "start_line": 76,
+          "end_line": 86,
+          "sha256": "f5083b42b539846e60b43bdb0616865e703a93079c1e8615531324b725f3d198",
+          "skill_id": "global-discovery"
+        },
+        {
+          "id": "parceiro-estrategico-global:007",
+          "heading": "Briefing estruturado",
+          "start_line": 87,
+          "end_line": 107,
+          "sha256": "c1710681193ec4c9680551c12e0bb9d61526d9ba7e009a54063fb81d828023aa",
+          "skill_id": "global-discovery"
+        },
+        {
+          "id": "parceiro-estrategico-global:008",
+          "heading": "Tecnologia e software",
+          "start_line": 108,
+          "end_line": 119,
+          "sha256": "486c85ed5efe1fabf3ab741501bffa72bc78034147d2e1b76cb9513b3596a8ac",
+          "skill_id": "global-discovery"
+        },
+        {
+          "id": "parceiro-estrategico-global:009",
+          "heading": "Marketing",
+          "start_line": 120,
+          "end_line": 142,
+          "sha256": "8c6ef0eb6f38c54845e834416160ce7b543916832bd82104241d77f4d49bd0b7",
+          "skill_id": "global-marketing-sales"
+        },
+        {
+          "id": "parceiro-estrategico-global:010",
+          "heading": "Vendas",
+          "start_line": 143,
+          "end_line": 166,
+          "sha256": "b63ca75882692ba2a3da00ccc1c5d46203de1821064cc95eb4864f0400027069",
+          "skill_id": "global-marketing-sales"
+        },
+        {
+          "id": "parceiro-estrategico-global:011",
+          "heading": "Verificação e precisão",
+          "start_line": 167,
+          "end_line": 180,
+          "sha256": "2942e72e72f33af7052da35efed61e0027ef80bc5ce2e057a32cad0e6ea4b987",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:012",
+          "heading": "Práticas consolidadas antes de extensões locais",
+          "start_line": 181,
+          "end_line": 209,
+          "sha256": "67f334271e477ddf61969cbcf56ff59c81321fe8abdf8c6b04ab40e4450b49a6",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:013",
+          "heading": "Execução",
+          "start_line": 210,
+          "end_line": 223,
+          "sha256": "df7f4fc44598d9eb855d133452197ee6e8dc1aab23844ef200029e5422e54094",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:014",
+          "heading": "Descoberta e roteamento dinâmico de capacidades",
+          "start_line": 224,
+          "end_line": 252,
+          "sha256": "b79b416500672084b5f69dab32f4e734afd81f577d988bb75a9a4560ea1357bf",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:015",
+          "heading": "Modos especiais",
+          "start_line": 253,
+          "end_line": 261,
+          "sha256": "8e15af782c7974bb7bf57a0dd3ea9410da312f6bb8228bed5ffb24a498bc7742",
+          "skill_id": "global-core"
+        },
+        {
+          "id": "parceiro-estrategico-global:016",
+          "heading": "Missão",
+          "start_line": 262,
+          "end_line": 264,
+          "sha256": "bb8e84c9e6a7dc61598786e8b59ec8bb3e119b1b836764b95aae185401f02d11",
+          "skill_id": "global-core"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "orchestrator-core",
+      "sector": "orchestrator",
+      "path": "skills/orchestrator-core/SKILL.md",
+      "source": "dev-workflow-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "orchestrator"
+      ],
+      "source_sections": [
+        "dev-workflow-standard:000",
+        "dev-workflow-standard:001",
+        "dev-workflow-standard:002",
+        "dev-workflow-standard:003",
+        "dev-workflow-standard:004",
+        "dev-workflow-standard:005",
+        "dev-workflow-standard:006",
+        "dev-workflow-standard:007",
+        "dev-workflow-standard:008",
+        "dev-workflow-standard:019"
+      ],
+      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
+      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_map": [
+        {
+          "original": "references/continuous-improvement.md",
+          "resolved": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/continuous-improvement.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "orchestrator-discovery",
+      "sector": "orchestrator",
+      "path": "skills/orchestrator-discovery/SKILL.md",
+      "source": "dev-workflow-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "orchestrator-core"
+      ],
+      "triggers": [
+        "discovery",
+        "prd",
+        "new product",
+        "produto"
+      ],
+      "source_sections": [
+        "dev-workflow-standard:009"
+      ],
+      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
+      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_map": [
+        {
+          "original": "../../../../docs/workflow-pipeline.md",
+          "resolved": "docs/workflow-pipeline.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "orchestrator-task-governance",
+      "sector": "orchestrator",
+      "path": "skills/orchestrator-task-governance/SKILL.md",
+      "source": "dev-workflow-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "orchestrator-core"
+      ],
+      "triggers": [
+        "task",
+        "issue",
+        "governance",
+        "governança",
+        "contract"
+      ],
+      "source_sections": [
+        "dev-workflow-standard:010",
+        "dev-workflow-standard:011",
+        "dev-workflow-standard:012",
+        "dev-workflow-standard:013",
+        "dev-workflow-standard:014",
+        "dev-workflow-standard:015"
+      ],
+      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
+      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_map": [
+        {
+          "original": "references/client-portal.md",
+          "resolved": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/client-portal.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "orchestrator-delegation",
+      "sector": "orchestrator",
+      "path": "skills/orchestrator-delegation/SKILL.md",
+      "source": "dev-workflow-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "orchestrator-core"
+      ],
+      "triggers": [
+        "delegate",
+        "handoff",
+        "agent",
+        "agente",
+        "execution"
+      ],
+      "source_sections": [
+        "dev-workflow-standard:016",
+        "dev-workflow-standard:017",
+        "dev-workflow-standard:020"
+      ],
+      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
+      "reference_fallback": "plugins/dev-workflow-standard",
+      "v2_overlays": [
+        "optional-project-memory-routing"
+      ],
+      "reference_map": [
+        {
+          "original": "../../../sdd-spec-factory/skills/sdd-spec-factory/references/api-research-library.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/api-research-library.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "integrations/memory/README.md",
+          "resolved": "integrations/memory/README.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "orchestrator-review",
+      "sector": "orchestrator",
+      "path": "skills/orchestrator-review/SKILL.md",
+      "source": "dev-workflow-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "orchestrator-core"
+      ],
+      "triggers": [
+        "review",
+        "pr",
+        "revisão"
+      ],
+      "source_sections": [
+        "dev-workflow-standard:018"
+      ],
+      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
+      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_map": []
+    },
+    {
+      "id": "ux-core",
+      "sector": "ux",
+      "path": "skills/ux-core/SKILL.md",
+      "source": "ui-ux-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "ux"
+      ],
+      "source_sections": [
+        "ui-ux-standard:000",
+        "ui-ux-standard:001",
+        "ui-ux-standard:002",
+        "ui-ux-standard:004",
+        "ui-ux-standard:005",
+        "ui-ux-standard:009"
+      ],
+      "reference_base": "plugins/ui-ux-standard/skills/ui-ux-standard",
+      "reference_fallback": "plugins/ui-ux-standard",
+      "reference_map": []
+    },
+    {
+      "id": "ux-components",
+      "sector": "ux",
+      "path": "skills/ux-components/SKILL.md",
+      "source": "ui-ux-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "ux-core"
+      ],
+      "triggers": [
+        "component",
+        "library",
+        "template",
+        "componente",
+        "biblioteca"
+      ],
+      "source_sections": [
+        "ui-ux-standard:003"
+      ],
+      "reference_base": "plugins/ui-ux-standard/skills/ui-ux-standard",
+      "reference_fallback": "plugins/ui-ux-standard",
+      "reference_map": [
+        {
+          "original": "references/library-source-handoff.md",
+          "resolved": "plugins/ui-ux-standard/skills/ui-ux-standard/references/library-source-handoff.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "ux-design-system",
+      "sector": "ux",
+      "path": "skills/ux-design-system/SKILL.md",
+      "source": "ui-ux-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "ux-core"
+      ],
+      "triggers": [
+        "design system",
+        "tokens",
+        "catalogue",
+        "design guide",
+        "sistema de design"
+      ],
+      "source_sections": [
+        "ui-ux-standard:006"
+      ],
+      "reference_base": "plugins/ui-ux-standard/skills/ui-ux-standard",
+      "reference_fallback": "plugins/ui-ux-standard",
+      "reference_map": [
+        {
+          "original": "references/live-design-guide.md",
+          "resolved": "plugins/ui-ux-standard/skills/ui-ux-standard/references/live-design-guide.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "ux-visual-validation",
+      "sector": "ux",
+      "path": "skills/ux-visual-validation/SKILL.md",
+      "source": "ui-ux-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "ux-core"
+      ],
+      "triggers": [
+        "visual",
+        "responsive",
+        "responsividade",
+        "accessibility",
+        "acessibilidade",
+        "ui",
+        "layout"
+      ],
+      "source_sections": [
+        "ui-ux-standard:007",
+        "ui-ux-standard:008"
+      ],
+      "reference_base": "plugins/ui-ux-standard/skills/ui-ux-standard",
+      "reference_fallback": "plugins/ui-ux-standard",
+      "reference_map": []
+    },
+    {
+      "id": "sdd-core",
+      "sector": "sdd",
+      "path": "skills/sdd-core/SKILL.md",
+      "source": "sdd-spec-factory",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "sdd"
+      ],
+      "source_sections": [
+        "sdd-spec-factory:000",
+        "sdd-spec-factory:001",
+        "sdd-spec-factory:002",
+        "sdd-spec-factory:003",
+        "sdd-spec-factory:004",
+        "sdd-spec-factory:005",
+        "sdd-spec-factory:014",
+        "sdd-spec-factory:015"
+      ],
+      "reference_base": "plugins/sdd-spec-factory/skills/sdd-spec-factory",
+      "reference_fallback": "plugins/sdd-spec-factory",
+      "reference_map": [
+        {
+          "original": "references/backend-component-sources.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/backend-component-sources.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/public-code-discovery.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/public-code-discovery.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "sdd-discovery",
+      "sector": "sdd",
+      "path": "skills/sdd-discovery/SKILL.md",
+      "source": "sdd-spec-factory",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "sdd-core"
+      ],
+      "triggers": [
+        "discovery",
+        "briefing",
+        "prd"
+      ],
+      "source_sections": [
+        "sdd-spec-factory:007",
+        "sdd-spec-factory:008",
+        "sdd-spec-factory:009",
+        "sdd-spec-factory:010"
+      ],
+      "reference_base": "plugins/sdd-spec-factory/skills/sdd-spec-factory",
+      "reference_fallback": "plugins/sdd-spec-factory",
+      "reference_map": [
+        {
+          "original": "references/api-research-library.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/api-research-library.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "sdd-specifications",
+      "sector": "sdd",
+      "path": "skills/sdd-specifications/SKILL.md",
+      "source": "sdd-spec-factory",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "sdd-core"
+      ],
+      "triggers": [
+        "spec",
+        "architecture",
+        "arquitetura",
+        "api",
+        "database",
+        "module"
+      ],
+      "source_sections": [
+        "sdd-spec-factory:006",
+        "sdd-spec-factory:011"
+      ],
+      "reference_base": "plugins/sdd-spec-factory/skills/sdd-spec-factory",
+      "reference_fallback": "plugins/sdd-spec-factory",
+      "v2_overlays": [
+        "evidence-to-spec-traceability"
+      ],
+      "reference_map": [
+        {
+          "original": "references/technical-knowledge-router.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-knowledge-router.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/technical-architecture.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-architecture.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/technical-data-concurrency.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-data-concurrency.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/technical-auth-sessions.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-auth-sessions.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/technical-apis-jobs.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-apis-jobs.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/technical-quality-operations.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-quality-operations.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/technical-fiscal.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-fiscal.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/devops-planning.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/devops-planning.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "library/reconstruction/README.md",
+          "resolved": "library/reconstruction/README.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "sdd-task-contracts",
+      "sector": "sdd",
+      "path": "skills/sdd-task-contracts/SKILL.md",
+      "source": "sdd-spec-factory",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "sdd-core"
+      ],
+      "triggers": [
+        "task",
+        "contract",
+        "issue",
+        "tarefa"
+      ],
+      "source_sections": [
+        "sdd-spec-factory:012"
+      ],
+      "reference_base": "plugins/sdd-spec-factory/skills/sdd-spec-factory",
+      "reference_fallback": "plugins/sdd-spec-factory",
+      "reference_map": [
+        {
+          "original": "references/spec-consistency-analysis.md",
+          "resolved": "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/spec-consistency-analysis.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "sdd-review",
+      "sector": "sdd",
+      "path": "skills/sdd-review/SKILL.md",
+      "source": "sdd-spec-factory",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "sdd-core"
+      ],
+      "triggers": [
+        "review",
+        "qa",
+        "pr"
+      ],
+      "source_sections": [
+        "sdd-spec-factory:013"
+      ],
+      "reference_base": "plugins/sdd-spec-factory/skills/sdd-spec-factory",
+      "reference_fallback": "plugins/sdd-spec-factory",
+      "reference_map": []
+    },
+    {
+      "id": "implementation-core",
+      "sector": "implementation",
+      "path": "skills/implementation-core/SKILL.md",
+      "source": "dev-implementation-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "implementation"
+      ],
+      "source_sections": [
+        "dev-implementation-standard:000",
+        "dev-implementation-standard:001",
+        "dev-implementation-standard:002",
+        "dev-implementation-standard:003",
+        "dev-implementation-standard:005",
+        "dev-implementation-standard:009",
+        "dev-implementation-standard:010",
+        "dev-implementation-standard:011"
+      ],
+      "reference_base": "plugins/dev-implementation-standard/skills/dev-implementation-standard",
+      "reference_fallback": "plugins/dev-implementation-standard",
+      "reference_map": []
+    },
+    {
+      "id": "implementation-delivery",
+      "sector": "implementation",
+      "path": "skills/implementation-delivery/SKILL.md",
+      "source": "dev-implementation-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "implementation-core"
+      ],
+      "triggers": [
+        "implement",
+        "backend",
+        "api",
+        "frontend",
+        "fix",
+        "corrigir"
+      ],
+      "source_sections": [
+        "dev-implementation-standard:004",
+        "dev-implementation-standard:007",
+        "dev-implementation-standard:008"
+      ],
+      "reference_base": "plugins/dev-implementation-standard/skills/dev-implementation-standard",
+      "reference_fallback": "plugins/dev-implementation-standard",
+      "reference_map": []
+    },
+    {
+      "id": "implementation-frontend",
+      "sector": "implementation",
+      "path": "skills/implementation-frontend/SKILL.md",
+      "source": "dev-implementation-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "implementation-core"
+      ],
+      "triggers": [
+        "frontend",
+        "ui",
+        "component",
+        "design"
+      ],
+      "source_sections": [
+        "dev-implementation-standard:006"
+      ],
+      "reference_base": "plugins/dev-implementation-standard/skills/dev-implementation-standard",
+      "reference_fallback": "plugins/dev-implementation-standard",
+      "reference_map": []
+    },
+    {
+      "id": "environment-core",
+      "sector": "environment",
+      "path": "skills/environment-core/SKILL.md",
+      "source": "dev-environment-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "environment"
+      ],
+      "source_sections": [
+        "dev-environment-standard:000",
+        "dev-environment-standard:005",
+        "dev-environment-standard:007"
+      ],
+      "reference_base": "plugins/dev-environment-standard/skills/dev-environment-standard",
+      "reference_fallback": "plugins/dev-environment-standard",
+      "reference_map": [
+        {
+          "original": "references/operations.md",
+          "resolved": "plugins/dev-environment-standard/skills/dev-environment-standard/references/operations.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/state-and-consent.md",
+          "resolved": "plugins/dev-environment-standard/skills/dev-environment-standard/references/state-and-consent.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/mcp-library.json",
+          "resolved": "plugins/dev-environment-standard/skills/dev-environment-standard/references/mcp-library.json",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "environment-bootstrap",
+      "sector": "environment",
+      "path": "skills/environment-bootstrap/SKILL.md",
+      "source": "dev-environment-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "environment-core"
+      ],
+      "triggers": [
+        "bootstrap",
+        "environment"
+      ],
+      "source_sections": [
+        "dev-environment-standard:001",
+        "dev-environment-standard:002"
+      ],
+      "reference_base": "plugins/dev-environment-standard/skills/dev-environment-standard",
+      "reference_fallback": "plugins/dev-environment-standard",
+      "v2_overlays": [
+        "opencode-host-preparation"
+      ],
+      "reference_map": [
+        {
+          "original": "scripts/environment.py",
+          "resolved": "plugins/dev-environment-standard/skills/dev-environment-standard/scripts/environment.py",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "docs/operations/opencode.md",
+          "resolved": "docs/operations/opencode.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "environment-platform-state",
+      "sector": "environment",
+      "path": "skills/environment-platform-state/SKILL.md",
+      "source": "dev-environment-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "environment-core"
+      ],
+      "triggers": [
+        "platform state",
+        "environment"
+      ],
+      "source_sections": [
+        "dev-environment-standard:003",
+        "dev-environment-standard:004",
+        "dev-environment-standard:006"
+      ],
+      "reference_base": "plugins/dev-environment-standard/skills/dev-environment-standard",
+      "reference_fallback": "plugins/dev-environment-standard",
+      "reference_map": []
+    },
+    {
+      "id": "devops-core",
+      "sector": "devops",
+      "path": "skills/devops-core/SKILL.md",
+      "source": "devops-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "devops"
+      ],
+      "source_sections": [
+        "devops-standard:000",
+        "devops-standard:001",
+        "devops-standard:003",
+        "devops-standard:005"
+      ],
+      "reference_base": "plugins/devops-standard/skills/devops-standard",
+      "reference_fallback": "plugins/devops-standard",
+      "reference_map": [
+        {
+          "original": "references/ORIGIN.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/ORIGIN.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "devops-operations",
+      "sector": "devops",
+      "path": "skills/devops-operations/SKILL.md",
+      "source": "devops-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "devops-core"
+      ],
+      "triggers": [
+        "operations",
+        "devops"
+      ],
+      "source_sections": [
+        "devops-standard:002",
+        "devops-standard:004"
+      ],
+      "reference_base": "plugins/devops-standard/skills/devops-standard",
+      "reference_fallback": "plugins/devops-standard",
+      "reference_map": [
+        {
+          "original": "references/devops-operating-model.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/devops-operating-model.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/tool-registry.json",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/tool-registry.json",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/review.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/review.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/github-governance.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/github-governance.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/git-release.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/git-release.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/ci-cd.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/ci-cd.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/containers.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/containers.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/deployments.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/deployments.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/server-operations.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/server-operations.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/infrastructure-as-code.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/infrastructure-as-code.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/kubernetes.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/kubernetes.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/gitops.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/gitops.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/cloud.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/cloud.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/observability.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/observability.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/backup-disaster-recovery.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/backup-disaster-recovery.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/incident-response.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/references/incident-response.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "templates/operational-change.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/templates/operational-change.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "templates/ci-cd-plan.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/templates/ci-cd-plan.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "templates/backup-restore-plan.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/templates/backup-restore-plan.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "templates/finding.md",
+          "resolved": "plugins/devops-standard/skills/devops-standard/templates/finding.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "qa-core",
+      "sector": "qa",
+      "path": "skills/qa-core/SKILL.md",
+      "source": "qa-testing-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "qa"
+      ],
+      "source_sections": [
+        "qa-testing-standard:000",
+        "qa-testing-standard:001",
+        "qa-testing-standard:003",
+        "qa-testing-standard:006"
+      ],
+      "reference_base": "plugins/qa-testing-standard/skills/qa-testing-standard",
+      "reference_fallback": "plugins/qa-testing-standard",
+      "reference_map": [
+        {
+          "original": "references/test-strategy.md",
+          "resolved": "plugins/qa-testing-standard/skills/qa-testing-standard/references/test-strategy.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/bug-report.md",
+          "resolved": "plugins/qa-testing-standard/skills/qa-testing-standard/references/bug-report.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "qa-validation",
+      "sector": "qa",
+      "path": "skills/qa-validation/SKILL.md",
+      "source": "qa-testing-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "qa-core"
+      ],
+      "triggers": [
+        "validation",
+        "qa"
+      ],
+      "source_sections": [
+        "qa-testing-standard:002",
+        "qa-testing-standard:004",
+        "qa-testing-standard:005"
+      ],
+      "reference_base": "plugins/qa-testing-standard/skills/qa-testing-standard",
+      "reference_fallback": "plugins/qa-testing-standard",
+      "v2_overlays": [
+        "evidence-bound-reconstruction-coverage"
+      ],
+      "reference_map": [
+        {
+          "original": "library/reconstruction/README.md",
+          "resolved": "library/reconstruction/README.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "security-core",
+      "sector": "security",
+      "path": "skills/security-core/SKILL.md",
+      "source": "security-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "security"
+      ],
+      "source_sections": [
+        "security-standard:000",
+        "security-standard:001",
+        "security-standard:002",
+        "security-standard:007",
+        "security-standard:009",
+        "security-standard:010"
+      ],
+      "reference_base": "plugins/security-standard/skills/security-standard",
+      "reference_fallback": "plugins/security-standard",
+      "reference_map": []
+    },
+    {
+      "id": "security-review",
+      "sector": "security",
+      "path": "skills/security-review/SKILL.md",
+      "source": "security-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "security-core"
+      ],
+      "triggers": [
+        "review",
+        "security"
+      ],
+      "source_sections": [
+        "security-standard:003",
+        "security-standard:004",
+        "security-standard:005"
+      ],
+      "reference_base": "plugins/security-standard/skills/security-standard",
+      "reference_fallback": "plugins/security-standard",
+      "reference_map": []
+    },
+    {
+      "id": "security-tools-reporting",
+      "sector": "security",
+      "path": "skills/security-tools-reporting/SKILL.md",
+      "source": "security-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "security-core"
+      ],
+      "triggers": [
+        "tools reporting",
+        "security"
+      ],
+      "source_sections": [
+        "security-standard:006",
+        "security-standard:008"
+      ],
+      "reference_base": "plugins/security-standard/skills/security-standard",
+      "reference_fallback": "plugins/security-standard",
+      "reference_map": []
+    },
+    {
+      "id": "product-core",
+      "sector": "product",
+      "path": "skills/product-core/SKILL.md",
+      "source": "studio-prd",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "product"
+      ],
+      "source_sections": [
+        "studio-prd:000",
+        "studio-prd:004"
+      ],
+      "reference_base": "plugins/studio-prd/skills/studio-prd",
+      "reference_fallback": "plugins/studio-prd",
+      "reference_map": []
+    },
+    {
+      "id": "product-discovery",
+      "sector": "product",
+      "path": "skills/product-discovery/SKILL.md",
+      "source": "studio-prd",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "product-core"
+      ],
+      "triggers": [
+        "discovery",
+        "product"
+      ],
+      "source_sections": [
+        "studio-prd:001"
+      ],
+      "reference_base": "plugins/studio-prd/skills/studio-prd",
+      "reference_fallback": "plugins/studio-prd",
+      "v2_overlays": [
+        "evidence-led-product-reconstruction"
+      ],
+      "reference_map": [
+        {
+          "original": "references/briefing.md",
+          "resolved": "plugins/studio-prd/skills/studio-prd/references/briefing.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "library/reconstruction/README.md",
+          "resolved": "library/reconstruction/README.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "product-planning",
+      "sector": "product",
+      "path": "skills/product-planning/SKILL.md",
+      "source": "studio-prd",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "product-core"
+      ],
+      "triggers": [
+        "planning",
+        "product"
+      ],
+      "source_sections": [
+        "studio-prd:002",
+        "studio-prd:003"
+      ],
+      "reference_base": "plugins/studio-prd/skills/studio-prd",
+      "reference_fallback": "plugins/studio-prd",
+      "reference_map": [
+        {
+          "original": "references/briefing.md",
+          "resolved": "plugins/studio-prd/skills/studio-prd/references/briefing.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "assets/briefing-template.md",
+          "resolved": "plugins/studio-prd/skills/studio-prd/assets/briefing-template.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "assets/prd-template.md",
+          "resolved": "plugins/studio-prd/skills/studio-prd/assets/prd-template.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/planning.md",
+          "resolved": "plugins/studio-prd/skills/studio-prd/references/planning.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "assets/plan-template.json",
+          "resolved": "plugins/studio-prd/skills/studio-prd/assets/plan-template.json",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "reverse-engineering-core",
+      "sector": "reverse-engineering",
+      "path": "skills/reverse-engineering-core/SKILL.md",
+      "source": "reverse-engineering-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "reverse-engineering"
+      ],
+      "source_sections": [
+        "reverse-engineering-standard:000",
+        "reverse-engineering-standard:001",
+        "reverse-engineering-standard:003",
+        "reverse-engineering-standard:004"
+      ],
+      "reference_base": "plugins/reverse-engineering-standard/skills/reverse-engineering-standard",
+      "reference_fallback": "plugins/reverse-engineering-standard",
+      "reference_map": [
+        {
+          "original": "references/rea-integration.md",
+          "resolved": "plugins/reverse-engineering-standard/skills/reverse-engineering-standard/references/rea-integration.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/tool-registry.json",
+          "resolved": "plugins/reverse-engineering-standard/skills/reverse-engineering-standard/references/tool-registry.json",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "reverse-engineering-investigation",
+      "sector": "reverse-engineering",
+      "path": "skills/reverse-engineering-investigation/SKILL.md",
+      "source": "reverse-engineering-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "reverse-engineering-core"
+      ],
+      "triggers": [
+        "investigation",
+        "reverse-engineering"
+      ],
+      "source_sections": [
+        "reverse-engineering-standard:002"
+      ],
+      "reference_base": "plugins/reverse-engineering-standard/skills/reverse-engineering-standard",
+      "reference_fallback": "plugins/reverse-engineering-standard",
+      "v2_overlays": [
+        "behavioral-reconstruction-handoff"
+      ],
+      "reference_map": [
+        {
+          "original": "library/reconstruction/README.md",
+          "resolved": "library/reconstruction/README.md",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "seo-core",
+      "sector": "seo",
+      "path": "skills/seo-core/SKILL.md",
+      "source": "seo-standard",
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "core",
+        "seo"
+      ],
+      "source_sections": [
+        "seo-standard:000",
+        "seo-standard:001",
+        "seo-standard:004"
+      ],
+      "reference_base": "plugins/seo-standard/skills/seo-standard",
+      "reference_fallback": "plugins/seo-standard",
+      "reference_map": [
+        {
+          "original": "references/site-delivery.md",
+          "resolved": "plugins/seo-standard/skills/seo-standard/references/site-delivery.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/beyondseo-integration.md",
+          "resolved": "plugins/seo-standard/skills/seo-standard/references/beyondseo-integration.md",
+          "status": "RESOLVED"
+        },
+        {
+          "original": "references/tool-registry.json",
+          "resolved": "plugins/seo-standard/skills/seo-standard/references/tool-registry.json",
+          "status": "RESOLVED"
+        }
+      ]
+    },
+    {
+      "id": "seo-site-analysis",
+      "sector": "seo",
+      "path": "skills/seo-site-analysis/SKILL.md",
+      "source": "seo-standard",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "seo-core"
+      ],
+      "triggers": [
+        "site analysis",
+        "seo"
+      ],
+      "source_sections": [
+        "seo-standard:002",
+        "seo-standard:003"
+      ],
+      "reference_base": "plugins/seo-standard/skills/seo-standard",
+      "reference_fallback": "plugins/seo-standard",
+      "reference_map": []
+    },
+    {
+      "id": "global-core",
+      "sector": "global",
+      "path": "skills/global-core/SKILL.md",
+      "source": "parceiro-estrategico-global",
+      "role": "core",
+      "requires": [],
+      "triggers": [
+        "core",
+        "global"
+      ],
+      "source_sections": [
+        "parceiro-estrategico-global:000",
+        "parceiro-estrategico-global:001",
+        "parceiro-estrategico-global:002",
+        "parceiro-estrategico-global:003",
+        "parceiro-estrategico-global:004",
+        "parceiro-estrategico-global:011",
+        "parceiro-estrategico-global:012",
+        "parceiro-estrategico-global:013",
+        "parceiro-estrategico-global:014",
+        "parceiro-estrategico-global:015",
+        "parceiro-estrategico-global:016"
+      ],
+      "reference_base": "plugins/parceiro-estrategico-global/skills/parceiro-estrategico-global",
+      "reference_fallback": "plugins/parceiro-estrategico-global",
+      "references": [
+        "library/interaction/cto-global.md",
+        "docs/operations/graphify.md"
+      ],
+      "v2_overlays": [
+        "curated-catalog-before-external-research"
+      ],
+      "reference_map": []
+    },
+    {
+      "id": "global-discovery",
+      "sector": "global",
+      "path": "skills/global-discovery/SKILL.md",
+      "source": "parceiro-estrategico-global",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "global-core"
+      ],
+      "triggers": [
+        "discovery",
+        "global"
+      ],
+      "source_sections": [
+        "parceiro-estrategico-global:005",
+        "parceiro-estrategico-global:006",
+        "parceiro-estrategico-global:007",
+        "parceiro-estrategico-global:008"
+      ],
+      "reference_base": "plugins/parceiro-estrategico-global/skills/parceiro-estrategico-global",
+      "reference_fallback": "plugins/parceiro-estrategico-global",
+      "reference_map": []
+    },
+    {
+      "id": "global-marketing-sales",
+      "sector": "global",
+      "path": "skills/global-marketing-sales/SKILL.md",
+      "source": "parceiro-estrategico-global",
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "global-core"
+      ],
+      "triggers": [
+        "marketing sales",
+        "global"
+      ],
+      "source_sections": [
+        "parceiro-estrategico-global:009",
+        "parceiro-estrategico-global:010"
+      ],
+      "reference_base": "plugins/parceiro-estrategico-global/skills/parceiro-estrategico-global",
+      "reference_fallback": "plugins/parceiro-estrategico-global",
+      "reference_map": []
+    },
+    {
+      "id": "architecture-core",
+      "sector": "architecture",
+      "path": "skills/architecture-core/SKILL.md",
+      "source": null,
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "architecture"
+      ],
+      "source_sections": [],
+      "reference_base": ".",
+      "references": [
+        "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-architecture.md"
+      ]
+    },
+    {
+      "id": "data-core",
+      "sector": "data",
+      "path": "skills/data-core/SKILL.md",
+      "source": null,
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "data"
+      ],
+      "source_sections": [],
+      "reference_base": ".",
+      "references": [
+        "plugins/sdd-spec-factory/skills/sdd-spec-factory/references/technical-data-concurrency.md"
+      ]
+    },
+    {
+      "id": "documentation-core",
+      "sector": "documentation",
+      "path": "skills/documentation-core/SKILL.md",
+      "source": null,
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "documentation"
+      ],
+      "source_sections": [],
+      "reference_base": ".",
+      "references": [
+        "docs/operations/documentation.md",
+        "library/documentation-templates/README.md"
+      ]
+    },
+    {
+      "id": "librarian-core",
+      "sector": "librarian",
+      "path": "skills/librarian-core/SKILL.md",
+      "source": null,
+      "role": "core",
+      "requires": [
+        "global-core"
+      ],
+      "triggers": [
+        "librarian"
+      ],
+      "source_sections": [],
+      "reference_base": ".",
+      "references": [
+        "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/capability-registry.md"
+      ]
+    },
+    {
+      "id": "security-audit",
+      "sector": "security",
+      "path": "skills/security-audit/SKILL.md",
+      "source": null,
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "security-core"
+      ],
+      "triggers": [
+        "security audit",
+        "auditoria de segurança",
+        "vulnerability review"
+      ],
+      "source_sections": [],
+      "reference_base": "skills/security-audit",
+      "references": [
+        "skills/security-audit/upstream/SKILL.md"
+      ],
+      "origin": "https://github.com/cloudflare/security-audit-skill",
+      "revision": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+      "license": "MIT",
+      "upstream_directory": "skills/security-audit/upstream",
+      "upstream_sha256": {
+        "AI-AND-LLM.md": "7335a95c43554eadefcf03ece639291bb0e038c398a179299e3887ffe06bd2ef",
+        "ATTACK-CLASSES.md": "3ee4f00c6e8c9dcf6dd02dd5ac2a4ceb322e2085f3e9fbe79cf0c6330bc7ef83",
+        "CLIENT-SIDE.md": "613f6b98f86083e045525c5b60154ffdab122bac35f1e05eb17488e6e453370c",
+        "CLOUD-AND-DEPLOYMENT.md": "3c80f3088be22345e07b057c056d6ed99fe2b0304f794398964f7ccd5a496ca3",
+        "DATA-ISOLATION-AND-LIFECYCLE.md": "307dcb3e24d292715c4a041190e7bb135646a37eb6187619ae01d000a634a4ad",
+        "DESKTOP-MOBILE-AND-LOCAL-IPC.md": "58eae8ee0ca6a46611c501ec5a3ab47fdff88dd7db0d8d74789bbf8bb19d8cb2",
+        "HUNTING.md": "71c121decea1322c47c718f6e110f1a892980bb4266bd7ac55ef043a213ade09",
+        "LICENSE": "e598e694aa506650c7192d5ea3be0e50aca0d356ea00551c53429f0b01eb6391",
+        "MEMORY-SAFETY-AND-BINARY.md": "7c8b0dccfb35315cca2455509674d49632b2fe37e1f3aac16c1a496a7e9924a7",
+        "PROTOCOLS-RPC-AND-MESSAGING.md": "8b73816fa5b3697c9c40977f0c836b40f01d6e81929ff2720fe83ce089e9a619",
+        "RECONNAISSANCE.md": "02ca887aca84de8ae137f1891bd2f0a54f28d3fa6da92a27f54734382b3381a2",
+        "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md": "4326fab5c92a0b4c420a70196254040105cd794026562130b59bf1a6db3e4baa",
+        "SKILL.md": "5e3e96a1e438d8f35fef0a1e38f02d4f00e2bdf910401b7dfe00e6779c6dac85",
+        "SUPPLY-CHAIN-AND-RELEASE.md": "f372e919940e335468ba1ae09f99026c3986a345f7fe26f8068f132e199f52a5",
+        "VALIDATION-AND-REPORTING.md": "b892470cb89bb31f33403e050d4bdfbe2cdaef940ade1496fa65e32b2e129449",
+        "WEB-PROTOCOL-AND-AUTH.md": "4f3066dffa23c5635859187be9b96c32f2aff29a688186b91ff0c63e47d62b5c",
+        "report-schema.json": "6575c9de4a62255699ea052ebf9a49ebfb373a32891bcd89af6f55cc84b35519",
+        "validate-coverage-ledger.cjs": "2eb280bd2e33c002916f86db9b29f9edfedb6454e5db973c766290465b868ac8",
+        "validate-coverage-ledger.test.cjs": "cfb9df26b03469a4279a70e7664a2a5434dd6f8c2c204e91f9b0aeb9dd71e648",
+        "validate-findings.cjs": "e85f232e36bfac0f866f244da50376692d6b45c690beadcb00608b0e6c8b5283",
+        "validate-findings.test.cjs": "b92001117a92c4161d43777a0ba2fa182a8a4d97f2304cc8c0cee5331497b73b"
+      },
+      "status": "INTEGRATED_NOT_AUDIT_VALIDATED",
+      "integration_role": "second-audit",
+      "after": "existing Security review",
+      "description": "Cloudflare second security audit; independent investigation followed by evidence reconciliation."
+    },
+    {
+      "id": "apple-hig-designer",
+      "sector": "ux",
+      "path": "skills/apple-hig-designer/SKILL.md",
+      "source": null,
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "ux-core"
+      ],
+      "triggers": [
+        "apple hig",
+        "Apple-inspired",
+        "iOS",
+        "macOS"
+      ],
+      "source_sections": [],
+      "reference_base": "skills/apple-hig-designer",
+      "references": [
+        "skills/apple-hig-designer/upstream/GUIDE.md"
+      ],
+      "origin": "https://github.com/axiaoge2/Apple-Hig-Designer",
+      "revision": "ff17b91ff2903ecd52940afabf97de5a73c9cd1b",
+      "license": "MIT",
+      "upstream_directory": "skills/apple-hig-designer/upstream",
+      "upstream_sha256": {
+        "GUIDE.md": "2d103e415964a97e9d9bb961857a38516dce4dcc46f53d27448f52fc7bc30ae4",
+        "LICENSE": "3106a684e633b8bec89b632a13f0519145d479b40dfdb80b8dea772cbad3f51d",
+        "REFERENCE.md": "eec21d86dcf7246bbb086d7739690aabba8bc9b4f779d46e563b94dc7ee132f6",
+        "provenance.json": "f45f270cc79296c13a287a82c4ff78b287694cd08c5e01cebb334ca7d98a6761",
+        "resources/components.jsx": "927302405667aa00a69b248af04b4ef4baba1945ece4e198b47761bac2aef8c7",
+        "resources/design-tokens.css": "c134b60ee0c88646bf875d109472c64804e34401f12830b677a1b228346e71f3",
+        "resources/ui-patterns.md": "683fef501929f0cffaebe1e2123da5bdf5dcef34bdc2465732cc2cadaaa6da1d"
+      },
+      "status": "INTEGRATED_NOT_VISUAL_VALIDATED"
+    },
+    {
+      "id": "delivery-metrics",
+      "sector": "orchestrator",
+      "path": "skills/delivery-metrics/SKILL.md",
+      "source": null,
+      "role": "capability",
+      "requires": [
+        "global-core",
+        "orchestrator-core"
+      ],
+      "triggers": [
+        "delivery metrics",
+        "client report",
+        "Task closure",
+        "progresso",
+        "portal do cliente"
+      ],
+      "source_sections": [],
+      "reference_base": ".",
+      "references": [
+        "docs/operations/delivery-lifecycle.md",
+        "skills/delivery-metrics/references/measurement.md",
+        "library/integrations/client-portal.md"
+      ],
+      "description": "Verified baseline progress and client-safe report preparation."
+    }
+  ],
+  "sectors": {
+    "orchestrator": {
+      "core": [
+        "orchestrator-core"
+      ],
+      "capabilities": [
+        "orchestrator-discovery",
+        "orchestrator-task-governance",
+        "orchestrator-delegation",
+        "orchestrator-review",
+        "delivery-metrics"
+      ]
+    },
+    "ux": {
+      "core": [
+        "ux-core"
+      ],
+      "capabilities": [
+        "ux-components",
+        "ux-design-system",
+        "ux-visual-validation",
+        "apple-hig-designer"
+      ]
+    },
+    "sdd": {
+      "core": [
+        "sdd-core"
+      ],
+      "capabilities": [
+        "sdd-discovery",
+        "sdd-specifications",
+        "sdd-task-contracts",
+        "sdd-review"
+      ]
+    },
+    "implementation": {
+      "core": [
+        "implementation-core"
+      ],
+      "capabilities": [
+        "implementation-delivery",
+        "implementation-frontend"
+      ]
+    },
+    "environment": {
+      "core": [
+        "environment-core"
+      ],
+      "capabilities": [
+        "environment-bootstrap",
+        "environment-platform-state"
+      ]
+    },
+    "devops": {
+      "core": [
+        "devops-core"
+      ],
+      "capabilities": [
+        "devops-operations"
+      ]
+    },
+    "qa": {
+      "core": [
+        "qa-core"
+      ],
+      "capabilities": [
+        "qa-validation"
+      ]
+    },
+    "security": {
+      "core": [
+        "security-core"
+      ],
+      "capabilities": [
+        "security-review",
+        "security-tools-reporting",
+        "security-audit"
+      ]
+    },
+    "product": {
+      "core": [
+        "product-core"
+      ],
+      "capabilities": [
+        "product-discovery",
+        "product-planning"
+      ]
+    },
+    "reverse-engineering": {
+      "core": [
+        "reverse-engineering-core"
+      ],
+      "capabilities": [
+        "reverse-engineering-investigation"
+      ]
+    },
+    "seo": {
+      "core": [
+        "seo-core"
+      ],
+      "capabilities": [
+        "seo-site-analysis"
+      ]
+    },
+    "global": {
+      "core": [
+        "global-core"
+      ],
+      "capabilities": [
+        "global-discovery",
+        "global-marketing-sales"
+      ]
+    },
+    "frontend": {
+      "core": [
+        "implementation-core"
+      ],
+      "capabilities": [
+        "implementation-delivery",
+        "implementation-frontend"
+      ]
+    },
+    "backend": {
+      "core": [
+        "implementation-core"
+      ],
+      "capabilities": [
+        "implementation-delivery",
+        "implementation-frontend"
+      ]
+    },
+    "data": {
+      "core": [
+        "data-core"
+      ],
+      "capabilities": []
+    },
+    "ux-design": {
+      "core": [
+        "ux-core"
+      ],
+      "capabilities": [
+        "ux-components",
+        "ux-design-system",
+        "ux-visual-validation",
+        "apple-hig-designer"
+      ]
+    },
+    "governance": {
+      "core": [
+        "orchestrator-core"
+      ],
+      "capabilities": [
+        "orchestrator-discovery",
+        "orchestrator-task-governance",
+        "orchestrator-delegation",
+        "orchestrator-review",
+        "delivery-metrics"
+      ]
+    },
+    "architecture": {
+      "core": [
+        "architecture-core"
+      ],
+      "capabilities": []
+    },
+    "documentation": {
+      "core": [
+        "documentation-core"
+      ],
+      "capabilities": []
+    },
+    "librarian": {
+      "core": [
+        "librarian-core"
+      ],
+      "capabilities": []
+    }
+  },
+  "source_commit": "af94e8022eaec3e4eedfb4a2a62e13c6b349b9c4",
+  "global_required": [
+    "global-core"
+  ]
+}

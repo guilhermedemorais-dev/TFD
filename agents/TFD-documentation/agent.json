@@ -1,0 +1,22 @@
+{
+  "name": "TFD-documentation",
+  "sector": "documentation",
+  "description": "Write internal docs and user help from verified, human-reviewed module behavior.",
+  "activates_on": [
+    "documentar o módulo aprovado",
+    "escrever tutorial de uso"
+  ],
+  "inputs": [
+    "Human-reviewed PR and local behavior",
+    "Current code and QA evidence"
+  ],
+  "outputs": [
+    "Technical project docs",
+    "Versioned user tutorial"
+  ],
+  "gate": "G8",
+  "validator": "harness",
+  "skills": [
+    "TFD-documentation"
+  ]
+}

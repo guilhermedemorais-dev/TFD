@@ -1,0 +1,22 @@
+{
+  "name": "TFD-ui_ux",
+  "sector": "ui_ux",
+  "description": "Specify interaction and design system behavior and review visual alignment.",
+  "activates_on": [
+    "definir design system do módulo",
+    "revisar o guia visual"
+  ],
+  "inputs": [
+    "Approved PRD and Discovery",
+    "Existing design assets and components"
+  ],
+  "outputs": [
+    "Design guide and interaction spec",
+    "Visual review evidence"
+  ],
+  "gate": "G6/G7",
+  "validator": "TFD-qa_ui",
+  "skills": [
+    "TFD-ui_ux"
+  ]
+}

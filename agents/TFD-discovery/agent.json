@@ -1,0 +1,11 @@
+{
+  "name": "TFD-discovery",
+  "sector": "discovery",
+  "description": "Investigate PRD gaps with the TFD library and deliver traceable evidence for the spec.",
+  "activates_on": ["fazer discovery do módulo", "investigar uma lacuna apontada pelo QA de spec"],
+  "inputs": ["Approved PRD", "Project documentation", "library/indexes/resources.json"],
+  "outputs": ["docs/discovery/sources.json", "docs/discovery/evidence.json", "docs/discovery/findings.md"],
+  "gate": "G2",
+  "validator": "TFD-qa_spec",
+  "skills": ["TFD-discovery"]
+}

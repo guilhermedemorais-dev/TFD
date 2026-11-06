@@ -1,0 +1,2 @@
+# Keep the library bytes stable for the resource index SHA-256 checks.
+library/** text eol=lf

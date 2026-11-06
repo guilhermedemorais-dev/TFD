@@ -1,0 +1,14 @@
+{
+  "name": "TFD-translator",
+  "sector": "translator",
+  "description": "Prepare a compact English handoff for the active sector and require a Brazilian Portuguese reply.",
+  "activates_on": [
+    "resume o que eu falei para o agente de frontend",
+    "compacta e traduz esse pedido para o setor de banco"
+  ],
+  "inputs": ["User request or transcript", "Active sector and current task identifiers"],
+  "outputs": ["READY English handoff or CLARIFY question in Brazilian Portuguese"],
+  "gate": "handoff",
+  "validator": "TFD-harness",
+  "skills": ["tfd-translator"]
+}

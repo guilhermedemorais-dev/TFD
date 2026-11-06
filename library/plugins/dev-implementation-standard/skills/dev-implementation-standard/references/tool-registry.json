@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "owner": "dev-implementation-standard",
+  "tools": [
+    {"id": "python-unittest", "capabilities": ["python-unit-testing"], "repository": "https://github.com/python/cpython", "command": "python3", "verify_args": ["--version"], "install_policy": "system-or-project-runtime"},
+    {"id": "pytest", "capabilities": ["python-unit-testing", "python-integration-testing"], "repository": "https://github.com/pytest-dev/pytest", "command": "pytest", "verify_args": ["--version"], "install_policy": "project-approved-dependency"},
+    {"id": "pytest-cov", "capabilities": ["python-test-coverage"], "repository": "https://github.com/pytest-dev/pytest-cov", "command": "pytest", "verify_distribution": "pytest-cov", "install_policy": "project-approved-dependency"},
+    {"id": "hypothesis", "capabilities": ["property-based-testing"], "repository": "https://github.com/HypothesisWorks/hypothesis", "command": "pytest", "verify_distribution": "hypothesis", "install_policy": "project-approved-dependency"},
+    {"id": "ruff", "capabilities": ["python-linting", "python-formatting"], "repository": "https://github.com/astral-sh/ruff", "command": "ruff", "verify_args": ["--version"], "install_policy": "project-approved-dependency"},
+    {"id": "mypy", "capabilities": ["python-type-checking"], "repository": "https://github.com/python/mypy", "command": "mypy", "verify_args": ["--version"], "install_policy": "project-approved-dependency"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "owner": "ui-ux-standard",
+  "tools": [
+    {"id": "playwright", "capabilities": ["browser-runtime-validation", "visual-validation", "accessibility-checks"], "repository": "https://github.com/microsoft/playwright", "command": "playwright", "verify_args": ["--version"], "install_policy": "project-approved-dependency"}
+  ]
+}

@@ -1,0 +1,318 @@
+{
+  "schema_version": 2,
+  "contract_revision": "1",
+  "task_id": "TASK-XXX",
+  "human_task": {
+    "representation": "github_issue",
+    "issue_url": "https://github.com/OWNER/REPOSITORY/issues/NUMBER",
+    "local_mirror": "docs/tasks/TASK-XXX-slug.md",
+    "normative_equivalence": "The GitHub Issue and this JSON contain the same approved normative requirements. Runtime evidence remains in Issue comments and receipts."
+  },
+  "summary": "Resumo curto para identificar a entrega sem abrir todos os detalhes.",
+  "goal": "Resultado de negócio e técnico que esta task deve entregar.",
+  "current_state": "Comportamento observado antes da mudança.",
+  "expected_result": "Comportamento observável após a mudança.",
+  "scope": [
+    "Item incluído"
+  ],
+  "out_of_scope": [
+    "Item explicitamente excluído"
+  ],
+  "allowed_paths": [
+    "path/to/allowed/scope/**"
+  ],
+  "protected_paths": [
+    "path/to/protected/scope/**"
+  ],
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "description": "Requisito verificável",
+      "source": "task:#requisitos",
+      "priority": "MUST"
+    }
+  ],
+  "business_rules": [
+    {
+      "id": "RN-01",
+      "description": "Regra de negócio verificável",
+      "source": "docs/specs/module/validation-rules.md#rn-01"
+    }
+  ],
+  "specs": [
+    "docs/specs/module/module-spec.md",
+    "docs/specs/module/validation-rules.md"
+  ],
+  "docs": [
+    "README.md"
+  ],
+  "references": [
+    {
+      "id": "REF-01",
+      "title": "Referência validada",
+      "source_url": "https://example.com/reference",
+      "project_path": "docs/biblioteca-referencias/topic/reference.md",
+      "section": "#secao-obrigatoria",
+      "purpose": "Decisão que esta fonte sustenta",
+      "applies_to": [
+        "MT-01"
+      ]
+    }
+  ],
+  "design": {
+    "applicability": "N/A",
+    "guide": "N/A",
+    "tokens": "N/A",
+    "visual_references": [],
+    "component_library": "N/A",
+    "mockup": "N/A",
+    "reason_if_na": "Replace with a verified UI/UX applicability decision"
+  },
+  "microtasks": [
+    {
+      "id": "MT-01",
+      "title": "Implementar recorte verificável",
+      "summary": "Mudança pequena, atribuível e testável.",
+      "owner_skill": "dev-implementation-standard",
+      "owner_plugin": "dev-implementation-standard",
+      "capability": "implementation",
+      "preferred_tool": "repository-native-tooling",
+      "depends_on": [],
+      "references": [
+        "REF-01"
+      ],
+      "allowed_paths": [
+        "path/to/allowed/scope/**"
+      ],
+      "checklist": [
+        "Criar teste que falha",
+        "Implementar o mínimo",
+        "Executar validação"
+      ],
+      "deliverables": [
+        "Código e testes do recorte"
+      ],
+      "completion_condition": "Critérios do recorte passam com evidência atual.",
+      "validator": "qa-testing-standard"
+    }
+  ],
+  "execution_lists": [
+    {
+      "list_id": "MT-01/checklist",
+      "owner_skill": "dev-implementation-standard",
+      "phase": "implementation",
+      "objective": "Implementar o recorte aprovado com testes e evidência observável.",
+      "microtask_ids": ["MT-01"],
+      "depends_on": [],
+      "references": ["REF-01"],
+      "allowed_paths": ["path/to/allowed/scope/**"],
+      "protected_paths": ["path/to/protected/scope/**"],
+      "deliverables": ["Código e testes do recorte"],
+      "completion_condition": "Critérios do recorte passam com evidência atual.",
+      "required_tests": ["TEST-01"],
+      "acceptance_criteria": ["AC-01"],
+      "stop_conditions": ["mandatory_reference_missing", "source_of_truth_conflict", "authorization_required"],
+      "checklist": [
+        {"instruction": "Criar teste que falha."},
+        {"instruction": "Implementar o mínimo."},
+        {"instruction": "Executar validação."}
+      ]
+    }
+  ],
+  "sectors": {
+    "database": {
+      "owner": "dev-implementation-standard",
+      "applicability": "N/A",
+      "reason": "Substituir por decisão verificada",
+      "depends_on": [],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": []
+    },
+    "backend": {
+      "owner": "dev-implementation-standard",
+      "applicability": "N/A",
+      "reason": "Substituir por decisão verificada",
+      "depends_on": [],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": []
+    },
+    "frontend": {
+      "owner": "dev-implementation-standard",
+      "applicability": "N/A",
+      "reason": "Substituir por decisão verificada",
+      "depends_on": [],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": []
+    },
+    "ui_ux": {
+      "owner": "ui-ux-standard",
+      "applicability": "N/A",
+      "reason": "Substituir por decisão verificada",
+      "depends_on": [],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": []
+    },
+    "qa": {
+      "owner": "qa-testing-standard",
+      "applicability": "REQUIRED",
+      "reason": "Validação funcional independente",
+      "depends_on": [
+        "documentation"
+      ],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": [
+        "functional-qa"
+      ]
+    },
+    "security": {
+      "owner": "security-standard",
+      "applicability": "N/A",
+      "reason": "Substituir por decisão de risco verificada",
+      "depends_on": [],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": []
+    },
+    "devops": {
+      "owner": "devops-standard",
+      "applicability": "N/A",
+      "reason": "Substituir por decisão operacional verificada",
+      "depends_on": [],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": []
+    },
+    "observability": {
+      "owner": "devops-standard",
+      "applicability": "N/A",
+      "reason": "Substituir por decisão de instrumentação verificada",
+      "depends_on": [],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": []
+    },
+    "documentation": {
+      "owner": "dev-implementation-standard",
+      "applicability": "REQUIRED",
+      "reason": "Manter contrato e documentação sincronizados",
+      "depends_on": [],
+      "microtasks": [
+        "MT-01"
+      ],
+      "required_sources": [
+        "REF-01"
+      ],
+      "required_validations": [
+        "documentation-review"
+      ]
+    },
+    "harness": {
+      "owner": "dev-workflow-standard",
+      "applicability": "REQUIRED",
+      "reason": "Reconciliação final obrigatória",
+      "depends_on": [
+        "qa",
+        "documentation"
+      ],
+      "microtasks": [],
+      "required_sources": [],
+      "required_validations": [
+        "sector-reconciliation"
+      ]
+    }
+  },
+  "pipeline": [
+    "collaborative_discovery_sdd",
+    "publish_discovery_sdd_completed",
+    "human_approval",
+    "environment_capability_readiness",
+    "implementation",
+    "executor_tests",
+    "independent_functional_qa",
+    "independent_security_qa",
+    "independent_ui_ux_qa",
+    "devops_observability_validation",
+    "rework_retest",
+    "pull_request_gate",
+    "harness_final_gate",
+    "human_acceptance_merge",
+    "separately_authorized_deploy"
+  ],
+  "gates": {
+    "discovery": "Published DISCOVERY_SDD_COMPLETED comment and human approval",
+    "implementation": "Approved microtasks, executor tests and current receipts",
+    "independent_validation": "Every REQUIRED sector validated by its owner",
+    "pull_request": "Issue, JSON, specs, revision and evidence reconciled",
+    "harness_final": "All REQUIRED sectors current and no unresolved blocker",
+    "merge": "Explicit human acceptance",
+    "deploy": "Separate explicit human authorization"
+  },
+  "required_tests": [
+    {
+      "id": "TEST-01",
+      "type": "unit",
+      "command": "project-native test command",
+      "expected": "exit 0"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "description": "Resultado observável e testável",
+      "validation": "TEST-01"
+    }
+  ],
+  "stop_conditions": [
+    "architecture_change_required",
+    "scope_expansion_required",
+    "mandatory_reference_missing",
+    "source_of_truth_conflict",
+    "human_task_json_divergence",
+    "authorization_required"
+  ],
+  "execution_prompt": {
+    "instruction": "Keep all execution_lists in this single JSON file, never embedded in the Human Task or split into per-list JSON files. Harness verifies normative equivalence of the Human Task and this file, then supplies one prompt per list pointing to execution_contract_path and list_id. Specialists read the file, select the identified execution_lists entry and inherit global constraints, required sources, tests and dependencies. Verify task identity, contract revision, owner and current Harness evidence without reading the Human Task. Execute only the selected approved list and its subitems, return evidence and receipts, and never merge or deploy without explicit authorization.",
+    "required_checkpoints": [
+      "DISCOVERY_SDD_COMPLETED",
+      "RUNNING",
+      "VALIDATING",
+      "REWORK",
+      "BLOCKED",
+      "COMPLETED"
+    ]
+  },
+  "reporting": {
+    "issue_comment_required": true,
+    "publication_evidence_requirement": "returned comment URL or identifier",
+    "token_usage_fields": [
+      "input_tokens",
+      "output_tokens",
+      "total_tokens",
+      "measurement_source"
+    ],
+    "changed_surface_fields": [
+      "changed_files",
+      "issue_changes",
+      "json_spec_reference_changes",
+      "remote_mutations",
+      "code_changed",
+      "branch",
+      "commit",
+      "pull_request"
+    ],
+    "unavailable_value": "NOT_AVAILABLE",
+    "storage_rule": "Actual token counts, changed surface and publication evidence live in Issue comments and receipts, not in this normative contract."
+  },
+  "discovery": {
+    "questions_and_answers": [],
+    "research": [],
+    "decisions": [],
+    "open_hypotheses": [],
+    "approval_requirement": "Publish the Discovery report, then obtain human approval before implementation."
+  }
+}

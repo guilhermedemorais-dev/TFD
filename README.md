@@ -1,5 +1,9 @@
 ﻿# The Factory Developer (TFD)
 
+**Primeira instalação no Codex Desktop?** Abra o
+[guia de instalação e uso](docs/GUIA-CODEX.md) ou copie o
+[prompt de instalação](docs/GUIA-CODEX.md#prompt-de-instalação).
+
 Reconstrução do harness, setor por setor, a partir do que o V2 provou e do que ele
 errou. O V2 fica **somente leitura** até o V3 passar em uma entrega real.
 

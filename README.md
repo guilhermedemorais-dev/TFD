@@ -1,6 +1,6 @@
 ﻿# The Factory Developer (TFD)
 
-**Primeira instalação no Codex Desktop?** Abra o
+**Primeira instalação no Codex?** Abra o
 [guia de instalação e uso](docs/GUIA-CODEX.md) ou copie o
 [prompt de instalação](docs/GUIA-CODEX.md#prompt-de-instalação).
 

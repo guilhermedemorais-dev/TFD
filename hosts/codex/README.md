@@ -1,5 +1,8 @@
 # Codex adapter
 
+Start with the [installation guide and prompt for Windows and Linux](../../docs/GUIA-CODEX.md).
+The setup examples below use Windows PowerShell.
+
 The plugin root contains the native manifest and local marketplace. From that
 root, inspect the listing and install on the selected Codex profile:
 

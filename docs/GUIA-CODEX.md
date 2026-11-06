@@ -1,17 +1,35 @@
-> Contexto TFD · 797 palavras · 1349 tokens (o200k_base)
+> Contexto TFD · 1031 palavras · 1788 tokens (o200k_base)
 
-# TFD no Codex Desktop
+# TFD no Codex
 
 O TFD coordena a entrega de um módulo, do briefing ao aceite. Instale o plugin
 uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
 
-## Instalação no Windows
+## Instalação no Windows e no Linux
 
 1. Baixe e extraia a Biblioteca-skill. Guarde `plugins/the-factory-developer`
-   numa pasta permanente, com `.agents/` e `.codex-plugin/`. Abra o PowerShell
-   nessa pasta, com o Codex Desktop, o CLI `codex` e Python 3.10+ disponíveis.
-2. Confira `codex --version` e `python --version`. Registre a pasta como catálogo
-   local e instale o plugin. Rode uma linha por vez e pare se houver erro.
+   numa pasta permanente, com `.agents/` e `.codex-plugin/`. Abra o terminal
+   nessa pasta, no mesmo ambiente em que o Codex vai executar o TFD.
+2. Confira `codex --version` e Python 3.10+ com suporte a `venv` e `pip`.
+   Instale os pré-requisitos que faltarem para o sistema detectado.
+
+   - **Windows.** Use o PowerShell e confira `python --version`. Se precisar
+     instalar Python, use o instalador oficial do Python ou o pacote oficial
+     correspondente no WinGet.
+   - **Linux.** Use um shell compatível com Bash e confira `python3 --version`.
+     Leia `/etc/os-release` e use o gerenciador da distribuição para instalar
+     o Python e o suporte a ambientes virtuais. Em Debian e Ubuntu com o
+     Python padrão, por exemplo, os pacotes são `python3` e `python3-venv`.
+     Se o Codex executar dentro do WSL, use o CLI e o perfil Linux.
+
+   Se o comando `codex` estiver ausente, siga o
+   [guia oficial de instalação do Codex CLI](https://learn.chatgpt.com/docs/cli#install-codex).
+
+3. Registre o catálogo local e instale o plugin. Se o catálogo já estiver
+   cadastrado, confira o caminho com `codex plugin marketplace list`. Rode
+   uma linha por vez e resolva qualquer erro antes de seguir.
+
+   **Windows**
 
    ```powershell
    codex plugin marketplace add (Get-Location).Path --json
@@ -19,13 +37,17 @@ uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
    codex plugin add the-factory-developer@tfd-local --json
    ```
 
-   Se o catálogo já estiver cadastrado, use `codex plugin marketplace list`
-   para conferir se aponta para a pasta correta antes de instalar. Se o CLI
-   tiver o comando de catálogo mas faltar `plugin add`, reinicie o Desktop e
-   instale **The Factory Developer** pelo catálogo **TFD local**. Veja o
-   [guia oficial de catálogos locais](https://developers.openai.com/plugins/build/plugins#add-a-marketplace-from-the-cli).
+   **Linux**
 
-3. Prepare o ambiente Python e registre os agentes no perfil que o Desktop usa.
+   ```bash
+   codex plugin marketplace add "$PWD" --json
+   codex plugin list --marketplace tfd-local --available --json
+   codex plugin add the-factory-developer@tfd-local --json
+   ```
+
+4. Prepare o ambiente Python isolado e registre os agentes no perfil ativo.
+
+   **Windows**
 
    ```powershell
    $tfdVenv = Join-Path $env:LOCALAPPDATA 'TFD\python'
@@ -36,17 +58,29 @@ uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
    & $tfdPython -B scripts/context_budget.py README.md
    ```
 
-   A primeira instalação do Python baixa as dependências declaradas e o
-   vocabulário do tokenizer. Espere a confirmação de 15 agentes registrados e
-   a contagem do README. Se o Desktop usar outro perfil, use o caminho dele em
-   `$tfdProfile`.
-4. Inclua o bloco [Tradutor TFD](../hosts/codex/automatic-agents.md) no
+   **Linux**
+
+   ```bash
+   tfd_venv="${XDG_DATA_HOME:-$HOME/.local/share}/TFD/python"
+   tfd_profile="${CODEX_HOME:-$HOME/.codex}"
+   python3 -B scripts/install_python.py --venv "$tfd_venv"
+   tfd_python="$tfd_venv/bin/python"
+   "$tfd_python" -B scripts/install_codex_agents.py --agents-dir "$tfd_profile/agents"
+   "$tfd_python" -B scripts/context_budget.py README.md
+   ```
+
+   O instalador baixa os binários das versões fixadas em `requirements.txt`
+   para o sistema, o Python e a arquitetura, além do vocabulário do tokenizer.
+   Espere a confirmação de 15 agentes registrados e a contagem do README.
+   Se o Codex usar outro perfil, informe o caminho dele.
+5. Inclua o bloco [Tradutor TFD](../hosts/codex/automatic-agents.md) no
    `AGENTS.md` global do perfil, preservando as instruções existentes. Se já
    houver um bloco TFD, atualize-o no lugar. Se existir
    `AGENTS.override.md` global, confira qual arquivo está ativo antes de editar.
    Esse bloco chama o Tradutor a cada mensagem e encaminha trabalho TFD ao
    agente do setor. Veja a [ordem de leitura do AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
-5. Reinicie o Desktop e abra um chat novo na pasta do projeto. Digite
+6. Abra uma sessão nova na pasta do projeto. Se usar o Desktop, reinicie o
+   app. Se usar o CLI, execute `codex` na pasta do projeto. Digite
    **“Me dá um relatório de onde estamos neste projeto.”** Confira na
    atividade se aparecem `tfd_translator` e `tfd_harness`. O relatório é
    somente leitura e deve mostrar o que encontrou, pendências e o próximo
@@ -60,16 +94,23 @@ Abra um chat do Codex na pasta extraída `plugins/the-factory-developer` e
 cole este bloco.
 
 ```text
-Install and configure the TFD plugin from this folder on this Windows machine.
-Follow docs/GUIA-CODEX.md and hosts/codex/README.md. Verify the package root,
-Codex CLI, Python 3.10+, and the profile used by Codex Desktop. Register the
-local marketplace, install the plugin, prepare the isolated Python environment,
-and register the native TFD agents. Merge the single Tradutor TFD block from
-hosts/codex/automatic-agents.md into the active global instructions file.
-Preserve existing settings and custom agents. Use the provided Python readers.
-Stop at any failed prerequisite. Report actual commands, exit codes, installed
-version, and changes in Brazilian Portuguese. Give me the new-chat smoke test
-from the guide. Treat Desktop behavior as pending until observed in a new chat.
+Install and configure TFD from this folder. Read docs/GUIA-CODEX.md.
+Detect the OS and architecture of the Codex runtime first. On Linux, read
+/etc/os-release and identify the distro package manager. If running under
+WSL, verify which side runs Codex and use that side's tools and profile.
+Use the Windows or Linux instructions from the guide. Report unsupported OSes.
+Verify the package root, Codex CLI and Python 3.10+ with a working venv and pip.
+Install missing prerequisites only, using the official Codex installer and
+the detected OS's official packages as applicable. On Debian and Ubuntu,
+check for the matching python3-venv package. Follow host rules for elevation.
+Run scripts/install_python.py in a user-owned venv to fetch the pinned
+requirements and tokenizer for this OS and architecture.
+Register the local marketplace, install TFD and register its native agents.
+Merge the single Tradutor TFD block from hosts/codex/automatic-agents.md into
+the active global instructions file. Preserve existing settings and agents.
+Run the local checks. Report OS, dependency and install results, commands,
+exit codes and blockers in Brazilian Portuguese. Give the new-session test
+from the guide. Mark agent behavior pending until observed in a new session.
 ```
 
 ## Uso no projeto

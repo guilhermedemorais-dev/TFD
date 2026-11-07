@@ -8,7 +8,8 @@ Atualizado em 2026-11-05. Este arquivo é a fonte de verdade para retomar em out
 
 - **Pronto.** Harness, task única por módulo com JSON canônico e visão humana, subagentes nativos e Tradutor. Token Usage usa o Python para separar consumo acumulado da janela de contexto e indica `/compact` no rodapé a partir de 80% arredondados. O leitor confirmou 81% neste chat.
 - **Complementar.** Oficina `0.1.1` instalada separadamente, commit local `318ca52`. Faz auditoria e manutenção autorizada. Candidatos externos servem de referência para adaptações locais ao padrão TFD.
-- **Pendente.** Confirmar o aviso de contexto em um novo chat do Desktop e validar o fluxo completo do TFD em um módulo real no host. A Biblioteca-skill recebeu apenas as pastas de catálogo no commit `43bfd4b`. O código do TFD e da Oficina segue em repositórios locais.
+- **Pendente.** Confirmar o aviso de contexto em um novo chat do Desktop e validar o fluxo completo do TFD em um módulo real no host.
+- **Repositório.** O [TFD](https://github.com/guilhermedemorais-dev/TFD) tem repositório próprio. O [guia de instalação](GUIA-CODEX.md) inclui o prompt para Windows e Linux. Os testes ficam no Git e o ZIP de instalação exclui a pasta `tests/`.
 
 Para retomar, abra um chat novo na pasta do TFD, leia esta seção e execute apenas o próximo pedido do usuário.
 

@@ -1,4 +1,4 @@
-> Contexto TFD · 1031 palavras · 1788 tokens (o200k_base)
+> Contexto TFD · 1053 palavras · 1819 tokens (o200k_base)
 
 # TFD no Codex
 
@@ -7,9 +7,10 @@ uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
 
 ## Instalação no Windows e no Linux
 
-1. Baixe e extraia a Biblioteca-skill. Guarde `plugins/the-factory-developer`
-   numa pasta permanente, com `.agents/` e `.codex-plugin/`. Abra o terminal
-   nessa pasta, no mesmo ambiente em que o Codex vai executar o TFD.
+1. Baixe e extraia o [ZIP de instalação do TFD](https://github.com/guilhermedemorais-dev/TFD/archive/refs/heads/main.zip).
+   Guarde a pasta extraída num local permanente, com `.agents/` e
+   `.codex-plugin/`. Abra o terminal na raiz do TFD, no mesmo ambiente em que
+   o Codex vai executar o plugin.
 2. Confira `codex --version` e Python 3.10+ com suporte a `venv` e `pip`.
    Instale os pré-requisitos que faltarem para o sistema detectado.
 
@@ -90,8 +91,8 @@ uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
 
 ## Prompt de instalação
 
-Abra um chat do Codex na pasta extraída `plugins/the-factory-developer` e
-cole este bloco.
+Abra um chat do Codex na raiz extraída do TFD, onde fica
+`.codex-plugin/plugin.json`, e cole este bloco.
 
 ```text
 Install and configure TFD from this folder. Read docs/GUIA-CODEX.md.

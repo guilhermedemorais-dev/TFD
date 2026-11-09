@@ -25,13 +25,13 @@
         "feature-reconstruction",
         "evidence-comparison"
       ],
-      "repository": "https://github.com/guilhermedemorais-dev/Dev-workflow",
+      "repository": null,
       "command": "node",
       "verify_args": [
         "plugins/reverse-engineering-standard/runtime/reverse-context-gateway.mjs",
         "probe"
       ],
-      "install_policy": "plugin-bundled-gateway-with-approved-local-runtime-dependencies"
+      "install_policy": "reference-only-gateway-not-bundled-in-tfd"
     },
     {
       "id": "rea-runtime",

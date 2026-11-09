@@ -11,7 +11,8 @@ O campo `path` de cada entrada é relativo a esta pasta `library/`.
 Os recursos indexados são referências para consulta. O índice
 `indexes/skill-routes.json` guarda o roteamento histórico para consulta e os
 agentes ativos do TFD ficam na pasta `agents/` na raiz do plugin.
-Links históricos para ferramentas e agentes descrevem o ambiente de origem.
+Para execução, siga os [contratos do TFD](../docs/00-arquitetura.md) e
+confira a disponibilidade de cada ferramenta no host.
 
 A biblioteca é a primeira fonte do Discovery. Abra apenas os recursos selecionados
 no índice e confira se a origem e a revisão servem ao caso. Registre no projeto o

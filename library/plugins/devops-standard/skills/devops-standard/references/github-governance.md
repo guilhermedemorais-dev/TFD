@@ -15,7 +15,7 @@ the host/schema or documented capabilities change; live responses prevail.
 Use the deterministic [helper](../scripts/github_governance.py), not an ad-hoc
 sequence of mutable `gh` commands. The approved
 [desired-state template](../templates/github-governance.json) belongs in the
-client project's `.github/governance.json`, not automatically in Dev-workflow.
+client project's `.github/governance.json`.
 Python 3.11+ stdlib and JSON avoid a second parser/dependency.
 
 ```bash

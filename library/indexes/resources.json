@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "cache_policy": "Content-addressed metadata; reject changed/missing content, rebuild with scripts/build_library.py",
+  "cache_policy": "Reject missing or changed content. Update the resource SHA-256 after an approved edit and validate the library with the Discovery tests.",
   "resources": [
     {
       "id": "integrations/graphify/README.md",
       "path": "integrations/graphify/README.md",
-      "title": "Graphify adapter",
+      "title": "Graphify retrieval design",
       "category": "references",
       "keywords": [
         "Graphify adapter",
@@ -14,7 +14,7 @@
         "README",
         "md"
       ],
-      "sha256": "fd92163459c2d4a12d623685e98c1cbde2be0e79ef382423e632b0bdbdf99d9f",
+      "sha256": "cd00ca0f3a869c31b4a8acb4b317c16c516a04b89ca4ee33c45eef56c7aa6abb",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -334,7 +334,7 @@
         "candidate",
         "md"
       ],
-      "sha256": "4969f2385500f720e94f50d6735b95eff424ec3c064ff9e48aecee6d4fc0aa19",
+      "sha256": "af74246284edb34afcda2b40c79b737b5722605aed80b28413e3da23263c7e96",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -404,7 +404,7 @@
         "evals",
         "md"
       ],
-      "sha256": "e3a777d688b2bd5af07e9312ccf2335ded645781b1ab468d85dc28e0dc46cd67",
+      "sha256": "7fddcf4e6c360d956488137fa7f5e0f9c8a7a4112a3b82fb1bcbbe410ed06717",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -432,7 +432,7 @@
         "global",
         "md"
       ],
-      "sha256": "1f802ac7fda342246fee145cd7e83681ca4cffda5455e0c58d58eafeb0dd96fe",
+      "sha256": "793fb2fc3ce2cc0555911988f4e963223a5314546f20f4db1a7408819d3d2439",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -682,7 +682,7 @@
         "stack-cli",
         "compose-scope",
         "Compose scope guard",
-        "https://github.com/guilhermedemorais-dev/Dev-workflow",
+        "https://github.com/guilhermedemorais-dev/TFD",
         "Compare rendered Compose JSON with explicitly authorized resource changes.",
         "library",
         "tools",
@@ -690,7 +690,7 @@
         "clis",
         "json"
       ],
-      "sha256": "a67b5e8bf1fdd14a1ed86da880747292d74feaa945719be97623defd510103f4",
+      "sha256": "55f86c766b8fe7175a7ac8a23379726761f53442ab1e8d38b7f65c642bbfa93f",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -1882,7 +1882,7 @@
         "governance",
         "md"
       ],
-      "sha256": "2ad904a3f91e18d354694c5b8c393654db66b27102afce59380378e1258e6492",
+      "sha256": "1ab16d4c75b27c24554432301c34636ff3bd18fedc86ddcd69d250fa775b2341",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -2272,7 +2272,7 @@
         "registry",
         "json"
       ],
-      "sha256": "f18abbe67fe9fa1813298376af4e87bd8bd44f62035bb2dcabb0aeec73a27cf8",
+      "sha256": "bdb191345c62fbf2f0099ed83fbe3a662b6b765aea4b3c03809eb172d77db306",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",

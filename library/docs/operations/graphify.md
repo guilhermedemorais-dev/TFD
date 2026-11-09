@@ -1,21 +1,17 @@
-# Shared Graphify retrieval
+# Graphify retrieval design
 
-Use one derived index of the Office bundle across CTO Global, project
-orchestrators and workers. Query it for relevant files and relationships, then
-read the selected canonical files, full selected skills and mandatory references.
-A query, no match, graph edge or cache never replaces those reads, role ownership,
-Task/spec authority, independent validation or human approval.
+Reference design for a shared local index. The TFD package currently ships the
+design and acceptance criteria. An implementation would query for relevant
+files and relationships, then open the canonical sources and mandatory
+references for the task. The active task, independent review and human approval
+remain authoritative.
 
 ## Windows 10 and WSL 2
 
-This worker imports POSIX `resource` and rejects a runtime without those limits.
-Use the [WSL 2 operation guide](windows-wsl.md) on Windows 10: Codex CLI, Python,
-the isolated Graphify environment and the worker run in the selected Linux
-distribution. Installing WSL does not move a Windows app/session there. Keep its
-profiles/configuration separate and regenerate local indices/readiness paths.
-This is the selected compatibility route, not executed WSL or native Windows
-homologation. The current integration uses the free local engine, not a Cloud
-trial or paid Graphify API; Codex account usage remains separate.
+The reference worker design uses POSIX `resource` limits. The proposed route on
+Windows is WSL 2, with Codex CLI, Python and the isolated Graphify environment
+running in the selected Linux distribution. Validate compatibility separately
+for each target host.
 
 ## Source and implementation
 
@@ -43,15 +39,10 @@ inspected dependencies. Installation is a separate authorized Environment action
 this adapter never installs dependencies. Do not run `graphify install` because
 it modifies host integrations. Do not install optional LLM/provider extras.
 
-Use absolute paths. `BUNDLE` is the actual installed Office source root containing
-`AGENTS.md` and `agents/`, not a user's software project, skill cache subtree or
-another checkout. `INDEX` belongs to an external private cache directory, outside
-the bundle. `PYTHON` is the reviewed virtual environment interpreter.
-
-```bash
-python3 integrations/graphify/office_graph.py rebuild --bundle /absolute/office-bundle --index /absolute/private-cache/office-graph.json --graphify-python /absolute/graphify-venv/bin/python
-python3 integrations/graphify/office_graph.py query --bundle /absolute/office-bundle --index /absolute/private-cache/office-graph.json --graphify-python /absolute/graphify-venv/bin/python --query 'mandatory reference owner'
-```
+The reference design uses absolute paths for the approved bundle, its private
+index cache and the reviewed virtual environment interpreter. It defines a
+bundle of plugin resources. Adapting this design to a project repository
+requires an explicit corpus and a separate acceptance test.
 
 Only explicit `rebuild` writes the index, atomically with private temporary file
 permissions. Query never rebuilds. A prepared persistent installation must record
@@ -65,8 +56,7 @@ until exercised on the host. No VS Code installation is part of this adapter.
 ## Corpus, safety and freshness
 
 The corpus spans root README/AGENTS and `agents`, `skills`, `library`, `docs`,
-`maintenance`, `integrations`, `scripts` and legacy `plugins` whose references
-remain canonical for selected V2 skills. It reads supported textual source/config
+`maintenance`, `integrations`, `scripts` and selected local references. It reads supported textual source/config
 extensions only. Historical frozen snapshots (`v1-frozen`), evidence/receipt/cache
 folders, runtime-state, credentials, dependency environments and binary files are
 excluded. Actual canonical legacy references remain available; historical prose
@@ -109,12 +99,8 @@ semantic completeness, task fidelity or delivery success.
 
 ## Validation
 
-```bash
-python3 -m unittest discover -s tests -p 'test_graphify*.py' -v
-```
-
-The deterministic suite covers freshness, identity, corrupt/schema/pin data,
+The planned deterministic suite covers freshness, identity, corrupt/schema/pin data,
 malformed graph elements, symlinks/hardlinks/credentials, canonical legacy
 references, injected text as data, fallback, no matches and output bounds. A real
-pinned Graphify extraction/traversal smoke is separately required to claim the
-Graphify path executed. See the module receipt for observed results.
+pinned Graphify extraction and traversal check is required before recording
+that the TFD integration ran.

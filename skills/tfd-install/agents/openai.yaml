@@ -1,0 +1,3 @@
+interface:
+  display_name: "TFD Installer"
+  short_description: "Install TFD or check its published revision"

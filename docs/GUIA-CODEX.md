@@ -1,11 +1,32 @@
-> Contexto TFD · 1053 palavras · 1819 tokens (o200k_base)
+> Contexto TFD · 1198 palavras · 2088 tokens (o200k_base)
 
 # TFD no Codex
 
 O TFD coordena a entrega de um módulo, do briefing ao aceite. Instale o plugin
 uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
 
-## Instalação no Windows e no Linux
+## Instalação e atualização
+
+Extraia o [ZIP do TFD](https://github.com/guilhermedemorais-dev/TFD/archive/refs/heads/main.zip)
+e abra o terminal na raiz extraída. Use Git, Codex CLI e Python 3.10+
+com suporte a `venv` e `pip`.
+
+| Ação | Windows | Linux |
+| --- | --- | --- |
+| Instalar ou reparar | `python -B scripts/install_tfd.py install` | `python3 -B scripts/install_tfd.py install` |
+| Consultar a revisão publicada | `python -B scripts/install_tfd.py check` | `python3 -B scripts/install_tfd.py check` |
+| Aplicar atualização | `python -B scripts/install_tfd.py update` | `python3 -B scripts/install_tfd.py update` |
+
+O instalador aponta o catálogo `tfd-local` para a `main` do TFD, prepara
+o ambiente Python, registra os subagentes e configura as instruções globais.
+Uma seção manual `Tradutor TFD` permanece sob seu controle. Quando existir,
+o instalador sinaliza que ela precisa de conferência.
+
+A consulta compara a última revisão instalada pelo script com a revisão no
+GitHub. A instalação baixa a cópia de execução sem `tests/`. Depois de
+instalar ou atualizar, abra uma nova sessão para carregar as mudanças.
+
+## Configuração manual e pré-requisitos
 
 1. Baixe e extraia o [ZIP de instalação do TFD](https://github.com/guilhermedemorais-dev/TFD/archive/refs/heads/main.zip).
    Guarde a pasta extraída num local permanente, com `.agents/` e
@@ -100,15 +121,13 @@ Detect the OS and architecture of the Codex runtime first. On Linux, read
 /etc/os-release and identify the distro package manager. If running under
 WSL, verify which side runs Codex and use that side's tools and profile.
 Use the Windows or Linux instructions from the guide. Report unsupported OSes.
-Verify the package root, Codex CLI and Python 3.10+ with a working venv and pip.
+Verify the package root, Git, Codex CLI and Python 3.10+ with a working venv and pip.
 Install missing prerequisites only, using the official Codex installer and
 the detected OS's official packages as applicable. On Debian and Ubuntu,
 check for the matching python3-venv package. Follow host rules for elevation.
-Run scripts/install_python.py in a user-owned venv to fetch the pinned
-requirements and tokenizer for this OS and architecture.
-Register the local marketplace, install TFD and register its native agents.
-Merge the single Tradutor TFD block from hosts/codex/automatic-agents.md into
-the active global instructions file. Preserve existing settings and agents.
+Run scripts/install_tfd.py install with the detected Python. Use its result to
+verify the GitHub revision, plugin and native agents. Preserve existing settings
+and report any manual Tradutor TFD section that needs review.
 Run the local checks. Report OS, dependency and install results, commands,
 exit codes and blockers in Brazilian Portuguese. Give the new-session test
 from the guide. Mark agent behavior pending until observed in a new session.

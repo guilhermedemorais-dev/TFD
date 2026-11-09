@@ -500,9 +500,9 @@
       "kind": "local-scope-validator",
       "package": null,
       "documentation": [
-        "docs/operations/v2-execution-policy.md"
+        "library/tools/stack-cli-policy.md"
       ],
-      "official_repository": "https://github.com/guilhermedemorais-dev/Dev-workflow",
+      "official_repository": "https://github.com/guilhermedemorais-dev/TFD",
       "probe_argv_template": [
         "PYTHON",
         "library/tools/compose-scope.py",
@@ -510,7 +510,7 @@
       ],
       "install_argv_template": null,
       "capability": "Compare rendered Compose JSON with explicitly authorized resource changes.",
-      "notes": "Canonical V2 path; copied verbatim from V1 revision 354349c369c4deb312c5e58d729a8a17e26f1ea6. No Docker, network, installation or operational validation is performed."
+      "notes": "Bundled local validator. It compares the supplied Compose JSON without invoking Docker or the network."
     }
   ]
 }

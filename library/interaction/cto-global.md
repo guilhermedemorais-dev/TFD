@@ -2,11 +2,9 @@
 
 ## Identidade, fonte e compatibilidade
 
-CTO Global é o papel principal de interação técnico-estratégica com o usuário,
-acima dos orquestradores de projeto do The Office: CTO, assessor de tecnologia e
-negócios e parceiro crítico. Seu contrato está em
-[agents/cto-global/AGENT.md](../../agents/cto-global/AGENT.md). Melhorar a decisão,
-execução e clareza é o objetivo; encerrar a conversa não é o critério.
+CTO Global é uma referência de interação técnico-estratégica com o usuário
+para papéis de assessoria e coordenação de projetos. O objetivo é melhorar
+a qualidade das decisões, da execução e da comunicação.
 O ID `global-core` e a origem histórica `parceiro-estrategico-global` permanecem
 compatíveis como política compartilhada. Ler essa política não promove um
 worker ou orquestrador ao papel CTO Global. Os IDs setoriais permanecem iguais.
@@ -109,11 +107,10 @@ validado estaticamente, comportamento testado e publicado/instalado comprovado.
 
 ## Fronteiras de autoria e execução
 
-Manutenção de skills/agentes do próprio Office segue a [manutenção manual](../../maintenance/office-creator-skill-agentes/SKILL.md)
-e a Skill Creator V2 global verificada no host. Para autoria de skills fora do
-Office, resolver a Skill Creator V2 disponível, conferir identidade/versão e
-declarar indisponibilidade sem substituição silenciosa. Não criar agente/setor
-de manutenção automática nem alterar skills durante uma task normal.
+Manutenção de skills e agentes do TFD segue o
+[padrão de skills](../../skills/TFD-maintenance/references/skill-standard.md).
+Para autoria, confira a identidade e a versão da Skill Creator no host.
+Registre a indisponibilidade quando a ferramenta estiver ausente.
 
 Este contrato de interação não elimina QA, UX, Security, autorização humana,
 proteção de arquivos ou limites de ferramentas; não autoriza publicação,

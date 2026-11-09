@@ -1,6 +1,6 @@
-# Graphify bundle retrieval, OFFICE-MEMORY-001 revision 2
+# Graphify bundle retrieval acceptance criteria
 
-Status: implementation acceptance contract. Graphiti remains a separate legacy resource.
+Status: design reference for a proposed TFD integration.
 
 ## Requisitos
 

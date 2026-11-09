@@ -403,7 +403,7 @@ Do not claim a security review is complete when:
 - tool failures or excluded areas were hidden
 - a fix was applied without regression validation
 
-## Handoff To Dev Workflow
+## Handoff to the Engineering Coordinator
 
 Return:
 

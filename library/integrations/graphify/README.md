@@ -1,10 +1,11 @@
-# Graphify adapter
+# Graphify retrieval design
 
-Source of truth: [operations](../../docs/operations/graphify.md) and
-[module acceptance](../../docs/specs/graphify/module-spec.md).
+This is a research reference for a possible TFD integration. The adapter
+and its worker are outside the current plugin package.
 
-`office_graph.py` owns corpus filtering, provenance, freshness, bounded output and
-local lexical fallback. `worker.py` bridges actual pinned Graphify extraction,
-build and traversal APIs in an explicitly selected Python environment.
-`pin.json` binds upstream version, commit and all Python source bytes. This is
-not Graphiti, an embedding database, a new model, or semantic LLM indexing.
+The design covers corpus filtering, provenance, freshness, bounded output
+and local lexical fallback. It calls for a pinned Graphify release and an
+isolated Python environment for extraction and traversal.
+[Operations design](../../docs/operations/graphify.md) ·
+[Acceptance criteria](../../docs/specs/graphify/module-spec.md) ·
+[Research references](../../../README.md#referências-técnicas)

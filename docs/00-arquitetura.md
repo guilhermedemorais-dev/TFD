@@ -1,16 +1,15 @@
 # Arquitetura — The Factory Developer (TFD)
 
-Fábrica de software: PRD, descoberta, arquitetura, contratos, fases, execução e
-entrega, com evidência e aprovação humana em cada gate. Nada de "vibe code".
+O TFD coordena PRD, Discovery, arquitetura, implementação e entrega com
+evidências rastreáveis e aprovação humana em cada gate.
 
 ## 1. Nome e escopo
 
-- Plugin: `the-factory-developer` (TFD). Skills e agentes com prefixo `TFD-` para não
-  colidir com o V2 nem com plugins de terceiros.
-- **Host-agnóstico.** O núcleo não depende de Codex, Claude, Gemini ou Cursor.
-  Cada host tem um adaptador; o mesmo agente, skill e contrato rodam em qualquer
-  um. Vários hosts podem orquestrar o mesmo projeto ao mesmo tempo, cada um com
-  seu adaptador.
+- Plugin `the-factory-developer` (TFD), com skills e agentes identificados pelo
+  prefixo TFD.
+- **Núcleo independente do host.** Os contratos e validadores Python são
+  locais. O adaptador disponível registra skills e subagentes no Codex.
+  [Adaptador Codex](../hosts/codex/README.md)
 - Função do núcleo: orquestrar. Engenharia reversa, design system, análise de APK
   e afins são **plugins complementares** catalogados, chamados por id.
 - O produto é código novo. Referência serve para entender e escrever melhor,
@@ -105,7 +104,7 @@ Nenhum item é opcional sem justificativa registrada.
 11. **Riscos e premissas** com impacto e mitigação.
 12. **Rastreabilidade**: REQ → decisão → contrato → teste.
 
-## 6. Estrutura da task (herdada do V2, compactada)
+## 6. Estrutura da task por módulo
 
 Campos obrigatórios:
 

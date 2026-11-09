@@ -2,8 +2,8 @@
 
 This resource points to the APIBrasil team's knowledge base and examples for
 consuming its remote MCP server from AI clients, IDEs and automation platforms.
-It is a documented candidate, not a server installed or connected in The Office
-V2 or in the user's Codex configuration.
+This is a candidate integration. Verify availability and authorization in the
+current project before connecting.
 
 ## Source record
 

@@ -3,7 +3,7 @@ name: dev-workflow-standard
 description: "Use as the engineering harness for Guilherme's software delivery: receive a demand, diagnose and consolidate scope, plan executable work, resolve the required specialist skill/plugin/tool, actively invoke the selected capability, preserve handoff context, require execution evidence and validation before advancing, recover or replan on failure, and review delivery against specs/task/acceptance criteria. Product code is executed through dev-implementation-standard or another explicitly selected executor capability, never merely assigned."
 ---
 
-# Dev Workflow Standard (Engineering Harness)
+# Engineering Workflow Reference
 
 Primary engineering harness for Guilherme's software projects. The LLM using
 this skill becomes the **engineering orchestrator / final reviewer**. It does not

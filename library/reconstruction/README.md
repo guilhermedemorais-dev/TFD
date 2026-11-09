@@ -1,7 +1,7 @@
 # Evidence to specifications and reconstruction
 
-Local V2 extension inspired by the reviewed Replica pack, not its runtime or
-eleven-stage workflow. Load this file only for reference-product discovery,
+Local reference inspired by the reviewed Replica pack.
+Load this file for reference-product discovery,
 behavior reconstruction or the associated coverage check. Preserve the current
 REA gateway, SDD hierarchy, approved stack, one Task per module and owner gates.
 
@@ -78,8 +78,8 @@ checker are independently written; no upstream code or skill body is bundled.
 Any future substantial copied portion must preserve its MIT copyright/license.
 
 Selected ideas: stable screen/flow inventory, evidence-linked feedback and gap
-reporting. Existing Office SDD/REA already supply ownership, traceability and
-technical specs; those remain canonical. Rejected upstream behavior: replacing
+reporting. The project's approved spec and task define ownership, traceability
+and acceptance. Rejected upstream behavior: replacing
 the workflow, default managed stack, weighted release score and unconditional
 launch sequence. Reviewed `parity.py` returns 0 with missing must-haves unless a
 threshold fails, and `skip` removes rows without approval. The local checker

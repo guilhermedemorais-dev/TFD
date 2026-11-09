@@ -212,7 +212,7 @@
       ]
     },
     "harness": {
-      "owner": "dev-workflow-standard",
+      "owner": "tfd-workflow-standard",
       "applicability": "REQUIRED",
       "reason": "Reconciliação final obrigatória",
       "depends_on": [

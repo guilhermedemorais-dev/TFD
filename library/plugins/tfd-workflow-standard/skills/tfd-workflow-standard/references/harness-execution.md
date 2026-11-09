@@ -1,6 +1,6 @@
 # Engineering Harness Execution Contract
 
-This reference defines how `dev-workflow-standard` turns an approved plan into
+This reference defines how `tfd-workflow-standard` turns an approved plan into
 verified execution.
 
 ## Execution States

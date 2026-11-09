@@ -13,7 +13,7 @@ as execution input. Require current Harness evidence of full card/JSON normative
 equivalence, tied to the contract revision and observed Issue update time.
 Missing/stale evidence or divergence returns to Harness before execution.
 
-Specialist companion to `dev-workflow-standard`, not a second Harness. Read
+Specialist companion to `tfd-workflow-standard`, not a second Harness. Read
 this skill completely, emit `SKILL_RECEIPT`, validate the approved task and
 Execution Contract, then load only the references needed for that checkpoint.
 Source adaptation and local extensions are documented in [ORIGIN](references/ORIGIN.md).
@@ -103,7 +103,7 @@ templates, API tests, remote tools, command output or receipts.
 
 For client portal onboarding or Pages preparation, read the active Harness
 `references/client-portal.md` (in this monorepo:
-`plugins/dev-workflow-standard/skills/dev-workflow-standard/references/client-portal.md`).
+`plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/client-portal.md`).
 Resolve the active bundle or explicit canonical checkout, not a guessed sibling
 cache path. Prepare `docs/portal/` in the client project from the separately
 supplied template only when available; an absent future repository is a portal

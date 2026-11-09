@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """CLI do TFD: plan, check e report sobre o contrato de task.
 
-    python scripts/office.py plan   tasks/DEMO-001.json
-    python scripts/office.py check  tasks/DEMO-001.json
-    python scripts/office.py report tasks/DEMO-001.json
+    python scripts/tfd.py plan   tasks/DEMO-001.json
+    python scripts/tfd.py check  tasks/DEMO-001.json
+    python scripts/tfd.py report tasks/DEMO-001.json
 
 Sem LLM: valida contrato, confere escopo no diff, roda os testes e grava receipt.
 """
@@ -25,7 +25,7 @@ ROOT = Path.cwd()
 DELIVERY = ROOT / "delivery"
 
 IGNORED_DIRS = {"__pycache__", "node_modules", ".pytest_cache", ".git", "delivery"}
-IGNORED_PREFIXES = ("tasks/", "delivery/", "specs/", ".office/")
+IGNORED_PREFIXES = ("tasks/", "delivery/", "specs/", ".tfd/")
 
 
 class GitError(Exception):
@@ -245,7 +245,7 @@ def cmd_report(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="office", description=__doc__,
+    parser = argparse.ArgumentParser(prog="tfd", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
 

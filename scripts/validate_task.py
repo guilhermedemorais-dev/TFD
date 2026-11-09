@@ -12,7 +12,7 @@ from validate_estimate import estimate_order_errors
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "schemas" / "task.json"
-OFFICE_SECTORS = set("database backend frontend ui_ux qa security devops observability documentation harness".split())
+TFD_SECTORS = set("database backend frontend ui_ux qa security devops observability documentation harness".split())
 
 
 def load_schema() -> dict:
@@ -46,7 +46,7 @@ def routing_errors(task: dict) -> list[str]:
     micros = {micro["id"]: micro for micro in task["microtasks"]}
     refs = {ref["id"] for ref in task["references"]}
     errors = [f"duplicate phase: {phase}" for phase in _duplicates(phases)]
-    errors.extend(f"missing sector: {sector}" for sector in sorted(OFFICE_SECTORS - sectors.keys()))
+    errors.extend(f"missing sector: {sector}" for sector in sorted(TFD_SECTORS - sectors.keys()))
     for sector, row in sectors.items():
         if not re.fullmatch(r"[a-z][a-z0-9_]*", sector):
             errors.append(f"invalid sector ID: {sector}")
@@ -55,7 +55,7 @@ def routing_errors(task: dict) -> list[str]:
             errors.append(f"{sector}: REQUIRED without microtask")
         if row["applicability"] == "N/A" and (assigned or not row.get("reason", "").strip()):
             errors.append(f"{sector}: N/A requires a reason and no microtasks")
-        if sector not in OFFICE_SECTORS and not row.get("reason", "").strip():
+        if sector not in TFD_SECTORS and not row.get("reason", "").strip():
             errors.append(f"{sector}: extension requires a reason")
     for phase in phases:
         if not any(micro.get("phase") == phase for micro in micros.values()):

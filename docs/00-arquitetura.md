@@ -226,7 +226,7 @@ observar → registrar incidente → diagnosticar causa raiz → propor
 → autorização do usuário → corrigir → testar → registrar resultado
 ```
 
-Cada incidente vira um registro em `docs/office/incidents/`:
+Cada incidente vira um registro em `docs/tfd/incidents/`:
 
 ```json
 {

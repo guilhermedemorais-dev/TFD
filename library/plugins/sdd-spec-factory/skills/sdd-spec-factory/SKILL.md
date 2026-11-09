@@ -1,13 +1,13 @@
 ---
 name: sdd-spec-factory
-description: "Use to turn a client request, feature, idea or problem into spec-driven development artifacts: product, module, page/feature, component, validation, database, API/backend and frontend/UI specs, plus an executable task linked to issue, branch and PR, with code review and QA checklists. Specialist companion to dev-workflow-standard."
+description: "Use to turn a client request, feature, idea or problem into spec-driven development artifacts: product, module, page/feature, component, validation, database, API/backend and frontend/UI specs, plus an executable task linked to issue, branch and PR, with code review and QA checklists. Specialist companion to tfd-workflow-standard."
 ---
 
 # SDD Spec Factory
 
 Specialist workflow for **Spec-Driven Development (SDD)**. It converts an idea,
 client request, feature or problem into detailed specs and one complete
-executable Task per functional module, then hands execution back to `dev-workflow-standard` and the review
+executable Task per functional module, then hands execution back to `tfd-workflow-standard` and the review
 specialists. Keep this file lightweight: create only the specs and the task the
 current request actually needs, and load the templates on demand.
 
@@ -46,7 +46,7 @@ applicable:
 - a QA/review checklist
 
 This plugin **does not implement product code**. It produces the contract and the
-order of execution. `dev-workflow-standard` orchestrates; implementation is
+order of execution. `tfd-workflow-standard` orchestrates; implementation is
 carried out by `dev-implementation-standard`, reviewed with `security-standard`,
 functionally validated with `qa-testing-standard` when required, and visually
 validated with `ui-ux-standard`.
@@ -132,7 +132,7 @@ collapse them into one prose blob; if a dimension does not apply, write
   architectural requirement.
 - Stop and ask when critical scope is missing. Do not guess core scope.
 - Final acceptance belongs to the user.
-- Planning depth is selected by `dev-workflow-standard`: TRIVIAL changes remain
+- Planning depth is selected by `tfd-workflow-standard`: TRIVIAL changes remain
   outside full SDD and use an inline intent contract; NORMAL changes use the
   smallest focused spec needed; COMPLEX changes use durable layered specs and
   traceability. This skill must not inflate a bounded change into a full
@@ -300,7 +300,7 @@ docs/specs/<modulo>/
 
 Load the active Harness `references/context-routing.md` before designing the
 sector matrix. In this monorepo its source is
-`plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-routing.md`;
+`plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-routing.md`;
 installed hosts resolve the active skill, never assume sibling cache paths.
 If unavailable, use an explicitly available canonical checkout or return the
 missing reference to the Harness before producing a conflicting contract.
@@ -487,7 +487,7 @@ Provide the delivery gates using `templates/pr-template.md`,
 
 ## Integration with the other plugins
 
-- `dev-workflow-standard` is the Engineering Harness. It owns discovery, scope,
+- `tfd-workflow-standard` is the Engineering Harness. It owns discovery, scope,
   delegation, gates and approval. SDD Spec Factory feeds it the specs and the
   executable task; it does not replace it.
 - `dev-implementation-standard` is the executor. It implements the approved task

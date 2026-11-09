@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "owner": "dev-workflow-standard",
+  "owner": "tfd-workflow-standard",
   "policy_notes": [
     "Context retrieval is auxiliary. Required task sources remain mandatory and cannot be replaced by retrieval.",
     "Potpie is the preferred rich context backend when installed and healthy; local lexical retrieval is the deterministic fallback.",

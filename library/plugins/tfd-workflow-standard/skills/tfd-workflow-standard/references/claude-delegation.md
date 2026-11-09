@@ -106,7 +106,7 @@ temporary prompt file containing the bounded brief, then run the bundled helper
 with approved GUI/external execution:
 
 ```bash
-plugins/dev-workflow-standard/scripts/claude-visible-delegate.sh \
+plugins/tfd-workflow-standard/scripts/claude-visible-delegate.sh \
   "<canonical-project-root>" \
   "<prompt-file>" \
   "<status-file>"

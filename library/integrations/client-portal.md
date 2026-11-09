@@ -12,7 +12,7 @@ backend, not a single standalone HTML dashboard. Do not copy it into the Harness
 ## Reuse
 
 Respect the original preparation/security rules in
-`plugins/dev-workflow-standard/skills/dev-workflow-standard/references/client-portal.md`
+`plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/client-portal.md`
 with the updated source facts here. Prepare in the **client project's**
 `docs/portal/`, only when selected for that project. Use pinned checkout and the
 existing `scripts/sync-template.mjs --project=CLIENT_ROOT` dry run, inspect diff,

@@ -31,7 +31,7 @@ class TestTaskContract(unittest.TestCase):
         task["phases"] = [{"id": "A", "title": "Entrega"}, {"id": "B", "title": "Validação"}]
         task["sectors"] = {sector: {"label": sector, "owner": f"TFD-{sector}",
                                    "applicability": "N/A", "reason": "Fora do recorte"}
-                           for sector in sorted(vt.OFFICE_SECTORS)}
+                           for sector in sorted(vt.TFD_SECTORS)}
         task["sectors"]["backend"]["applicability"] = "REQUIRED"
         for phase, micro in zip(("A", "B"), task["microtasks"]):
             micro.update(phase=phase, sector="backend", reference_ids=[task["references"][0]["id"]])

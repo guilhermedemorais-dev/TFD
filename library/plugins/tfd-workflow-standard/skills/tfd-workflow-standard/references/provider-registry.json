@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "owner": "dev-workflow-standard",
+  "owner": "tfd-workflow-standard",
   "policy": {
     "secrets": "Environment variables or host secret storage only. Never persist API keys in repository files or runtime receipts.",
     "discovery": "Configured is not available. A provider/model becomes executable only after an observed capability probe.",
@@ -17,7 +17,7 @@
     "dev-environment-standard": ["reasoning"],
     "reverse-engineering-standard": ["reasoning", "agentic"],
     "seo-standard": ["reasoning"],
-    "dev-workflow-standard": ["reasoning", "agentic"]
+    "tfd-workflow-standard": ["reasoning", "agentic"]
   },
   "providers": [
     {

@@ -5,16 +5,16 @@
     {
       "id": "integrations/graphify/README.md",
       "path": "integrations/graphify/README.md",
-      "title": "Graphify retrieval design",
+      "title": "Graphify retrieval for TFD",
       "category": "references",
       "keywords": [
-        "Graphify adapter",
+        "Graphify retrieval for TFD",
         "integrations",
         "graphify",
         "README",
         "md"
       ],
-      "sha256": "cd00ca0f3a869c31b4a8acb4b317c16c516a04b89ca4ee33c45eef56c7aa6abb",
+      "sha256": "b1a919bf5f9702c97b1f4e9bf773374809522bc18fb7f8a695ed473b94df8595",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -360,7 +360,7 @@
         "portal",
         "md"
       ],
-      "sha256": "e72cdc263d373b5cd2fea7603b74b87a6008ff53bd994b6abf266de7feee6f6e",
+      "sha256": "ffa900efe2f98483b9d92177c41948926d1140827a3a518951b913bdfc05d63a",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -959,8 +959,8 @@
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/capability-registry.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/capability-registry.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/capability-registry.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/capability-registry.md",
       "title": "Engineering Capability Registry",
       "category": "references",
       "keywords": [
@@ -1012,11 +1012,11 @@
         "Page extraction/crawl needed for a reference",
         "General discovery of primary sources",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1024,18 +1024,18 @@
         "registry",
         "md"
       ],
-      "sha256": "e0917fabbdec37f0ad2902d10740d0ea57f2df7107aeb9f76dec0749a29eab12",
+      "sha256": "facf3962334a223fc435a7e41fc74f46b85238ab1aae1653c09d8fe22748eaf2",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/capability-registry.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/capability-registry.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/claude-delegation.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/claude-delegation.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/claude-delegation.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/claude-delegation.md",
       "title": "Executor LLM Delegation Protocol: Claude Code Adapter",
       "category": "references",
       "keywords": [
@@ -1050,11 +1050,11 @@
         "Required Visibility",
         "Review Gate",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1062,18 +1062,18 @@
         "delegation",
         "md"
       ],
-      "sha256": "90b0db95db7f9ec406215243e9d939addb8039af792d374d494cda89df5d2189",
+      "sha256": "653b3cd8a2557259bce4738b1068b381c49a680eeef12c408a15e6e99945a496",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/claude-delegation.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/claude-delegation.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/client-portal.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/client-portal.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/client-portal.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/client-portal.md",
       "title": "Client portal preparation",
       "category": "references",
       "keywords": [
@@ -1093,11 +1093,11 @@
         "Local build succeeds",
         "Publication requested",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1110,13 +1110,13 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/client-portal.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/client-portal.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-retrieval.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-retrieval.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-retrieval.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-retrieval.md",
       "title": "Context Retrieval",
       "category": "references",
       "keywords": [
@@ -1126,11 +1126,11 @@
         "Required versus retrieved",
         "Output contract",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1143,13 +1143,13 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-retrieval.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-retrieval.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-routing.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-routing.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-routing.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-routing.md",
       "title": "Context Routing and Sector Validation Matrix",
       "category": "references",
       "keywords": [
@@ -1180,11 +1180,11 @@
         "Large task handoffs",
         "Mutable progress",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1192,18 +1192,18 @@
         "routing",
         "md"
       ],
-      "sha256": "ff3abf2b9850954c94c29f6d5d7ab9dcb77252b04ca6e403a838c5b1905bdbca",
+      "sha256": "15a7283abc9c6e66f56146a971d5cf49f4d40f9f95590257e8c8ca9894acf843",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-routing.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-routing.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/continuous-improvement.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/continuous-improvement.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/continuous-improvement.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/continuous-improvement.md",
       "title": "Controlled Continuous Improvement",
       "category": "references",
       "keywords": [
@@ -1264,11 +1264,11 @@
         "Capability",
         "---",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1281,13 +1281,13 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/continuous-improvement.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/continuous-improvement.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/execution-report-comments.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/execution-report-comments.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/execution-report-comments.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/execution-report-comments.md",
       "title": "Human Execution Report Comments",
       "category": "references",
       "keywords": [
@@ -1298,11 +1298,11 @@
         "Content Rules",
         "State Requirements",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1316,13 +1316,13 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/execution-report-comments.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/execution-report-comments.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/harness-execution.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/harness-execution.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/harness-execution.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/harness-execution.md",
       "title": "Engineering Harness Execution Contract",
       "category": "references",
       "keywords": [
@@ -1335,11 +1335,11 @@
         "Recovery",
         "Completion Gate",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1347,18 +1347,18 @@
         "execution",
         "md"
       ],
-      "sha256": "42c0f899a55d9cf4ce95d201448db7e5d868026ab9b208656f164ec27dda3487",
+      "sha256": "dac67027896eb7825551b2c415904e4af712d350b0e4da8e084b9ed1e87f4975",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/harness-execution.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/harness-execution.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/llm-handoff.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/llm-handoff.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/llm-handoff.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/llm-handoff.md",
       "title": "LLM Handoff And Continuity",
       "category": "references",
       "keywords": [
@@ -1366,11 +1366,11 @@
         "Availability States",
         "Mandatory Handoff",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1383,13 +1383,13 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/llm-handoff.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/llm-handoff.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/minimal-code-gate.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/minimal-code-gate.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/minimal-code-gate.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/minimal-code-gate.md",
       "title": "Minimal Code Gate",
       "category": "references",
       "keywords": [
@@ -1403,11 +1403,11 @@
         "Ponytail core",
         "Ponytail Review",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1421,13 +1421,13 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/minimal-code-gate.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/minimal-code-gate.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/provider-registry.json",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/provider-registry.json",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/provider-registry.json",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/provider-registry.json",
       "title": "provider-registry",
       "category": "references",
       "keywords": [
@@ -1444,11 +1444,11 @@
         "anthropic",
         "Anthropic",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1456,18 +1456,18 @@
         "registry",
         "json"
       ],
-      "sha256": "47e2f8df89ff911e6f1f826f9366149011f64b989f4cba85a54dff0b6f7a3355",
+      "sha256": "8b4fd4865381995835654a75d8c86c46fb01ea1e9b867e4191734b814a0c9a60",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/provider-registry.json"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/provider-registry.json"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/provider-routing.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/provider-routing.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/provider-routing.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/provider-routing.md",
       "title": "Model and Provider Routing",
       "category": "references",
       "keywords": [
@@ -1479,11 +1479,11 @@
         "Codex configuration",
         "Evidence",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1496,13 +1496,13 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/provider-routing.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/provider-routing.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/skill-execution-contract.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/skill-execution-contract.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/skill-execution-contract.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/skill-execution-contract.md",
       "title": "Skill Execution Contract",
       "category": "references",
       "keywords": [
@@ -1511,11 +1511,11 @@
         "SKILL_RECEIPT",
         "Role Vocabulary",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1529,23 +1529,23 @@
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/skill-execution-contract.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/skill-execution-contract.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/skill-owned-tools.md",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/skill-owned-tools.md",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/skill-owned-tools.md",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/skill-owned-tools.md",
       "title": "Skill-Owned Tools",
       "category": "tools",
       "keywords": [
         "Skill-Owned Tools",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1554,28 +1554,28 @@
         "tools",
         "md"
       ],
-      "sha256": "577dfc1e4ddc455877a325aa7dd1014132143e3be3ad35fad9e6fd9305f0c467",
+      "sha256": "712d62561bad358f2d72c4adb4f8fed733d9a5846ce227e75634d2ce36913131",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/skill-owned-tools.md"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/skill-owned-tools.md"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
     {
-      "id": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/tool-registry.json",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/tool-registry.json",
+      "id": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/tool-registry.json",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/tool-registry.json",
       "title": "tool-registry",
       "category": "tools",
       "keywords": [
         "potpie",
         "plugins",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "skills",
-        "dev",
+        "tfd",
         "workflow",
         "standard",
         "references",
@@ -1583,12 +1583,12 @@
         "registry",
         "json"
       ],
-      "sha256": "db9f305dac1c0995ea4cbd267e913b1577685dbea8a0cbf0fdf3030c2189e056",
+      "sha256": "1d952b56664806a691ad3df732c6d34f4402d5f88720e9b161512455aa1c76d9",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
         "version": "content-sha256",
-        "source": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/tool-registry.json"
+        "source": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/tool-registry.json"
       },
       "status": "CATALOGED_NOT_EXECUTED"
     },
@@ -3258,7 +3258,7 @@
         "template",
         "json"
       ],
-      "sha256": "9edf525ae9fe90e3c951ac7ff964e02234dffcb762610e529c9241b4de0c1119",
+      "sha256": "b4fe1be9ed987fe894658458e28c92dcad1c959f17932ae2288c891ea04ab023",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",
@@ -3578,7 +3578,7 @@
         "template",
         "md"
       ],
-      "sha256": "3cb170b40011034f4836a4f731028c8a96bd6fdb65338d3fa73a4d9b646be212",
+      "sha256": "3b4b92ffbc5fce8ae47a3b217ebc4912892c77d94a4fc9769b1df2cc2bca4a48",
       "provenance": {
         "type": "canonical-versioned-file",
         "license": "See source record and repository LICENSE; no external dependency relicensing",

@@ -1,6 +1,6 @@
 ---
 name: dev-implementation-standard
-description: "Implement an approved task within its routed sector and required sources: write product code and developer tests, run validation, return evidence and request independent review. Does not substitute for mandatory QA, Security, UI/UX or DevOps approval. Driven by dev-workflow-standard; specs come from sdd-spec-factory."
+description: "Implement an approved task within its routed sector and required sources: write product code and developer tests, run validation, return evidence and request independent review. Does not substitute for mandatory QA, Security, UI/UX or DevOps approval. Driven by tfd-workflow-standard; specs come from sdd-spec-factory."
 ---
 
 # Dev Implementation Standard (Executor Agent)
@@ -15,7 +15,7 @@ Missing/stale evidence or divergence returns to Harness before execution.
 
 The LLM using this skill becomes the executor agent for spec-driven delivery. It turns an **approved task** into code,
 strictly within scope. It does not do SDD, does not plan product scope, does not
-write specs, and does not own acceptance — `dev-workflow-standard` orchestrates and `sdd-spec-factory` produces
+write specs, and does not own acceptance — `tfd-workflow-standard` orchestrates and `sdd-spec-factory` produces
 the contract.
 
 Keep this file lightweight and act only on the current task.
@@ -50,7 +50,7 @@ Keep this file lightweight and act only on the current task.
 - The executor agent has read each required `SKILL.md` completely and can emit a
   `SKILL_RECEIPT` before implementation.
 
-If any precondition is missing, stop and return to `dev-workflow-standard` /
+If any precondition is missing, stop and return to `tfd-workflow-standard` /
 `sdd-spec-factory` instead of guessing.
 
 ## Hard Limits (non-negotiable)
@@ -121,7 +121,7 @@ initial and final results. Escalate persistent or out-of-scope failures.
    implementations. Every new abstraction needs at least two current concrete
    consumers or an explicit approved architectural requirement. Record the
    decision in `MINIMAL_CODE_GATE`.
-   Resolve the active `dev-workflow-standard` owner's
+   Resolve the active `tfd-workflow-standard` owner's
    `references/minimal-code-gate.md` from its installed bundle or explicit
    canonical checkout, never an assumed sibling cache, and apply its scoped
    cleanup, platform/dependency ladder, shared-root correction, affected-consumer
@@ -158,7 +158,7 @@ initial and final results. Escalate persistent or out-of-scope failures.
    `🟢 Concluída` only with implementation/developer-test evidence. This is not
    completion of the entire Task. Harness reconciles all REQUIRED owners.
 14. **Handoff para review**: prepare the PR or review package linked to task,
-   issue, branch and specs, then return to `dev-workflow-standard`. Do not
+   issue, branch and specs, then return to `tfd-workflow-standard`. Do not
    self-approve, merge, or deploy.
 
 ## Frontend design sources
@@ -232,7 +232,7 @@ visual status to `🔴 Bloqueada`.
   the Harness. Ordinary commits/PRs stay here; no deploy/merge permission is
   implied. Share the existing contract/receipt, not duplicated tool registries.
 
-- Receives the task and approval from `dev-workflow-standard`.
+- Receives the task and approval from `tfd-workflow-standard`.
 - Consumes specs and templates from `sdd-spec-factory` (task, PR templates).
 - Defers UI validation to `ui-ux-standard` and security validation to
   `security-standard`; it implements to satisfy their criteria but does not

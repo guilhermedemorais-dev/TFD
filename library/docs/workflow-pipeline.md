@@ -1,14 +1,14 @@
 # Workflow Pipeline
 
 End-to-end delivery pipeline across the independent specialist skills. The LLM using
-`dev-workflow-standard` is the engineering harness and is the only role that approves moving from one gate to
+`tfd-workflow-standard` is the engineering harness and is the only role that approves moving from one gate to
 the next. It never writes product code itself; it routes work to executable capabilities and requires invocation plus validation evidence before advancing.
 
 ## Skills and roles
 
 | Skill | Role |
 | --- | --- |
-| `dev-workflow-standard` | Engineering harness / final reviewer |
+| `tfd-workflow-standard` | Engineering harness / final reviewer |
 | `dev-environment-standard` | Environment bootstrap / plugin health |
 | `studio-prd` | Collaborative briefing, PRD and internal MD/JSON delivery plan |
 | `sdd-spec-factory` | Requirements LLM / executable task |
@@ -61,7 +61,7 @@ does not replace Harness execution states. PROJECT READY != PRODUCTION AUTHORIZE
 
 ```text
 Idea / demand
-  -> dev-workflow-standard: diagnose (critical questions, risks)
+  -> tfd-workflow-standard: diagnose (critical questions, risks)
   -> Discovery / SDD colaborativo: perguntas ao usuário + pesquisa + referências
   -> sdd-spec-factory: consolidate specs, Design Guide and exact reference routes
   -> module-boundary gate: one complete Task per functional module; reject layer/phase/specialist fragments
@@ -90,14 +90,14 @@ Idea / demand
   -> completed EXECUTION_RECEIPT
   -> Human Task updated
   -> EXECUTION_REPORT_COMMENT -> linked GitHub Issue when available
-  -> dev-workflow-standard: VALIDATING
+  -> tfd-workflow-standard: VALIDATING
   -> independent functional QA / Security QA / UI-UX QA / DevOps-observability as REQUIRED
   -> owner skill corrects failures; the same validator retests the new revision
   -> Sector Reconciliation: owner receipts, evidence and current revision
   -> PR Gate: review package links task, issue, branch, specs followed
   -> Pull Request when authorized; no fabricated remote publication
   -> Harness Final Gate and Human Review
-  -> dev-workflow-standard: approve or request rework
+  -> tfd-workflow-standard: approve or request rework
   -> human approval and human merge (Done only after observed merge)
   -> deploy (separate explicit authorization after PR approval)
 ```
@@ -105,7 +105,7 @@ Idea / demand
 ## Gates (must pass before advancing)
 
 1. **Scope gate** — critical questions answered; scope consolidated. Owned by
-   `dev-workflow-standard`.
+   `tfd-workflow-standard`.
 2. **Spec gate** — required specs exist and follow the hierarchy
    (Product → Module → Page → Component), with Banco / API/Backend / Frontend/UI
    / Testes / Segurança / Observabilidade / Decisões / Riscos / Critérios de
@@ -185,7 +185,7 @@ At most three automatic rework cycles by default; then diagnosis and BLOCKED.
 - Use the existing states/receipts; PASS maps to evidenced COMPLETED. Planning
   does not close final validation; materially stale evidence requires retest.
 
-- `dev-workflow-standard` never writes product code and never skips the intent
+- `tfd-workflow-standard` never writes product code and never skips the intent
   contract required by the change-complexity tier.
 - `dev-implementation-standard` never implements without an approved task, and
   never changes anything out of scope without a recorded justification.
@@ -221,7 +221,7 @@ The GitHub Issue is the complete human card; JSON v2 is the equivalent normative
 LLM contract. Mutable progress, evidence, logs and receipts remain in Issue
 comments and ledgers. Legacy v1 contracts remain readable and are normalized
 only when needed for resumed work. Exact schema and compatibility rules live in
-the Harness [context-routing reference](../plugins/dev-workflow-standard/skills/dev-workflow-standard/references/context-routing.md).
+the Harness [context-routing reference](../plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/context-routing.md).
 This is a local documented agent protocol, not a new runtime policy engine.
 
 ## Provenance

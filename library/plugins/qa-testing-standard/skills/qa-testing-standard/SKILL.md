@@ -120,7 +120,7 @@ destructive fuzz/concurrency workloads as a routine validation shortcut.
 
 ## Evidence gate
 
-For implementation changes or cleanup, resolve the active `dev-workflow-standard`
+For implementation changes or cleanup, resolve the active `tfd-workflow-standard`
 owner's `references/minimal-code-gate.md` from its installed bundle or explicit
 canonical checkout, never an assumed sibling cache. Independently check its
 additive evidence against connected callers, exports/configuration, applicable

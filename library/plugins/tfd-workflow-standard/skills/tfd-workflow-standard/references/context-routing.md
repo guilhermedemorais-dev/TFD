@@ -56,7 +56,7 @@ stable IDs to routing objects:
 | devops | DevOps / Infraestrutura | devops-standard |
 | observability | Observabilidade | Explicit owner for application instrumentation or operations |
 | documentation | Documentação | Explicit scoped executor, normally dev-implementation-standard |
-| harness | Gate Final do Harness | dev-workflow-standard |
+| harness | Gate Final do Harness | tfd-workflow-standard |
 
 All ten IDs appear in new routed contracts and in the human matrix. Resolve a
 single concrete owner, including N/A rows. Additional material domains require
@@ -236,7 +236,7 @@ specification changes should be upgraded deliberately to v2, with card/JSON
 revision and equivalence review. Never assume unknown sector fields were
 consumed by an older installed plugin; verify support.
 
-Resolve this reference from the active `dev-workflow-standard` skill's
+Resolve this reference from the active `tfd-workflow-standard` skill's
 `references/context-routing.md`. Monorepo paths in documentation are source
 locations, not assumptions about sibling versioned plugin caches. If the active
 bundle lacks it, use an explicitly available canonical checkout or return the

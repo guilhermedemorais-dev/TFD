@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/Graphify-Labs/graphify",
+  "branch": "v8",
+  "commit": "8e6a6d2129d4aeffc7a0e9ed79b153f7f057f42b",
+  "distribution": "graphifyy",
+  "version": "0.9.101",
+  "python_source_sha256": "dad3621f9e40ceeb23ec5c5d2aa9db76f13baf59aa624d25ce1e30d576333b19"
+}

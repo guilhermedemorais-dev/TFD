@@ -1,6 +1,6 @@
 ---
 name: ui-ux-standard
-description: "Use for UI/UX, screens, mockups, visual design, design systems, component selection, UI libraries and registries, templates, generated assets, accessibility, responsiveness, and visual QA. Specialist companion to dev-workflow-standard."
+description: "Use for UI/UX, screens, mockups, visual design, design systems, component selection, UI libraries and registries, templates, generated assets, accessibility, responsiveness, and visual QA. Specialist companion to tfd-workflow-standard."
 ---
 
 # UI/UX Standard

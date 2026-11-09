@@ -58,7 +58,7 @@ but should not be forced into every small site.
 - ui-ux-standard owns visual hierarchy/accessibility.
 - qa-testing-standard owns functional behavior.
 - security-standard owns AppSec.
-- dev-workflow-standard owns routing and final gate reconciliation.
+- tfd-workflow-standard owns routing and final gate reconciliation.
 
 SEO Standard may write proposed copy/content, metadata and structured-data
 requirements, but does not self-approve product implementation.

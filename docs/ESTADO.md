@@ -1,3 +1,5 @@
+> Contexto TFD · 1263 palavras · 2062 tokens (o200k_base)
+
 # Estado do TFD
 
 Estado do plugin e registros de verificação para retomar o trabalho.
@@ -10,6 +12,14 @@ Estado do plugin e registros de verificação para retomar o trabalho.
 - **Complementar.** Oficina `0.1.1` faz auditoria e manutenção autorizada e tem instalação própria. Candidatos externos servem de referência para adaptações locais ao padrão TFD.
 - **Em validação.** O usuário já testa o TFD em um projeto real. Os resultados do fluxo completo e do aviso de contexto em sessão nova do Desktop ainda aguardam registro neste repositório.
 - **Repositório.** O [TFD](https://github.com/guilhermedemorais-dev/TFD) tem repositório próprio. O [guia de instalação](GUIA-CODEX.md) inclui o prompt para Windows e Linux. Os testes ficam no Git e o ZIP de instalação exclui a pasta `tests/`.
+
+**Alterações locais em verificação.** A branch `feat/graphify-runtime` adapta
+Graphify `0.9.101` para o bundle do TFD e migra os nomes internos restantes
+para TFD. A extração usa ambiente isolado POSIX; a consulta também roda
+em Python nativo no Windows, com limites de processo. Há despacho Windows/WSL,
+consulta limitada e fallback sem reconstrução automática. Código de projeto
+cliente não faz parte desse índice. A configuração e os recibos da máquina
+ficam no perfil local; publicação destas alterações é uma etapa separada.
 
 Para retomar, abra um chat novo na pasta do TFD, leia esta seção e execute apenas o próximo pedido do usuário.
 
@@ -49,7 +59,7 @@ decisões que informam. [Referências técnicas](../README.md#referências-técn
 
 - `scripts/validate_task.py` valida o contrato. Exige `gates`, verifica os vínculos entre requisitos, microtasks, aceites e testes, e rejeita ciclos e microtasks em que o autor é o próprio validador.
 - `scripts/validate_estimate.py` valida o arquivo de estimativa por fase. Confere a ordem das horas e a data de calendário. A estimativa dentro da task usa a mesma regra de ordem.
-- `scripts/office.py` oferece `plan`, `check` e `report`. O `check` executa testes e grava um recibo. Se o Git falhar ao levantar os caminhos alterados, o recibo registra que o escopo não foi verificado.
+- `scripts/tfd.py` oferece `plan`, `check` e `report`. O `check` executa testes e grava um recibo. Se o Git falhar ao levantar os caminhos alterados, o recibo registra que o escopo não foi verificado.
 - `scripts/pipeline.py` verifica o log local do módulo. Ele indica o gate e a ação pendente. O host executa as ações e o usuário decide a aprovação. O [adaptador Codex](../hosts/codex/README.md) está disponível. O catálogo de complementares e os demais adaptadores seguem planejados.
 - `scripts/token_usage.py` gera recibos de consumo real reportado pelo Codex
   por task, etapa e tentativa. Suporta eventos JSONL do CLI e turnos do

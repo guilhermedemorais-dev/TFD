@@ -229,7 +229,7 @@ owner e justificativa explícitos, sem criar especialistas por cerimônia.
 | DevOps / Infraestrutura / devops | REQUIRED ou N/A | devops-standard | PENDING ou N/A | definir | se N/A, justificar |
 | Observabilidade / observability | REQUIRED ou N/A | definir skill de instrumentação/operação | PENDING ou N/A | definir | se N/A, justificar |
 | Documentação / documentation | REQUIRED ou N/A | dev-implementation-standard | PENDING ou N/A | definir | se N/A, justificar |
-| Gate Final do Harness / harness | REQUIRED | dev-workflow-standard | PENDING | todos os demais REQUIRED | não se aplica |
+| Gate Final do Harness / harness | REQUIRED | tfd-workflow-standard | PENDING | todos os demais REQUIRED | não se aplica |
 
 Reutilizar PENDING, READY, RUNNING, VALIDATING, REWORK, BLOCKED, COMPLETED.
 PASS exige evidência do owner; PARTIAL/NOT_VALIDATED não fecham REQUIRED.
@@ -349,7 +349,7 @@ evidenciadas. Sem publicação presumida a partir de Markdown local.
 
 <a id="harness"></a>
 ## Gate Final do Harness
-Responsável dev-workflow-standard; status PENDING; depende de todos REQUIRED.
+Responsável tfd-workflow-standard; status PENDING; depende de todos REQUIRED.
 Fonte REQUIRED: Task completa e contrato, para reconciliar escopo e owners.
 O que fazer: conferir critérios, resultados, receipts atuais e bloqueios.
 - [ ] Reconciliar critérios e resultados dos setores REQUIRED com receipts atuais.

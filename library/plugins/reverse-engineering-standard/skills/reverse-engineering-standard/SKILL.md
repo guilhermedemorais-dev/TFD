@@ -71,6 +71,6 @@ spec from observed behavior and build new code through the normal Harness flow.
 - qa-testing-standard validates reconstructed behavior.
 - security-standard owns AppSec findings and vulnerability claims.
 - devops-standard owns deployment/infrastructure implications.
-- dev-workflow-standard owns final routing, handoff and gate reconciliation.
+- tfd-workflow-standard owns final routing, handoff and gate reconciliation.
 
 Reverse engineering evidence does not grant permission to change the Task scope.

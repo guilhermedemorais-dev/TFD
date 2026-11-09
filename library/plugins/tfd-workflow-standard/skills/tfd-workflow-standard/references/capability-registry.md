@@ -16,7 +16,7 @@ see `skill-owned-tools.md`. Do not centralize vendor installation here.
 
 | Need | Preferred capability | Fallback | Completion evidence |
 | --- | --- | --- | --- |
-| discovery / orchestration | `dev-workflow-standard` | none | consolidated scope and gate decision |
+| discovery / orchestration | `tfd-workflow-standard` | none | consolidated scope and gate decision |
 | product briefing / PRD / internal delivery planning | `studio-prd` | explicitly available canonical skill, otherwise report missing capability | approved module inventory, briefing, PRD and equivalent MD/JSON plan; supervised SDD handoff |
 | environment bootstrap / plugin health | `dev-environment-standard` | explicit manual host handoff when unsupported | HEALTH_REPORT + required capability evidence |
 | requirements / specs | `sdd-spec-factory` | orchestrator only for clarification, not silent replacement | specs + executable task |

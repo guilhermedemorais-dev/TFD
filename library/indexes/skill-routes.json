@@ -2,13 +2,13 @@
   "schema_version": 1,
   "sources": [
     {
-      "id": "dev-workflow-standard",
-      "path": "plugins/dev-workflow-standard/skills/dev-workflow-standard/SKILL.md",
+      "id": "tfd-workflow-standard",
+      "path": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/SKILL.md",
       "sha256": "0780763d5b323049addd44d0d256ad4bc64573e8d7378e6663058ffae578cfd1",
       "body_start_line": 5,
       "sections": [
         {
-          "id": "dev-workflow-standard:000",
+          "id": "tfd-workflow-standard:000",
           "heading": "Preamble",
           "start_line": 5,
           "end_line": 17,
@@ -16,7 +16,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:001",
+          "id": "tfd-workflow-standard:001",
           "heading": "Mission",
           "start_line": 18,
           "end_line": 31,
@@ -24,7 +24,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:002",
+          "id": "tfd-workflow-standard:002",
           "heading": "Harness Contract",
           "start_line": 32,
           "end_line": 78,
@@ -32,7 +32,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:003",
+          "id": "tfd-workflow-standard:003",
           "heading": "Mandatory Entry Gate",
           "start_line": 79,
           "end_line": 99,
@@ -40,7 +40,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:004",
+          "id": "tfd-workflow-standard:004",
           "heading": "Hard Limits (non-negotiable)",
           "start_line": 100,
           "end_line": 126,
@@ -48,7 +48,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:005",
+          "id": "tfd-workflow-standard:005",
           "heading": "Skill Roles (who does what)",
           "start_line": 127,
           "end_line": 142,
@@ -56,7 +56,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:006",
+          "id": "tfd-workflow-standard:006",
           "heading": "Practice Provenance",
           "start_line": 143,
           "end_line": 160,
@@ -64,7 +64,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:007",
+          "id": "tfd-workflow-standard:007",
           "heading": "Task And Execution Context",
           "start_line": 161,
           "end_line": 196,
@@ -72,7 +72,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:008",
+          "id": "tfd-workflow-standard:008",
           "heading": "Change Complexity Gate",
           "start_line": 197,
           "end_line": 217,
@@ -80,7 +80,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:009",
+          "id": "tfd-workflow-standard:009",
           "heading": "Mandatory Flow",
           "start_line": 218,
           "end_line": 269,
@@ -88,7 +88,7 @@
           "skill_id": "orchestrator-discovery"
         },
         {
-          "id": "dev-workflow-standard:010",
+          "id": "tfd-workflow-standard:010",
           "heading": "Mandatory Task Governance",
           "start_line": 270,
           "end_line": 376,
@@ -96,7 +96,7 @@
           "skill_id": "orchestrator-task-governance"
         },
         {
-          "id": "dev-workflow-standard:011",
+          "id": "tfd-workflow-standard:011",
           "heading": "Official Kanban Method",
           "start_line": 377,
           "end_line": 404,
@@ -104,7 +104,7 @@
           "skill_id": "orchestrator-task-governance"
         },
         {
-          "id": "dev-workflow-standard:012",
+          "id": "tfd-workflow-standard:012",
           "heading": "Definition of Entry / Exit",
           "start_line": 405,
           "end_line": 425,
@@ -112,7 +112,7 @@
           "skill_id": "orchestrator-task-governance"
         },
         {
-          "id": "dev-workflow-standard:013",
+          "id": "tfd-workflow-standard:013",
           "heading": "Repository Readiness Bootstrap",
           "start_line": 426,
           "end_line": 455,
@@ -120,7 +120,7 @@
           "skill_id": "orchestrator-task-governance"
         },
         {
-          "id": "dev-workflow-standard:014",
+          "id": "tfd-workflow-standard:014",
           "heading": "GitHub-Ready Task Structure",
           "start_line": 456,
           "end_line": 468,
@@ -128,7 +128,7 @@
           "skill_id": "orchestrator-task-governance"
         },
         {
-          "id": "dev-workflow-standard:015",
+          "id": "tfd-workflow-standard:015",
           "heading": "Recommended Task Template",
           "start_line": 469,
           "end_line": 477,
@@ -136,7 +136,7 @@
           "skill_id": "orchestrator-task-governance"
         },
         {
-          "id": "dev-workflow-standard:016",
+          "id": "tfd-workflow-standard:016",
           "heading": "Delegation Rules",
           "start_line": 478,
           "end_line": 518,
@@ -144,7 +144,7 @@
           "skill_id": "orchestrator-delegation"
         },
         {
-          "id": "dev-workflow-standard:017",
+          "id": "tfd-workflow-standard:017",
           "heading": "When to Trigger Each Specialist",
           "start_line": 519,
           "end_line": 576,
@@ -152,7 +152,7 @@
           "skill_id": "orchestrator-delegation"
         },
         {
-          "id": "dev-workflow-standard:018",
+          "id": "tfd-workflow-standard:018",
           "heading": "Review Rules",
           "start_line": 577,
           "end_line": 606,
@@ -160,7 +160,7 @@
           "skill_id": "orchestrator-review"
         },
         {
-          "id": "dev-workflow-standard:019",
+          "id": "tfd-workflow-standard:019",
           "heading": "Context Budget Rules",
           "start_line": 607,
           "end_line": 642,
@@ -168,7 +168,7 @@
           "skill_id": "orchestrator-core"
         },
         {
-          "id": "dev-workflow-standard:020",
+          "id": "tfd-workflow-standard:020",
           "heading": "Reference Routing",
           "start_line": 643,
           "end_line": 678,
@@ -1092,7 +1092,7 @@
       "id": "orchestrator-core",
       "sector": "orchestrator",
       "path": "skills/orchestrator-core/SKILL.md",
-      "source": "dev-workflow-standard",
+      "source": "tfd-workflow-standard",
       "role": "core",
       "requires": [
         "global-core"
@@ -1102,23 +1102,23 @@
         "orchestrator"
       ],
       "source_sections": [
-        "dev-workflow-standard:000",
-        "dev-workflow-standard:001",
-        "dev-workflow-standard:002",
-        "dev-workflow-standard:003",
-        "dev-workflow-standard:004",
-        "dev-workflow-standard:005",
-        "dev-workflow-standard:006",
-        "dev-workflow-standard:007",
-        "dev-workflow-standard:008",
-        "dev-workflow-standard:019"
+        "tfd-workflow-standard:000",
+        "tfd-workflow-standard:001",
+        "tfd-workflow-standard:002",
+        "tfd-workflow-standard:003",
+        "tfd-workflow-standard:004",
+        "tfd-workflow-standard:005",
+        "tfd-workflow-standard:006",
+        "tfd-workflow-standard:007",
+        "tfd-workflow-standard:008",
+        "tfd-workflow-standard:019"
       ],
-      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
-      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_base": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard",
+      "reference_fallback": "plugins/tfd-workflow-standard",
       "reference_map": [
         {
           "original": "references/continuous-improvement.md",
-          "resolved": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/continuous-improvement.md",
+          "resolved": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/continuous-improvement.md",
           "status": "RESOLVED"
         }
       ]
@@ -1127,7 +1127,7 @@
       "id": "orchestrator-discovery",
       "sector": "orchestrator",
       "path": "skills/orchestrator-discovery/SKILL.md",
-      "source": "dev-workflow-standard",
+      "source": "tfd-workflow-standard",
       "role": "capability",
       "requires": [
         "global-core",
@@ -1140,10 +1140,10 @@
         "produto"
       ],
       "source_sections": [
-        "dev-workflow-standard:009"
+        "tfd-workflow-standard:009"
       ],
-      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
-      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_base": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard",
+      "reference_fallback": "plugins/tfd-workflow-standard",
       "reference_map": [
         {
           "original": "../../../../docs/workflow-pipeline.md",
@@ -1156,7 +1156,7 @@
       "id": "orchestrator-task-governance",
       "sector": "orchestrator",
       "path": "skills/orchestrator-task-governance/SKILL.md",
-      "source": "dev-workflow-standard",
+      "source": "tfd-workflow-standard",
       "role": "capability",
       "requires": [
         "global-core",
@@ -1170,19 +1170,19 @@
         "contract"
       ],
       "source_sections": [
-        "dev-workflow-standard:010",
-        "dev-workflow-standard:011",
-        "dev-workflow-standard:012",
-        "dev-workflow-standard:013",
-        "dev-workflow-standard:014",
-        "dev-workflow-standard:015"
+        "tfd-workflow-standard:010",
+        "tfd-workflow-standard:011",
+        "tfd-workflow-standard:012",
+        "tfd-workflow-standard:013",
+        "tfd-workflow-standard:014",
+        "tfd-workflow-standard:015"
       ],
-      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
-      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_base": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard",
+      "reference_fallback": "plugins/tfd-workflow-standard",
       "reference_map": [
         {
           "original": "references/client-portal.md",
-          "resolved": "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/client-portal.md",
+          "resolved": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/client-portal.md",
           "status": "RESOLVED"
         }
       ]
@@ -1191,7 +1191,7 @@
       "id": "orchestrator-delegation",
       "sector": "orchestrator",
       "path": "skills/orchestrator-delegation/SKILL.md",
-      "source": "dev-workflow-standard",
+      "source": "tfd-workflow-standard",
       "role": "capability",
       "requires": [
         "global-core",
@@ -1205,12 +1205,12 @@
         "execution"
       ],
       "source_sections": [
-        "dev-workflow-standard:016",
-        "dev-workflow-standard:017",
-        "dev-workflow-standard:020"
+        "tfd-workflow-standard:016",
+        "tfd-workflow-standard:017",
+        "tfd-workflow-standard:020"
       ],
-      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
-      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_base": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard",
+      "reference_fallback": "plugins/tfd-workflow-standard",
       "v2_overlays": [
         "optional-project-memory-routing"
       ],
@@ -1231,7 +1231,7 @@
       "id": "orchestrator-review",
       "sector": "orchestrator",
       "path": "skills/orchestrator-review/SKILL.md",
-      "source": "dev-workflow-standard",
+      "source": "tfd-workflow-standard",
       "role": "capability",
       "requires": [
         "global-core",
@@ -1243,10 +1243,10 @@
         "revisão"
       ],
       "source_sections": [
-        "dev-workflow-standard:018"
+        "tfd-workflow-standard:018"
       ],
-      "reference_base": "plugins/dev-workflow-standard/skills/dev-workflow-standard",
-      "reference_fallback": "plugins/dev-workflow-standard",
+      "reference_base": "plugins/tfd-workflow-standard/skills/tfd-workflow-standard",
+      "reference_fallback": "plugins/tfd-workflow-standard",
       "reference_map": []
     },
     {
@@ -2397,7 +2397,7 @@
       "source_sections": [],
       "reference_base": ".",
       "references": [
-        "plugins/dev-workflow-standard/skills/dev-workflow-standard/references/capability-registry.md"
+        "plugins/tfd-workflow-standard/skills/tfd-workflow-standard/references/capability-registry.md"
       ]
     },
     {

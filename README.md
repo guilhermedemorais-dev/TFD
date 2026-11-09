@@ -1,4 +1,6 @@
-﻿# The Factory Developer (TFD)
+> Contexto TFD · 828 palavras · 1545 tokens (o200k_base)
+
+# The Factory Developer (TFD)
 
 O **The Factory Developer (TFD)** é um plugin para conduzir entregas de
 software no Codex, do briefing à aprovação. Ele organiza o trabalho por
@@ -46,6 +48,13 @@ Python medem o tamanho dos arquivos e registram o consumo reportado pelo
 Codex, com tokens em cache e ocupação da janela separados. O rodapé indica
 `/compact` a partir de 80% de ocupação arredondada. [Recibos e limites de contexto](hosts/codex/README.md#token-receipts)
 
+O adaptador Graphify recupera arquivos e relações do próprio TFD, com versão
+fixa, proveniência e verificação de atualização do índice. As consultas têm
+saída limitada e fallback local; as fontes canônicas continuam obrigatórias.
+O ambiente isolado usa Linux ou WSL 2 no Windows. A instalação do TFD inclui
+o adaptador; o runtime Graphify exige preparação e ativação separadas.
+[Configuração e comandos](library/docs/operations/graphify.md)
+
 ## Estado do projeto
 
 O TFD está em validação em um projeto real. O [estado do projeto](docs/ESTADO.md)
@@ -75,12 +84,13 @@ registra as verificações já feitas e os resultados ainda pendentes.
 - **Pesquisa de documentação.** O Discovery começa no índice local. Quando
   for preciso complementar a pesquisa técnica e houver autorização, o
   Context7 é a primeira opção de consulta. [Context7 MCP](https://context7.com/docs/resources/all-clients)
-- **Recuperação por grafos, em pesquisa.** GraphRAG recupera contexto por
+- **Recuperação por grafos.** GraphRAG recupera contexto por
   relações entre entidades extraídas de documentos. RepoGraph estuda a
   navegação por grafos de código. GraphCoder usa recortes de dependências
-  para selecionar contexto. Esses trabalhos orientam a proposta
-  **Repository-Aware GraphRAG**, com Graphify como candidato à extração do
-  grafo de código. O benchmark vai comparar a busca atual com a recuperação por
+  para selecionar contexto. Esses trabalhos orientam a arquitetura descritiva
+  **Repository-Aware GraphRAG**. O adaptador local usa Graphify para extração
+  e consulta do bundle TFD. A extensão ao código dos projetos e o benchmark
+  comparativo continuam pendentes. O benchmark vai comparar a busca atual com a recuperação por
   grafo, medindo tokens, cobertura de evidências e afirmações sem suporte.
   [GraphRAG, Microsoft Research](https://www.microsoft.com/en-us/research/publication/from-local-to-global-a-graph-rag-approach-to-query-focused-summarization/) ·
   [RepoGraph, ICLR 2025](https://proceedings.iclr.cc/paper_files/paper/2025/hash/4a4a3c197deac042461c677219efd36c-Abstract-Conference.html) ·

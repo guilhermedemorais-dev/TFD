@@ -45,14 +45,14 @@ For a separately installed or read-only plugin, set `TOOL_REGISTRY_PATH` to
 that skill's registry and `TOOL_STATE_PATH` to a writable, persistent local
 state file. Both overrides must be supplied together.
 
-Use `plugins/dev-workflow-standard/scripts/tool-state.py OWNER TOOL ACTION
+Use `plugins/tfd-workflow-standard/scripts/tool-state.py OWNER TOOL ACTION
 --workspace PROJECT` for `resolve`, `detect`, `install`, `run`, `invalidate`,
 and `install-failed`. The helper never installs implicitly. The owner skill
 chooses an official supported installation command compatible with the project.
 Its explicit `install --install-method METHOD -- COMMAND ARG...` action runs
 without a shell, verifies the resulting tool, and persists state immediately.
 The owner must review the command, scope, and privileges before invoking it.
-Example: `python3 plugins/dev-workflow-standard/scripts/tool-state.py
+Example: `python3 plugins/tfd-workflow-standard/scripts/tool-state.py
 dev-implementation-standard python-unittest run --workspace . -- --version`.
 Detection of an already installed tool also records the state immediately.
 

@@ -1,4 +1,4 @@
-# Contexto TFD · 835 palavras · 1823 tokens (o200k_base)
+# Contexto TFD · 836 palavras · 1827 tokens (o200k_base)
 
 """Install TFD for the active Codex profile or check its published revision."""
 
@@ -17,7 +17,7 @@ MARKETPLACE = "tfd-local"
 PLUGIN = f"the-factory-developer@{MARKETPLACE}"
 PACKAGE_DIRS = (
     ".agents", ".codex-plugin", "agents", "docs", "examples",
-    "hosts", "library", "schemas", "scripts", "skills",
+    "hosts", "integrations", "library", "schemas", "scripts", "skills",
 )
 MANIFEST = Path(".codex-plugin/plugin.json")
 RULE = Path("hosts/codex/automatic-agents.md")

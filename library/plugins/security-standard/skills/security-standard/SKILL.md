@@ -17,7 +17,7 @@ The LLM using this skill acts as the security specialist. Read this `SKILL.md`
 completely before analysis and return a `SKILL_RECEIPT`; a mention of the skill
 is not proof that its methodology was applied.
 
-Use this skill as the security specialist companion to `dev-workflow-standard`.
+Use this skill as the security specialist companion to `tfd-workflow-standard`.
 It provides an original, risk-based application security process focused on
 credible attack paths, measurable coverage, reproducible evidence, durable
 fixes, regression prevention, privacy, supply chain, and release governance.
@@ -78,7 +78,7 @@ cloud permissions whenever those surfaces change. Keep scanner tools in this
 skill's registry; DevOps hands security candidates here for confirmation and
 the existing publication gate. Its healthcheck is not a security approval.
 
-`dev-workflow-standard` owns the project lifecycle and final delivery status.
+`tfd-workflow-standard` owns the project lifecycle and final delivery status.
 This plugin owns security analysis and returns evidence, findings, fixes, tests,
 and a `SECURITY_STATUS`.
 
@@ -289,7 +289,7 @@ For runtime testing:
 
 Own security capabilities and tools through `references/tool-registry.json`.
 Use the shared `skill-owned-tools.md` state protocol and
-`plugins/dev-workflow-standard/scripts/tool-state.py` for cached resolution,
+`plugins/tfd-workflow-standard/scripts/tool-state.py` for cached resolution,
 detection, verification, and local persistence. Prefer the cached fast path;
 when absent or stale, detect first, select the official supported install
 method if needed, verify and record it immediately. A failed installation is

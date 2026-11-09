@@ -1,5 +1,5 @@
 ---
-name: dev-workflow-standard
+name: tfd-workflow-standard
 description: "Use as the engineering harness for Guilherme's software delivery: receive a demand, diagnose and consolidate scope, plan executable work, resolve the required specialist skill/plugin/tool, actively invoke the selected capability, preserve handoff context, require execution evidence and validation before advancing, recover or replan on failure, and review delivery against specs/task/acceptance criteria. Product code is executed through dev-implementation-standard or another explicitly selected executor capability, never merely assigned."
 ---
 
@@ -128,7 +128,7 @@ use a documentation-only or Git-only label to bypass this gate.
 
 | Skill | Role | Owns |
 | --- | --- | --- |
-| `dev-workflow-standard` | Engineering harness / final reviewer | demand, diagnosis, planning, capability routing, execution state, handoff, validation, recovery, approval |
+| `tfd-workflow-standard` | Engineering harness / final reviewer | demand, diagnosis, planning, capability routing, execution state, handoff, validation, recovery, approval |
 | `dev-environment-standard` | Environment specialist | portable bootstrap, plugin health, MCP preparation, local environment state |
 | `studio-prd` | Collaborative product briefing | new/existing product discovery, actors/journeys, module inventory and internal delivery plan |
 | `sdd-spec-factory` | Requirements LLM | product/module/page/component/validation/API/DB specs, executable task, PR/QA checklists |
@@ -242,23 +242,23 @@ not a second execution contract or automatic permission to spawn chats.
 
 ```text
 Idea / demand
-  -> dev-workflow-standard: diagnose + critical questions
+  -> tfd-workflow-standard: diagnose + critical questions
   -> collaborative Discovery / SDD with user + research
   -> sdd-spec-factory: specs, reference/design libraries, complete Issue + v2 JSON
   -> publish DISCOVERY_SDD_COMPLETED with token usage and changed surface
   -> human approval
-  -> dev-workflow-standard: resolve executor capability + verify availability
+  -> tfd-workflow-standard: resolve executor capability + verify availability
   -> selected executor: invoked; state RUNNING
   -> dev-implementation-standard: implement routed microtasks + executor tests
   -> execution result: diff / files / commands / artifacts
   -> selected executor: complete EXECUTION_RECEIPT
   -> update Human Task + publish EXECUTION_REPORT_COMMENT when applicable
-  -> dev-workflow-standard: VALIDATING
+  -> tfd-workflow-standard: VALIDATING
   -> independent UI/UX / QA / Security / DevOps validation as applicable
   -> sector reconciliation
   -> Pull Request / PR gate
   -> Harness final gate
-  -> dev-workflow-standard: approve or request rework
+  -> tfd-workflow-standard: approve or request rework
   -> human review / acceptance
   -> merge / deploy (only after PR approved)
 ```

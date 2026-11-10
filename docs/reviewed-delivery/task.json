@@ -1,6 +1,6 @@
 {
   "task_id": "TFD-KNOWLEDGE-001",
-  "contract_revision": 4,
+  "contract_revision": 6,
   "title": "Conhecimento seletivo e entrega de task revisada no TFD",
   "problem": "A preparação técnica exige pausas repetidas e o PASS de G6 não vincula estruturalmente o parecer à spec corrente.",
   "goal": "Preparar tasks tecnicamente revisadas com pesquisa seletiva e instruções por setor, preservando PRD interativo, evidências, economia de contexto e aprovação humana de cada fase implementada.",
@@ -9,7 +9,8 @@
   "scope": [
     "Instruções dos 14 setores nativos de entrega e procedimento compartilhado de pesquisa/contexto.",
     "Opção de preparação do workflow G2-G5 e PASS estruturado correspondente em G6.",
-    "Regressões, orçamento de contexto, revisão independente e documentação da manutenção INC-001."
+    "Regressões, orçamento de contexto, revisão independente e documentação da manutenção INC-001.",
+    "Exibir responsabilidade, limites e resultado esperado em cada MT, derivados do contrato existente."
   ],
   "out_of_scope": [
     "Novo schema de Task, novo motor de conhecimento ou novos agentes.",
@@ -51,7 +52,9 @@
     "tests/test_pipeline.py",
     "tests/test_qa_spec_skill.py",
     "tests/test_reviewed_delivery.py",
-    "tests/test_product_skill.py"
+    "tests/test_product_skill.py",
+    "scripts/render_task.py",
+    "tests/test_mt_handoff.py"
   ],
   "protected_paths": [
     "schemas/**",
@@ -125,6 +128,12 @@
       "description": "Preservar biblioteca e economia de contexto com orçamento medido e limites explícitos.",
       "source": "docs/reviewed-delivery/README.md#requirements",
       "priority": "MUST"
+    },
+    {
+      "id": "REQ-12",
+      "description": "Cada MT mostra @responsavel, acoes e caminhos permitidos, restricoes, entregaveis, condicao de conclusao e @validador sem duplicar o contexto de execucao.",
+      "source": "docs/reviewed-delivery/README.md#microtask-handoff-view",
+      "priority": "MUST"
     }
   ],
   "business_rules": [
@@ -142,6 +151,11 @@
       "id": "RULE-03",
       "description": "A implementação conserva build, autoteste, QA independente, até três ciclos de rework e aprovação humana por fase.",
       "source": "docs/office/incidents/INC-001.json"
+    },
+    {
+      "id": "RULE-04",
+      "description": "O agente principal usa a skill TFD-harness para coordenar e delegar as MTs conforme dependencias e gates; o subagente tfd_harness do Codex e apenas de consulta/status. A ordem visual dos setores nao altera a execucao nem o loop de QA.",
+      "source": "docs/reviewed-delivery/README.md#microtask-handoff-view"
     }
   ],
   "references": [
@@ -181,6 +195,11 @@
     }
   ],
   "sectors": {
+    "harness": {
+      "label": "harness",
+      "owner": "TFD-harness",
+      "applicability": "REQUIRED"
+    },
     "database": {
       "label": "database",
       "owner": "TFD-database",
@@ -233,11 +252,6 @@
       "applicability": "N/A",
       "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
     },
-    "harness": {
-      "label": "harness",
-      "owner": "TFD-harness",
-      "applicability": "REQUIRED"
-    },
     "architecture": {
       "label": "Arquitetura da manutenção",
       "owner": "TFD-architecture",
@@ -273,7 +287,7 @@
         "docs/reviewed-delivery/task.json",
         "docs/reviewed-delivery/task.md"
       ],
-      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "completion_condition": "Spec e Task da revisao atual validas, view equivalente ao JSON e parecer independente de spec para essa revisao.",
       "validator": "TFD-qa_spec"
     },
     {
@@ -327,7 +341,7 @@
         "skills/TFD-harness/references/gates.md",
         "library/indexes/resources.json"
       ],
-      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "completion_condition": "Instrucoes e biblioteca preservadas, PRD interativo e pesquisa delimitada; limites de contexto medidos e restricoes documentadas.",
       "validator": "TFD-qa_spec"
     },
     {
@@ -361,7 +375,7 @@
         "tests/test_pipeline.py",
         "tests/test_reviewed_delivery.py"
       ],
-      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "completion_condition": "Regressoes do modo manual, preparacao opt-in e vinculo do PASS em G6 aprovadas com comandos e exits observados.",
       "validator": "TFD-qa_backend"
     },
     {
@@ -378,7 +392,8 @@
       ],
       "depends_on": [
         "MT-02",
-        "MT-03"
+        "MT-03",
+        "MT-05"
       ],
       "allowed_paths": [
         "docs/reviewed-delivery/qa-review.md",
@@ -395,8 +410,41 @@
         "docs/reviewed-delivery/verification.md",
         "docs/reviewed-delivery/context-budget.json"
       ],
-      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "completion_condition": "Criterios da revisao entregue verificados independentemente; parecer PASS ou bloqueios/rework acionaveis com comandos, exits e limites.",
       "validator": "TFD-harness"
+    },
+    {
+      "id": "MT-05",
+      "title": "Explicitar agentes, limites e resultados de cada microtarefa",
+      "owner": "TFD-backend",
+      "sector": "backend",
+      "phase": "P2",
+      "reference_ids": [
+        "REF-01",
+        "REF-02",
+        "REF-03"
+      ],
+      "depends_on": [
+        "MT-01"
+      ],
+      "allowed_paths": [
+        "scripts/render_task.py",
+        "tests/test_mt_handoff.py"
+      ],
+      "checklist": [
+        "Derivar @owner e @validator literais dos campos canonicos, sem invocar agentes.",
+        "Expor checklist, caminhos permitidos e negacao de trabalho fora do escopo ou sem gate.",
+        "Mostrar entregaveis e condicao de conclusao especifica de cada MT.",
+        "Exibir exclusoes e caminhos protegidos globais uma vez e vincular cada MT.",
+        "Preservar tasks legadas, recibos, checkboxes e JSON roteado por setor.",
+        "Explicitar coordenacao pelo agente principal no cabecalho e mostrar harness primeiro, preservando dependencias e loop de QA."
+      ],
+      "deliverables": [
+        "scripts/render_task.py",
+        "tests/test_mt_handoff.py"
+      ],
+      "completion_condition": "Cada MT apresenta responsavel, limites, entregaveis, conclusao e validador; testes do formato atual e legado passam e o JSON roteado permanece equivalente.",
+      "validator": "TFD-qa_backend"
     }
   ],
   "acceptance_criteria": [
@@ -521,6 +569,18 @@
         "MT-01"
       ],
       "validation": "TEST-03"
+    },
+    {
+      "id": "AC-11",
+      "description": "Toda MT tem handoff explicito, limites globais sem repeticao, mencoes informativas, recibos preservados e contexto JSON inalterado para a mesma Task.",
+      "requirement_ids": [
+        "REQ-12"
+      ],
+      "microtask_ids": [
+        "MT-05",
+        "MT-04"
+      ],
+      "validation": "TEST-04"
     }
   ],
   "required_tests": [
@@ -541,6 +601,12 @@
       "type": "unit",
       "command": "python -B scripts/validate_task.py docs/reviewed-delivery/task.json",
       "expected": "Exit 0; view conferida com render_task da revisão atual."
+    },
+    {
+      "id": "TEST-04",
+      "type": "unit",
+      "command": "python -B -m unittest tests.test_mt_handoff",
+      "expected": "Exit 0; todas MTs no formato por setor e legado, limites globais uma vez, recibos e JSON roteado preservados."
     }
   ],
   "stop_conditions": [

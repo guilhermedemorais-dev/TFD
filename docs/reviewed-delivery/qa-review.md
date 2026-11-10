@@ -1,8 +1,8 @@
-> Contexto TFD · 767 palavras · 1639 tokens (o200k_base)
+> Contexto TFD · 1132 palavras · 2445 tokens (o200k_base)
 
 # QA independente — entrega revisada
 
-**PASS** para `TFD-KNOWLEDGE-001`, spec e task revisão **4**, branch
+**PASS histórico — revisão 4** para `TFD-KNOWLEDGE-001`, branch
 `office/reviewed-delivery`, base `38197b7730c9925207f1aea01c615e04daf23209`.
 Revisor: agente nativo `qa_reviewed_implementation` / `TFD-qa_backend`, distinto
 dos autores. Nenhum arquivo de implementação foi editado pelo revisor.
@@ -88,3 +88,53 @@ Merge, deploy, publicação e atualização do cache instalado não fizeram part
 
 Nenhum achado bloqueador ou major permanece aberto neste escopo. Este PASS é
 técnico; a decisão humana de aceitar a entrega continua pendente.
+
+## Adendo histórico — revisão 5 (INC-002)
+
+**PASS independente — spec e task revisão 5.** O parecer da revisão 4 acima é
+histórico; não foi reutilizado para aprovar a nova view. Autoria do renderer e
+novos testes: coordenador; revisão independente: `qa_reviewed_implementation`.
+
+AC-11: revisão do código, das views setorizada/legada e dos quatro novos testes
+confirma que cada MT deriva `@owner` e `@validator` literais, checklist/caminhos
+permitidos, proibições, resultados e condição específica de conclusão. Menções
+não invocam agentes nem convertem aliases desconhecidos. “Pode” permanece
+condicionado aos limites globais e ao gate; caminhos protegidos prevalecem.
+Exclusões e proteção aparecem uma vez, sob âncora referenciada pelas MTs.
+Checkboxes e pareceres PASS/REWORK/BLOCKED continuam preservados.
+
+Verificação executada nesta revisão:
+
+- `python -B -m unittest discover -s tests`: **exit 0; 154 testes; 7,304 s**.
+- Comparador independente em memória, renderer da base `d134c38` versus atual,
+  com a mesma Task revisão 5: **exit 0; cinco rotas JSON literalmente iguais**.
+  View humana: **1.157 → 2.441 tokens** `o200k_base`; maior clareza visual,
+  sem redução de contexto obrigatório nem alegação de economia real.
+- `validate_task`, comparação view/render e vínculo do parecer de spec:
+  **exit 0; revisão 5 válida e correspondente; zero campos de schema novos**.
+
+Snapshot SHA-256: renderer `fff2b2db4a54313b364d3cc551f054a7d86a76158cf5fe0a78da609dca4f9e50`;
+novos testes `e213df5bf3f724fc0198df0128279851657982d23d68381a8a43fe8d3c8916df`;
+task `67f531066b3bd25cb43fdf675a453181ee81360244e54830a4582547e8e33f72`.
+Nenhum achado bloqueador/major aberto. Aprovação humana, instalação e limites
+NOT VALIDATED de runtime/host permanecem; sem merge ou deploy nesta verificação.
+
+
+## Adendo atual — revisão 6
+
+**PASS independente — revisão 6**, rota `qa / MT-04`, revisor
+`header_runtime_qa` / `TFD-qa_backend`, distinto do autor. Os pareceres anteriores
+permanecem históricos. Escopo: cabeçalho e ordenação visual, AC-10/AC-11.
+
+`python -B -m unittest tests.test_mt_handoff tests.test_schemas tests.test_pipeline tests.test_reviewed_delivery`:
+**exit 0; 53 testes; 1,592 s**, incluindo seis testes de handoff.
+Comparador independente em memória com `validate_task`, `render_task` e
+`sector_context`: **exit 0**; Task/view equivalentes na revisão 6, cinco rotas
+inalteradas antes/depois da renderização, ausência de mutação, fases P1/P2/P3 e
+dependências preservadas. Parecer de spec corrente: PASS, revisão 6.
+
+Leitura confirma agente principal usando `TFD-harness`, subagente nativo
+`tfd_harness` restrito a consulta/status, harness primeiro na matriz/seções e
+loop autotestes → QA independente → correções/nova revisão → PASS → aprovação
+humana. Nenhum achado bloqueador neste recorte. Implementação/testes não foram
+editados pelo revisor. Aprovação humana permanece pendente; sem merge ou deploy.

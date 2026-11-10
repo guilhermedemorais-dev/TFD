@@ -1,4 +1,4 @@
-> Contexto TFD · 1198 palavras · 2088 tokens (o200k_base)
+> Contexto TFD · 1264 palavras · 2202 tokens (o200k_base)
 
 # TFD no Codex
 
@@ -25,6 +25,10 @@ o instalador sinaliza que ela precisa de conferência.
 A consulta compara a última revisão instalada pelo script com a revisão no
 GitHub. A instalação baixa a cópia de execução sem `tests/`. Depois de
 instalar ou atualizar, abra uma nova sessão para carregar as mudanças.
+
+## Atualizar uma versão local aprovada
+
+Use `python -B scripts/install_tfd.py update --source <pasta-git-aprovada> --base <commit-base> --dry-run` para conferir o plano. Repita sem `--dry-run` para aplicar. O instalador preserva extensões, conhecimentos e configurações; faz backup e rollback em caso de falha. Conflitos interrompem a preparação. O recibo identifica a origem local e seu conteúdo, sem anunciar publicação no GitHub. Abra uma nova sessão após a atualização.
 
 ## Configuração manual e pré-requisitos
 

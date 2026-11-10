@@ -1,0 +1,49 @@
+{
+  "id": "INC-002",
+  "when": "2026-11-10T01:15:26+00:00",
+  "task": "TFD-KNOWLEDGE-001",
+  "symptom": "Microtask human view omits responsible-agent mentions, scope boundaries and expected outputs already present in canonical JSON.",
+  "root_cause": "The renderer displays only titles and checklists.",
+  "fix": "Derive explicit per-MT agent, boundaries, outputs and validator from existing fields; global exclusions once; preserve routed JSON and receipts.",
+  "risk": "Generated view compatibility and stale QA revision; preserve schema, routed context and approvals.",
+  "evidence": "Latest explicit maintainer request: melhor ja deixar o @ de cada agente em cada MT, o que pode e nao pode fazer e resultado esperado; independent preimplementation spec QA PASS.",
+  "author": "codex-maintainer",
+  "paths": [
+    "README.md",
+    "docs/reviewed-delivery/README.md",
+    "docs/reviewed-delivery/context-budget.json",
+    "docs/reviewed-delivery/qa-review.md",
+    "docs/reviewed-delivery/spec-review.json",
+    "docs/reviewed-delivery/task.json",
+    "docs/reviewed-delivery/task.md",
+    "docs/reviewed-delivery/verification.md",
+    "docs/sector-task.md",
+    "scripts/render_task.py",
+    "tests/test_mt_handoff.py"
+  ],
+  "status": "approved",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:\\Users\\teste\\Documents\\deepseek-harness\\default-workspace\\.venv-tfd\\Scripts\\python.exe",
+        "-B",
+        "-c",
+        "import json,sys;from pathlib import Path;r=Path(sys.argv[1]);sys.path.insert(0,str(r/'scripts'));from render_task import render_task;t=json.loads((r/'examples/task.example.json').read_text(encoding='utf-8'));v=render_task(t);assert all('@'+m['owner'] in v and '@'+m['validator'] in v and m['completion_condition'] in v for m in t['microtasks']), 'missing explicit per-MT handoff';print('PASS: explicit per-MT handoff')",
+        "C:\\Users\\teste\\.codex\\worktrees\\tfd-reviewed-delivery\\TFD"
+      ],
+      "exit": 1,
+      "matched": true,
+      "when": "2026-11-10T01:15:27+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "a22156a712c77a375afde3da36b0d886e27108e8b747563da8ee70a8e6a4e0db"
+    }
+  ],
+  "branch": "office/reviewed-delivery",
+  "base": "d134c3887f79937d413172fedfe418ecb97024ed",
+  "approval": {
+    "maintainer": "user",
+    "evidence": "Latest user request explicitly authorizes per-MT agent mentions, allowed/prohibited actions and expected results; no merge or deploy.",
+    "when": "2026-11-10T01:15:27+00:00"
+  }
+}

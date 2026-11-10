@@ -1,8 +1,8 @@
-> Contexto TFD · 1606 palavras · 2379 tokens (o200k_base)
+> Contexto TFD · 1896 palavras · 2794 tokens (o200k_base)
 
 # Reviewed task delivery
 
-Task: `TFD-KNOWLEDGE-001`; specification revision: `4`; maintenance route: Oficina `INC-001`.
+Task: `TFD-KNOWLEDGE-001`; specification revision: `6`; maintenance route: Oficina `INC-001` and `INC-002`.
 Status: proposed specification for independent QA. Implementation and verification results are not asserted here.
 Source: the user's explicit maintenance authorization recorded in [INC-001](../office/incidents/INC-001.json). It preserves interactive PRD questions, token economy and each implementation stage's review/approval loop.
 
@@ -27,6 +27,7 @@ The manual workflow remains the default. An explicitly authorized preparation mo
 | REQ-09 | In the opt-in mode, G6 requires task.spec equal to artifacts.spec and a structurally valid independent spec QA PASS for that exact submitted spec and revision. | AC-07 / TEST-01 |
 | REQ-10 | Preserve build, self-test, applicable independent QA, scoped rework and human approval for each implementation phase. | AC-08 / TEST-01 |
 | REQ-11 | Preserve bounded context and the existing library; measure before/after source cost without claiming runtime token savings or host behavior. | AC-09 / TEST-02 |
+| REQ-12 | Derive explicit agent, allowed/prohibited work, expected result and independent validator in every MT view, preserving execution context. | AC-11 / TEST-04 |
 
 ## Workflow extension
 
@@ -49,6 +50,14 @@ In this mode only, add action `complete` at G2, G3, G4 and G5. It uses the curre
 Do not accept `complete` without opt-in authorization, before submission/QA, on stale revisions or from an author/reviewer. No extra stage is skipped. This policy changes preparation only; publication, installation, merge, production data operations and deploy retain separate authorization.
 
 For G6 in the opted-in workflow, read the `qa_spec` review evidence as the existing findings JSON and validate it with `skills/TFD-qa_spec/scripts/check_findings.py`'s `validate_findings`. Require JSON verdict PASS, `artifact` equal to the submitted `artifacts.spec` project-relative path, and `revision` equal to the review/submission revision. A text file, malformed findings, REWORK content hidden behind a PASS event, different artifact or stale revision cannot satisfy G6. Require the existing canonical Task field `task.spec` to equal the current submission's `artifacts.spec` project-relative path. Missing or different `task.spec` is rejected in this mode even when valid PASS findings name the submitted spec; no new Task field is introduced. Keep current author/reviewer separation and artifact SHA-256 checks. The same submission binds the spec, matching Discovery, canonical Task identity/revision and generated task view. Findings do not prove substantive correctness: independent QA still reads matching sources and acceptance checks.
+
+## Microtask handoff view
+
+The header identifies the main agent using the `TFD-harness` skill to coordinate and delegate according to dependencies, scope and gates. The native Codex `tfd_harness` remains read-only status, not a dispatcher. Present harness first in the sector matrix and sections, preserving all other sector order and the canonical phases/MT dependencies. Show the implementation loop explicitly: self-tests, independent QA, scoped corrections and renewed review, PASS, then human approval. Use existing business-rule fields for this global constraint; no new schema field.
+
+The human view derives each literal `@owner` and `@validator` from canonical MT fields. These labels identify responsibility; they do not invoke a host agent, change its identity or grant permission. Do not convert them to host-specific aliases.
+
+For every MT, including legacy tasks without sectors, show its permitted checklist and `allowed_paths`, prohibited edits outside those paths/global limits or gate bypass, expected `deliverables`, and its specific `completion_condition`. Global `out_of_scope` and `protected_paths` appear once under a stable anchor referenced by every MT. Protected paths and gates still prevail over an allowed-path list. Preserve receipt verdicts, checkboxes and the existing `sector_context` JSON for the same canonical Task. No schema fields or dependencies are added. New human views require a higher contract revision and fresh QA; a prior PASS is historical evidence only.
 
 ## Research and context contract
 
@@ -78,10 +87,12 @@ Persist bounded project-specific findings, alternatives, accepted decisions, con
 | AC-08 | G6/G7/G8 gates still await actual human approval; applicable QA and the existing three-rework boundary remain intact. |
 | AC-09 | Modified skills stay within 150 lines and descriptions within 60 words; shared procedure and gate reference each stay within 1,000 measured tokens; report comparable before/after counts without fabricated runtime savings. |
 | AC-10 | The canonical Task validates against the existing schema and its Markdown sibling matches the same revision rendered by the existing script. |
+| AC-11 | Every MT shows its responsible agent, boundaries, expected result/completion and independent validator; global limits appear once; routed JSON and receipts remain unchanged for the same Task. |
 
 TEST-01: `python -B -m unittest tests.test_pipeline tests.test_reviewed_delivery`. Include a negative case with current valid PASS findings for artifacts.spec while the canonical Task points to another spec, and a case with task.spec missing; both must fail only in opted-in mode.
 TEST-02: `python -B -m unittest tests.test_discovery_skill tests.test_qa_spec_skill tests.test_reviewed_delivery` plus measured context-budget and independent scenario review.
 TEST-03: `python -B scripts/validate_task.py docs/reviewed-delivery/task.json` and verify its Markdown sibling equals the existing renderer output.
+TEST-04: `python -B -m unittest tests.test_mt_handoff`: exercise every MT in sector and legacy views, distinct owners/validators/results, global anchors, receipt behavior and unchanged routed context.
 Full regression before delivery: `python -B -m unittest discover -s tests`.
 
 ## Limits and recovery

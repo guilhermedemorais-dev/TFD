@@ -1,4 +1,4 @@
-> Contexto TFD · 927 palavras · 1707 tokens (o200k_base)
+> Contexto TFD · 974 palavras · 1812 tokens (o200k_base)
 
 # The Factory Developer (TFD)
 
@@ -21,6 +21,8 @@ você decidir quando cada etapa pode avançar.
 Para consultar ou aplicar atualizações, use a skill `tfd-install` ou os
 comandos `check` e `update` do instalador. [Guia do Codex](docs/GUIA-CODEX.md)
 
+Para instalar melhorias locais já aprovadas, o instalador aceita `update --source <pasta-git> --base <commit-base>`. Confira primeiro com `--dry-run`; o modo local preserva os extras e as configurações existentes. [Procedimento](docs/GUIA-CODEX.md#atualizar-uma-versão-local-aprovada)
+
 ## Como funciona
 
 1. **Definir e pesquisar.** O Product faz perguntas sobre decisões de negócio
@@ -29,7 +31,8 @@ comandos `check` e `update` do instalador. [Guia do Codex](docs/GUIA-CODEX.md)
    além dos conceitos do PDF. A pesquisa pode ser retomada nas etapas seguintes.
 2. **Especificar.** A Arquitetura traduz os requisitos em contratos, fases e
    testes. Cada módulo tem uma task JSON, que é a fonte de verdade, e uma
-   visão Markdown gerada para leitura. O QA de spec revisa antes da implementação.
+   visão Markdown gerada para leitura. Cada MT mostra `@responsável`, ações e
+   caminhos permitidos, restrições, resultado esperado e `@validador` independente. O QA de spec revisa antes da implementação.
 3. **Implementar e revisar.** O coordenador encaminha as microtarefas aos
    setores. Os QAs aplicáveis revisam a mesma revisão que foi entregue. Em
    caso de reprovação, o autor corrige o escopo apontado e o QA revisa de novo.

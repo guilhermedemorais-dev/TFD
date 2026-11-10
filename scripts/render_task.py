@@ -1,3 +1,5 @@
+# Contexto TFD · 1288 palavras · 2772 tokens (o200k_base)
+
 """Render a human-readable task body from its canonical JSON."""
 
 import argparse
@@ -31,8 +33,22 @@ def sector_context(task, sector, microtask_id=None):
             "references": [entry for entry in task["references"] if entry["id"] in refs]}
 
 
+def microtask_lines(micro):
+    paths = ", ".join(f"`{path}`" for path in micro["allowed_paths"])
+    outputs = "; ".join(micro["deliverables"])
+    return [
+        f"  - Responsável: `@{micro['owner']}` · Validador independente: `@{micro['validator']}`",
+        f"  - Caminhos permitidos: {paths}",
+        "  - Pode: executar o checklist abaixo nos caminhos permitidos, respeitando os limites globais e o gate atual.",
+        *(f"    - {item}" for item in micro["checklist"]),
+        "  - Não pode: editar fora desses caminhos ou em caminhos protegidos, ampliar escopo ou contornar gates; respeite os [limites globais](#limites-globais).",
+        f"  - Resultado esperado: {outputs}",
+        f"  - Concluído quando: {micro['completion_condition']}",
+    ]
+
+
 def sector_lines(task, json_link, receipts):
-    sectors = task["sectors"]
+    sectors = dict(sorted(task["sectors"].items(), key=lambda item: item[0] != "harness"))
     phase_order = {phase["id"]: index for index, phase in enumerate(task["phases"])}
     microtasks = sorted(task["microtasks"], key=lambda micro: phase_order[micro["phase"]])
     lines = ["", "## Fases", ""]
@@ -63,7 +79,7 @@ def sector_lines(task, json_link, receipts):
             lines.append(f"- **{micro['id']} · {micro['phase']}** {micro['title']} · depende de {dependencies}")
             lines.append(f"  - {'☑' if verdict == 'PASS' else '☐'} Aprovado · "
                          f"{'☑' if verdict == 'REWORK' else '☐'} Reprovado · {observation}")
-            lines.extend(f"  - {item}" for item in micro["checklist"])
+            lines.extend(microtask_lines(micro))
         lines.extend(["", f"[JSON]({json_link}) · `--sector {sector}`",
                       f"Feito: {receipt.get('summary', 'pendente')} · "
                       f"Bloqueios: {receipt.get('blockers', 'a verificar')} · "
@@ -105,17 +121,25 @@ def render_task(task, json_link="task.json", receipts=None):
         "",
         f"Revisão {task['contract_revision']} · {task['status']}",
     ]
+    lines.extend(["",
+                  "Coordenação: o agente principal usa a skill `TFD-harness` para coordenar e delegar as MTs conforme dependências, escopo e gates.",
+                  "No Codex, o subagente `tfd_harness` é apenas de consulta/status; a delegação cabe ao agente principal.", "",
+                  "Loop de implementação: execução e autotestes → QA independente → correções e nova revisão → PASS → aprovação humana."])
     if "sectors" in task:
         lines.extend(["", f"Agentes: abra o [JSON canônico]({json_link}) e execute somente sua rota e seus checklists."])
     if task.get("problem"):
         lines.extend(["", "## Problema", "", task["problem"]])
     lines.extend(["", "## Solução", "", task["goal"]])
+    lines.extend(["", '<a id="limites-globais"></a>', "## Limites globais", "",
+                  "Fora do escopo: " + "; ".join(task["out_of_scope"]),
+                  "Caminhos protegidos: " + (", ".join(f"`{path}`" for path in task["protected_paths"]) or "nenhum declarado")])
     if "sectors" in task:
         lines.extend(sector_lines(task, json_link, receipts or {}))
     else:
         lines.extend(["", "## O que será feito", ""])
         for micro in task["microtasks"]:
-            lines.append(f"- {micro['title']} → {'; '.join(micro['deliverables'])}")
+            lines.append(f"- **{micro['id']}** {micro['title']}")
+            lines.extend(microtask_lines(micro))
     lines.extend(["", "Escopo, aceite e testes no contrato JSON desta task."])
     if not task.get("estimate"):
         lines.append("Estimativa pendente. G6 bloqueado para submissão.")

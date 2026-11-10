@@ -130,5 +130,43 @@
     "architecture/technical-decision-procedure.md"
   ],
   "runtime_token_savings": "NOT_VALIDATED",
-  "host_auto_selection_and_compliance": "NOT_VALIDATED"
+  "host_auto_selection_and_compliance": "NOT_VALIDATED",
+  "mt_handoff_view": {
+    "task_revision": 6,
+    "renderer_baseline_commit": "d134c38",
+    "comparison": "Same canonical revision6 Task for both renderers; source-size estimate, not runtime usage.",
+    "old_human_view_tokens": 1185,
+    "new_human_view_tokens": 2553,
+    "routes": [
+      {
+        "microtask": "MT-01",
+        "sector": "architecture",
+        "same_task_routed_json_identical": true
+      },
+      {
+        "microtask": "MT-02",
+        "sector": "harness",
+        "same_task_routed_json_identical": true
+      },
+      {
+        "microtask": "MT-03",
+        "sector": "backend",
+        "same_task_routed_json_identical": true
+      },
+      {
+        "microtask": "MT-04",
+        "sector": "qa",
+        "same_task_routed_json_identical": true
+      },
+      {
+        "microtask": "MT-05",
+        "sector": "backend",
+        "same_task_routed_json_identical": true
+      }
+    ],
+    "global_limits": "once, linked from every MT",
+    "schema_fields_added": 0,
+    "runtime_invocation": "Mentions identify owners/validators only.",
+    "header_coordination": "Main agent uses TFD-harness skill; native Codex status agent is not dispatcher. Harness-first display does not change phase/MT dependencies or QA gates."
+  }
 }

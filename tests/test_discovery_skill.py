@@ -1,5 +1,8 @@
+# Contexto TFD · 428 palavras · 1042 tokens (o200k_base)
+
 import hashlib
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -20,6 +23,21 @@ OBSERVED = {
 
 
 class TestDiscovery(unittest.TestCase):
+    def test_native_sectors_resolve_one_shared_research_contract(self):
+        roles = "harness product discovery architecture database backend frontend ui_ux qa_spec qa_backend qa_ui security devops documentation".split()
+        shared = (ROOT / "library/architecture/technical-decision-procedure.md").resolve()
+        for role in roles:
+            with self.subTest(role=role):
+                skill = ROOT / "skills" / ("TFD-" + role) / "SKILL.md"
+                text = skill.read_text(encoding="utf-8")
+                targets = re.findall(r"\[[^\]]+\]\(([^)]+technical-decision-procedure\.md)\)", text)
+                self.assertEqual(len(targets), 1)
+                self.assertEqual((skill.parent / targets[0]).resolve(), shared)
+                self.assertTrue(shared.is_file())
+                self.assertLessEqual(len(text.splitlines()), 150)
+                description = next(line for line in text.splitlines() if line.startswith("description:"))
+                self.assertLessEqual(len(description.split()) - 1, 60)
+
     def test_resource_index_resolves_to_verified_files_inside_plugin(self):
         library = ROOT / "library"
         index = json.loads((library / "indexes/resources.json").read_text(encoding="utf-8"))

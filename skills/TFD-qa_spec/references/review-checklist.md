@@ -1,3 +1,5 @@
+> Contexto TFD · 340 palavras · 529 tokens (o200k_base)
+
 # Specification review checklist
 
 Review in order. Cite a literal excerpt and recommend a correction. Ask the author if there is no citable excerpt.
@@ -12,3 +14,5 @@ Review in order. Cite a literal excerpt and recommend a correction. Ask the auth
 8. **Security and data.** Check personal-data purpose, retention, masking and lawful basis, authn/authz, input and upload limits, secrets, sensitive logs, and audit of critical actions. Usually `blocker`.
 
 Use `REWORK` for any `blocker` or `major`; otherwise use `PASS`. The author fixes findings. QA revalidates.
+
+At G6, check Task/spec path, revision, Discovery and generated view together. In reviewed preparation, bind PASS findings to the submitted spec path and revision. Confirm research covers the actual technical gap beyond any fixed manual list, sources are applicable, and planned checks are not represented as executed evidence.

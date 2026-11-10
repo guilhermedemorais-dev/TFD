@@ -1,7 +1,9 @@
+> Contexto TFD · 1855 palavras · 3534 tokens (o200k_base)
+
 # Arquitetura — The Factory Developer (TFD)
 
 O TFD coordena PRD, Discovery, arquitetura, implementação e entrega com
-evidências rastreáveis e aprovação humana em cada gate.
+evidências rastreáveis e aprovação humana conforme a política explícita dos gates.
 
 ## 1. Nome e escopo
 
@@ -22,7 +24,7 @@ evidências rastreáveis e aprovação humana em cada gate.
 3. Evidência vence prosa.
 4. Regra determinística vira código; julgamento vira uma página.
 5. Quem executa não aprova o próprio trabalho.
-6. Humano aprova gate, escopo, prazo, merge e deploy.
+6. Humano aprova escopo, PRD, task, etapas implementadas, prazo, merge e deploy. Preparação técnica só pode ser consolidada por autorização explícita.
 7. Complementar é plugável, versionado e autorizado antes de instalar.
 
 ## 3. Setores
@@ -82,6 +84,19 @@ G8   Pacote de revisão → revisão humana do PR e verificação local
 Gates que falham param o fluxo. Ferramenta faltando gera `BLOCKED` com comando e
 pedido de autorização; nada instala sozinho.
 
+O padrão continua manual. Com `preparation.mode=reviewed_task` e registro da
+autorização humana, G2-G5 permitem `complete` por coordenador independente,
+depois do QA aplicável. G1 mantém o briefing interativo; G6 exige task apontando
+para a mesma spec do PASS estruturado e aprovação humana. G7 e G8 mantêm suas
+aprovações. [Contrato executável e limites](../skills/TFD-harness/references/gates.md)
+
+Instruções curtas por setor orientam decisões e testes. Teoria fica consultável
+na biblioteca, com Graphify como navegação e leitura da fonte canônica. Lacunas
+técnicas materiais podem abrir pesquisa em qualquer etapa, além dos 80 conceitos
+ou do PDF, incluindo guias externos avaliados criticamente. Reutilizam-se fontes
+compatíveis; decisões, versões, limites e evidências ficam no projeto. Referências
+obrigatórias nunca são eliminadas para reduzir contexto.
+
 ## 5. G4 — Arquitetura e contratos (completo)
 
 Nenhum item é opcional sem justificativa registrada.
@@ -120,8 +135,9 @@ Campos obrigatórios:
 - `gates` do módulo
 - `estimate` (seção 7)
 
-Regra de ouro: **o que fazer e o que não fazer**. Se a execução precisa decidir
-algo que o contrato não cobre, ela para e pergunta; não inventa.
+Regra de ouro: **o que fazer e o que não fazer**. A execução pesquisa fatos técnicos
+dentro do escopo autorizado. Decisão de negócio ausente, mudança material de escopo
+ou conflito de autoridade retorna ao usuário; não se inventa um requisito.
 
 ## 7. Prazo e estimativa
 

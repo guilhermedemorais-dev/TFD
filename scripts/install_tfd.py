@@ -1,4 +1,4 @@
-# Contexto TFD · 836 palavras · 1827 tokens (o200k_base)
+# Contexto TFD · 984 palavras · 2099 tokens (o200k_base)
 
 """Install TFD for the active Codex profile or check its published revision."""
 
@@ -148,6 +148,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=("install", "check", "update"))
     parser.add_argument("--venv", type=Path, default=default_venv())
+    parser.add_argument("--source", type=Path, help="approved local Git source for update")
+    parser.add_argument("--base", help="reviewed Git baseline for a preserving local update")
+    parser.add_argument("--dry-run", action="store_true", help="plan local update without modifying installation")
     args = parser.parse_args()
     if sys.version_info < (3, 10):
         parser.error("Python 3.10 or newer is required")
@@ -155,6 +158,23 @@ def main():
     profile = Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex").expanduser().resolve()
     receipt = profile / "tfd-installation.json"
     try:
+        local = json.loads(receipt.read_text(encoding="utf-8")) if receipt.is_file() else {}
+        if args.source or (local.get("local_source") and args.action in ("check", "update")):
+            if args.action == "check":
+                print(json.dumps({**local, "status": "LOCAL_INSTALLED"}, ensure_ascii=False))
+                return 0
+            if args.action != "update":
+                raise ValueError("--source is supported for update only")
+            from install_local import update_local
+            source = args.source or Path(local["local_source"])
+            base = args.base or local.get("local_base")
+            if not base:
+                raise ValueError("local update requires --base with the reviewed baseline")
+            result = update_local(profile, source, base, codex, args.dry_run)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+        if args.base or args.dry_run:
+            raise ValueError("--base and --dry-run require a local --source")
         latest = remote_revision()
         status = inspect_installation(receipt, latest)
         if args.action == "install" or (args.action == "update" and status["status"] != "UP_TO_DATE"):

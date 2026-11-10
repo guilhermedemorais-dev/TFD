@@ -1,4 +1,4 @@
-> Contexto TFD · 828 palavras · 1545 tokens (o200k_base)
+> Contexto TFD · 974 palavras · 1812 tokens (o200k_base)
 
 # The Factory Developer (TFD)
 
@@ -21,24 +21,36 @@ você decidir quando cada etapa pode avançar.
 Para consultar ou aplicar atualizações, use a skill `tfd-install` ou os
 comandos `check` e `update` do instalador. [Guia do Codex](docs/GUIA-CODEX.md)
 
+Para instalar melhorias locais já aprovadas, o instalador aceita `update --source <pasta-git> --base <commit-base>`. Confira primeiro com `--dry-run`; o modo local preserva os extras e as configurações existentes. [Procedimento](docs/GUIA-CODEX.md#atualizar-uma-versão-local-aprovada)
+
 ## Como funciona
 
-1. **Definir e pesquisar.** O Product registra escopo e critérios no PRD. O
-   Discovery consulta a biblioteca local e registra fontes e lacunas no
-   projeto. Uma pesquisa complementar depende da autorização aplicável.
+1. **Definir e pesquisar.** O Product faz perguntas sobre decisões de negócio
+   pendentes e registra escopo e critérios no PRD. O Discovery reutiliza evidências
+   do projeto e pesquisa lacunas técnicas na biblioteca e em fontes verificadas,
+   além dos conceitos do PDF. A pesquisa pode ser retomada nas etapas seguintes.
 2. **Especificar.** A Arquitetura traduz os requisitos em contratos, fases e
    testes. Cada módulo tem uma task JSON, que é a fonte de verdade, e uma
-   visão Markdown gerada para leitura. O QA de spec revisa antes da implementação.
+   visão Markdown gerada para leitura. Cada MT mostra `@responsável`, ações e
+   caminhos permitidos, restrições, resultado esperado e `@validador` independente. O QA de spec revisa antes da implementação.
 3. **Implementar e revisar.** O coordenador encaminha as microtarefas aos
    setores. Os QAs aplicáveis revisam a mesma revisão que foi entregue. Em
    caso de reprovação, o autor corrige o escopo apontado e o QA revisa de novo.
 4. **Aprovar e documentar.** O TFD apresenta entregáveis, testes e bloqueios.
-   Você aprova cada etapa. A documentação técnica e a ajuda ao usuário
+   Você aprova PRD, task e cada etapa implementada. A preparação técnica G2-G5
+   pode avançar com autorização explícita e QA aplicável; G6 chega com spec e task
+   correspondentes e PASS independente. A documentação técnica e a ajuda ao usuário
    registram o comportamento verificado.
 
 O log do módulo fica no repositório do projeto. O validador local confere a
 ordem das etapas, os arquivos de evidência, as revisões e as aprovações
 registradas. [Contrato dos gates](skills/TFD-harness/references/gates.md)
+
+A [spec desta melhoria e sua task](docs/reviewed-delivery/README.md) registram o
+modo opcional, a avaliação do guia MatthewKerns e os limites de verificação.
+O [repositório do guia](https://github.com/MatthewKerns/software-development-best-practices-guide.git)
+é fonte externa para consulta sob demanda; o TFD guarda o ponteiro, sem distribuir
+ou indexar seu conteúdo completo nos grafos.
 
 ## Contexto e medição
 

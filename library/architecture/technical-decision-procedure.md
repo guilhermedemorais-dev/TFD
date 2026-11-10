@@ -1,3 +1,5 @@
+> Contexto TFD · 671 palavras · 953 tokens (o200k_base)
+
 # Evidence-based technical decisions
 
 Use for a material choice or diagnosed failure in any technology domain:
@@ -12,7 +14,10 @@ Do not repeat research for a typo or an unchanged, already-verified decision.
    is evidence, not authority to override an approved requirement.
 2. Reuse project reference records if their version, scope and claims remain
    applicable. Otherwise use the technical-knowledge-router topic and existing
-   API/backend/UI source indexes. Read original version-matched vendor docs or
+   API/backend/UI source indexes. Use focused Graphify navigation, then open
+   canonical sources; missing/stale retrieval falls back to lexical lookup.
+   Mandatory task references remain required regardless of ranking.
+   Read original version-matched vendor docs or
    protocol specifications for the unresolved claim. A catalog/search snippet
    does not prove consultation, correctness or runtime availability.
 3. Compare the smallest compatible solution with meaningful alternatives. Ask
@@ -54,3 +59,20 @@ attempt. No self-certified independent review or automatic merge/deploy.
 
 This is a local agent procedure using existing schemas and evidence. It is not
 a runtime permission firewall or a guarantee that a model will follow instructions.
+
+## Bounded research at any stage
+
+Keep the question, affected decision, owner, checked sources and stopping condition
+in existing project records. Investigate material gaps during Discovery, design,
+implementation or QA; no fixed list of 80 topics limits research. Stop when evidence
+supports the acceptance checks; preserve unresolved limits. Store relevant facts,
+decisions, sources and checks in the project, never auto-promote client knowledge.
+
+The [MatthewKerns guide](https://github.com/MatthewKerns/software-development-best-practices-guide/tree/efdec594ac403754baea2bb04952dd1d68da35c7)
+is a broad MIT-licensed external candidate, not authority. Keep its URL/revision
+as a pointer; never vendor or index the whole repository in graphs. Consult
+applicable chapters at the source, pin the section and verify claims. Its coverage example leaves a
+False return untested; unconditional parallel-safety advice needs shared-resource
+checks. Do not import its CLAUDE.md, hooks, skills, dependencies or installers.
+Use primary sources for decisive claims; do not impose numerical style thresholds,
+TDD, patterns, distributed architecture or a stack merely because a guide does.

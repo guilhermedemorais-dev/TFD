@@ -1,0 +1,132 @@
+{
+  "id": "INC-001",
+  "when": "2026-11-10T00:32:56+00:00",
+  "task": "TFD-KNOWLEDGE-001",
+  "symptom": "Research guidance is not explicit in sector skills; preparatory stages require repeated human approvals and G6 does not bind a structured spec QA PASS.",
+  "root_cause": "Conditional knowledge routing exists but native skill and pipeline integration is incomplete.",
+  "fix": "Scoped sector instructions, bounded project research, opt-in reviewed preparation, and revision-bound spec QA with stage loops preserved.",
+  "risk": "Approval-policy regression or unnecessary context growth; preserve manual default and G1/G6/G7/G8 human gates.",
+  "evidence": "Current chat audit and explicit user request: Pode implementar esse plano no TFD; PRD questions and each-stage loops; no merge/deploy.",
+  "author": "codex-maintainer",
+  "paths": [
+    "README.md",
+    "docs/00-arquitetura.md",
+    "docs/reviewed-delivery/README.md",
+    "docs/reviewed-delivery/context-budget.json",
+    "docs/reviewed-delivery/qa-review.md",
+    "docs/reviewed-delivery/spec-review.json",
+    "docs/reviewed-delivery/task.json",
+    "docs/reviewed-delivery/task.md",
+    "docs/reviewed-delivery/verification.md",
+    "docs/sector-task.md",
+    "library/architecture/technical-decision-procedure.md",
+    "library/indexes/resources.json",
+    "scripts/pipeline.py",
+    "skills/TFD-architecture/SKILL.md",
+    "skills/TFD-backend/SKILL.md",
+    "skills/TFD-database/SKILL.md",
+    "skills/TFD-devops/SKILL.md",
+    "skills/TFD-discovery/SKILL.md",
+    "skills/TFD-documentation/SKILL.md",
+    "skills/TFD-frontend/SKILL.md",
+    "skills/TFD-harness/SKILL.md",
+    "skills/TFD-harness/references/gates.md",
+    "skills/TFD-product/SKILL.md",
+    "skills/TFD-qa_backend/SKILL.md",
+    "skills/TFD-qa_spec/SKILL.md",
+    "skills/TFD-qa_spec/references/review-checklist.md",
+    "skills/TFD-qa_ui/SKILL.md",
+    "skills/TFD-security/SKILL.md",
+    "skills/TFD-ui_ux/SKILL.md",
+    "tests/test_discovery_skill.py",
+    "tests/test_pipeline.py",
+    "tests/test_product_skill.py",
+    "tests/test_qa_spec_skill.py",
+    "tests/test_reviewed_delivery.py"
+  ],
+  "status": "verified",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:\\Users\\teste\\Documents\\deepseek-harness\\default-workspace\\.tmp-reviewed-delivery\\probe.py",
+        "C:\\Users\\teste\\.codex\\worktrees\\tfd-reviewed-delivery\\TFD"
+      ],
+      "exit": 1,
+      "matched": true,
+      "when": "2026-11-10T00:33:20+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "caabc39d1dd6b9f5b0a05e4f89fc14c554114f076a766e33b3f567bfbcbf4e2b"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:\\Users\\teste\\Documents\\deepseek-harness\\default-workspace\\.tmp-reviewed-delivery\\probe.py",
+        "C:\\Users\\teste\\.codex\\worktrees\\tfd-reviewed-delivery\\TFD"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-10T00:56:28+00:00",
+      "stdout_sha256": "1e630cc79726acf44efeff149241c5c0fe413f858d6f0000abb9661fa49be801",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "branch": "office/reviewed-delivery",
+  "base": "38197b7730c9925207f1aea01c615e04daf23209",
+  "approval": {
+    "maintainer": "user",
+    "evidence": "Explicit authorization in this chat: Pode implementar esse plano no TFD, preservando os conhecimentos existentes e a economia de tokens. No merge or deploy; keep interactive PRD and stage loops.",
+    "when": "2026-11-10T00:32:56+00:00"
+  },
+  "scope_amendments": [
+    {
+      "path": "tests/test_product_skill.py",
+      "reason": "The existing exact Product metadata-version assertion must track the authorized skill behavior/version change. No additional product behavior.",
+      "authorization": "Existing explicit user authorization to implement this TFD improvement and required checks; no new permission inferred."
+    }
+  ],
+  "verified_paths": {
+    "README.md": "dc8a9031d47c2b415d4fc797346dd786feb5ad9390ed91d86e878364235865d5",
+    "docs/00-arquitetura.md": "7853392546f4c22b38950446e8f7b511e0f0e8b1211b85ab72f24556215b147e",
+    "docs/reviewed-delivery/README.md": "ed761ba8b2ff7f718b96a4e755a3ca5f0083cfe57511eed2e61fa997b17b758e",
+    "docs/reviewed-delivery/context-budget.json": "b7f064fc91db94af648b85e95fc5c754c202c03471fd665d8c47045d51f905fc",
+    "docs/reviewed-delivery/qa-review.md": "b4f26a0e002e014c081938e037129f4f7d42a9413ae44c5028d8739c04fa7b61",
+    "docs/reviewed-delivery/spec-review.json": "e042f417e4e8e40386d1d97eafd43ba716b6863e2dc8e8b0b89f3c9a590d8ace",
+    "docs/reviewed-delivery/task.json": "63aa296943e0dac1c63033106d3169a9527ac2cbc3bb3d70f3f8e30a72320221",
+    "docs/reviewed-delivery/task.md": "56d6bc3bf296ff57539c7c8723aad9ae9939d1081e457823d5a24543ac07f077",
+    "docs/reviewed-delivery/verification.md": "1bf6e5c8a5b8f16dfeb1f528a82b03f2eff5da82ec2ac17faac413101a099885",
+    "docs/sector-task.md": "a5bf774bf4d90f7267f5851a00aa3a7223f9794dee42a64f94866e98cb263183",
+    "library/architecture/technical-decision-procedure.md": "fdcb6113a604b9451eef656129b01d31b764dd253361de05df1ff0356d0cd5ef",
+    "library/indexes/resources.json": "6a7c6e2e0e71bb808c84bdccf41709cb70d427db9656b84d4321a609f19aa460",
+    "scripts/pipeline.py": "81e9969d9b753276d64b600a9b9a7c76d50b419775587ca243d4b255db782325",
+    "skills/TFD-architecture/SKILL.md": "241c7272e37438b26a5007c974f61ddd1bf6b15183276338f6fa00d8d3b4afa7",
+    "skills/TFD-backend/SKILL.md": "b1ad37e4f0bd68210e2d6022a799df186da0882720b0a9efd316f3e5d9cde779",
+    "skills/TFD-database/SKILL.md": "ebd6c0132334434cf07e98a33dd41028b6a1b2330cac1a7d96e075bf2c7e9dc2",
+    "skills/TFD-devops/SKILL.md": "4885f550569733bf16fd25912630caa4288d14eba97bb7a9e715672752fa1024",
+    "skills/TFD-discovery/SKILL.md": "818b337fe2d23cd20667ececf1e25e4000fe57bb5a3c934b1c1153f40d614b13",
+    "skills/TFD-documentation/SKILL.md": "fc0c9107423737629b2f95b2edbf37d69871bc3bd58993596cbdbfa400cc0832",
+    "skills/TFD-frontend/SKILL.md": "e7899fcfa9eedbf7e2f3433efca5abc1fbf0a6149b34778c2aca7e4ab6407ef2",
+    "skills/TFD-harness/SKILL.md": "f61b754e0c9494ae53db891ab2bf870c727ab9913f2292ee9a8ade13170e8484",
+    "skills/TFD-harness/references/gates.md": "145f41ab3cfcdeb3d3bbeb2884435764865040695049bd8cfc013821000a94b9",
+    "skills/TFD-product/SKILL.md": "f1ef21e21f21d20ae9085b155cec3e9a1755ecb80769464c42c9d9547b872839",
+    "skills/TFD-qa_backend/SKILL.md": "da318a627312bb11176a2baab180b014526352bac95ef0a32ce1d4ae29311695",
+    "skills/TFD-qa_spec/SKILL.md": "40dd68470ce03ed4573c0019c5d21162f924274eb157d3c91ecbfd5fe4514cd9",
+    "skills/TFD-qa_spec/references/review-checklist.md": "c41ed7df69dcd272a88f18d51f3470258921ad1b95cac863d07df4ad196d0486",
+    "skills/TFD-qa_ui/SKILL.md": "8aeeb2a0e9581122555042268302ee112c26b32c373756de4054e5ada05b2856",
+    "skills/TFD-security/SKILL.md": "39acfeccf489203ac0925529ab29dcaa8fa993495eec3dfbf5c49e6306e337a4",
+    "skills/TFD-ui_ux/SKILL.md": "f520b0da43e3aba3b495ee402980b6d0180bea097b565604111018750a9cec1b",
+    "tests/test_discovery_skill.py": "d79f7aef293a8c8af81291650028e2309d43faf569ca6b4c8e7ab98ce3f4cf14",
+    "tests/test_product_skill.py": "4fe455e3e122c78a67603e461cd6ad891cd904c46de9c562066e5356a5c77094",
+    "tests/test_qa_spec_skill.py": "cf0b3e5b2c8ce330d6de762efbc82d0c5bb1818f1238afa7d6ffaa6e28483b66",
+    "tests/test_reviewed_delivery.py": "7086f39bb33eb2810575692821fd48f8dece4032764cb3fb2d9748a7628f7e3a"
+  },
+  "verification": {
+    "reviewer": "qa_reviewed_implementation",
+    "evidence": "docs/reviewed-delivery/qa-review.md; independent PASS revision4;150tests exit0 and four CLI checkpoints",
+    "when": "2026-11-10T00:56:43+00:00"
+  }
+}

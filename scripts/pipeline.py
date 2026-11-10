@@ -1,7 +1,10 @@
+# Contexto TFD · 1387 palavras · 2866 tokens (o200k_base)
+
 """Check a project-local TFD workflow log and print its next gate."""
 
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path, PurePosixPath
 
@@ -25,6 +28,7 @@ SUFFIX = (
 )
 TRACKS = {"backend": "qa_backend", "ui": "qa_ui", "security": "security"}
 TASK_ARTIFACTS = ("task", "task_view")
+PREPARATION_GATES = {"G2", "G3", "G4", "G5"}
 
 
 def stages(phases):
@@ -65,11 +69,37 @@ def require_file(path, root):
     return resolved
 
 
+def reviewed_preparation(log, root):
+    if "preparation" not in log:
+        return False
+    config = log["preparation"]
+    if (not isinstance(config, dict) or set(config) != {"mode", "authorization"}
+            or config["mode"] != "reviewed_task"):
+        raise ValueError("preparation requires mode reviewed_task and authorization only")
+    if not require_file(config["authorization"], root).read_bytes().strip():
+        raise ValueError("preparation authorization must be nonempty")
+    return True
+
+
+def require_spec_pass(evidence, spec, revision):
+    checker = Path(__file__).resolve().parents[1] / "skills/TFD-qa_spec/scripts/check_findings.py"
+    definition = importlib.util.spec_from_file_location("tfd_spec_findings", checker)
+    module = importlib.util.module_from_spec(definition)
+    definition.loader.exec_module(module)
+    findings = json.loads(evidence.read_text(encoding="utf-8"))
+    errors = module.validate_findings(findings)
+    if errors:
+        raise ValueError("G6: invalid spec QA findings: " + "; ".join(errors))
+    if (findings["verdict"], findings["artifact"], findings["revision"]) != ("PASS", spec, revision):
+        raise ValueError("G6: spec QA PASS must match the submitted spec and revision")
+
+
 def evaluate(log, root):
     if not isinstance(log, dict) or not isinstance(log.get("events"), list):
         raise ValueError("workflow must contain phases and an events list")
     plan = stages(log.get("phases"))
     root = Path(root).resolve()
+    preparation = reviewed_preparation(log, root)
     step = attempts = 0
     submission = None
     reviews = {}
@@ -141,6 +171,8 @@ def evaluate(log, root):
                     raise ValueError("invalid task: " + "; ".join(errors))
                 if (task["task_id"], task["contract_revision"]) != (task_id, contract_revision):
                     raise ValueError("G6: active task does not match submitted identity and revision")
+                if preparation and task.get("spec") != artifacts["spec"]:
+                    raise ValueError("G6: task.spec must match the submitted spec")
                 if "phases" in task and [entry["id"] for entry in task["phases"]] != [
                     entry["id"] for entry in log["phases"]
                 ]:
@@ -149,7 +181,7 @@ def evaluate(log, root):
                 if markdown_body(view) != render_task(task, PurePosixPath(task_paths[0]).name):
                     raise ValueError("G6: task_view must be generated from the submitted task JSON")
             revisions.add(revision)
-            submission = (revision, actor)
+            submission = (revision, actor, artifacts.get("spec"))
             reviews = {}
             attempts += 1
             status = "AWAITING_QA" if reviewers else "AWAITING_APPROVAL"
@@ -158,7 +190,7 @@ def evaluate(log, root):
             raise ValueError("event must reference the current submitted revision")
         if actor == submission[1]:
             raise ValueError("the author cannot review or approve their own work")
-        require_file(event.get("evidence"), root)
+        evidence = require_file(event.get("evidence"), root)
         if action == "review":
             reviewer = event.get("reviewer")
             verdict = event.get("verdict")
@@ -168,6 +200,8 @@ def evaluate(log, root):
                 raise ValueError("each required review needs a distinct reviewer")
             if verdict not in ("PASS", "REWORK", "BLOCKED"):
                 raise ValueError("invalid reviewer verdict")
+            if preparation and gate == "G6" and verdict == "PASS":
+                require_spec_pass(evidence, submission[2], revision)
             reviews[reviewer] = (verdict, actor)
             if verdict == "BLOCKED" or (verdict == "REWORK" and attempts >= 4):
                 status = "BLOCKED"
@@ -175,9 +209,16 @@ def evaluate(log, root):
                 status = "REWORK"
             elif all(role in reviews for role in reviewers):
                 status = "AWAITING_APPROVAL"
-        elif action == "approve":
+        elif action in ("approve", "complete"):
+            if action == "complete":
+                if not preparation or gate not in PREPARATION_GATES:
+                    raise ValueError("complete requires authorized preparation at G2-G5 only")
+                if not evidence.read_bytes().strip():
+                    raise ValueError("completion evidence must be nonempty")
             if status != "AWAITING_APPROVAL" or actor in {person for _, person in reviews.values()}:
-                raise ValueError("approval requires current QA passes and an independent human")
+                raise ValueError("completion requires current QA passes and an independent coordinator"
+                                 if action == "complete" else
+                                 "approval requires current QA passes and an independent human")
             step += 1
             attempts = 0
             submission = None

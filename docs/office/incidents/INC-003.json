@@ -1,0 +1,49 @@
+{
+  "id": "INC-003",
+  "when": "2026-11-10T18:51:05+00:00",
+  "task": "TFD-PYTEST-COLLECTION",
+  "symptom": "pytest collects 135 items and reports three ModuleNotFoundError tests errors",
+  "root_cause": "tests has no package marker; pytest console entrypoint adds tests directory rather than repository root to sys.path",
+  "fix": "Add tests/__init__.py so pytest imports tests as a package",
+  "risk": "Low: test package discovery only; no runtime change",
+  "evidence": "User supplied CI traceback; local pytest 9.2.0 reproduced identical imports on Windows Python 3.12.10",
+  "author": "tfd-devops",
+  "paths": [
+    "tests/__init__.py"
+  ],
+  "status": "fixed",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/pytest.exe"
+      ],
+      "exit": 2,
+      "matched": true,
+      "when": "2026-11-10T18:51:08+00:00",
+      "stdout_sha256": "3b76f982b79aff0b9a7488edd5a55c7fd9b30f79c56de7ed5b39cbac3553c234",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/pytest.exe"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-10T18:52:02+00:00",
+      "stdout_sha256": "1f019971e739960a528457ab7cf52a63e54b4908c2c708f600dcd0ee29fd25bf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "branch": "office/reviewed-delivery",
+  "base": "aed39a843c74851f658e1e85a63a65b2946dadba",
+  "approval": {
+    "maintainer": "user",
+    "evidence": "Main chat 2026-11-10: user explicitly authorized installing pytest, reproducing the error, correcting its cause in TFD and running the full suite.",
+    "when": "2026-11-10T18:51:06+00:00"
+  },
+  "verified_paths": {
+    "tests/__init__.py": "3f428ecc73a759bda4d1582aa2b09c57f8ac236aede8528c7462bf2ded0c1c2a"
+  }
+}

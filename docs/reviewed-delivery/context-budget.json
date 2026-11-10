@@ -1,0 +1,134 @@
+{
+  "encoding": "o200k_base",
+  "baseline_commit": "38197b7730c9925207f1aea01c615e04daf23209",
+  "kind": "static source measurements, not observed runtime usage",
+  "skills": [
+    {
+      "sector": "harness",
+      "baseline_tokens": 445,
+      "current_tokens": 573,
+      "delta_tokens": 128,
+      "current_lines": 22
+    },
+    {
+      "sector": "product",
+      "baseline_tokens": 585,
+      "current_tokens": 639,
+      "delta_tokens": 54,
+      "current_lines": 37
+    },
+    {
+      "sector": "discovery",
+      "baseline_tokens": 438,
+      "current_tokens": 545,
+      "delta_tokens": 107,
+      "current_lines": 22
+    },
+    {
+      "sector": "architecture",
+      "baseline_tokens": 299,
+      "current_tokens": 375,
+      "delta_tokens": 76,
+      "current_lines": 19
+    },
+    {
+      "sector": "database",
+      "baseline_tokens": 132,
+      "current_tokens": 201,
+      "delta_tokens": 69,
+      "current_lines": 15
+    },
+    {
+      "sector": "backend",
+      "baseline_tokens": 131,
+      "current_tokens": 217,
+      "delta_tokens": 86,
+      "current_lines": 15
+    },
+    {
+      "sector": "frontend",
+      "baseline_tokens": 119,
+      "current_tokens": 186,
+      "delta_tokens": 67,
+      "current_lines": 15
+    },
+    {
+      "sector": "ui_ux",
+      "baseline_tokens": 119,
+      "current_tokens": 188,
+      "delta_tokens": 69,
+      "current_lines": 15
+    },
+    {
+      "sector": "qa_spec",
+      "baseline_tokens": 439,
+      "current_tokens": 524,
+      "delta_tokens": 85,
+      "current_lines": 30
+    },
+    {
+      "sector": "qa_backend",
+      "baseline_tokens": 134,
+      "current_tokens": 210,
+      "delta_tokens": 76,
+      "current_lines": 15
+    },
+    {
+      "sector": "qa_ui",
+      "baseline_tokens": 132,
+      "current_tokens": 200,
+      "delta_tokens": 68,
+      "current_lines": 15
+    },
+    {
+      "sector": "security",
+      "baseline_tokens": 120,
+      "current_tokens": 191,
+      "delta_tokens": 71,
+      "current_lines": 15
+    },
+    {
+      "sector": "devops",
+      "baseline_tokens": 138,
+      "current_tokens": 214,
+      "delta_tokens": 76,
+      "current_lines": 15
+    },
+    {
+      "sector": "documentation",
+      "baseline_tokens": 123,
+      "current_tokens": 195,
+      "delta_tokens": 72,
+      "current_lines": 15
+    }
+  ],
+  "all_14_baseline_tokens": 3354,
+  "all_14_current_tokens": 4458,
+  "policy": "Load only active sector and relevant references; all-14 sum is inventory, not one prompt. Required sources cannot be dropped to meet a budget.",
+  "references": [
+    {
+      "path": "library/architecture/technical-decision-procedure.md",
+      "baseline_tokens": 671,
+      "current_tokens_including_stamp": 972,
+      "within_1000": true
+    },
+    {
+      "path": "skills/TFD-harness/references/gates.md",
+      "baseline_tokens": 850,
+      "current_tokens_including_stamp": 991,
+      "within_1000": true
+    },
+    {
+      "path": "skills/TFD-qa_spec/references/review-checklist.md",
+      "baseline_tokens": 470,
+      "current_tokens_including_stamp": 548,
+      "within_1000": true
+    }
+  ],
+  "library_resources_preserved": 109,
+  "index_changes": [
+    "architecture/technical-decision-procedure.md"
+  ],
+  "runtime_token_savings": "NOT_VALIDATED",
+  "host_auto_selection_and_compliance": "NOT_VALIDATED"
+}

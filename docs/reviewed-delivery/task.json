@@ -1,0 +1,565 @@
+{
+  "task_id": "TFD-KNOWLEDGE-001",
+  "contract_revision": 4,
+  "title": "Conhecimento seletivo e entrega de task revisada no TFD",
+  "problem": "A preparação técnica exige pausas repetidas e o PASS de G6 não vincula estruturalmente o parecer à spec corrente.",
+  "goal": "Preparar tasks tecnicamente revisadas com pesquisa seletiva e instruções por setor, preservando PRD interativo, evidências, economia de contexto e aprovação humana de cada fase implementada.",
+  "complexity": "complex",
+  "spec": "docs/reviewed-delivery/README.md",
+  "scope": [
+    "Instruções dos 14 setores nativos de entrega e procedimento compartilhado de pesquisa/contexto.",
+    "Opção de preparação do workflow G2-G5 e PASS estruturado correspondente em G6.",
+    "Regressões, orçamento de contexto, revisão independente e documentação da manutenção INC-001."
+  ],
+  "out_of_scope": [
+    "Novo schema de Task, novo motor de conhecimento ou novos agentes.",
+    "Instalar ou executar ferramentas do repositório MatthewKerns; importar suas instruções globais.",
+    "Alterar os projetos clientes, promover conhecimento privado ao plugin ou editar o checkout original.",
+    "Publicação remota, merge, deploy e remoção de aprovação humana do PRD ou da implementação."
+  ],
+  "allowed_paths": [
+    "README.md",
+    "docs/00-arquitetura.md",
+    "docs/reviewed-delivery/README.md",
+    "docs/reviewed-delivery/context-budget.json",
+    "docs/reviewed-delivery/qa-review.md",
+    "docs/reviewed-delivery/spec-review.json",
+    "docs/reviewed-delivery/task.json",
+    "docs/reviewed-delivery/task.md",
+    "docs/reviewed-delivery/verification.md",
+    "docs/sector-task.md",
+    "library/architecture/technical-decision-procedure.md",
+    "library/indexes/resources.json",
+    "scripts/pipeline.py",
+    "skills/TFD-architecture/SKILL.md",
+    "skills/TFD-backend/SKILL.md",
+    "skills/TFD-database/SKILL.md",
+    "skills/TFD-devops/SKILL.md",
+    "skills/TFD-discovery/SKILL.md",
+    "skills/TFD-documentation/SKILL.md",
+    "skills/TFD-frontend/SKILL.md",
+    "skills/TFD-harness/SKILL.md",
+    "skills/TFD-harness/references/gates.md",
+    "skills/TFD-product/SKILL.md",
+    "skills/TFD-qa_backend/SKILL.md",
+    "skills/TFD-qa_spec/SKILL.md",
+    "skills/TFD-qa_spec/references/review-checklist.md",
+    "skills/TFD-qa_ui/SKILL.md",
+    "skills/TFD-security/SKILL.md",
+    "skills/TFD-ui_ux/SKILL.md",
+    "tests/test_discovery_skill.py",
+    "tests/test_pipeline.py",
+    "tests/test_qa_spec_skill.py",
+    "tests/test_reviewed_delivery.py",
+    "tests/test_product_skill.py"
+  ],
+  "protected_paths": [
+    "schemas/**",
+    "integrations/graphify/**",
+    "scripts/install*",
+    "library/plugins/**"
+  ],
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "description": "Manter perguntas interativas do PRD e decisões de negócio do usuário.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-02",
+      "description": "Inserir obrigações concisas e gatilhos de conhecimento nos setores existentes.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-03",
+      "description": "Permitir pesquisa técnica limitada no Discovery e em qualquer owner afetado.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-04",
+      "description": "Reutilizar e persistir evidência e decisões versionadas no projeto atual.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-05",
+      "description": "Tratar Graphify como navegação sem omitir fontes obrigatórias ou autoridade canônica.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-06",
+      "description": "Cobrir engenharia além dos manuais 001-080; manter apenas URL externo MatthewKerns, consultar capítulos na origem sob demanda e não copiar nem indexar seu conteúdo nos grafos.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-07",
+      "description": "Manter fluxo manual padrão e validar a opção de preparação autorizada.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-08",
+      "description": "Permitir complete apenas em G2-G5 com revisão corrente e atores independentes.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-09",
+      "description": "Exigir task.spec igual a artifacts.spec e vincular PASS estruturado de QA à spec e revisão exatas de G6 no modo opt-in.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-10",
+      "description": "Preservar ciclos por fase com build, autoteste, QA independente, rework e aprovação humana.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-11",
+      "description": "Preservar biblioteca e economia de contexto com orçamento medido e limites explícitos.",
+      "source": "docs/reviewed-delivery/README.md#requirements",
+      "priority": "MUST"
+    }
+  ],
+  "business_rules": [
+    {
+      "id": "RULE-01",
+      "description": "A opção de preparação somente registra autorização explícita real; não cria aprovação humana nem autentica atores.",
+      "source": "docs/reviewed-delivery/README.md#workflow-extension"
+    },
+    {
+      "id": "RULE-02",
+      "description": "Conhecimento recuperado é consultivo; contrato aprovado e fontes obrigatórias continuam vinculantes.",
+      "source": "docs/reviewed-delivery/README.md#research-and-context-contract"
+    },
+    {
+      "id": "RULE-03",
+      "description": "A implementação conserva build, autoteste, QA independente, até três ciclos de rework e aprovação humana por fase.",
+      "source": "docs/office/incidents/INC-001.json"
+    }
+  ],
+  "references": [
+    {
+      "id": "REF-01",
+      "path": "docs/reviewed-delivery/README.md",
+      "purpose": "Spec normativa, contratos e critérios de aceite desta manutenção."
+    },
+    {
+      "id": "REF-02",
+      "path": "docs/office/incidents/INC-001.json",
+      "purpose": "Incidente, autorização explícita, paths permitidos e reprodução anterior."
+    },
+    {
+      "id": "REF-03",
+      "path": "skills/TFD-harness/references/gates.md",
+      "purpose": "Contrato de gates e aprovação que deve preservar o padrão manual."
+    },
+    {
+      "id": "REF-04",
+      "path": "library/architecture/technical-decision-procedure.md",
+      "purpose": "Procedimento compartilhado de pesquisa seletiva e evidência no projeto."
+    }
+  ],
+  "phases": [
+    {
+      "id": "P1",
+      "title": "Spec e revisão independente"
+    },
+    {
+      "id": "P2",
+      "title": "Política e implementação delimitadas"
+    },
+    {
+      "id": "P3",
+      "title": "QA e pacote de revisão humana"
+    }
+  ],
+  "sectors": {
+    "database": {
+      "label": "database",
+      "owner": "TFD-database",
+      "applicability": "N/A",
+      "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
+    },
+    "backend": {
+      "label": "backend",
+      "owner": "TFD-backend",
+      "applicability": "REQUIRED"
+    },
+    "frontend": {
+      "label": "frontend",
+      "owner": "TFD-frontend",
+      "applicability": "N/A",
+      "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
+    },
+    "ui_ux": {
+      "label": "ui_ux",
+      "owner": "TFD-ui_ux",
+      "applicability": "N/A",
+      "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
+    },
+    "qa": {
+      "label": "qa",
+      "owner": "TFD-qa_backend",
+      "applicability": "REQUIRED"
+    },
+    "security": {
+      "label": "security",
+      "owner": "TFD-security",
+      "applicability": "N/A",
+      "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
+    },
+    "devops": {
+      "label": "devops",
+      "owner": "TFD-devops",
+      "applicability": "N/A",
+      "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
+    },
+    "observability": {
+      "label": "observability",
+      "owner": "TFD-observability",
+      "applicability": "N/A",
+      "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
+    },
+    "documentation": {
+      "label": "documentation",
+      "owner": "TFD-documentation",
+      "applicability": "N/A",
+      "reason": "Sem mudança desse produto ou infraestrutura nesta manutenção."
+    },
+    "harness": {
+      "label": "harness",
+      "owner": "TFD-harness",
+      "applicability": "REQUIRED"
+    },
+    "architecture": {
+      "label": "Arquitetura da manutenção",
+      "owner": "TFD-architecture",
+      "applicability": "REQUIRED",
+      "reason": "Setor de autoria da spec anterior à implementação, explícito como extensão da matriz."
+    }
+  },
+  "microtasks": [
+    {
+      "id": "MT-01",
+      "title": "Especificar contratos e preparar task canônica",
+      "owner": "TFD-architecture",
+      "sector": "architecture",
+      "phase": "P1",
+      "reference_ids": [
+        "REF-01",
+        "REF-02",
+        "REF-03"
+      ],
+      "depends_on": [],
+      "allowed_paths": [
+        "docs/reviewed-delivery/README.md",
+        "docs/reviewed-delivery/task.json",
+        "docs/reviewed-delivery/task.md"
+      ],
+      "checklist": [
+        "Ler schema, implementação e testes existentes.",
+        "Documentar requisitos, compatibilidade e casos negativos.",
+        "Validar e enviar a revisão exata a QA spec."
+      ],
+      "deliverables": [
+        "docs/reviewed-delivery/README.md",
+        "docs/reviewed-delivery/task.json",
+        "docs/reviewed-delivery/task.md"
+      ],
+      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "validator": "TFD-qa_spec"
+    },
+    {
+      "id": "MT-02",
+      "title": "Integrar instruções e pesquisa compartilhada",
+      "owner": "TFD-harness",
+      "sector": "harness",
+      "phase": "P2",
+      "reference_ids": [
+        "REF-01",
+        "REF-02",
+        "REF-03",
+        "REF-04"
+      ],
+      "depends_on": [
+        "MT-01"
+      ],
+      "allowed_paths": [
+        "README.md",
+        "docs/00-arquitetura.md",
+        "docs/sector-task.md",
+        "library/architecture/technical-decision-procedure.md",
+        "library/indexes/resources.json",
+        "skills/TFD-architecture/SKILL.md",
+        "skills/TFD-backend/SKILL.md",
+        "skills/TFD-database/SKILL.md",
+        "skills/TFD-devops/SKILL.md",
+        "skills/TFD-discovery/SKILL.md",
+        "skills/TFD-documentation/SKILL.md",
+        "skills/TFD-frontend/SKILL.md",
+        "skills/TFD-harness/SKILL.md",
+        "skills/TFD-harness/references/gates.md",
+        "skills/TFD-product/SKILL.md",
+        "skills/TFD-qa_backend/SKILL.md",
+        "skills/TFD-qa_spec/SKILL.md",
+        "skills/TFD-qa_spec/references/review-checklist.md",
+        "skills/TFD-qa_ui/SKILL.md",
+        "skills/TFD-security/SKILL.md",
+        "skills/TFD-ui_ux/SKILL.md",
+        "tests/test_discovery_skill.py",
+        "tests/test_qa_spec_skill.py",
+        "tests/test_product_skill.py"
+      ],
+      "checklist": [
+        "Preservar conhecimento existente e responsabilidades por setor.",
+        "Manter PRD interativo e leituras obrigatórias.",
+        "Medir orçamento das skills e referências sem alegar economia executada."
+      ],
+      "deliverables": [
+        "library/architecture/technical-decision-procedure.md",
+        "skills/TFD-harness/references/gates.md",
+        "library/indexes/resources.json"
+      ],
+      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "validator": "TFD-qa_spec"
+    },
+    {
+      "id": "MT-03",
+      "title": "Implementar preparação opt-in e vínculo do PASS",
+      "owner": "TFD-backend",
+      "sector": "backend",
+      "phase": "P2",
+      "reference_ids": [
+        "REF-01",
+        "REF-02",
+        "REF-03"
+      ],
+      "depends_on": [
+        "MT-01"
+      ],
+      "allowed_paths": [
+        "scripts/pipeline.py",
+        "tests/test_pipeline.py",
+        "tests/test_reviewed_delivery.py"
+      ],
+      "checklist": [
+        "Reproduzir falha antes de alterar o pipeline.",
+        "Testar complete permitido e proibido, autorização e atores.",
+        "Testar G6 com parecer válido, malformado, divergente ou stale.",
+        "Rejeitar task.spec ausente ou diferente de artifacts.spec mesmo com findings PASS válido e corrente.",
+        "Executar regressões preservando o modo manual."
+      ],
+      "deliverables": [
+        "scripts/pipeline.py",
+        "tests/test_pipeline.py",
+        "tests/test_reviewed_delivery.py"
+      ],
+      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "validator": "TFD-qa_backend"
+    },
+    {
+      "id": "MT-04",
+      "title": "Verificar manutenção e consolidar evidência independente",
+      "owner": "TFD-qa_backend",
+      "sector": "qa",
+      "phase": "P3",
+      "reference_ids": [
+        "REF-01",
+        "REF-02",
+        "REF-03",
+        "REF-04"
+      ],
+      "depends_on": [
+        "MT-02",
+        "MT-03"
+      ],
+      "allowed_paths": [
+        "docs/reviewed-delivery/qa-review.md",
+        "docs/reviewed-delivery/verification.md",
+        "docs/reviewed-delivery/context-budget.json"
+      ],
+      "checklist": [
+        "Revisar requisitos e resultados na revisão entregue.",
+        "Executar checks e distinguir falha, limite e comportamento observado.",
+        "Verificar orçamento e registrar pendências para revisão humana."
+      ],
+      "deliverables": [
+        "docs/reviewed-delivery/qa-review.md",
+        "docs/reviewed-delivery/verification.md",
+        "docs/reviewed-delivery/context-budget.json"
+      ],
+      "completion_condition": "Critérios vinculados atendidos com revisão independente e evidência da revisão atual.",
+      "validator": "TFD-harness"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "description": "Product mantém perguntas e autorização humana de G1, sem inventar decisões.",
+      "requirement_ids": [
+        "REQ-01"
+      ],
+      "microtask_ids": [
+        "MT-02",
+        "MT-04"
+      ],
+      "validation": "TEST-02"
+    },
+    {
+      "id": "AC-02",
+      "description": "As 14 skills de entrega mantêm fronteiras e obrigações específicas concisas.",
+      "requirement_ids": [
+        "REQ-02"
+      ],
+      "microtask_ids": [
+        "MT-02",
+        "MT-04"
+      ],
+      "validation": "TEST-02"
+    },
+    {
+      "id": "AC-03",
+      "description": "Pesquisa pode ser reaberta pelo owner e registra evidência versionada no projeto.",
+      "requirement_ids": [
+        "REQ-03",
+        "REQ-04"
+      ],
+      "microtask_ids": [
+        "MT-02",
+        "MT-04"
+      ],
+      "validation": "TEST-02"
+    },
+    {
+      "id": "AC-04",
+      "description": "Graphify preserva leituras obrigatórias; MatthewKerns fica apenas como URL externo para consulta de capítulos na origem sob demanda, sem cópia, distribuição ou indexação do conteúdo em grafos do núcleo ou projeto.",
+      "requirement_ids": [
+        "REQ-05",
+        "REQ-06"
+      ],
+      "microtask_ids": [
+        "MT-02",
+        "MT-04"
+      ],
+      "validation": "TEST-02"
+    },
+    {
+      "id": "AC-05",
+      "description": "Fluxo manual mantém resultados e preparação inválida ou não autorizada é rejeitada.",
+      "requirement_ids": [
+        "REQ-07"
+      ],
+      "microtask_ids": [
+        "MT-03",
+        "MT-04"
+      ],
+      "validation": "TEST-01"
+    },
+    {
+      "id": "AC-06",
+      "description": "Complete só avança G2-G5 após submissão e QA correntes com atores independentes.",
+      "requirement_ids": [
+        "REQ-08"
+      ],
+      "microtask_ids": [
+        "MT-03",
+        "MT-04"
+      ],
+      "validation": "TEST-01"
+    },
+    {
+      "id": "AC-07",
+      "description": "G6 opt-in exige task.spec igual a artifacts.spec; task.spec ausente ou divergente reprova mesmo com findings PASS válido para a spec submetida.",
+      "requirement_ids": [
+        "REQ-09"
+      ],
+      "microtask_ids": [
+        "MT-01",
+        "MT-03",
+        "MT-04"
+      ],
+      "validation": "TEST-01"
+    },
+    {
+      "id": "AC-08",
+      "description": "Gates humanos de G6 em diante e três ciclos de rework permanecem verificáveis.",
+      "requirement_ids": [
+        "REQ-10"
+      ],
+      "microtask_ids": [
+        "MT-03",
+        "MT-04"
+      ],
+      "validation": "TEST-01"
+    },
+    {
+      "id": "AC-09",
+      "description": "Skills ficam até 150 linhas e descrições até 60 palavras; procedimento e gates até 1000 tokens por referência.",
+      "requirement_ids": [
+        "REQ-11"
+      ],
+      "microtask_ids": [
+        "MT-02",
+        "MT-04"
+      ],
+      "validation": "TEST-02"
+    },
+    {
+      "id": "AC-10",
+      "description": "Task usa schema existente e Markdown corresponde à mesma revisão canônica.",
+      "requirement_ids": [
+        "REQ-07"
+      ],
+      "microtask_ids": [
+        "MT-01"
+      ],
+      "validation": "TEST-03"
+    }
+  ],
+  "required_tests": [
+    {
+      "id": "TEST-01",
+      "type": "unit",
+      "command": "python -B -m unittest tests.test_pipeline tests.test_reviewed_delivery",
+      "expected": "Exit 0; modo manual preservado; opt-in rejeita task.spec ausente/divergente apesar de findings PASS válido e aceita vínculo exato."
+    },
+    {
+      "id": "TEST-02",
+      "type": "unit",
+      "command": "python -B -m unittest tests.test_discovery_skill tests.test_qa_spec_skill tests.test_reviewed_delivery",
+      "expected": "Exit 0 e orçamento medido; independência e limites verificados separadamente."
+    },
+    {
+      "id": "TEST-03",
+      "type": "unit",
+      "command": "python -B scripts/validate_task.py docs/reviewed-delivery/task.json",
+      "expected": "Exit 0; view conferida com render_task da revisão atual."
+    }
+  ],
+  "stop_conditions": [
+    "Decisão de negócio ausente muda escopo ou critérios aprovados.",
+    "Fonte essencial ou ferramenta obrigatória permanece indisponível.",
+    "QA reprova após três ciclos de rework ou identifica conflito material.",
+    "Mudança exige path protegido, dependência nova ou autorização externa."
+  ],
+  "gates": {
+    "spec": "QA spec independente na revisão exata antes da produção.",
+    "implementation": "Build e autoteste seguidos de QA independente e aprovação humana por fase.",
+    "delivery": "Revisão humana do pacote local; merge e deploy não autorizados."
+  },
+  "estimate": {
+    "optimistic_h": 2,
+    "likely_h": 4,
+    "pessimistic_h": 8,
+    "confidence": "low",
+    "basis": "Estimativa preliminar por decomposição do recorte de instruções, pipeline e regressões; não é medição nem compromisso de prazo."
+  },
+  "status": "draft"
+}

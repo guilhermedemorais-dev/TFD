@@ -2,13 +2,15 @@
 name: TFD-product
 description: "Run the product briefing and write a sourced PRD. Use for product scope, briefing, or PRD requests. Route code fixes, technical design, data work, and deployment to their owners."
 metadata:
-  version: "1.3.0"
+  version: "1.4.0"
   owner: "product"
 ---
 
 # Product briefing and PRD
 
 Read the request, existing project docs, and available transcripts. Run the briefing even with fixed scope. Reuse answered questions and cite each decision's source.
+
+Ask only unresolved material business questions; do not repeat answered blocks. Keep acceptance measurable and estimates qualified. Route technical uncertainties to Discovery using the [decision procedure](../../library/architecture/technical-decision-procedure.md); research cannot invent a business answer or approve G1.
 
 ## Briefing
 

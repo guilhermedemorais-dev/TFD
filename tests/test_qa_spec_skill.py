@@ -1,3 +1,5 @@
+# Contexto TFD · 665 palavras · 1660 tokens (o200k_base)
+
 """Testes da skill TFD-qa_spec e do validador de findings.
 
 Rode: python -m unittest tests.test_qa_spec_skill -v
@@ -94,7 +96,7 @@ class TestSkillFile(unittest.TestCase):
     def test_frontmatter(self):
         fm = frontmatter(skill_text())
         self.assertEqual(fm["name"], "TFD-qa_spec")
-        self.assertEqual(fm["version"], "1.4.0")
+        self.assertEqual(fm["version"], "1.5.0")
         self.assertEqual(fm["owner"], "qa_spec")
         self.assertIn("description", fm)
         words = re.findall(r"\S+", fm["description"])

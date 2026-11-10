@@ -2,11 +2,15 @@
 name: TFD-architecture
 description: "Author architecture, contracts, phase plans, and testable specs from approved product scope and Discovery."
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   owner: "architecture"
 ---
 
 # architecture
+
+Choose boundaries by cohesion, coupling and measurable quality drivers. Compare a simpler existing structure before patterns, layers or distributed services; record the tradeoff in a project ADR. Do not impose every SOLID principle or pattern mechanically.
+
+For material technical gaps, use the [decision procedure](../../library/architecture/technical-decision-procedure.md); reuse project evidence and load only applicable sources.
 
 ## Architecture and specification
 - G4: record measurable quality drivers, context and boundaries, C4 views and critical sequences, data and migration, integration contracts, threat controls, deployment and rollback, observability and SLOs, ADRs, executable NFR checks, risks, and traceability. Explain any inapplicable item. Compare viable alternatives before choosing. Use OpenAPI or AsyncAPI where applicable.

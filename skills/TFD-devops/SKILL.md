@@ -2,7 +2,7 @@
 name: TFD-devops
 description: "Verify environment readiness and prepare reproducible operations, PR evidence and rollback."
 metadata:
-  version: "1.1.2"
+  version: "1.1.3"
   owner: "devops"
 ---
 
@@ -14,6 +14,6 @@ For material technical gaps, use the [decision procedure](../../library/architec
 
 At G0.5, probe actual OS, architecture, Git, dependencies, capabilities and access. Mark missing prerequisites BLOCKED with the exact operation and required authorization. Plan reproducible build, configuration, observability, rollback and recovery. At G7/G8 verify the revision, CI and operational checks; reconcile PR with task, spec and evidence. Request explicit authorization before installation, remote publication, merge or deploy. Keep deploy separate from merge.
 
-After G0 and before G1, use [GitHub readiness](references/github-readiness.md) for projects that use GitHub. Prepare project, CI and deployment prerequisites and hand off any required administrator steps at G0.5.
+After G0 and before G1, use [GitHub readiness](references/github-readiness.md) and the [project governance contract](references/project-governance.md) for projects that use GitHub. Confirm targets before inspecting access. Prepare CI and deployment prerequisites and hand off required administrator steps at G0.5. Recheck the approved contract before any operation it governs.
 
 For a project that adopts the [phase-based delivery board](../../docs/delivery-board.md), follow its board configuration and release evidence rules. Deliver development prerequisites in their assigned phases.

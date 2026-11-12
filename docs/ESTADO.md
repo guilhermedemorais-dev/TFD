@@ -1,4 +1,4 @@
-> Contexto TFD · 1263 palavras · 2062 tokens (o200k_base)
+> Contexto TFD · 1284 palavras · 2117 tokens (o200k_base)
 
 # Estado do TFD
 
@@ -6,20 +6,19 @@ Estado do plugin e registros de verificação para retomar o trabalho.
 
 ## Retomada rápida
 
-**Versão publicada.** TFD `0.1.6` para o Codex. A suíte de migração passou 78 testes com saída `0`.
+**Versão do pacote.** TFD `0.1.6` para o Codex, conforme o [manifesto](../.codex-plugin/plugin.json).
+A revisão distribuída depende do canal. O [histórico](CHANGELOG.md) identifica
+os commits e o [instalador](GUIA-CODEX.md#canal-de-revisão) consulta o GitHub.
 
-- **Disponível.** Harness, task JSON única por módulo com visão Markdown, subagentes nativos e Tradutor. O leitor Python separa consumo acumulado e ocupação da janela e indica `/compact` no rodapé a partir de 80% arredondados.
+- **Disponível no canal de revisão.** Harness, task JSON por módulo, subagentes nativos, Tradutor, retomada por item, roteamento opcional e verificação de caminhos. O medidor separa tokens de entrada nova, cache e saída da ocupação da janela. A compactação automática é uma configuração opcional do Codex.
 - **Complementar.** Oficina `0.1.1` faz auditoria e manutenção autorizada e tem instalação própria. Candidatos externos servem de referência para adaptações locais ao padrão TFD.
-- **Em validação.** O usuário já testa o TFD em um projeto real. Os resultados do fluxo completo e do aviso de contexto em sessão nova do Desktop ainda aguardam registro neste repositório.
-- **Repositório.** O [TFD](https://github.com/guilhermedemorais-dev/TFD) tem repositório próprio. O [guia de instalação](GUIA-CODEX.md) inclui o prompt para Windows e Linux. Os testes ficam no Git e o ZIP de instalação exclui a pasta `tests/`.
+- **Em validação.** As verificações do plugin cobrem os contratos e cenários locais. A aceitação ponta a ponta de um projeto depende das evidências e aprovações daquele projeto.
+- **Instalação.** O [guia](GUIA-CODEX.md) cobre Windows e Linux. O catálogo instalado exclui `tests/`. Os arquivos de teste continuam disponíveis no repositório para manutenção.
 
-**Alterações locais em verificação.** A branch `feat/graphify-runtime` adapta
-Graphify `0.9.101` para o bundle do TFD e migra os nomes internos restantes
-para TFD. A extração usa ambiente isolado POSIX; a consulta também roda
-em Python nativo no Windows, com limites de processo. Há despacho Windows/WSL,
-consulta limitada e fallback sem reconstrução automática. Código de projeto
-cliente não faz parte desse índice. A configuração e os recibos da máquina
-ficam no perfil local; publicação destas alterações é uma etapa separada.
+**Graphify.** O adaptador do bundle TFD inclui consulta nativa em Python no
+Windows, runtime isolado para extração e fallback lexical sem reconstrução
+automática. Seu índice cobre arquivos selecionados do bundle. Os achados de Discovery
+de cada projeto são consultados no próprio projeto. [Verificação local](receipts/2026-11-09-graphify.md)
 
 Para retomar, abra um chat novo na pasta do TFD, leia esta seção e execute apenas o próximo pedido do usuário.
 
@@ -28,7 +27,7 @@ Para retomar, abra um chat novo na pasta do TFD, leia esta seção e execute ape
 Os contratos de entrega ficam na [arquitetura](00-arquitetura.md) e nas
 skills do TFD. A biblioteca usada no Discovery fica em `library/`.
 Os artigos científicos e a documentação oficial estão agrupados pelas
-decisões que informam. [Referências técnicas](../README.md#referências-técnicas)
+decisões que informam. [Fundamentos e fontes](00-arquitetura.md#fundamentos-e-fontes)
 
 ## Decisões de arquitetura
 
@@ -37,7 +36,7 @@ decisões que informam. [Referências técnicas](../README.md#referências-técn
 3. Plugin = método; projeto = conhecimento. Nada de artefato de cliente no plugin.
 4. 13 setores, incluindo `qa_spec`, `qa_backend`, `qa_ui` e `documentation`.
 5. Quem executa não aprova o próprio trabalho.
-6. Rework no fim de cada etapa, até cumprir a spec; 3 ciclos e depois BLOCKED.
+6. QA registra achados na revisão atual. Após três submissões de correção no gate, novo `REWORK` bloqueia a etapa.
 7. Engenharia reversa e afins são plugins complementares, por catálogo.
 8. `oficina` é plugin separado de manutenção, fora do pipeline, para o fim.
 9. Referência não é clone: código novo, melhor quando possível.
@@ -61,6 +60,7 @@ decisões que informam. [Referências técnicas](../README.md#referências-técn
 - `scripts/validate_estimate.py` valida o arquivo de estimativa por fase. Confere a ordem das horas e a data de calendário. A estimativa dentro da task usa a mesma regra de ordem.
 - `scripts/tfd.py` oferece `plan`, `check` e `report`. O `check` executa testes e grava um recibo. Se o Git falhar ao levantar os caminhos alterados, o recibo registra que o escopo não foi verificado.
 - `scripts/pipeline.py` verifica o log local do módulo. Ele indica o gate e a ação pendente. O host executa as ações e o usuário decide a aprovação. O [adaptador Codex](../hosts/codex/README.md) está disponível. O catálogo de complementares e os demais adaptadores seguem planejados.
+- `scripts/resume_task.py` recupera o gate e o próximo item executável quando há uma task setorizada aprovada. `scripts/model_router.py` seleciona perfis autorizados e verifica observações do host em projetos que adotam roteamento.
 - `scripts/token_usage.py` gera recibos de consumo real reportado pelo Codex
   por task, etapa e tentativa. Suporta eventos JSONL do CLI e turnos do
   Desktop. O CI e suas instruções específicas pertencem ao repositório do
@@ -95,7 +95,7 @@ as transições registradas.
 O aceite da validação em projeto real depende do registro da execução e das
 aprovações humanas no projeto.
 
-### Verificação dos setores e gates
+### Registros históricos de verificação dos setores e gates
 
 - `python -B -m unittest discover -s tests`: 64 testes, exit 0.
 - `python -B scripts/pipeline.py examples/workflow.example.json`: exit 0, aguardando a constituição em G0.
@@ -108,10 +108,8 @@ aprovações humanas no projeto.
 - `python -B -m unittest discover -s tests` passou 74 testes, saída 0. No Codex CLI efêmero, com a skill fornecida na entrada, passaram três casos fictícios. O repasse preservou a correção de caminho, a cópia literal e a exigência de aprovação. O pedido ambíguo gerou uma pergunta em português. A pergunta geral ficou fora do fluxo.
 - O teste conjunto registrou 25.204 tokens de entrada e 172 de saída. A medição inclui o contexto do host. A execução pela instalação nativa e a comparação de custo total com e sem Tradutor continuam pendentes.
 
-## Decisões abertas
+## Próximas verificações
 
-- Schema final da task e do `estimate.json`.
-- Formato de `agent.json` e do `SKILL.md` por setor.
-- Como o `converge` mede "entregue como especificado".
-- Em que gate o guia HTML é gerado.
-- Contrato do adaptador de host.
+- Validar outros provedores com os requisitos e permissões do projeto que adotar roteamento.
+- Medir recuperação de contexto e qualidade em tarefas representativas antes de expandir o índice para código de projeto.
+- Registrar resultados ponta a ponta nos projetos que adotarem o quadro por fases.

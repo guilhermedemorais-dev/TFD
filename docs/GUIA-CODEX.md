@@ -1,4 +1,4 @@
-> Contexto TFD · 1264 palavras · 2202 tokens (o200k_base)
+> Contexto TFD · 1298 palavras · 2296 tokens (o200k_base)
 
 # TFD no Codex
 
@@ -7,9 +7,18 @@ uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
 
 ## Instalação e atualização
 
-Extraia o [ZIP do TFD](https://github.com/guilhermedemorais-dev/TFD/archive/refs/heads/main.zip)
-e abra o terminal na raiz extraída. Use Git, Codex CLI e Python 3.10+
-com suporte a `venv` e `pip`.
+Para instalação assistida, cole o [prompt do README](../README.md#instalação)
+em um agente com terminal e rede na máquina do Codex. Ele obtém a origem
+oficial e seleciona o canal de revisão.
+
+Para instalação pelo terminal no canal padrão, clone a `main` em uma pasta
+nova fora do seu projeto e execute os comandos na raiz do clone. Use Git,
+Codex CLI e Python 3.10+ com suporte a `venv` e `pip`.
+
+```powershell
+git clone --branch main https://github.com/guilhermedemorais-dev/TFD.git tfd-main
+cd tfd-main
+```
 
 | Ação | Windows | Linux |
 | --- | --- | --- |
@@ -28,20 +37,24 @@ instalar ou atualizar, abra uma nova sessão para carregar as mudanças.
 
 ## Canal de revisão
 
-Para consultar a atualização publicada em `office/reviewed-delivery`, extraia o
-[ZIP do canal de revisão](https://github.com/guilhermedemorais-dev/TFD/archive/refs/heads/office/reviewed-delivery.zip)
-e execute `python -B scripts/install_tfd.py check --ref office/reviewed-delivery`
-na pasta extraída (`python3` no Linux). A saída informa `latest_ref`,
-`latest_revision` e `UPDATE_AVAILABLE` quando a revisão instalada é anterior
-ou diferente. Instaladores anteriores só consultam a origem que já conhecem.
+Obtenha a branch `office/reviewed-delivery` da origem oficial em uma pasta
+nova fora do seu projeto. Em Linux, substitua `python` por `python3`.
+
+```powershell
+git clone --branch office/reviewed-delivery https://github.com/guilhermedemorais-dev/TFD.git tfd-reviewed
+cd tfd-reviewed
+python -B scripts/install_tfd.py check --ref office/reviewed-delivery
+```
+
+A saída informa `latest_ref`, `latest_revision` e `UPDATE_AVAILABLE` quando
+a revisão instalada é anterior ou diferente. Use o instalador da branch
+escolhida para consultar seu canal.
 
 Use `install --ref office/reviewed-delivery` num perfil sem catálogo TFD, ou
 `update --ref office/reviewed-delivery` quando o catálogo Git limpo já estiver
 nesse canal. O recibo mantém a branch para as próximas consultas. Com catálogo
 local, outra branch ou arquivos personalizados, use a atualização preservadora
-abaixo. Prepare a pasta Git com
-`git clone --branch office/reviewed-delivery https://github.com/guilhermedemorais-dev/TFD.git`
-e use a revisão registrada da instalação como base após confirmar que ela
+abaixo. Use a revisão registrada da instalação como base após confirmar que ela
 representa o conteúdo instalado. Confira o plano com `--dry-run` antes de aplicar.
 
 ## Atualizar uma versão local aprovada
@@ -50,10 +63,11 @@ Use `python -B scripts/install_tfd.py update --source <pasta-git-aprovada> --bas
 
 ## Configuração manual e pré-requisitos
 
-1. Baixe e extraia o [ZIP de instalação do TFD](https://github.com/guilhermedemorais-dev/TFD/archive/refs/heads/main.zip).
-   Guarde a pasta extraída num local permanente, com `.agents/` e
-   `.codex-plugin/`. Abra o terminal na raiz do TFD, no mesmo ambiente em que
-   o Codex vai executar o plugin.
+1. Clone o repositório oficial do TFD pelo comando do canal desejado. Guarde o
+   clone num local permanente, com `.agents/` e `.codex-plugin/`. Abra o
+   terminal na raiz do TFD, no mesmo ambiente em que o Codex vai executar o
+   plugin. Se já houver um catálogo `tfd-local`, confira o canal e a origem
+   antes de usar o procedimento de atualização correspondente.
 2. Confira `codex --version` e Python 3.10+ com suporte a `venv` e `pip`.
    Instale os pré-requisitos que faltarem para o sistema detectado.
 
@@ -134,26 +148,8 @@ Use `python -B scripts/install_tfd.py update --source <pasta-git-aprovada> --bas
 
 ## Prompt de instalação
 
-Abra um chat do Codex na raiz extraída do TFD, onde fica
-`.codex-plugin/plugin.json`, e cole este bloco.
-
-```text
-Install and configure TFD from this folder. Read docs/GUIA-CODEX.md.
-Detect the OS and architecture of the Codex runtime first. On Linux, read
-/etc/os-release and identify the distro package manager. If running under
-WSL, verify which side runs Codex and use that side's tools and profile.
-Use the Windows or Linux instructions from the guide. Report unsupported OSes.
-Verify the package root, Git, Codex CLI and Python 3.10+ with a working venv and pip.
-Install missing prerequisites only, using the official Codex installer and
-the detected OS's official packages as applicable. On Debian and Ubuntu,
-check for the matching python3-venv package. Follow host rules for elevation.
-Run scripts/install_tfd.py install with the detected Python. Use its result to
-verify the GitHub revision, plugin and native agents. Preserve existing settings
-and report any manual Tradutor TFD section that needs review.
-Run the local checks. Report OS, dependency and install results, commands,
-exit codes and blockers in Brazilian Portuguese. Give the new-session test
-from the guide. Mark agent behavior pending until observed in a new session.
-```
+Use o [prompt de instalação no README](../README.md#instalação). O agente
+precisa de acesso ao terminal e à rede da máquina do Codex.
 
 ## Uso no projeto
 

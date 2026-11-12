@@ -1,8 +1,8 @@
-> Contexto TFD · 801 palavras · 1180 tokens (o200k_base)
+> Contexto TFD · 871 palavras · 1268 tokens (o200k_base)
 
 # Phase-based delivery board
 
-Apply this profile when the project explicitly adopts it. Use the [gate contract](../skills/TFD-harness/references/gates.md) and project ledger for approvals and evidence. Keep one Task and linked Issue per module. Dispatch in Task dependency and gate order. Skip inapplicable phases and schedule Foundation, database and infrastructure prerequisites in their required development phases.
+Apply this profile when the project explicitly adopts it. Use the [gate contract](../skills/TFD-harness/references/gates.md) and project ledger for approvals and evidence. Bind the board and Issue to the accepted [project governance contract](../skills/TFD-devops/references/project-governance.md). Keep one Task and linked Issue per module. Dispatch in Task dependency and gate order. Skip inapplicable phases and schedule Foundation, database and infrastructure prerequisites in their required development phases.
 
 ## Status options
 
@@ -28,9 +28,9 @@ Preserve human gates. Only explicit `preparation.mode=reviewed_task` authorizati
 
 ## QA labels and rework
 
-The coordinator reflects observed transitions on the linked Issue when authorized. Set `QA em andamento` when independent QA starts, keeping the production column. On REWORK, record findings and replace it with `Em ajustes` while the owner corrects them in the same phase. For human changes, preserve the comment and return the card to the affected production column with `Em ajustes`. Restore `QA em andamento` when QA starts on the corrected revision. Apply the gate contract's rework limit.
+The designated actor reflects observed transitions when authorized. Check board status, Issue comments and repository labels separately against the exact targets. Set `QA em andamento` when independent QA starts, keeping the production column. On REWORK, record findings and replace it with `Em ajustes` while the owner corrects them in the same phase. For human changes, preserve the comment and return the card to the affected production column with `Em ajustes`. Restore `QA em andamento` when QA starts on the corrected revision. Apply the gate contract's rework limit.
 
-Keep `QA em andamento` until all applicable independent reviewers pass the current revision. Clear QA labels on aggregate PASS before Human Review or on phase changes. Clear the QA badge when review stops or is interrupted. On BLOCKED, clear that badge, keep the status and use `blocked` with the cause. Preserve unrelated labels. Record revision, findings, commands, results and human decisions in the same Issue and ledger.
+Keep `QA em andamento` until all applicable independent reviewers pass the current revision. Record the revision and evidence in the same linked Issue before moving the card to Human Review. Record findings, commands, results and human decisions in that Issue and the local ledger. If the Issue update is blocked, preserve local evidence and keep the board transition pending. Continue unrelated authorized work. Clear QA labels on aggregate PASS before Human Review or on phase changes. Clear the QA badge when review stops or is interrupted. On BLOCKED, clear that badge, keep the status and use `blocked` with the cause. Preserve unrelated labels.
 
 ## Documentation and release
 
@@ -40,6 +40,6 @@ DevOps pins the candidate containing the accepted implementation and documentati
 
 ## Configure an adopted GitHub Project
 
-For the adopted board, this profile's Status options and `Done` rule replace the eight default states in the [GitHub governance procedure](../library/plugins/devops-standard/skills/devops-standard/references/github-governance.md). Follow its other safeguards. Discover read-only, propose in-place renames by ID and add missing options after authorization. Preserve IDs, card values, unrelated options, labels and settings. Reuse matching labels and add only missing ones. Verify Status grouping and enable `Labels` under View → Configuration → Fields. Check closure, merge and other automation for premature `Done`. Propose corrections, apply authorized changes and verify fields and visibility. Record required manual configuration.
+For the adopted board, this profile supplies Status options and the `Done` rule. Use the [GitHub governance procedure](../library/plugins/devops-standard/skills/devops-standard/references/github-governance.md) only for supported operations that match the accepted targets and authorizations. Discover read-only on the confirmed Project, propose in-place renames by ID and add missing options after authorization. Preserve IDs, card values, unrelated options, labels and settings. Reuse matching labels and add only missing ones. Verify Status grouping and enable `Labels` under View → Configuration → Fields. Check closure, merge and other automation for premature `Done`. Propose corrections, apply authorized changes and verify fields and visibility. Record required manual configuration.
 
 Check permissions separately for each linked repository and the Project view. An authorized integration can use repository `Issues: write` to create `QA em andamento` and `Em ajustes` and apply them to Issues. If it lacks permission, a person with repository write access creates missing labels under Issues → Labels → New label. A Project editor enables `Labels` under View → Configuration → Fields if the field is hidden, then checks a linked Issue card. [API permissions](https://docs.github.com/en/rest/issues/labels#create-a-label) · [Manual label setup](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label) · [Board fields](https://docs.github.com/en/issues/planning-and-tracking-with-projects/customizing-views-in-your-project/customizing-the-board-layout#showing-and-hiding-fields)

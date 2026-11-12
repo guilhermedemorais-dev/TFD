@@ -1,4 +1,4 @@
-> Contexto TFD · 974 palavras · 1812 tokens (o200k_base)
+> Contexto TFD · 1027 palavras · 1892 tokens (o200k_base)
 
 # The Factory Developer (TFD)
 
@@ -22,6 +22,18 @@ Para consultar ou aplicar atualizações, use a skill `tfd-install` ou os
 comandos `check` e `update` do instalador. [Guia do Codex](docs/GUIA-CODEX.md)
 
 Para instalar melhorias locais já aprovadas, o instalador aceita `update --source <pasta-git> --base <commit-base>`. Confira primeiro com `--dry-run`; o modo local preserva os extras e as configurações existentes. [Procedimento](docs/GUIA-CODEX.md#atualizar-uma-versão-local-aprovada)
+
+## Testes no Windows
+
+Para executar a suíte no Windows, é necessário instalar `pytest` no mesmo
+ambiente Python usado para os testes. Essa é uma dependência de testes,
+também usada nas outras plataformas, e não do uso normal do plugin.
+Na raiz do repositório, execute:
+
+```powershell
+python -m pip install pytest
+python -m pytest
+```
 
 ## Como funciona
 

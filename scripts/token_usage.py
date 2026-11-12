@@ -1,3 +1,5 @@
+# Contexto TFD · 1193 palavras · 2545 tokens (o200k_base)
+
 """Export observed Codex token usage as a task/stage receipt."""
 
 import argparse
@@ -60,6 +62,9 @@ def read_turns(stream):
             if event.get("usage") is not None:
                 active["usage"] = counts(event["usage"])
             active = None
+        elif kind == "compacted" and isinstance(payload, dict) and active is not None and source == "codex_session":
+            active["compaction_events"] = active.get("compaction_events", 0) + 1
+            active["context_precedes_compaction"] = True
         elif kind == "event_msg" and isinstance(payload, dict):
             name = payload.get("type")
             if name not in ("task_started", "task_complete", "turn_aborted", "token_count"):
@@ -99,9 +104,12 @@ def read_turns(stream):
                     active["peak_reported_input_tokens"] = max(
                         active["peak_reported_input_tokens"] or 0, last["input_tokens"])
                     window = active["model_context_window"]
-                    if type(window) is int and window > 0:
+                    fresh_request = last["input_tokens"] > 0 and any(delta.values())
+                    if (type(window) is int and window > 0
+                            and (fresh_request or not active.get("context_precedes_compaction"))):
                         observed = last["input_tokens"]
                         percent = (observed * 100 + window // 2) // window
+                        active.pop("context_precedes_compaction", None)
                         active["context_window"] = {
                             "last_input_tokens": observed, "capacity_tokens": window,
                             "percent": percent, "warn_handoff": percent >= CONTEXT_WARNING_PERCENT,
@@ -112,20 +120,38 @@ def read_turns(stream):
     return source, turns
 
 
-def summarize(stream, task, stage, attempt, turn_id=None):
+def summarize(stream, task, stage, attempt, turn_id=None, *, compact_threshold_percent=None):
+    if compact_threshold_percent is not None and (
+        type(compact_threshold_percent) is not int or not 0 <= compact_threshold_percent <= 100
+    ):
+        raise ValueError("post-turn compaction threshold must be an integer from 0 to 100")
     source, turns = read_turns(stream)
     context = None
+    context_precedes_compaction = False
     if turn_id is not None:
         latest_context = None
+        latest_context_precedes_compaction = False
         for turn in turns:
-            latest_context = turn["context_window"] or latest_context
+            if turn["context_window"] is not None:
+                latest_context = turn["context_window"]
+                latest_context_precedes_compaction = False
+            latest_context_precedes_compaction |= turn.get("context_precedes_compaction", False)
             if turn["turn_id"] == turn_id:
                 context = latest_context
+                context_precedes_compaction = latest_context_precedes_compaction
         turns = [turn for turn in turns if turn["turn_id"] == turn_id]
     elif source == "codex_session" and len(turns) > 1:
         raise ValueError("Desktop session has multiple turns; select one with --turn-id")
     elif turns:
         context = turns[-1]["context_window"]
+        context_precedes_compaction = turns[-1].get("context_precedes_compaction", False)
+    warning_threshold = compact_threshold_percent or CONTEXT_WARNING_PERCENT
+    guidance = None
+    if context is not None:
+        warn = not context_precedes_compaction and context["percent"] >= warning_threshold
+        context = {**context, "warn_handoff": warn}
+        if warn:
+            guidance = "native_configured" if compact_threshold_percent else "manual"
     totals = {key: sum(turn["usage"][key] for turn in turns if turn["usage"] is not None)
               for key in COUNTERS}
     measured = any(turn["usage"] is not None for turn in turns)
@@ -138,6 +164,13 @@ def summarize(stream, task, stage, attempt, turn_id=None):
     return {
         "schema_version": 1, "source": source, "task": task, "stage": stage,
         "attempt": attempt, "status": status, "turns": turns, "context_window": context,
+        "compaction": {
+            "post_turn_threshold_percent": compact_threshold_percent,
+            "warning_threshold_percent": warning_threshold,
+            "observed_events": sum(turn.get("compaction_events", 0) for turn in turns),
+            "context_precedes_compaction": context_precedes_compaction and context is not None,
+            "guidance": guidance,
+        },
         "usage": {
             **totals,
             "uncached_input_tokens": totals["input_tokens"] - totals["cached_input_tokens"],
@@ -167,13 +200,16 @@ def main():
     parser.add_argument("--stage")
     parser.add_argument("--attempt", type=int, default=1)
     parser.add_argument("--turn-id", help="Select one Desktop turn in a session")
+    parser.add_argument("--compact-threshold-percent", type=int,
+                        help="Confirmed Codex post-turn setting (0 disables it)")
     parser.add_argument("--list-turns", action="store_true", help="List turn IDs and status only")
     parser.add_argument("--quota", action="store_true", help="run the installed AI Codex Usage reader")
     parser.add_argument("--quota-reader", type=Path, help="path to the installed reader if discovery is ambiguous")
     parser.add_argument("--live", action="store_true", help="query account rate limits in quota mode")
     args = parser.parse_args()
     if args.quota:
-        if args.events or args.task or args.stage or args.turn_id or args.list_turns:
+        if (args.events or args.task or args.stage or args.turn_id or args.list_turns
+                or args.compact_threshold_percent is not None):
             parser.error("quota mode is separate from per-run token receipts")
         try:
             return read_quota(args.quota_reader, live=args.live)
@@ -184,6 +220,10 @@ def main():
         parser.error("provide an events file or use --quota")
     if args.attempt < 1:
         parser.error("--attempt must be at least 1")
+    if args.compact_threshold_percent is not None and (
+        args.list_turns or not 0 <= args.compact_threshold_percent <= 100
+    ):
+        parser.error("--compact-threshold-percent requires a receipt and a value from 0 to 100")
     if not args.list_turns and not (args.task and args.stage):
         parser.error("--task and --stage are required for a receipt")
     try:
@@ -192,7 +232,8 @@ def main():
                 _, turns = read_turns(stream)
                 print(json.dumps([{key: turn[key] for key in ("turn_id", "status")} for turn in turns]))
                 return 0
-            receipt = summarize(stream, args.task, args.stage, args.attempt, args.turn_id)
+            receipt = summarize(stream, args.task, args.stage, args.attempt, args.turn_id,
+                                compact_threshold_percent=args.compact_threshold_percent)
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

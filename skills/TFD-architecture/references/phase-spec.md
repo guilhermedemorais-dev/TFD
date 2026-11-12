@@ -13,4 +13,4 @@ Use one module task with internal phases. Add page and component specs where nee
 | Validation | Expected outcomes, negative and regression cases, commands or manual procedure, independent reviewers |
 | Readiness | Open decisions, QA verdict on matching revisions, human approval |
 
-Use the project task schema for IDs and test definitions. Discovery observations support requirements within approved scope. Keep UNKNOWN unresolved.
+Use the [native TFD task contract](../../../docs/sector-task.md) for IDs and test definitions. Discovery observations support requirements within approved scope. Keep UNKNOWN unresolved.

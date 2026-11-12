@@ -1,9 +1,12 @@
-> Contexto TFD · 1855 palavras · 3534 tokens (o200k_base)
+> Contexto TFD · 2624 palavras · 5122 tokens (o200k_base)
 
 # Arquitetura — The Factory Developer (TFD)
 
 O TFD coordena PRD, Discovery, arquitetura, implementação e entrega com
 evidências rastreáveis e aprovação humana conforme a política explícita dos gates.
+O [manifesto do plugin](../.codex-plugin/plugin.json) define a versão do pacote.
+O [histórico de mudanças](CHANGELOG.md) identifica as revisões e explica sua
+motivação, correção e impacto.
 
 ## 1. Nome e escopo
 
@@ -12,10 +15,41 @@ evidências rastreáveis e aprovação humana conforme a política explícita do
 - **Núcleo independente do host.** Os contratos e validadores Python são
   locais. O adaptador disponível registra skills e subagentes no Codex.
   [Adaptador Codex](../hosts/codex/README.md)
-- Função do núcleo: orquestrar. Engenharia reversa, design system, análise de APK
-  e afins são **plugins complementares** catalogados, chamados por id.
-- O produto é código novo. Referência serve para entender e escrever melhor,
-  nunca para clonar.
+- O núcleo fornece contratos, validação e regras de transição. O coordenador
+  interpreta os resultados, delega trabalho e registra a evidência do host.
+
+### Blocos e fronteiras
+
+| Bloco | Responsabilidade e fronteira | Onde conferir |
+| --- | --- | --- |
+| Host Codex | Carrega as skills, disponibiliza subagentes e aplica as permissões da sessão. O instalador prepara o perfil e registra a origem e a revisão. | [Guia do Codex](GUIA-CODEX.md) · [Adaptador](../hosts/codex/README.md) |
+| Coordenação | O agente principal usa a skill Harness para ler o estado, verificar o gate e delegar ao setor. O Tradutor preserva o pedido no repasse. O subagente `tfd_harness` consulta o estado. | [Harness](../skills/TFD-harness/SKILL.md) · [Tradutor](../skills/tfd-translator/SKILL.md) |
+| Execução e QA | Especialistas produzem artefatos. Revisores independentes avaliam a revisão submetida. A pessoa responsável registra o aceite nos gates previstos. | [Setores](#3-setores) · [Contrato dos gates](../skills/TFD-harness/references/gates.md) |
+| Contratos e retomada | A Task vincula requisitos a microtarefas, critérios e testes. O log e as evidências do módulo registram progresso, revisões e aprovações. Os checkpoints registram itens verificados. | [Task](../schemas/task.json) · [Pipeline](../scripts/pipeline.py) · [Retomada](../scripts/resume_task.py) |
+| Conhecimento | O projeto guarda seus próprios achados, decisões e restrições. A biblioteca do TFD fornece referências reutilizáveis. Graphify localiza fontes do bundle e o Discovery abre as fontes canônicas. | [Discovery](../skills/TFD-discovery/SKILL.md) · [Graphify](../integrations/graphify/README.md) |
+| Recursos de execução | O roteador opcional seleciona perfis autorizados para a tarefa. O medidor lê recibos do Codex e distingue custo de contexto. | [Roteador](../scripts/model_router.py) · [Execução por setor](../skills/TFD-harness/references/execution.md) · [Medidor](../scripts/token_usage.py) |
+| Operação | DevOps verifica o ambiente e registra a governança GitHub do projeto em G0.5. O contrato aceito identifica recursos, responsáveis e autorizações. O perfil opcional de quadro reflete as decisões da tarefa. | [Prontidão GitHub](../skills/TFD-devops/references/github-readiness.md) · [Governança por projeto](../skills/TFD-devops/references/project-governance.md) · [Quadro](delivery-board.md) |
+
+```mermaid
+sequenceDiagram
+    actor H as Responsável pelo projeto
+    participant C as Coordenador no Codex
+    participant P as Contratos e evidências do projeto
+    participant E as Setor responsável
+    participant Q as QA independente
+    H->>C: Pedido e escopo autorizado
+    C->>P: Verificar gate, revisão e próximo item
+    C->>E: Delegar recorte, limites e critérios
+    E->>P: Registrar entrega e autotestes
+    C->>Q: Encaminhar revisão exata e evidências
+    alt Correção necessária
+        Q->>C: REWORK com achado verificável
+        C->>E: Devolver somente o escopo afetado
+    else Critérios verificados
+        Q->>P: Registrar PASS
+        C->>H: Solicitar aceite conforme o gate
+    end
+```
 
 ## 2. Princípios
 
@@ -76,13 +110,14 @@ G7   Por etapa da task:
        → segurança/UX/devops quando o gatilho aplicar
        → rework até cumprir a spec (no fim da etapa)
        → aprovação humana da etapa
-G8   Pacote de revisão → revisão humana do PR e verificação local
-       → documentação técnica e de usuário → aprovação final
-       → merge e deploy sob autorizações separadas
+G8-review  Pacote de revisão + verificação local → aceite humano
+G8         Documentação técnica e de usuário → aceite humano
 ```
 
-Gates que falham param o fluxo. Ferramenta faltando gera `BLOCKED` com comando e
-pedido de autorização; nada instala sozinho.
+Gates que falham param a transição afetada. Registre o comando e a evidência de
+prontidão que falta quando houver bloqueio. No perfil de quadro por fases, após G8,
+DevOps prepara e verifica o candidato para revisão humana. Merge e deploy exigem
+autorizações próprias. [Fluxo de entrega e publicação](delivery-board.md)
 
 O padrão continua manual. Com `preparation.mode=reviewed_task` e registro da
 autorização humana, G2-G5 permitem `complete` por coordenador independente,
@@ -145,80 +180,51 @@ O cliente pergunta prazo. A resposta honesta tem três níveis:
 
 | Momento | Precisão | O que dá para dizer |
 |---|---|---|
-| G1 (PRD) | ordem de grandeza (±50% a 2x) | faixa por módulo, com premissas |
-| G5 (plano de fases) | ±25% a 40% | faixa por fase e data-alvo |
-| Após 2 fases medidas | ±15% | ritmo real por setor |
+| G1 (PRD) | ordem de grandeza | faixa por módulo, com premissas |
+| G5 (plano de fases) | estimativa de três pontos | faixa por fase, confiança e data-alvo quando houver base |
+| Após fases medidas | calibração com dados observados | faixa revista com ritmo e causas de variação por setor |
 
-Método: decompor em microtasks, estimativa de três pontos (otimista, provável,
-pessimista) por microtask, PERT para o total, e **classe de referência** com o
-histórico real dos seus projetos. A partir do G5, cada fase grava
-`estimate.json` com faixa, base e confiança; ao fechar a fase, grava o realizado.
-Sem histórico, a primeira estimativa é palpite estruturado, e deve ser dita assim.
+Em G5, use as microtarefas para estimar cada fase em três pontos: otimista,
+provável e pessimista. Registre premissas, confiança e base de comparação.
+Ao fechar a fase, registre o realizado e use esse histórico para revisar a faixa.
+[Schema da estimativa](../schemas/estimate.json) · [Validador](../scripts/validate_estimate.py)
 
 ## 8. Rework
 
-O rework acontece **no fim de cada etapa da task**, não no meio.
+O autor entrega e executa autotestes. O QA registra `PASS`, `REWORK` ou
+`BLOCKED` na revisão atual. Em `REWORK`, o coordenador devolve os achados ao
+responsável, que reconcilia efeitos já produzidos e corrige o escopo afetado.
+A nova revisão passa por QA. Evidências de microtarefas dependentes são
+revalidadas quando a correção as invalida. Depois do PASS aplicável, a etapa
+segue para o aceite humano previsto no gate.
 
-Regra: repetir até entregar exatamente o que está na especificação — cada
-microtask, cada critério de aceite, cada teste. Só quando a etapa cumpre a spec
-ela segue adiante.
-
-1. build + autoteste.
-2. QA independente da etapa (`qa_spec` já aprovou a spec antes; `qa_backend`/`qa_ui`
-   validam a implementação).
-3. Se reprovar: rework **da etapa**, com o motivo objetivo.
-4. Ao passar: aprovação humana da fase. A documentação oficial usa a revisão
-   conferida no PR e na execução local.
-5. No PR, o revisor do host aponta erros; você confere e pede correção. O rework
-   continua até a spec estar cumprida e o PR aceito.
-
-Limite: 3 ciclos automáticos por etapa; depois `BLOCKED` com diagnóstico e decisão
-sua. Rework não é "refazer tudo": é fechar o gap entre o entregue e o especificado.
+O contrato admite até três submissões de correção por gate. Outro `REWORK`
+registra `BLOCKED`. A execução por item aplica o limite à rodada da microtarefa
+e mantém seus checkpoints no projeto. [Execução e retomada](../skills/TFD-harness/references/execution.md)
 
 ## 9. Evidência
 
-```json
-{"claim":"...","class":"OBSERVED|INFERRED|UNKNOWN","source":"...",
- "tool":"...","version":"...","target_hash":"...","limits":"..."}
-```
-
-Spec só cita `evidence_id`. `UNKNOWN` não vira requisito. Receipt é gerado por
-quem executou, com exit code e commit; nunca escrito à mão.
+O Discovery registra `sources.json`, `evidence.json` e `findings.md` com IDs
+estáveis, origem, revisão, seção e limites. `OBSERVED` identifica fato verificado,
+`INFERRED` explicita a dedução e `UNKNOWN` registra o que falta confirmar. A spec
+vincula as conclusões às evidências. Testes e verificações registram os comandos,
+resultados e códigos de saída observados para a revisão entregue.
+[Formato da evidência de Discovery](../skills/TFD-discovery/references/evidence-format.md)
 
 ## 10. Plugins complementares
 
-Catálogo em `catalog/complementary.json`; contrato único de saída (`evidence.json`).
-Exemplos: `source-analyzer` (repo com fonte), `rea-web`, `rea-apk`, `rea-native`
-(Ghidra), `browser-capture`. O núcleo não conhece nenhum deles; chama por id.
-
-**Referência não é clone.** O código de referência orienta a lógica; a
-implementação é nova, com as palavras do projeto, mais simples, mais segura e mais
-otimizada quando possível. Copiar trecho proprietário é proibido.
+O setor pode consultar procedimentos no [índice da biblioteca](../library/indexes/resources.json).
+Integrações opcionais, como engenharia reversa assistida, dependem de instalação,
+capacidade do host e autorização para o alvo. O Discovery registra a fonte, o
+escopo e os limites das observações antes de usá-las na especificação.
 
 ## 11. Hospedeiros (hosts) e sistemas operacionais
 
-O núcleo é host-agnóstico. Nada de `CODEX_HOME` na arquitetura.
-
-```
-hosts/
-  codex/      plugin.json, mapeamento de AGENTS.md e skills
-  claude/     plugin + skills
-  gemini/     extensão + skills
-  cursor/     regras + skills
-  generic/    MCP + CLI + AGENTS.md
-```
-
-Cada adaptador declara o que o host sabe fazer: subagente, MCP, shell, permissão,
-paralelismo. O harness usa o que existe e registra o que não existe como
-`NOT_AVAILABLE`; não inventa capacidade. O mesmo projeto pode ter dois hosts
-ativos ao mesmo tempo, desde que o lock de task impeça escrita concorrente.
-
-SO: Windows 10, Linux Mint e macOS. O detector de alvo identifica SO e arquitetura.
-Comando de complementar declara variante por SO; caminho em artefato é POSIX; fim
-de linha normalizado antes de hash.
-
-Instalação: `TFD install --host <codex|claude|gemini|cursor|generic>`, sempre em
-perfil isolado para teste antes do perfil real.
+Os contratos locais usam Python e arquivos do projeto. O adaptador entregue neste
+repositório é o Codex, com procedimento para Windows e Linux. No WSL, instale no
+lado em que o Codex roda. O instalador usa o perfil ativo e registra a revisão.
+Graphify usa um runtime isolado quando habilitado e possui fallback de consulta.
+Outros hosts exigem integração e validação próprias. [Instalação suportada](GUIA-CODEX.md)
 
 ## 12. Plugin de manutenção — `oficina` (separado)
 
@@ -242,7 +248,7 @@ observar → registrar incidente → diagnosticar causa raiz → propor
 → autorização do usuário → corrigir → testar → registrar resultado
 ```
 
-Cada incidente vira um registro em `docs/tfd/incidents/`:
+Os incidentes de manutenção do plugin podem ser registrados em `docs/office/incidents/`:
 
 ```json
 {
@@ -264,15 +270,14 @@ Cada incidente vira um registro em `docs/tfd/incidents/`:
 - Modos **AUDIT** (só lê e propõe) e **CHANGE** (só com autorização explícita).
 - Branch própria, sem merge automático, teste antes e depois.
 - Fora de task de cliente: nunca autoaltera durante execução de projeto.
-- Método: Skill Creator V2 verificada (versão + hash) + padrão do TFD
-  (`references/skill-standard.md`): orçamento de tokens, versionamento,
-  teste de roteamento, proibição de README e de referência legada.
+- Método: Skill Creator V2 verificada (versão e hash) e [padrão de skills do TFD](../skills/TFD-maintenance/references/skill-standard.md).
+  O padrão cobre orçamento de tokens, versionamento e teste de roteamento.
 
 ### O que ele melhora
 
-Não é "reescrever skill por opinião". É corrigir a causa de um incidente
-registrado, com teste que falha antes e passa depois. Sem incidente, não há
-mudança.
+Para incidentes, documente a causa e repita a verificação após a correção.
+Para manutenção solicitada, registre motivação, mudança e impacto no
+[histórico](CHANGELOG.md).
 
 ## 13. O que o TFD não faz
 
@@ -283,11 +288,23 @@ mudança.
 - Não promete prazo sem faixa e premissa.
 - Não fica presa a um host nem a um modelo.
 
-## 14. Decisões abertas
+## Fundamentos e fontes
 
-1. Schema final da task e do `estimate.json`.
-2. Formato de `agent.json` e do `SKILL.md` por setor.
-3. Como o `converge` mede "entregue como especificado".
-4. Em que gate o guia HTML (design e backend) é gerado.
-5. Nome definitivo do plugin.
-6. Contrato do adaptador de host (capacidades e fallback).
+As linhas abaixo ligam referências aos usos documentados no TFD. A última
+coluna aponta para o contrato, implementação ou limite da aplicação.
+
+| Referência técnica | Aplicação no TFD | Contrato e alcance |
+| --- | --- | --- |
+| [Modelo C4](https://c4model.com/) · [ADRs, Michael Nygard](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions) | Descrever contexto, fronteiras e componentes em G4. Registrar alternativas, decisão e consequências no projeto. | [Skill de Arquitetura](../skills/TFD-architecture/SKILL.md) |
+| [OpenAPI Initiative](https://spec.openapis.org/oas/latest.html) · [AsyncAPI Initiative](https://www.asyncapi.com/docs/reference/specification/latest) · [STRIDE, Microsoft](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats) | Especificar integrações HTTP, eventos e ameaças quando aplicável. Relacionar os contratos a critérios e testes. | [Spec por fase](../skills/TFD-architecture/references/phase-spec.md) · [Segurança](../skills/TFD-security/SKILL.md) |
+| [JSON Schema 2020-12](https://json-schema.org/draft/2020-12) | Descrever o contrato da Task e da estimativa. O validador local combina checagens estruturais com regras de rastreabilidade, dependências e autoria. | [Schema](../schemas/task.json) · [Validador](../scripts/validate_task.py) |
+| [Subagentes do Codex](https://learn.chatgpt.com/docs/agent-configuration/subagents) · [App Server](https://learn.chatgpt.com/docs/app-server#models) · [Configuração](https://learn.chatgpt.com/docs/config-file/config-reference) | Delegar por função, confrontar modelo e esforço efetivos com o solicitado e observar eventos de compactação do host. | [Adaptador Codex](../hosts/codex/README.md) · [Execução](../skills/TFD-harness/references/execution.md) |
+| [LLMLingua](https://aclanthology.org/2023.emnlp-main.825/) · [LLMLingua-2](https://aclanthology.org/2024.findings-acl.57/) | Estudos de compressão de contexto consultados como referência. A abordagem implementada combina instruções concisas, recorte por microtarefa e repasse pelo Tradutor. | [Padrão de skills](../skills/TFD-maintenance/references/skill-standard.md) · [Recibos de tokens](../hosts/codex/README.md#token-receipts) |
+| [GraphRAG](https://www.microsoft.com/en-us/research/publication/from-local-to-global-a-graph-rag-approach-to-query-focused-summarization/) · [RepoGraph](https://proceedings.iclr.cc/paper_files/paper/2025/hash/4a4a3c197deac042461c677219efd36c-Abstract-Conference.html) · [GraphCoder](https://arxiv.org/abs/2406.07003) · [Graphify](https://github.com/Graphify-Labs/graphify) | Os artigos são referências de pesquisa sobre recuperação por relações. A implementação usa Graphify no bundle TFD e consulta lexical como fallback. A avaliação de grafos sobre projetos é pesquisa futura. | [Versão fixada](../integrations/graphify/pin.json) · [Operação](../library/docs/operations/graphify.md) · [Verificação local](receipts/2026-11-09-graphify.md) |
+| [Context7 MCP](https://context7.com/docs/resources/all-clients) | Consulta opcional de documentação técnica quando o host disponibiliza a integração. O Discovery registra a origem e confirma os fatos relevantes na documentação da tecnologia. | [Skill de Discovery](../skills/TFD-discovery/SKILL.md) |
+| [Guia de Matthew Kerns](https://github.com/MatthewKerns/software-development-best-practices-guide) | Referência externa para lacunas de engenharia. O Discovery consulta capítulos na origem, verifica pontos decisivos em fontes primárias e registra somente achados aplicáveis no projeto. | [Procedimento de decisão técnica](../library/architecture/technical-decision-procedure.md) · [Avaliação registrada](reviewed-delivery/verification.md) |
+
+As regras de aceite humano, revisão independente e avanço por gate são decisões
+do TFD. A lógica e os limites dessas decisões ficam no [contrato dos gates](../skills/TFD-harness/references/gates.md).
+Para consultar a origem e a licença de uma referência distribuída com a
+biblioteca, abra o campo `provenance` do [índice de recursos](../library/indexes/resources.json).

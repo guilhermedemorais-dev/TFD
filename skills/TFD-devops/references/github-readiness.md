@@ -1,6 +1,6 @@
 # GitHub readiness at G0.5
 
-After G0 and before G1, inspect the approved repository, branch, Project owner, local toolchain, CI provider and deployment targets. Check each intended identity against its resource and operation. Record repository role, Project capability, runner access, policy and workflow evidence separately. Treat denied reads as unverified. Use the existing [GitHub governance procedure](../../../library/plugins/devops-standard/skills/devops-standard/references/github-governance.md) where its helper and host are available.
+After G0 and before G1, resolve the [project governance contract](project-governance.md). Inspect only the confirmed resources, local toolchain, CI and deploy targets in scope. Check each identity against its resource and operation. Record repository role, Project capability, runner access, policy and workflow evidence separately. Treat denied reads as unverified. Use the [GitHub governance procedure](../../../library/plugins/devops-standard/skills/devops-standard/references/github-governance.md) only where its helper, host and target scope match the contract.
 
 ## GitHub Actions
 
@@ -16,4 +16,4 @@ Use a dedicated GitHub App with short-lived installation tokens for external CI,
 
 When applicable, confirm approved staging and production targets, environment protections, required reviewers, allowed refs and secret or OIDC configuration metadata. The administrator configures **Settings → Environments** and provider-side access. Keep CI checks separate from deployment and require explicit target and revision approval before deploying. [Environment settings](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 
-Complete authorized automatable setup and verify the actual result. For each blocker record the operation, target, responsible administrator, exact screen and setting value, minimum permission and readback or check that proves resolution. Resume the affected check after the administrator completes it. Record command exits and evidence in the G0.5 environment report. Keep missing required evidence blocked and submit the verified environment for human acceptance.
+Complete authorized automatable setup and verify the actual result. For each blocker record the operation, target, responsible administrator, exact screen and setting value, minimum permission and readback or check that proves resolution. Resume the affected check after the administrator completes it. Record command exits and evidence in the G0.5 environment report. Block readiness for missing evidence required at G0.5. Record optional permissions needed later as pending for their operations and submit the verified environment for human acceptance.

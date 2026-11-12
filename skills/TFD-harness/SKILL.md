@@ -2,7 +2,7 @@
 name: TFD-harness
 description: "Coordinate TFD gates, revisions, evidence, scoped rework, and human approval. Use to start, resume, or hand off a module task."
 metadata:
-  version: "1.5.0"
+  version: "1.6.0"
   owner: "harness"
 ---
 
@@ -19,6 +19,8 @@ For material technical gaps, use the [decision procedure](../../library/architec
 
 Keep product edits with their owners. A missing tool, evidence, or approval blocks the affected transition.
 
-For a project that adopts the [phase-based delivery board](../../docs/delivery-board.md), use its Status and label rules when coordinating the linked Issue and hand off documentation and release operations at the specified gates.
+For read-only GitHub readiness or reports, inspect only confirmed targets within the requested scope. Before a governed action, resolve the active [project governance contract](../TFD-devops/references/project-governance.md) through G0.5 evidence or an accepted legacy handoff. Match the actor, target, observed capability and explicit authorization. Keep blockers scoped to the affected action and dependent transitions.
+
+For a project that adopts the [phase-based delivery board](../../docs/delivery-board.md), apply its Status and label rules through the designated actor. Keep QA in the work phase. Require all applicable independent PASS verdicts for the current revision and evidence on the same Issue before moving the card to Human Review. Hand off documentation and release operations at the specified gates.
 
 For a confirmed harness incident, report evidence and offer a separate Oficina maintenance session. Use the installed `oficina-tfd` skill for explicit TFD maintenance outside client execution. A client incident never authorizes a repair.

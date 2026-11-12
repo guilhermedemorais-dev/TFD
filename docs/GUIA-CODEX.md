@@ -17,7 +17,7 @@ com suporte a `venv` e `pip`.
 | Consultar a revisão publicada | `python -B scripts/install_tfd.py check` | `python3 -B scripts/install_tfd.py check` |
 | Aplicar atualização | `python -B scripts/install_tfd.py update` | `python3 -B scripts/install_tfd.py update` |
 
-O instalador aponta o catálogo `tfd-local` para a `main` do TFD, prepara
+O instalador aponta o catálogo `tfd-local` para a `main` do TFD por padrão, prepara
 o ambiente Python, registra os subagentes e configura as instruções globais.
 Uma seção manual `Tradutor TFD` permanece sob seu controle. Quando existir,
 o instalador sinaliza que ela precisa de conferência.
@@ -25,6 +25,24 @@ o instalador sinaliza que ela precisa de conferência.
 A consulta compara a última revisão instalada pelo script com a revisão no
 GitHub. A instalação baixa a cópia de execução sem `tests/`. Depois de
 instalar ou atualizar, abra uma nova sessão para carregar as mudanças.
+
+## Canal de revisão
+
+Para consultar a atualização publicada em `office/reviewed-delivery`, extraia o
+[ZIP do canal de revisão](https://github.com/guilhermedemorais-dev/TFD/archive/refs/heads/office/reviewed-delivery.zip)
+e execute `python -B scripts/install_tfd.py check --ref office/reviewed-delivery`
+na pasta extraída (`python3` no Linux). A saída informa `latest_ref`,
+`latest_revision` e `UPDATE_AVAILABLE` quando a revisão instalada é anterior
+ou diferente. Instaladores anteriores só consultam a origem que já conhecem.
+
+Use `install --ref office/reviewed-delivery` num perfil sem catálogo TFD, ou
+`update --ref office/reviewed-delivery` quando o catálogo Git limpo já estiver
+nesse canal. O recibo mantém a branch para as próximas consultas. Com catálogo
+local, outra branch ou arquivos personalizados, use a atualização preservadora
+abaixo. Prepare a pasta Git com
+`git clone --branch office/reviewed-delivery https://github.com/guilhermedemorais-dev/TFD.git`
+e use a revisão registrada da instalação como base após confirmar que ela
+representa o conteúdo instalado. Confira o plano com `--dry-run` antes de aplicar.
 
 ## Atualizar uma versão local aprovada
 

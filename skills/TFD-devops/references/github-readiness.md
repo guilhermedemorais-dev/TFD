@@ -1,0 +1,19 @@
+# GitHub readiness at G0.5
+
+After G0 and before G1, inspect the approved repository, branch, Project owner, local toolchain, CI provider and deployment targets. Check each intended identity against its resource and operation. Record repository role, Project capability, runner access, policy and workflow evidence separately. Treat denied reads as unverified. Use the existing [GitHub governance procedure](../../../library/plugins/devops-standard/skills/devops-standard/references/github-governance.md) where its helper and host are available.
+
+## GitHub Actions
+
+Use the automatic, ephemeral, repository-scoped `GITHUB_TOKEN` for jobs in their own repository. Start with `permissions: { contents: read }` for checkout and tests. Grant extra permissions only on jobs with a matching operation. Keep global defaults restricted, pull request self-approval disabled and write tokens and secrets away from untrusted pull requests. Check repository and inherited organization policy in **Settings → Actions → General**. Confirm Actions are enabled, required actions are allowed and runner access is scoped. Use an approved runner and reviewed workflow revisions. [Token behavior](https://docs.github.com/en/actions/concepts/security/github_token) · [Actions settings](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository)
+
+Reuse project lockfiles and native checks. Prepare a versioned workflow when absent. Check triggers, runner labels, branch rules and required check names. Verify a permitted run against the expected commit and event. Missing workflows or runs leave CI unverified. Check whether automation-created events start the intended CI under its actual identity.
+
+## External CI, agents and Projects
+
+Use a dedicated GitHub App with short-lived installation tokens for external CI, agents or organization Project automation. Have the authorized owner install it only for selected repositories. Request repository **Issues: write** for label changes, **Contents: write** for feature branches, **Workflows: write** to change workflow files and **Pull requests: write** to open or update PRs only where each operation is in scope. For organization Project updates, use the Project owner's installation with organization **Projects: write**. Verify repository and Project capabilities independently. Keep personal and administrator identities out of automation. Keep credentials in the approved secret store and receipts free of credential values. [App permissions](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/choosing-permissions-for-a-github-app) · [Project automation](https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/automating-projects-using-actions)
+
+## Deployment prerequisites and handoff
+
+When applicable, confirm approved staging and production targets, environment protections, required reviewers, allowed refs and secret or OIDC configuration metadata. The administrator configures **Settings → Environments** and provider-side access. Keep CI checks separate from deployment and require explicit target and revision approval before deploying. [Environment settings](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
+
+Complete authorized automatable setup and verify the actual result. For each blocker record the operation, target, responsible administrator, exact screen and setting value, minimum permission and readback or check that proves resolution. Resume the affected check after the administrator completes it. Record command exits and evidence in the G0.5 environment report. Keep missing required evidence blocked and submit the verified environment for human acceptance.

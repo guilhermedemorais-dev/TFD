@@ -103,6 +103,24 @@ selected turn. Input includes cached input. Reasoning is a reported breakdown
 and is not added again to total tokens. To measure all work on a task, collect
 each separate reviewer or subagent run as well.
 
+### Context compaction
+
+To opt in on a supported Codex profile, set
+`model_post_turn_compact_threshold_percent = 80` in its Codex configuration.
+Codex checks usable context after the final response. Setting it to `0` or
+omitting it disables this turn-end option. The usual token-based auto-compaction
+still applies. Save the current project checkpoint so work can resume after
+compaction. See the [Codex configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference).
+
+Pass `--compact-threshold-percent 80` to the collector only when the host confirms
+that setting for the selected run. The flag reports the setting and leaves the
+profile untouched. The receipt's `compaction` section counts explicit session
+events without attributing them to a manual or automatic trigger. Its context
+percentage comes from the last reported request and is an estimate for guidance.
+If the turn-end setting is off or unknown, the collector suggests `/compact` at
+the default 80% warning. A reading from before a recorded compaction remains
+historical until the next measured request.
+
 ## GitHub CI handoff
 
 Keep project-specific CI in the target repository's `.github/workflows/`.

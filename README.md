@@ -111,10 +111,11 @@ Estes comandos podem ser executados na raiz do repositório TFD com os exemplos 
 
 ```powershell
 python -B scripts/validate_task.py examples/task.example.json
+python -B scripts/render_task_review.py examples/task.example.json task-review.html
 python -B scripts/resume_task.py examples/workflow.example.json --project-root .
 ```
 
-Para tarefas reais, aponte os comandos para os registros do projeto e informe a raiz desse projeto ao consultar o fluxo. A revisão recebe a task JSON e sua visão Markdown. Cada microtarefa identifica dependências, `@responsável`, `@validador`, caminhos permitidos, itens do checklist e resultado esperado. [Validação, geração e recorte por setor](docs/sector-task.md)
+Para tarefas reais, aponte os comandos para os registros do projeto. A revisão humana reúne checklists, entregáveis, critérios, evidências e referências técnicas em seções recolhíveis. Abra o HTML local para copiar o Markdown ou gere um `.md` para a Issue vinculada. [Modelo de revisão humana](docs/sector-task.md#human-review)
 
 ## Atualizações recentes
 
@@ -138,7 +139,7 @@ Veja a motivação, o efeito e as verificações de cada atualização no [hist�
 | --- | --- |
 | Instalar, atualizar ou recuperar um perfil | [Guia do Codex](docs/GUIA-CODEX.md) |
 | Entender arquitetura, setores e decisões | [Arquitetura do TFD](docs/00-arquitetura.md) |
-| Escrever ou revisar uma task | [Tasks por setor](docs/sector-task.md) · [Contrato dos gates](skills/TFD-harness/references/gates.md) |
+| Escrever ou revisar uma task | [Modelo de revisão humana](docs/sector-task.md#human-review) · [Exemplo](examples/task-review.example.md) · [Contrato dos gates](skills/TFD-harness/references/gates.md) |
 | Preparar repositório, CI e quadro | [Prontidão do GitHub](skills/TFD-devops/references/github-readiness.md) · [Quadro de entrega](docs/delivery-board.md) |
 | Consultar evidências e limites de verificação | [Estado do projeto](docs/ESTADO.md) · [Preparação revisada](docs/reviewed-delivery/README.md) |
 | Manter skills e referências | [Padrão de skills](skills/TFD-maintenance/references/skill-standard.md) · [Biblioteca](library/README.md) |

@@ -17,6 +17,13 @@ quando a mudança afetar quem instala ou usa o framework. [Referência de estrut
 
 ## Em revisão
 
+### Diagnóstico de acesso ao GitHub e CI pelo DevOps
+
+- **Motivação.** Quando uma operação falha depois da configuração inicial, o DevOps precisa dizer quem corrige o acesso e em qual tela.
+- **Corrige.** A skill aciona o diagnóstico em qualquer fase. O roteiro distingue a conta do `gh`, a instalação do GitHub App, o acesso do colaborador, o Project e as permissões do job do Actions. A matriz de governança agora inclui criação de Issues.
+- **Melhora.** Cada bloqueio retorna o erro observado, o ajuste mínimo e como confirmar a recuperação. Em Projects, o DevOps distingue permissão ausente no registro do App de concessão pendente na instalação. O roteiro é consultado só quando necessário. [Roteiro](../skills/TFD-devops/references/github-access-recovery.md)
+- **Verificação.** Na branch de revisão, a suíte local passou com 165 testes e a auditoria de orçamento da Oficina passou, ambas com exit 0. O validador Skill Creator V2 rejeita o nome legado `TFD-devops` também na revisão anterior. A ativação no OpenBot ainda não foi validada.
+
 ### Governança GitHub por projeto e instalação por prompt
 
 - **Motivação.** Evitar consultas ao repositório errado e decisões de permissão antes de confirmar o destino e a responsabilidade. Facilitar a instalação em um chat novo.

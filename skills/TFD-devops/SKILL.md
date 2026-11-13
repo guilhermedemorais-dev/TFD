@@ -1,8 +1,8 @@
 ---
 name: TFD-devops
-description: "Verify environment readiness and prepare reproducible operations, PR evidence and rollback."
+description: "Verify environment readiness, diagnose GitHub access and CI failures, and prepare reproducible operations, PR evidence and rollback."
 metadata:
-  version: "1.1.3"
+  version: "1.1.4"
   owner: "devops"
 ---
 
@@ -17,3 +17,5 @@ At G0.5, probe actual OS, architecture, Git, dependencies, capabilities and acce
 After G0 and before G1, use [GitHub readiness](references/github-readiness.md) and the [project governance contract](references/project-governance.md) for projects that use GitHub. Confirm targets before inspecting access. Prepare CI and deployment prerequisites and hand off required administrator steps at G0.5. Recheck the approved contract before any operation it governs.
 
 For a project that adopts the [phase-based delivery board](../../docs/delivery-board.md), follow its board configuration and release evidence rules. Deliver development prerequisites in their assigned phases.
+
+At any phase, use [GitHub access recovery](references/github-access-recovery.md) when a GitHub operation or CI setup fails. Report the specific blocker, who can fix it, the exact setting and how to verify recovery. Load the guide only for the affected operation.

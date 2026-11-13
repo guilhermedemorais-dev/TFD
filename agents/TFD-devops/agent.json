@@ -4,7 +4,9 @@
   "description": "Verify environment readiness and prepare reproducible operations, PR evidence and rollback.",
   "activates_on": [
     "preparar o ambiente do projeto",
-    "revisar implantação e rollback"
+    "revisar implantação e rollback",
+    "diagnosticar falha de acesso ao GitHub",
+    "corrigir permissões do CI no GitHub Actions"
   ],
   "inputs": [
     "Approved scope and target environment",

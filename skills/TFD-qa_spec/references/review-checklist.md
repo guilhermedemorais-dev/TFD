@@ -16,3 +16,5 @@ Review in order. Cite a literal excerpt and recommend a correction. Ask the auth
 Use `REWORK` for any `blocker` or `major`; otherwise use `PASS`. The author fixes findings. QA revalidates.
 
 At G6, check Task/spec path, revision, Discovery and generated view together. In reviewed preparation, bind PASS findings to the submitted spec path and revision. Confirm research covers the actual technical gap beyond any fixed manual list, sources are applicable, and planned checks are not represented as executed evidence.
+
+At G3 in coverage version 1, compare the matrix with the approved PRD's requirements, business rules and flows. Check business, UI/UX, frontend, backend, data, security, quality and operations applicability. Trace UI action → business validation → server/data effect using actual evidence. Require a specific reason for N/A and an affected decision/rationale for deferred unknowns. Verify that business choices come from approved decisions and technical facts from applicable sources. Write the PASS findings artifact for the submitted coverage path and G3 revision only after these checks.

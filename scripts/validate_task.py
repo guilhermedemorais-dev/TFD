@@ -13,6 +13,11 @@ from validate_estimate import estimate_order_errors
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "schemas" / "task.json"
 TFD_SECTORS = set("database backend frontend ui_ux qa security devops observability documentation harness".split())
+COVERAGE_AREAS = ("business", "ui_ux", "frontend", "backend", "data", "security", "quality", "operations")
+SECTOR_COVERAGE = {"database": "data", "qa": "quality", "qa_backend": "quality", "qa_ui": "quality",
+                   "qa_spec": "quality", "devops": "operations", "observability": "operations",
+                   "backend": "backend", "frontend": "frontend", "ui_ux": "ui_ux", "security": "security",
+                   "business": "business", "product": "business"}
 
 
 def load_schema() -> dict:
@@ -77,16 +82,96 @@ def routing_errors(task: dict) -> list[str]:
     return errors
 
 
-def semantic_errors(task: dict) -> list[str]:
+def coverage_errors(task: dict, *, require_coverage: bool = False) -> list[str]:
+    active = "coverage_version" in task or "technical_coverage" in task
+    if not active and not require_coverage:
+        return []
+    errors = []
+    if require_coverage and task.get("coverage_version") != 1:
+        errors.append("coverage_version=1 obrigatório para nova autoria")
+    if require_coverage and ("phases" not in task or "sectors" not in task):
+        errors.append("nova autoria exige phases e sectors")
+    if not task.get("spec", "").strip():
+        errors.append("technical_coverage exige spec")
+    if "technical_coverage" not in task:
+        return errors + ["technical_coverage obrigatório para cobertura v1"]
+    refs = {ref["id"] for ref in task["references"]}
+    errors.extend(f"id duplicado: {ref}" for ref in _duplicates([item["id"] for item in task["references"]]))
+    micros = {micro["id"] for micro in task["microtasks"]}
+    requirements = {req["id"] for req in task["requirements"]}
+    rules = {rule["id"] for rule in task["business_rules"]}
+    criteria = {ac["id"]: ac for ac in task["acceptance_criteria"]}
+    covered_micros, covered_reqs, covered_rules = set(), set(), set()
+    for area, cell in task["technical_coverage"].items():
+        label = f"technical_coverage.{area}"
+        links = {"reference_ids": refs, "microtask_ids": micros, "acceptance_ids": criteria.keys()}
+        if area == "business":
+            links["rule_ids"] = rules
+        for field, known in links.items():
+            for linked_id in cell[field]:
+                if linked_id not in known:
+                    errors.append(f"{label}: {field} contém ID inexistente: {linked_id}")
+            for duplicate in _duplicates(cell[field]):
+                errors.append(f"{label}: {field} contém ID duplicado: {duplicate}")
+        if cell["status"] == "N/A":
+            reason = cell.get("reason", "").strip()
+            if not reason or reason.casefold().rstrip(".! ") in {
+                "n/a", "na", "não se aplica", "nao se aplica", "fora do escopo", "não aplicável", "nao aplicavel",
+            }:
+                errors.append(f"{label}: N/A exige justificativa específica")
+            if any(cell[field] for field in links):
+                errors.append(f"{label}: N/A não permite links")
+            continue
+        if not cell["summary"].strip():
+            errors.append(f"{label}: COVERED exige summary não vazio")
+        for field in ("reference_ids", "microtask_ids", "acceptance_ids"):
+            if not cell[field]:
+                errors.append(f"{label}: COVERED exige {field}")
+        cell_rules = set()
+        for ac_id in cell["acceptance_ids"]:
+            ac = criteria.get(ac_id)
+            if ac is None:
+                continue
+            if not set(ac["microtask_ids"]).intersection(cell["microtask_ids"]):
+                errors.append(f"{label}: {ac_id} sem vínculo com microtask_ids da área")
+                continue
+            covered_micros.update(set(ac["microtask_ids"]).intersection(cell["microtask_ids"]) & micros)
+            covered_reqs.update(ac["requirement_ids"])
+            cell_rules.update(ac.get("rule_ids", []))
+        covered_rules.update(cell_rules)
+        if area == "business":
+            for rule_id in sorted(rules - set(cell["rule_ids"])):
+                errors.append(f"{label}: regra sem cobertura: {rule_id}")
+            for rule_id in sorted(set(cell["rule_ids"]) - cell_rules):
+                errors.append(f"{label}: {rule_id} sem critério de aceite vinculado")
+    for field, missing in (("microtask", micros - covered_micros),
+                           ("requirement", requirements - covered_reqs), ("rule", rules - covered_rules)):
+        for linked_id in sorted(missing):
+            errors.append(f"technical_coverage: {field} sem cobertura: {linked_id}")
+    if rules and task["technical_coverage"]["business"]["status"] != "COVERED":
+        errors.append("technical_coverage.business: regras de negócio exigem COVERED")
+    for sector, row in task.get("sectors", {}).items():
+        area = SECTOR_COVERAGE.get(sector)
+        if area and row["applicability"] == "REQUIRED" and task["technical_coverage"][area]["status"] != "COVERED":
+            errors.append(f"technical_coverage.{area}: setor {sector} REQUIRED exige COVERED")
+    return errors
+
+
+def semantic_errors(task: dict, *, require_coverage: bool = False) -> list[str]:
     errors = routing_errors(task)
+    errors.extend(coverage_errors(task, require_coverage=require_coverage))
     tests = {t["id"] for t in task["required_tests"]}
     requirements = {r["id"] for r in task["requirements"]}
     microtasks = {m["id"] for m in task["microtasks"]}
+    rules = {r["id"] for r in task["business_rules"]}
     dependency_graph = TopologicalSorter()
     covered_requirements: set[str] = set()
     covered_microtasks: set[str] = set()
 
     for ac in task["acceptance_criteria"]:
+        for rule_id in ac.get("rule_ids", []):
+            if rule_id not in rules:
+                errors.append(f"{ac['id']}: rule_ids contém ID inexistente: {rule_id}")
         if ac["validation"] not in tests:
             errors.append(f"{ac['id']}: validation {ac['validation']} não existe em required_tests")
         for field, known_ids, covered_ids in (
@@ -138,7 +223,8 @@ def semantic_errors(task: dict) -> list[str]:
     return errors
 
 
-def validate_task(task: dict, schema: dict | None = None, *, allow_unestimated_draft: bool = False) -> list[str]:
+def validate_task(task: dict, schema: dict | None = None, *, allow_unestimated_draft: bool = False,
+                  require_coverage: bool = False) -> list[str]:
     schema = schema or load_schema()
     if allow_unestimated_draft and isinstance(task, dict) and task.get("status") == "draft":
         schema = {**schema, "required": [key for key in schema["required"] if key != "estimate"]}
@@ -146,17 +232,18 @@ def validate_task(task: dict, schema: dict | None = None, *, allow_unestimated_d
     if schema_errors:
         # sem forma válida não há como avaliar as regras semânticas
         return schema_errors
-    return semantic_errors(task)
+    return semantic_errors(task, require_coverage=require_coverage)
 
 
 def main() -> int:
-    import sys
+    import argparse
 
-    if len(sys.argv) != 2:
-        print("uso: python scripts/validate_task.py <task.json>", file=sys.stderr)
-        return 2
-    task = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-    errors = validate_task(task)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("task", type=Path)
+    parser.add_argument("--require-coverage", action="store_true", help="require coverage v1 for new authoring")
+    args = parser.parse_args()
+    task = json.loads(args.task.read_text(encoding="utf-8"))
+    errors = validate_task(task, require_coverage=args.require_coverage)
     if errors:
         for error in errors:
             print(f"ERRO {error}")

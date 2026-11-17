@@ -6,6 +6,8 @@ Author one canonical `task.json` per module in the project. Follow the [TFD task
 
 From the TFD root, validate the project task with `python -B scripts/validate_task.py <task.json>`, then generate its sibling Markdown view with `python -B scripts/render_task.py <task.json>`.
 
+For new authoring, follow the [Discovery coverage handoff](discovery-coverage.md), use [coverage version 1](../examples/task-coverage.example.json), and add `--require-coverage` to task validation. G3 coverage QA precedes spec authoring. Technical areas summarize applicable contracts and link microtasks, references, business rules and acceptance tests. Both views display this coverage. Legacy JSON remains readable; migrate only the affected active contract with revised evidence and QA.
+
 ## Human review
 
 Generate the complete, collapsible review when handing the task to a human. Save it alongside the project's review evidence and use its Markdown as the body of the authorized linked Issue. If the body exceeds GitHub's limit, use a short summary and link to the complete review in an authorized location. The canonical `task.md` is the artifact bound to G6. Keep its original command and filename.

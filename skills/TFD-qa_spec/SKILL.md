@@ -2,7 +2,7 @@
 name: TFD-qa_spec
 description: "Review pre-implementation artifacts at G3/G6. Verify sources, report actionable findings, and issue PASS or REWORK. Recheck corrections independently."
 metadata:
-  version: "1.5.0"
+  version: "1.6.0"
   owner: "qa_spec"
 ---
 
@@ -23,6 +23,7 @@ For material technical gaps, use the [decision procedure](../../library/architec
 ## Review
 1. Identify the artifact and exact revision. Read it fully and verify claims against cited sources. Flag unsourced requirements as gaps.
 2. Apply the eight [review dimensions](references/review-checklist.md) in order. Use the higher severity when uncertain and explain why. Quote exact evidence or ask the author a question.
+   At G3, use the [coverage handoff](../../docs/discovery-coverage.md) to compare every approved requirement, rule and flow against the coverage matrix and actual evidence. Challenge missing areas, unsupported N/A and deferred authorization or business decisions. A structural check cannot issue semantic PASS. At G6, check task coverage, spec and evidence for the same reviewed Discovery.
 3. Write `findings.json` with exactly `artifact` (POSIX path), `revision` (revision, commit, or hash), `verdict`, and `findings`. Each open finding has a unique `F-NN` ID, `severity`, checklist `dimension`, literal `evidence`, and actionable `recommendation`. Use `REWORK` for any `blocker` or `major`, otherwise `PASS`. Keep closure notes and limitations outside this JSON.
 4. For `REWORK`, direct the author to correct research, spec, or both. Recheck the updated revision or matching pair. Reuse IDs for persistent or reopened issues. Before task approval, verify the canonical Task points to the submitted spec and the generated view matches it. In reviewed preparation, G6 PASS findings must name that spec and the submission revision. Forward the task for human approval only after QA `PASS`.
 5. Run `python skills/TFD-qa_spec/scripts/check_findings.py findings.json`. Exit 0 means structurally valid, 1 invalid, and 2 incorrect usage. Verify the substance yourself.

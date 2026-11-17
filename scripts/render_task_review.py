@@ -11,7 +11,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from pipeline import evaluate, require_file
-from render_task import read_sector_receipts
+from render_task import coverage_rows, read_sector_receipts
 from resume_task import load_checkpoint
 from validate_task import validate_task
 
@@ -180,7 +180,9 @@ def technical_contract(task):
                                               for r in task["business_rules"]]),
              list_field("Critérios de aceite", [f"{ac['id']} · {ac['description']} · "
                                                f"{', '.join(ac['requirement_ids'])} · {ac['validation']} · "
-                                               f"{', '.join(ac['microtask_ids'])}" for ac in task["acceptance_criteria"]])]
+                                               f"{', '.join(ac['microtask_ids'])}"
+                                               + (f" · {', '.join(ac['rule_ids'])}" if ac.get("rule_ids") else "")
+                                               for ac in task["acceptance_criteria"]])]
     for test in task["required_tests"]:
         parts.extend((paragraph(test["id"], test["type"]), paragraph("Comando ou procedimento", test["command"]),
                       paragraph("Resultado esperado", test["expected"])))
@@ -192,6 +194,12 @@ def technical_contract(task):
     else:
         parts.append(paragraph("Referências técnicas", "Nenhuma registrada."))
     return details("Regras, critérios, testes e referências técnicas", "\n".join(parts))
+
+
+def coverage_view(task):
+    body = "".join(paragraph(f"{label} · {status}", f"{summary}" + (f" · {links}" if links else ""))
+                   for label, status, summary, links in coverage_rows(task))
+    return details("Cobertura técnica por área", body)
 
 
 def reference_location(location):
@@ -219,6 +227,9 @@ def microtask_view(micro, task, markdown, review, checkpoint):
     criteria = [ac for ac in task["acceptance_criteria"] if micro_id in ac["microtask_ids"]]
     parts.append(list_field("Critérios, testes e requisitos vinculados", [f"{ac['id']} · {ac['validation']} · "
                                                                         f"{', '.join(ac['requirement_ids'])}"
+                                                                        + (f" · {ac['description']} · "
+                                                                           f"{', '.join(ac.get('rule_ids', []))}"
+                                                                           if "technical_coverage" in task else "")
                                                                         for ac in criteria]))
     parts.append(paragraph("Referências da microtarefa", ", ".join(micro.get("reference_ids", []))
                            or "Consulte as referências da Task."))
@@ -261,6 +272,8 @@ def render_review_body(task, task_hash, observations, *, markdown, task_name="ta
                 )), expanded=True),
                 details("Pareceres e evidências da revisão", list_field("QA registrado no workflow", gate_evidence)),
                 contract(task), technical_contract(task)]
+    if "technical_coverage" in task:
+        sections.append(coverage_view(task))
     micros = task["microtasks"]
     phases = task.get("phases") or [{"id": None, "title": "Microtarefas"}]
     for phase in phases:
@@ -352,6 +365,7 @@ def main():
     parser.add_argument("output", type=Path, help="review Markdown (.md) or standalone HTML (.html)")
     parser.add_argument("--workflow", type=Path)
     parser.add_argument("--project-root", type=Path, default=Path.cwd())
+    parser.add_argument("--require-coverage", action="store_true", help="require coverage v1 for new authoring")
     args = parser.parse_args()
     try:
         task_file = args.task.resolve(strict=True)
@@ -365,7 +379,7 @@ def main():
             raise ValueError("a saída deve ter extensão .md ou .html")
         contents = task_file.read_bytes()
         task = json.loads(contents)
-        errors = validate_task(task, allow_unestimated_draft=True)
+        errors = validate_task(task, allow_unestimated_draft=True, require_coverage=args.require_coverage)
         if errors:
             raise ValueError("; ".join(errors))
         digest = hashlib.sha256(contents).hexdigest()

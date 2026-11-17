@@ -96,7 +96,7 @@ class TestSkillFile(unittest.TestCase):
     def test_frontmatter(self):
         fm = frontmatter(skill_text())
         self.assertEqual(fm["name"], "TFD-qa_spec")
-        self.assertEqual(fm["version"], "1.5.0")
+        self.assertEqual(fm["version"], "1.6.0")
         self.assertEqual(fm["owner"], "qa_spec")
         self.assertIn("description", fm)
         words = re.findall(r"\S+", fm["description"])

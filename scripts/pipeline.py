@@ -11,6 +11,7 @@ from pathlib import Path, PurePosixPath
 from context_budget import markdown_body
 from render_task import render_task
 from validate_task import validate_task
+from check_qa_consultation import require_consultation
 
 
 PREFIX = (
@@ -81,7 +82,7 @@ def reviewed_preparation(log, root):
     return True
 
 
-def require_spec_pass(evidence, spec, revision, gate="G6"):
+def require_spec_pass(evidence, spec, revision, gate="G6", verdict="PASS"):
     checker = Path(__file__).resolve().parents[1] / "skills/TFD-qa_spec/scripts/check_findings.py"
     definition = importlib.util.spec_from_file_location("tfd_spec_findings", checker)
     module = importlib.util.module_from_spec(definition)
@@ -90,8 +91,8 @@ def require_spec_pass(evidence, spec, revision, gate="G6"):
     errors = module.validate_findings(findings)
     if errors:
         raise ValueError(f"{gate}: invalid QA findings: " + "; ".join(errors))
-    if (findings["verdict"], findings["artifact"], findings["revision"]) != ("PASS", spec, revision):
-        raise ValueError(f"{gate}: spec QA PASS must match the submitted spec and revision")
+    if (findings["verdict"], findings["artifact"], findings["revision"]) != (verdict, spec, revision):
+        raise ValueError(f"{gate}: spec QA {verdict} must match the submitted spec and revision")
 
 
 def discovery_coverage(artifacts, root):
@@ -117,6 +118,15 @@ def evaluate(log, root):
     if "coverage_version" in log and (type(log["coverage_version"]) is not int or log["coverage_version"] != 1):
         raise ValueError("unsupported workflow coverage_version")
     coverage_required = log.get("coverage_version") == 1
+    if "review_version" in log and (type(log["review_version"]) is not int or log["review_version"] != 1):
+        raise ValueError("unsupported workflow review_version")
+    review_required = log.get("review_version") == 1
+    if review_required and not coverage_required:
+        raise ValueError("review_version 1 requires coverage_version 1")
+    approved_product = None
+    product_submission = None
+    submitted_artifacts = submitted_hashes = None
+    submitted_inventory = None
     discovery_submission = None
     reviewed_coverage = None
     step = attempts = 0
@@ -229,6 +239,13 @@ def evaluate(log, root):
                 if markdown_body(view) != render_task(task, PurePosixPath(task_paths[0]).name):
                     raise ValueError("G6: task_view must be generated from the submitted task JSON")
             revisions.add(revision)
+            if gate == "G1":
+                product_submission = (artifacts["prd"], hashes["prd"], revision)
+            submitted_artifacts, submitted_hashes = artifacts.copy(), hashes.copy()
+            submitted_inventory = None
+            if review_required and gate == "G6" and index == latest_task_submission:
+                submitted_inventory = {"requirement_ids": [row["id"] for row in task["requirements"]],
+                                       "business_rule_ids": [row["id"] for row in task["business_rules"]]}
             submission = (revision, actor, artifacts.get("spec"))
             reviews = {}
             attempts += 1
@@ -248,6 +265,16 @@ def evaluate(log, root):
                 raise ValueError("each required review needs a distinct reviewer")
             if verdict not in ("PASS", "REWORK", "BLOCKED"):
                 raise ValueError("invalid reviewer verdict")
+            if review_required and gate in ("G3", "G6") and reviewer == "qa_spec":
+                target = submitted_artifacts["coverage" if gate == "G3" else "spec"]
+                require_spec_pass(evidence, target, revision, gate, verdict)
+                references = dict(approved_product[0])
+                for kind in (("coverage",) if gate == "G3" else ("spec", "task", "discovery")):
+                    references[kind] = (submitted_artifacts[kind], submitted_hashes[kind])
+                inventory = (discovery_coverage(submitted_artifacts, root)[0]
+                             if gate == "G3" else submitted_inventory)
+                require_consultation(event, root, require_file, target, references, inventory,
+                                     approved_product[1], historical_task=index < latest_task_submission)
             if coverage_required and gate == "G3" and verdict == "PASS":
                 original, original_hashes = discovery_submission
                 for key in ("sources", "evidence", "coverage"):
@@ -277,6 +304,11 @@ def evaluate(log, root):
                 raise ValueError("completion requires current QA passes and an independent coordinator"
                                  if action == "complete" else
                                  "approval requires current QA passes and an independent human")
+            if gate == "G1":
+                path, sha256, prd_revision = product_submission
+                approved_product = ({"prd": (path, sha256),
+                                     "approval": (event["evidence"], hashlib.sha256(evidence.read_bytes()).hexdigest())},
+                                    prd_revision)
             step += 1
             attempts = 0
             submission = None
@@ -300,12 +332,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("workflow", type=Path)
     parser.add_argument("--project-root", type=Path, default=Path.cwd())
-    parser.add_argument("--init", action="store_true", help="create a new workflow with coverage QA enabled")
+    parser.add_argument("--init", action="store_true", help="create a new workflow with coverage and review QA enabled")
     args = parser.parse_args()
     try:
         if args.init:
             with args.workflow.open("x", encoding="utf-8") as stream:
-                json.dump({"coverage_version": 1, "phases": [], "events": []}, stream, indent=2)
+                json.dump({"coverage_version": 1, "review_version": 1, "phases": [], "events": []}, stream, indent=2)
                 stream.write("\n")
         result = evaluate(json.loads(args.workflow.read_text(encoding="utf-8")), args.project_root)
     except (OSError, ValueError) as exc:

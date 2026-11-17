@@ -17,6 +17,14 @@ quando a mudança afetar quem instala ou usa o framework. [Referência de estrut
 
 ## Em revisão
 
+### Conferência independente do QA e reconciliação da instalação
+
+- **Motivação.** Uma reprodução sintética avançou para G4 com um requisito aprovado omitido e um PASS sem registro próprio de consulta do revisor. A instalação Codex também carregava skills anteriores às melhorias já presentes na fonte e na biblioteca compartilhada do OpenBot.
+- **Corrige.** Novos workflows habilitam `review_version: 1`. G3/G6 exigem o registro independente do QA, vinculado ao PRD aprovado, aos inventários e à revisão exata dos artefatos. O QA consulta capítulos pertinentes do guia e fontes oficiais para afirmações técnicas decisivas, registra contradições e devolve lacunas materiais ao autor. O atualizador preservador aceita conteúdo instalado igual à base mesmo quando há trechos repetidos; conflitos reais continuam interrompendo a aplicação.
+- **Melhora.** A conferência deixa evidências verificáveis de requisitos, regras, fontes, limites e decisões sem carregar o guia inteiro. Atualizações preservam personalizações e distinguem versão instalada de comportamento efetivamente executado.
+- **Compatibilidade.** Pareceres e workflows anteriores permanecem válidos no protocolo que usavam. A task JSON e o formato de quatro campos de findings não mudam. Não há migração silenciosa de um PASS antigo.
+- **Verificação.** Em andamento nesta revisão local. Regressões reproduzidas antes do patch; resultados finais e limites de host serão registrados após os checks. [Contrato](discovery-coverage.md#independent-qa-evidence) · [Incidente INC-004](office/incidents/INC-004.json)
+
 ### Discovery com cobertura e geração autônoma de tasks
 
 - **Motivação.** Evitar que regras de negócio e contratos de interface, frontend ou backend sejam descobertos somente durante a implementação.

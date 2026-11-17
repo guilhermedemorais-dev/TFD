@@ -123,6 +123,7 @@ O manifesto define a versão do pacote. O commit identifica a revisão exata pub
 
 | Data | Commit | Motivo | Correção ou melhoria |
 | --- | --- | --- | --- |
+| 2026-11-17 | [Em revisão local](docs/CHANGELOG.md#conferência-independente-do-qa-e-reconciliação-da-instalação) | Exigir evidência própria do QA e corrigir atualização de instalações personalizadas. | Novos fluxos vinculam consulta independente, inventário aprovado e revisão dos artefatos; atualização preserva conflitos reais. [Contrato](docs/discovery-coverage.md#independent-qa-evidence) |
 | 2026-11-17 | [Em revisão](https://github.com/guilhermedemorais-dev/TFD/tree/codex/discovery-coverage) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
 | 2026-11-11 | [`10eb0f2`](https://github.com/guilhermedemorais-dev/TFD/commit/10eb0f28818165381ae1196da9dcb46f57947ffd) | Retomar entregas e limitar o contexto enviado a cada agente. | Adiciona checkpoints, verificação de caminhos, roteamento de modelos e medição de compactação. Documenta o quadro e permite consultar a branch de revisão no instalador. |
 | 2026-11-11 | [`e138636`](https://github.com/guilhermedemorais-dev/TFD/commit/e1386369b6f9d529d7850b0d27a6c41045c545fa) | Esclarecer qual contrato rege a task. | Distingue o schema nativo do TFD dos exemplos de contratos da biblioteca. |

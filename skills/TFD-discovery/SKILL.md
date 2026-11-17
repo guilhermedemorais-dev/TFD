@@ -2,7 +2,7 @@
 name: TFD-discovery
 description: "Investigate gaps in an approved PRD using indexed sources. Produce traceable findings for the spec. Use for Discovery or research rework requested by spec QA."
 metadata:
-  version: "1.8.0"
+  version: "1.8.1"
   owner: "discovery"
 ---
 
@@ -17,6 +17,6 @@ For material technical gaps, use the [decision procedure](../../library/architec
 4. Within authorized read-only research, resolve technical gaps autonomously; do not wait for the user to supply a source. For technical docs, try Context7 first, then official docs directly as needed. Reuse prior business answers; route only missing material business choices to Product. Ask for scope or permission only when required. Record consulted, verified sources in project `docs/`.
 5. Write short, project-specific findings with the source section, revision and applicability limits to `docs/discovery/` using the [output contract](references/evidence-format.md). Before G3, author `coverage.json` using the [coverage contract](references/coverage.md), with requirements, business rules, areas and evidenced flows. Link the finding at handoff. Run `python <skill-dir>/scripts/check_evidence.py <sources.json> <evidence.json> --coverage <coverage.json> --require-coverage`.
    For authorized analysis, record the target, revision, and evidence limits.
-6. Hand off findings and coverage to the spec author. QA reviews matching Discovery, coverage and spec revisions together; checker success is structural validation, never QA `PASS`. For research rework, revisit the flagged question, update evidence, and send the affected spec for correction and joint review. Production requires QA `PASS` and human approval.
+6. Submit findings and coverage to independent G3 QA before spec authoring. Supply the approved PRD references and all applicable sources; the reviewer performs and records their own consultation. QA reviews matching Discovery, coverage and spec revisions together; checker success is structural validation, never QA `PASS`. For research rework, revisit the flagged question, update evidence, and send the affected spec for correction and joint review. Production requires QA `PASS` and human approval.
 
 Discovery gathers evidence. Leave architecture, implementation, and task approval to later stages.

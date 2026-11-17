@@ -32,7 +32,7 @@ Events identify `gate`, `action`, `actor` and unique snapshot `revision`. Keep s
 
 The CLI verifies project-local evidence. BLOCKED stops the affected transition until its prerequisite or human decision is resolved. Publication, merge and deploy require separate authorization.
 
-For new workflows, use the [coverage protocol](../../../docs/discovery-coverage.md) to require Discovery QA before spec and covered tasks at G6.
+For new workflows, the [coverage protocol](../../../docs/discovery-coverage.md) requires G3/G6 QA consultation via `review_version: 1`; legacy reviews remain valid.
 
 ## Context and run receipts
 

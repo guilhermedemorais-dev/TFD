@@ -17,6 +17,21 @@ quando a mudança afetar quem instala ou usa o framework. [Referência de estrut
 
 ## Em revisão
 
+### Discovery com cobertura e geração autônoma de tasks
+
+- **Motivação.** Evitar que regras de negócio e contratos de interface, frontend ou backend sejam descobertos somente durante a implementação.
+- **Corrige.** Discovery registra cobertura por área e fluxo. G3 exige revisão independente da cobertura antes da spec. G6 confere os inventários de requisitos/regras, a revisão de Discovery e os vínculos entre áreas técnicas, microtarefas, critérios e testes.
+- **Melhora.** Com preparação revisada autorizada, o principal coordena pesquisa, spec, tasks e correções até o aceite humano. As dúvidas técnicas ficam com os agentes. Perguntas ao usuário tratam decisões materiais de negócio ou escopo ainda pendentes. O contexto de execução leva somente a cobertura e as fontes aplicáveis.
+- **Compatibilidade.** Tasks e workflows legados continuam legíveis. Novos workflows são inicializados com cobertura versão 1. A revisão recolhível e os checklists existentes foram mantidos.
+- **Verificação.** A suíte local passou com 211 testes, exit 0. O QA independente deu PASS após conferir vínculos de revisão, omissões de requisitos/regras, compatibilidade e recorte de fontes. As referências das skills ficaram abaixo de 1.000 tokens cada. A execução do novo fluxo no OpenBot ainda não foi validada. [Contrato e comandos](discovery-coverage.md)
+
+### Modelo de revisão humana da Task
+
+- **Motivação.** Permitir que o revisor confira a entrega e cada microtarefa com o contexto técnico necessário.
+- **Corrige.** Exibe critérios, testes, referências e restrições junto aos checklists. Mostra o estado de QA e de checkpoint conforme os registros disponíveis.
+- **Melhora.** O Harness gera a revisão em seções recolhíveis para a Issue e uma versão HTML com **Copiar Markdown**. O exemplo é genérico. A aprovação continua registrada na revisão correspondente da Issue. [Modelo e comandos](sector-task.md#human-review)
+- **Verificação.** A suíte local passou, exit 0. No Edge, o teste conferiu o conteúdo entregue à API de clipboard simulada, a seleção manual quando o clipboard é bloqueado e a marcação exclusiva da revisão. A API Markdown do GitHub reconheceu as seções, os checklists e o bloco Mermaid do exemplo genérico.
+
 ### Governança GitHub por projeto e instalação por prompt
 
 - **Motivação.** Evitar consultas ao repositório errado e decisões de permissão antes de confirmar o destino e a responsabilidade. Facilitar a instalação em um chat novo.

@@ -8,7 +8,25 @@ import sys
 from pathlib import Path
 
 from context_budget import WORDS, load_encoding
-from validate_task import validate_task
+from validate_task import COVERAGE_AREAS, validate_task
+
+
+AREA_LABELS = dict(zip(COVERAGE_AREAS, ("Negócio", "UI/UX", "Frontend", "Backend", "Dados",
+                                      "Segurança", "Qualidade", "Operações")))
+
+
+def coverage_rows(task):
+    """Shared compact content for Markdown and the escaped human review."""
+    for area in COVERAGE_AREAS:
+        cell = task.get("technical_coverage", {}).get(area)
+        if cell is None:
+            continue
+        if cell["status"] == "N/A":
+            yield AREA_LABELS[area], "N/A", cell["reason"], ""
+        else:
+            links = " · ".join(", ".join(cell.get(field, [])) for field in
+                               ("reference_ids", "microtask_ids", "acceptance_ids", "rule_ids") if cell.get(field))
+            yield AREA_LABELS[area], "COVERED", cell["summary"], links
 
 
 def sector_context(task, sector, microtask_id=None):
@@ -26,17 +44,42 @@ def sector_context(task, sector, microtask_id=None):
     refs = {ref for micro in microtasks for ref in micro["reference_ids"]}
     context = {key: task[key] for key in ("task_id", "contract_revision", "status", "goal", "scope",
                                          "out_of_scope", "protected_paths", "business_rules", "gates", "stop_conditions")}
-    return {**context, "sector": sector, "phases": [phase for phase in task["phases"] if phase["id"] in phase_ids],
+    projection = {**context, "sector": sector, "phases": [phase for phase in task["phases"] if phase["id"] in phase_ids],
             "microtasks": microtasks, "acceptance_criteria": criteria,
             "requirements": [entry for entry in task["requirements"] if entry["id"] in reqs],
             "required_tests": [entry for entry in task["required_tests"] if entry["id"] in tests],
             "references": [entry for entry in task["references"] if entry["id"] in refs]}
+    if "technical_coverage" in task:
+        # This execution slice is not a new canonical task. Keep global constraints
+        # and every mandatory reference of the selected MTs and applicable cells.
+        ac_ids = {ac["id"] for ac in criteria}
+        rule_ids = {rule for ac in criteria for rule in ac.get("rule_ids", [])}
+        projection["technical_coverage"] = {}
+        for area, cell in task["technical_coverage"].items():
+            if cell["status"] != "COVERED" or not ids.intersection(cell["microtask_ids"]):
+                continue
+            projection["technical_coverage"][area] = {
+                **cell, "microtask_ids": [item for item in cell["microtask_ids"] if item in ids],
+                "acceptance_ids": [item for item in cell["acceptance_ids"] if item in ac_ids],
+            }
+            refs.update(cell["reference_ids"])
+            if area == "business":
+                projection["technical_coverage"][area]["rule_ids"] = [
+                    rule for rule in cell["rule_ids"] if rule in rule_ids]
+        projection["references"] = [ref for ref in task["references"] if ref["id"] in refs]
+        projection["business_rules"] = [rule for rule in task["business_rules"] if rule["id"] in rule_ids]
+        projection["acceptance_criteria"] = [
+            {**ac, "microtask_ids": [micro for micro in ac["microtask_ids"] if micro in ids]} for ac in criteria]
+        projection["spec"] = task["spec"]
+        if "coverage_version" in task:
+            projection["coverage_version"] = task["coverage_version"]
+    return projection
 
 
-def microtask_lines(micro):
+def microtask_lines(micro, task=None):
     paths = ", ".join(f"`{path}`" for path in micro["allowed_paths"])
     outputs = "; ".join(micro["deliverables"])
-    return [
+    lines = [
         f"  - Responsável: `@{micro['owner']}` · Validador independente: `@{micro['validator']}`",
         f"  - Caminhos permitidos: {paths}",
         "  - Pode: executar o checklist abaixo nos caminhos permitidos, respeitando os limites globais e o gate atual.",
@@ -45,6 +88,14 @@ def microtask_lines(micro):
         f"  - Resultado esperado: {outputs}",
         f"  - Concluído quando: {micro['completion_condition']}",
     ]
+    if task and "technical_coverage" in task:
+        lines.append("  - Referências obrigatórias: " + (", ".join(micro.get("reference_ids", []))
+                                                       or ", ".join(ref["id"] for ref in task["references"])))
+        for ac in task["acceptance_criteria"]:
+            if micro["id"] in ac["microtask_ids"]:
+                links = ", ".join([*ac["requirement_ids"], *ac.get("rule_ids", []), ac["validation"]])
+                lines.append(f"  - Aceite {ac['id']}: {ac['description']} · {links}")
+    return lines
 
 
 def sector_lines(task, json_link, receipts):
@@ -79,7 +130,7 @@ def sector_lines(task, json_link, receipts):
             lines.append(f"- **{micro['id']} · {micro['phase']}** {micro['title']} · depende de {dependencies}")
             lines.append(f"  - {'☑' if verdict == 'PASS' else '☐'} Aprovado · "
                          f"{'☑' if verdict == 'REWORK' else '☐'} Reprovado · {observation}")
-            lines.extend(microtask_lines(micro))
+            lines.extend(microtask_lines(micro, task))
         lines.extend(["", f"[JSON]({json_link}) · `--sector {sector}`",
                       f"Feito: {receipt.get('summary', 'pendente')} · "
                       f"Bloqueios: {receipt.get('blockers', 'a verificar')} · "
@@ -130,6 +181,12 @@ def render_task(task, json_link="task.json", receipts=None):
     if task.get("problem"):
         lines.extend(["", "## Problema", "", task["problem"]])
     lines.extend(["", "## Solução", "", task["goal"]])
+    if "technical_coverage" in task:
+        lines.extend(["", "## Cobertura técnica", "", "| Área | Estado | Resumo / justificativa | Evidências e aceite |",
+                      "|---|---|---|---|"])
+        for row in coverage_rows(task):
+            lines.append("| " + " | ".join(value.replace("|", "\\|").replace("\n", " ").replace("\r", " ")
+                                         for value in row) + " |")
     lines.extend(["", '<a id="limites-globais"></a>', "## Limites globais", "",
                   "Fora do escopo: " + "; ".join(task["out_of_scope"]),
                   "Caminhos protegidos: " + (", ".join(f"`{path}`" for path in task["protected_paths"]) or "nenhum declarado")])
@@ -139,7 +196,7 @@ def render_task(task, json_link="task.json", receipts=None):
         lines.extend(["", "## O que será feito", ""])
         for micro in task["microtasks"]:
             lines.append(f"- **{micro['id']}** {micro['title']}")
-            lines.extend(microtask_lines(micro))
+            lines.extend(microtask_lines(micro, task))
     lines.extend(["", "Escopo, aceite e testes no contrato JSON desta task."])
     if not task.get("estimate"):
         lines.append("Estimativa pendente. G6 bloqueado para submissão.")
@@ -151,6 +208,7 @@ def main():
     parser.add_argument("task", type=Path)
     parser.add_argument("output", type=Path, nargs="?", help="defaults to the Markdown sibling of the JSON")
     parser.add_argument("--draft", action="store_true", help="allow a draft with a pending estimate")
+    parser.add_argument("--require-coverage", action="store_true", help="require coverage v1 for new authoring")
     route = parser.add_mutually_exclusive_group()
     route.add_argument("--sector", help="print only the sector's execution context")
     route.add_argument("--workflow", type=Path, help="print the view with observed sector receipts")
@@ -169,7 +227,7 @@ def main():
         ):
             raise ValueError("the human view must use a different file from the canonical JSON")
         task = json.loads(args.task.read_text(encoding="utf-8"))
-        errors = validate_task(task, allow_unestimated_draft=args.draft)
+        errors = validate_task(task, allow_unestimated_draft=args.draft, require_coverage=args.require_coverage)
         if errors:
             raise ValueError("; ".join(errors))
         if args.sector:

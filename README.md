@@ -111,10 +111,11 @@ Estes comandos podem ser executados na raiz do repositório TFD com os exemplos 
 
 ```powershell
 python -B scripts/validate_task.py examples/task.example.json
+python -B scripts/render_task_review.py examples/task.example.json task-review.html
 python -B scripts/resume_task.py examples/workflow.example.json --project-root .
 ```
 
-Para tarefas reais, aponte os comandos para os registros do projeto e informe a raiz desse projeto ao consultar o fluxo. A revisão recebe a task JSON e sua visão Markdown. Cada microtarefa identifica dependências, `@responsável`, `@validador`, caminhos permitidos, itens do checklist e resultado esperado. [Validação, geração e recorte por setor](docs/sector-task.md)
+Para tarefas reais, aponte os comandos para os registros do projeto. A revisão humana reúne checklists, entregáveis, critérios, evidências e referências técnicas em seções recolhíveis. Abra o HTML local para copiar o Markdown ou gere um `.md` para a Issue vinculada. [Modelo de revisão humana](docs/sector-task.md#human-review)
 
 ## Atualizações recentes
 
@@ -122,6 +123,7 @@ O manifesto define a versão do pacote. O commit identifica a revisão exata pub
 
 | Data | Commit | Motivo | Correção ou melhoria |
 | --- | --- | --- | --- |
+| 2026-11-17 | [Em revisão](https://github.com/guilhermedemorais-dev/TFD/tree/codex/discovery-coverage) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
 | 2026-11-11 | [`10eb0f2`](https://github.com/guilhermedemorais-dev/TFD/commit/10eb0f28818165381ae1196da9dcb46f57947ffd) | Retomar entregas e limitar o contexto enviado a cada agente. | Adiciona checkpoints, verificação de caminhos, roteamento de modelos e medição de compactação. Documenta o quadro e permite consultar a branch de revisão no instalador. |
 | 2026-11-11 | [`e138636`](https://github.com/guilhermedemorais-dev/TFD/commit/e1386369b6f9d529d7850b0d27a6c41045c545fa) | Esclarecer qual contrato rege a task. | Distingue o schema nativo do TFD dos exemplos de contratos da biblioteca. |
 | 2026-11-10 | [`91e92f4`](https://github.com/guilhermedemorais-dev/TFD/commit/91e92f4efb310bcf3a83094004ef40601359a562) | Reproduzir a suíte no Windows. | Corrige importações entre testes e documenta o preparo do `pytest`. |
@@ -138,7 +140,7 @@ Veja a motivação, o efeito e as verificações de cada atualização no [hist�
 | --- | --- |
 | Instalar, atualizar ou recuperar um perfil | [Guia do Codex](docs/GUIA-CODEX.md) |
 | Entender arquitetura, setores e decisões | [Arquitetura do TFD](docs/00-arquitetura.md) |
-| Escrever ou revisar uma task | [Tasks por setor](docs/sector-task.md) · [Contrato dos gates](skills/TFD-harness/references/gates.md) |
+| Escrever ou revisar uma task | [Modelo de revisão humana](docs/sector-task.md#human-review) · [Exemplo](examples/task-review.example.md) · [Contrato dos gates](skills/TFD-harness/references/gates.md) |
 | Preparar repositório, CI e quadro | [Prontidão do GitHub](skills/TFD-devops/references/github-readiness.md) · [Quadro de entrega](docs/delivery-board.md) |
 | Consultar evidências e limites de verificação | [Estado do projeto](docs/ESTADO.md) · [Preparação revisada](docs/reviewed-delivery/README.md) |
 | Manter skills e referências | [Padrão de skills](skills/TFD-maintenance/references/skill-standard.md) · [Biblioteca](library/README.md) |

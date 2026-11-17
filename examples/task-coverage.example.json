@@ -1,0 +1,278 @@
+{
+  "task_id": "DEMO-COVERAGE-001",
+  "contract_revision": 1,
+  "title": "Normalizar nomes com cobertura técnica explícita",
+  "goal": "Aceitar nome com acento, caixa variada e espaço duplicado sem quebrar a busca do cadastro.",
+  "complexity": "normal",
+  "scope": [
+    "normalização de nome no cadastro de pessoas"
+  ],
+  "out_of_scope": [
+    "busca global",
+    "migração de dados existentes"
+  ],
+  "allowed_paths": [
+    "src/cadastro/**",
+    "tests/test_cadastro.py"
+  ],
+  "protected_paths": [
+    "migrations/**",
+    ".github/**"
+  ],
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "description": "Nome com acento é normalizado para forma comparável.",
+      "source": "docs/prd/cadastro.md#nome",
+      "priority": "MUST"
+    },
+    {
+      "id": "REQ-02",
+      "description": "Nome vazio ou só com espaços retorna erro de validação.",
+      "source": "docs/prd/cadastro.md#validacao",
+      "priority": "MUST"
+    }
+  ],
+  "business_rules": [
+    {
+      "id": "RULE-01",
+      "description": "O nome original é preservado para exibição; a forma normalizada serve à busca.",
+      "source": "docs/prd/cadastro.md#regras"
+    }
+  ],
+  "references": [
+    {
+      "id": "REF-01",
+      "path": "docs/specs/cadastro/spec.md",
+      "purpose": "Contrato de normalização e casos de borda aprovados."
+    },
+    {
+      "id": "REF-02",
+      "path": "docs/specs/cadastro/casos.md",
+      "purpose": "Casos de borda e limites da função de normalização pura."
+    }
+  ],
+  "microtasks": [
+    {
+      "id": "MT-01",
+      "title": "Implementar normalização e validação",
+      "owner": "TFD-backend",
+      "phase": "A",
+      "sector": "backend",
+      "depends_on": [],
+      "allowed_paths": [
+        "src/cadastro/**"
+      ],
+      "checklist": [
+        "escrever teste que falha sem a normalização",
+        "implementar a menor mudança que passa",
+        "rodar o teste de contrato"
+      ],
+      "deliverables": [
+        "src/cadastro/normalize.py"
+      ],
+      "completion_condition": "Teste de contrato verde e nome original preservado",
+      "validator": "TFD-qa_backend",
+      "reference_ids": [
+        "REF-01"
+      ]
+    },
+    {
+      "id": "MT-02",
+      "title": "Cobrir casos de borda no teste",
+      "owner": "TFD-backend",
+      "phase": "B",
+      "sector": "backend",
+      "depends_on": [
+        "MT-01"
+      ],
+      "allowed_paths": [
+        "tests/test_cadastro.py"
+      ],
+      "checklist": [
+        "cobrir acento, caixa e espaço duplicado",
+        "cobrir vazio e só espaços"
+      ],
+      "deliverables": [
+        "tests/test_cadastro.py"
+      ],
+      "completion_condition": "Todos os casos de borda cobertos e verdes",
+      "validator": "TFD-qa_backend",
+      "reference_ids": [
+        "REF-01"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "description": "Nome '  João   da  Silva ' é aceito e buscável como 'joao da silva'.",
+      "requirement_ids": [
+        "REQ-01"
+      ],
+      "microtask_ids": [
+        "MT-01",
+        "MT-02"
+      ],
+      "validation": "TEST-01",
+      "rule_ids": [
+        "RULE-01"
+      ]
+    },
+    {
+      "id": "AC-02",
+      "description": "Nome vazio retorna erro de validação, não grava registro.",
+      "requirement_ids": [
+        "REQ-02"
+      ],
+      "microtask_ids": [
+        "MT-01",
+        "MT-02"
+      ],
+      "validation": "TEST-02"
+    }
+  ],
+  "required_tests": [
+    {
+      "id": "TEST-01",
+      "type": "unit",
+      "command": "python -m unittest tests.test_cadastro -q",
+      "expected": "exit 0 com os casos de normalização"
+    },
+    {
+      "id": "TEST-02",
+      "type": "unit",
+      "command": "python -m unittest tests.test_cadastro -q",
+      "expected": "exit 0 com o caso de nome vazio"
+    }
+  ],
+  "stop_conditions": [
+    "escopo cresceu além de src/cadastro",
+    "contrato conflita com o comportamento atual",
+    "teste exige banco não disponível"
+  ],
+  "gates": {
+    "implementation": "testes verdes e diff dentro de allowed_paths",
+    "review": "qa_backend valida independente",
+    "merge": "aprovação humana no PR"
+  },
+  "estimate": {
+    "optimistic_h": 2,
+    "likely_h": 4,
+    "pessimistic_h": 8,
+    "confidence": "low",
+    "basis": "sem histórico medido deste módulo; faixa por analogia"
+  },
+  "status": "draft",
+  "spec": "docs/specs/cadastro/spec.md",
+  "coverage_version": 1,
+  "phases": [
+    { "id": "A", "title": "Implementação da função" },
+    { "id": "B", "title": "Validação dos casos de borda" }
+  ],
+  "sectors": {
+    "backend": { "label": "Backend", "owner": "TFD-backend", "applicability": "REQUIRED" },
+    "database": { "label": "Dados", "owner": "TFD-database", "applicability": "N/A", "reason": "Função pura sem acesso a dados persistidos." },
+    "frontend": { "label": "Frontend", "owner": "TFD-frontend", "applicability": "N/A", "reason": "O recorte não altera código de navegador." },
+    "ui_ux": { "label": "UI/UX", "owner": "TFD-ui_ux", "applicability": "N/A", "reason": "O recorte não altera interfaces visuais." },
+    "qa": { "label": "QA de implementação", "owner": "TFD-qa_backend", "applicability": "N/A", "reason": "QA atua como validador independente das MTs de backend, sem MT própria de implementação." },
+    "security": { "label": "Segurança", "owner": "TFD-security", "applicability": "N/A", "reason": "A função não acessa rede, credenciais ou permissões." },
+    "devops": { "label": "DevOps", "owner": "TFD-devops", "applicability": "N/A", "reason": "Não há mudança de configuração ou implantação." },
+    "observability": { "label": "Observabilidade", "owner": "TFD-observability", "applicability": "N/A", "reason": "A função não produz eventos ou operações externas." },
+    "documentation": { "label": "Documentação", "owner": "TFD-documentation", "applicability": "N/A", "reason": "O contrato da função já está descrito nas referências." },
+    "harness": { "label": "Coordenação", "owner": "TFD-harness", "applicability": "N/A", "reason": "A coordenação dos gates cabe ao agente principal, sem MT própria neste exemplo." }
+  },
+  "technical_coverage": {
+    "business": {
+      "status": "COVERED",
+      "summary": "Preservar o nome original e normalizar somente a chave comparável.",
+      "reference_ids": [
+        "REF-01",
+        "REF-02"
+      ],
+      "microtask_ids": [
+        "MT-01",
+        "MT-02"
+      ],
+      "acceptance_ids": [
+        "AC-01",
+        "AC-02"
+      ],
+      "rule_ids": [
+        "RULE-01"
+      ]
+    },
+    "ui_ux": {
+      "status": "N/A",
+      "summary": "",
+      "reference_ids": [],
+      "microtask_ids": [],
+      "acceptance_ids": [],
+      "reason": "A função de normalização não altera telas, navegação ou mensagens apresentadas."
+    },
+    "frontend": {
+      "status": "N/A",
+      "summary": "",
+      "reference_ids": [],
+      "microtask_ids": [],
+      "acceptance_ids": [],
+      "reason": "O recorte contém apenas função de backend e seus testes, sem código de navegador."
+    },
+    "backend": {
+      "status": "COVERED",
+      "summary": "Normalizar acentos e espaços; rejeitar nomes vazios sem produzir resultado gravável.",
+      "reference_ids": [
+        "REF-01",
+        "REF-02"
+      ],
+      "microtask_ids": [
+        "MT-01",
+        "MT-02"
+      ],
+      "acceptance_ids": [
+        "AC-01",
+        "AC-02"
+      ]
+    },
+    "data": {
+      "status": "N/A",
+      "summary": "",
+      "reference_ids": [],
+      "microtask_ids": [],
+      "acceptance_ids": [],
+      "reason": "A função recebe e retorna valores em memória; não acessa banco nem altera esquema persistido."
+    },
+    "security": {
+      "status": "N/A",
+      "summary": "",
+      "reference_ids": [],
+      "microtask_ids": [],
+      "acceptance_ids": [],
+      "reason": "A função pura não acessa credenciais, rede, permissões ou dados além do argumento recebido."
+    },
+    "quality": {
+      "status": "COVERED",
+      "summary": "Verificar normalização, preservação do original e rejeição de vazio com testes de contrato.",
+      "reference_ids": [
+        "REF-01",
+        "REF-02"
+      ],
+      "microtask_ids": [
+        "MT-01",
+        "MT-02"
+      ],
+      "acceptance_ids": [
+        "AC-01",
+        "AC-02"
+      ]
+    },
+    "operations": {
+      "status": "N/A",
+      "summary": "",
+      "reference_ids": [],
+      "microtask_ids": [],
+      "acceptance_ids": [],
+      "reason": "O recorte não modifica configuração, serviços, implantação ou procedimentos operacionais."
+    }
+  }
+}

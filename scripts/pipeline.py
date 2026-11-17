@@ -81,7 +81,7 @@ def reviewed_preparation(log, root):
     return True
 
 
-def require_spec_pass(evidence, spec, revision):
+def require_spec_pass(evidence, spec, revision, gate="G6"):
     checker = Path(__file__).resolve().parents[1] / "skills/TFD-qa_spec/scripts/check_findings.py"
     definition = importlib.util.spec_from_file_location("tfd_spec_findings", checker)
     module = importlib.util.module_from_spec(definition)
@@ -89,9 +89,23 @@ def require_spec_pass(evidence, spec, revision):
     findings = json.loads(evidence.read_text(encoding="utf-8"))
     errors = module.validate_findings(findings)
     if errors:
-        raise ValueError("G6: invalid spec QA findings: " + "; ".join(errors))
+        raise ValueError(f"{gate}: invalid QA findings: " + "; ".join(errors))
     if (findings["verdict"], findings["artifact"], findings["revision"]) != ("PASS", spec, revision):
-        raise ValueError("G6: spec QA PASS must match the submitted spec and revision")
+        raise ValueError(f"{gate}: spec QA PASS must match the submitted spec and revision")
+
+
+def discovery_coverage(artifacts, root):
+    """Read the submitted research files, retaining source and evidence checks."""
+    checker = Path(__file__).resolve().parents[1] / "skills/TFD-discovery/scripts/check_evidence.py"
+    definition = importlib.util.spec_from_file_location("tfd_discovery_evidence", checker)
+    module = importlib.util.module_from_spec(definition)
+    definition.loader.exec_module(module)
+    values = {key: json.loads(require_file(artifacts[key], root).read_text(encoding="utf-8"))
+              for key in ("sources", "evidence", "coverage")}
+    errors, blocked = module.validate(values["sources"], values["evidence"], values["coverage"])
+    if errors:
+        raise ValueError("invalid Discovery coverage: " + "; ".join(errors))
+    return values["coverage"], blocked
 
 
 def evaluate(log, root):
@@ -100,6 +114,11 @@ def evaluate(log, root):
     plan = stages(log.get("phases"))
     root = Path(root).resolve()
     preparation = reviewed_preparation(log, root)
+    if "coverage_version" in log and (type(log["coverage_version"]) is not int or log["coverage_version"] != 1):
+        raise ValueError("unsupported workflow coverage_version")
+    coverage_required = log.get("coverage_version") == 1
+    discovery_submission = None
+    reviewed_coverage = None
     step = attempts = 0
     submission = None
     reviews = {}
@@ -115,6 +134,8 @@ def evaluate(log, root):
         if step == len(plan) or status == "BLOCKED":
             raise ValueError("cannot advance a complete or blocked workflow")
         gate, phase, outputs, reviewers = plan[step]
+        if coverage_required and gate in ("G2", "G3"):
+            outputs = tuple(dict.fromkeys((*outputs, "sources", "evidence", "coverage")))
         if (event.get("gate"), event.get("phase")) != (gate, phase):
             raise ValueError(f"out of order: expected {gate} {phase or ''}".strip())
         action, actor, revision = (event.get(key) for key in ("action", "actor", "revision"))
@@ -164,15 +185,42 @@ def evaluate(log, root):
                     raise ValueError(f"{gate}: artifact changed: {path}")
                 if gate == "G5" and key == "phase_plan" and json.loads(content) != log["phases"]:
                     raise ValueError("phase applicability must match the submitted G5 plan")
+            if coverage_required and gate == "G2":
+                discovery_coverage(artifacts, root)
+                discovery_submission = (artifacts.copy(), hashes.copy())
+            if coverage_required and gate == "G3":
+                if discovery_submission is None:
+                    raise ValueError("G3 requires submitted Discovery coverage")
+                original, original_hashes = discovery_submission
+                if attempts == 0 and any((artifacts[key], hashes[key]) !=
+                                         (original[key], original_hashes[key])
+                                         for key in ("sources", "evidence", "coverage")):
+                    raise ValueError("G3 coverage must match the submitted Discovery revision")
+                discovery_coverage(artifacts, root)
+                discovery_submission = (artifacts.copy(), hashes.copy())
             if gate == "G6" and index == latest_task_submission:
                 task = json.loads(submitted_files["task"])
-                errors = validate_task(task)
+                errors = validate_task(task, require_coverage=True) if coverage_required else validate_task(task)
                 if errors:
                     raise ValueError("invalid task: " + "; ".join(errors))
                 if (task["task_id"], task["contract_revision"]) != (task_id, contract_revision):
                     raise ValueError("G6: active task does not match submitted identity and revision")
-                if preparation and task.get("spec") != artifacts["spec"]:
+                if (preparation or coverage_required) and task.get("spec") != artifacts["spec"]:
                     raise ValueError("G6: task.spec must match the submitted spec")
+                if ("coverage_version" in task or "technical_coverage" in task) and not coverage_required:
+                    raise ValueError("G6: covered tasks require workflow coverage_version 1")
+                if coverage_required:
+                    if reviewed_coverage is None:
+                        raise ValueError("G6 requires independent Discovery coverage PASS")
+                    if (artifacts["discovery"], hashes["discovery"]) != (
+                            discovery_submission[0]["coverage"], discovery_submission[1]["coverage"]):
+                        raise ValueError("G6 Discovery must match the G3 reviewed coverage")
+                    for field, task_field in (("requirement_ids", "requirements"), ("business_rule_ids", "business_rules")):
+                        if {row["id"] for row in task[task_field]} != set(reviewed_coverage[field]):
+                            raise ValueError(f"G6: task {task_field} must match reviewed Discovery coverage")
+                    for area, cell in task["technical_coverage"].items():
+                        if cell["status"] == "COVERED" and reviewed_coverage["areas"][area]["status"] != "COVERED":
+                            raise ValueError(f"G6: {area} requires reviewed Discovery evidence")
                 if "phases" in task and [entry["id"] for entry in task["phases"]] != [
                     entry["id"] for entry in log["phases"]
                 ]:
@@ -200,7 +248,17 @@ def evaluate(log, root):
                 raise ValueError("each required review needs a distinct reviewer")
             if verdict not in ("PASS", "REWORK", "BLOCKED"):
                 raise ValueError("invalid reviewer verdict")
-            if preparation and gate == "G6" and verdict == "PASS":
+            if coverage_required and gate == "G3" and verdict == "PASS":
+                original, original_hashes = discovery_submission
+                for key in ("sources", "evidence", "coverage"):
+                    if hashlib.sha256(require_file(original[key], root).read_bytes()).hexdigest() != original_hashes[key]:
+                        raise ValueError("G3 Discovery evidence changed after submission")
+                coverage, blocked = discovery_coverage(discovery_submission[0], root)
+                if blocked:
+                    raise ValueError("G3: unresolved Discovery coverage: " + ", ".join(blocked))
+                require_spec_pass(evidence, discovery_submission[0]["coverage"], revision, gate="G3")
+                reviewed_coverage = coverage
+            if (preparation or coverage_required) and gate == "G6" and verdict == "PASS":
                 require_spec_pass(evidence, submission[2], revision)
             reviews[reviewer] = (verdict, actor)
             if verdict == "BLOCKED" or (verdict == "REWORK" and attempts >= 4):
@@ -229,6 +287,8 @@ def evaluate(log, root):
     if step == len(plan):
         return {"status": "COMPLETE"}
     gate, phase, outputs, reviewers = plan[step]
+    if coverage_required and gate in ("G2", "G3"):
+        outputs = tuple(dict.fromkeys((*outputs, "sources", "evidence", "coverage")))
     return {
         "status": status, "gate": gate, "phase": phase,
         "attempts": attempts, "required_artifacts": outputs,
@@ -240,8 +300,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("workflow", type=Path)
     parser.add_argument("--project-root", type=Path, default=Path.cwd())
+    parser.add_argument("--init", action="store_true", help="create a new workflow with coverage QA enabled")
     args = parser.parse_args()
     try:
+        if args.init:
+            with args.workflow.open("x", encoding="utf-8") as stream:
+                json.dump({"coverage_version": 1, "phases": [], "events": []}, stream, indent=2)
+                stream.write("\n")
         result = evaluate(json.loads(args.workflow.read_text(encoding="utf-8")), args.project_root)
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}")

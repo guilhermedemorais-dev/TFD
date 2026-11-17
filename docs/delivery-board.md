@@ -1,4 +1,4 @@
-> Contexto TFD · 871 palavras · 1268 tokens (o200k_base)
+> Contexto TFD · 905 palavras · 1312 tokens (o200k_base)
 
 # Phase-based delivery board
 
@@ -25,6 +25,8 @@ Use this `Status` display order. Return to `Discovery / Spec` for each new phase
 | `Done` | Record successful deployment and post-deploy verification in the approved environment. |
 
 Preserve human gates. Only explicit `preparation.mode=reviewed_task` authorization permits coordinator completion of G2–G5 after applicable QA. Record G8-review in the last applicable development review. Require separate explicit deploy and merge decisions for their respective operations. Keep board, QA and human approval evidence distinct.
+
+Use the [full Task review](sector-task.md#human-review) for Human Review handoffs that include a Task. Use its Markdown in the linked Issue when authorized and keep the user's decision in a revision-specific comment.
 
 ## QA labels and rework
 

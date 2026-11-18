@@ -78,6 +78,87 @@ class TestQAConsultation(unittest.TestCase):
             reviewer="qa_spec", verdict="PASS", evidence="spec-qa.json"))
         self.attach()
 
+    def blocked_review(self, gate):
+        (self.reviewed_g3 if gate == "G3" else self.task_to_review)()
+        event = self.log["events"][-1]
+        event["verdict"] = "BLOCKED"
+        findings = json.loads((self.root / event["evidence"]).read_bytes())
+        findings.update(verdict="BLOCKED", findings=[{
+            "id": "F-01", "severity": "blocker", "dimension": "Source verification",
+            "evidence": "Required official source is inaccessible; external prerequisite unavailable",
+            "recommendation": "Restore source access and verify it before resuming review"}])
+        self.case.write(event["evidence"], findings)
+        data = self.consultation()
+        data["checks"][2].update(status="NOT_VERIFIED", revision="unavailable",
+                                 observation="Required official source is inaccessible")
+        self.attach(data)
+        return event, findings
+
+    def assert_blocked_is_terminal(self, gate):
+        event, _ = self.blocked_review(gate)
+        result = evaluate(self.log, self.root)
+        self.assertEqual((result["gate"], result["status"]), (gate, "BLOCKED"))
+        workflow = self.root / "blocked-workflow.json"
+        workflow.write_text(json.dumps(self.log), encoding="utf-8")
+        command = [sys.executable, "-B", str(test_coverage_pipeline.ROOT / "scripts/pipeline.py"),
+                   str(workflow), "--project-root", str(self.root)]
+        run = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(run.returncode, 2, run.stdout + run.stderr)
+        self.assertEqual(json.loads(run.stdout)["status"], "BLOCKED")
+        for action in ("approve", "complete", "submit"):
+            with self.subTest(gate=gate, action=action):
+                self.log["events"].append({**event, "action": action, "actor": "human"})
+                with self.assertRaisesRegex(ValueError, "cannot advance a complete or blocked workflow"):
+                    evaluate(self.log, self.root)
+                self.log["events"].pop()
+
+    def test_g3_blocked_reaches_terminal_state_and_cli_exit_two(self):
+        self.assert_blocked_is_terminal("G3")
+
+    def test_g6_blocked_reaches_terminal_state_and_cli_exit_two(self):
+        self.assert_blocked_is_terminal("G6")
+
+    def assert_blocked_bindings(self, gate):
+        event, original = self.blocked_review(gate)
+        for field, value in (("artifact", "different.json"), ("revision", "stale"),
+                             ("verdict", "REWORK")):
+            with self.subTest(gate=gate, field=field):
+                self.case.write(event["evidence"], {**original, field: value})
+                self.attach()
+                with self.assertRaisesRegex(ValueError, "BLOCKED must match"):
+                    evaluate(self.log, self.root)
+        for severity in (None, "major"):
+            with self.subTest(gate=gate, severity=severity):
+                invalid = copy.deepcopy(original)
+                invalid["findings"] = [] if severity is None else invalid["findings"]
+                if severity:
+                    invalid["findings"][0]["severity"] = severity
+                self.case.write(event["evidence"], invalid)
+                self.attach()
+                with self.assertRaisesRegex(ValueError, "BLOCKED exige ao menos um achado blocker"):
+                    evaluate(self.log, self.root)
+        self.case.write(event["evidence"], original)
+        self.attach()
+        consultation = event.pop("consultation")
+        with self.assertRaisesRegex(ValueError, "consultation"):
+            evaluate(self.log, self.root)
+        event["consultation"] = consultation
+        event["consultation_sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "consultation"):
+            evaluate(self.log, self.root)
+        self.attach()
+        changed = copy.deepcopy(original)
+        changed["findings"][0]["recommendation"] = "Changed unblock recommendation"
+        self.case.write(event["evidence"], changed)
+        with self.assertRaisesRegex(ValueError, "findings hash mismatch"):
+            evaluate(self.log, self.root)
+
+    def test_g3_blocked_preserves_findings_and_consultation_bindings(self):
+        self.assert_blocked_bindings("G3")
+
+    def test_g6_blocked_preserves_findings_and_consultation_bindings(self):
+        self.assert_blocked_bindings("G6")
+
     def test_new_mode_rejects_empty_pass_without_consultation(self):
         self.case.discovery_to_review()
         self.case.qa()

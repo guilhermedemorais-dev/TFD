@@ -1,4 +1,4 @@
-> Contexto TFD · 503 palavras · 740 tokens (o200k_base)
+> Contexto TFD · 541 palavras · 791 tokens (o200k_base)
 
 # Specification review checklist
 
@@ -15,7 +15,7 @@ At stage-loop documentary gates, apply dimensions to the current deliverable: co
 7. **Unstated assumptions.** Check library versions, volume, timezone, language, currency, availability, external behavior, and dependencies on future tasks or sectors. `major`, or `blocker` if implementation depends entirely on it.
 8. **Security and data.** Check personal-data purpose, retention, masking and lawful basis, authn/authz, input and upload limits, secrets, sensitive logs, and audit of critical actions. Usually `blocker`.
 
-Use `REWORK` for any `blocker` or `major`; otherwise use `PASS`. The author fixes findings. QA revalidates.
+Use `BLOCKED` when a missing external prerequisite prevents review; include a `blocker` with evidence of the prerequisite and an actionable recommendation to unblock it. Otherwise use `REWORK` for any `blocker` or `major`, and `PASS` for the rest. The author fixes findings. QA revalidates. `BLOCKED` stops acceptance and advancement while preserving the required review bindings.
 
 At G6, check Task/spec path, revision, Discovery and generated view together. In reviewed preparation, bind PASS findings to the submitted spec path and revision. Confirm research covers the actual technical gap beyond any fixed manual list, sources are applicable, and planned checks are not represented as executed evidence.
 

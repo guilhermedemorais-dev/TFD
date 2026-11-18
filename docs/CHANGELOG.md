@@ -17,6 +17,13 @@ quando a mudança afetar quem instala ou usa o framework. [Referência de estrut
 
 ## Em revisão
 
+### Bloqueio fundamentado no QA de especificação
+
+- **Motivação.** O code review da PR #8 encontrou um conflito entre o pipeline, que aceita `BLOCKED`, e o validador de findings, que aceitava apenas `PASS` e `REWORK`.
+- **Corrige.** O parecer de bloqueio pode identificar um pré-requisito ausente com achado `blocker`, evidência e recomendação. Os vínculos com o artefato e a revisão continuam obrigatórios em G3/G6; o bloqueio não autoriza avanço nem aceite humano.
+- **Preserva.** O contrato JSON mantém seus campos, `PASS` e `REWORK` mantêm suas regras e nenhuma instalação ou configuração do OpenBot é alterada por esta publicação na PR #8.
+- **Verificação.** A reprodução anterior falhou em G3 e G6; após a correção, passou com exit 0. Os 59 testes focados e os 281 testes da suíte completa passaram, exit 0. Os casos conferem bloqueio válido, CLI exit 2, rejeição de avanço, campos obrigatórios e vínculos de artefato, revisão e consulta. A skill 1.8.1 passou na auditoria estática; skill e duas referências somam 2.524 tokens, contra 2.353 da base, com cada referência abaixo de 1.000 tokens. O validador genérico da Skill Creator continua rejeitando o ID legado `TFD-qa_spec`; esse ID publicado foi preservado conforme o padrão do TFD. A veracidade do pré-requisito continua sendo julgamento do QA, não prova do validador estrutural. [INC-009](office/incidents/INC-009.json).
+
 ### Graphify compartilhado entre hosts da mesma máquina
 
 - **Motivação.** Evitar que Codex e OpenBot consultem bundles diferentes contra um índice padrão comum, provocando consultas desatualizadas e contexto divergente.

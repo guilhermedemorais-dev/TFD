@@ -1,4 +1,4 @@
-> Contexto TFD · 474 palavras · 721 tokens (o200k_base)
+> Contexto TFD · 516 palavras · 770 tokens (o200k_base)
 
 # Independent source consultation
 
@@ -16,7 +16,7 @@ The consultation records:
 
 For business behavior use the approved decisions, not an engineering convention. For technical design independently open applicable chapters of the [pinned guide](../../../library/architecture/technical-decision-procedure.md#bounded-research-at-any-stage), then verify decisive claims in original vendor documentation or specifications. The guide is a candidate, not authority. Do not force patterns, TDD, percentage targets or all 80 topics onto the project.
 
-Statuses are `VERIFIED`, `NOT_VERIFIED`, `CONTRADICTED` or `N/A`. Explain a specific N/A in `observation`; business decisions cannot be N/A when rules apply. An inaccessible decisive source stays NOT_VERIFIED. Missing or contradictory required facts require REWORK with actionable major/blocker findings. PASS requires matching inventories, no outstanding discrepancies and resolved applicable source checks. Do not repair the author's artifact during independent review.
+Statuses are `VERIFIED`, `NOT_VERIFIED`, `CONTRADICTED` or `N/A`. Explain a specific N/A in `observation`; business decisions cannot be N/A when rules apply. An inaccessible decisive source stays NOT_VERIFIED. Use BLOCKED when a missing external prerequisite prevents review, with at least one blocker citing the prerequisite and how to unblock it in the existing evidence/recommendation fields. Other missing or contradictory required facts require REWORK with actionable major/blocker findings. BLOCKED preserves the findings and consultation bindings and permits no acceptance or advancement. PASS requires matching inventories, no outstanding discrepancies and resolved applicable source checks. Do not repair the author's artifact during independent review.
 
 Before returning, run the pipeline against the actual workflow and report its command/exit. It checks bindings, hashes and declarations; it does not authenticate the reviewer, prove that a page was read, verify arbitrary official-domain claims or certify semantic correctness. State these limits and distinguish documentary review from executed application tests.
 

@@ -1,8 +1,10 @@
-> Contexto TFD · 340 palavras · 529 tokens (o200k_base)
+> Contexto TFD · 503 palavras · 740 tokens (o200k_base)
 
 # Specification review checklist
 
 Review in order. Cite a literal excerpt and recommend a correction. Ask the author if there is no citable excerpt.
+
+At stage-loop documentary gates, apply dimensions to the current deliverable: compare PRD with sourced business answers, plans with approved scope, and documentation with accepted behavior. Do not demand future implementation from a PRD; route runtime access checks to independent UI/backend QA.
 
 1. **Ambiguity.** Look for unclear actors or pronouns, unmeasured terms, missing boundaries or units, and reused names with different meanings. `major` if behavior or tests change; otherwise `minor`.
 2. **Contradictions.** Compare values, deadlines, limits, actors, flows, and API fields across PRD, Discovery, contract, and spec. Flag claims that exceed Discovery's findings or scope. Usually `blocker`.

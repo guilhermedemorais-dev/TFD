@@ -104,6 +104,19 @@ class TestTaskCoverage(unittest.TestCase):
         task["technical_coverage"]["backend"]["acceptance_ids"] = ["AC-01"]
         self.assertTrue(any("AC-01 sem vínculo" in error for error in validate_task(task)))
 
+    def test_each_listed_microtask_has_acceptance_in_its_area(self):
+        task = load_coverage()
+        task["acceptance_criteria"][0]["microtask_ids"] = ["MT-01"]
+        task["acceptance_criteria"][1]["microtask_ids"] = ["MT-02"]
+        task["technical_coverage"]["backend"]["acceptance_ids"] = ["AC-01"]
+        errors = validate_task(task, require_coverage=True)
+        self.assertTrue(any("technical_coverage.backend" in error and "MT-02" in error
+                            for error in errors), errors)
+        task["technical_coverage"]["backend"]["acceptance_ids"].append("AC-02")
+        self.assertEqual(validate_task(task, require_coverage=True), [])
+        sliced = sector_context(task, "backend", "MT-02")
+        self.assertEqual(sliced["technical_coverage"]["backend"]["acceptance_ids"], ["AC-02"])
+
     def test_requirement_and_mt_cannot_hide_outside_covered_acceptance(self):
         task = load_coverage()
         # Existing acceptance still covers both REQs/MTs, but area evidence omits REQ-02/MT-02.

@@ -2,11 +2,13 @@
 name: TFD-architecture
 description: "Author architecture, contracts, phase plans, and testable specs from approved product scope and Discovery."
 metadata:
-  version: "1.2.1"
+  version: "1.3.0"
   owner: "architecture"
 ---
 
 # architecture
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) separately to architecture, planning and phase specifications. Bind author consultation, self-checks and independent documentary QA to the submitted artifacts before their applicable approval.
 
 Choose boundaries by cohesion, coupling and measurable quality drivers. Compare a simpler existing structure before patterns, layers or distributed services; record the tradeoff in a project ADR. Do not impose every SOLID principle or pattern mechanically.
 

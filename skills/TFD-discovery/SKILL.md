@@ -2,11 +2,13 @@
 name: TFD-discovery
 description: "Investigate gaps in an approved PRD using indexed sources. Produce traceable findings for the spec. Use for Discovery or research rework requested by spec QA."
 metadata:
-  version: "1.8.1"
+  version: "1.9.0"
   owner: "discovery"
 ---
 
 # Discovery
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md). G2 hands off the source-bound, self-checked package; G3 supplies its independent coverage review and acceptance. Do not invoke a second QA merely for the handoff.
 
 For material technical gaps, use the [decision procedure](../../library/architecture/technical-decision-procedure.md). Research is not limited to manuals 001-080: inspect relevant repository chapters at the external source, then verify decisive claims with primary sources. Keep only its URL/revision as a source pointer; never vendor or graph the whole repository. Keep a bounded question, owner and sufficient-evidence stopping condition; reuse compatible project findings.
 

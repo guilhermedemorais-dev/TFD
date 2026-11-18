@@ -69,6 +69,7 @@ flowchart LR
     Q -->|PASS| H
     H -->|evidências para aceite| U
     B["Biblioteca TFD · fontes e Graphify"] --> S
+    B --> Q
     H --> P["Projeto · task, fluxo, decisões e recibos"]
     S --> P
     Q --> P
@@ -99,11 +100,17 @@ flowchart LR
 | **G8 · Documentação** | Peça a documentação técnica e a ajuda ao usuário da revisão aceita. Confira os fluxos documentados e os perfis de acesso. No perfil de quadro, o conteúdo técnico é restrito a administradores e os tutoriais ficam disponíveis também aos usuários regulares. Registre o aceite final da documentação. |
 | **DevOps e entrega** | Se o projeto adotou o perfil de quadro, peça o candidato com implementação e documentação aceitas, evidências de staging autorizado, segurança e rollback. Confira o artefato e o ambiente de destino. Autorize merge e deploy separadamente. Depois do deploy, confira os testes no ambiente autorizado antes de marcar `Done`. |
 
-Por padrão, cada gate exige aceite humano após as revisões aplicáveis. Com `reviewed_task` explicitamente autorizado e registrado, o coordenador pode concluir G2–G5 depois das verificações aplicáveis. Um `PASS` vale para a revisão registrada. `REWORK` volta ao responsável, seguido de nova revisão independente. `BLOCKED` pede que se resolva a causa antes de seguir. No perfil opcional de GitHub Projects, a issue acompanha a fase e exibe as etiquetas `QA em andamento` ou `Em ajustes`, conforme o trabalho observado e as permissões disponíveis. [Gates e aprovações](skills/TFD-harness/references/gates.md) · [Quadro de entrega](docs/delivery-board.md)
+Por padrão, os gates de decisão exigem aceite humano após as revisões aplicáveis. Com `reviewed_task` explicitamente autorizado e registrado, o coordenador pode concluir G2–G5 no protocolo anterior, ou G3–G5 no protocolo por etapa; neste último, G2 é uma transferência interna para G3. Um `PASS` vale para a revisão registrada. `REWORK` volta ao responsável, seguido de nova revisão independente. `BLOCKED` pede que se resolva a causa antes de seguir. No perfil opcional de GitHub Projects, a issue acompanha a fase e exibe as etiquetas `QA em andamento` ou `Em ajustes`, conforme o trabalho observado e as permissões disponíveis. [Gates e aprovações](skills/TFD-harness/references/gates.md) · [Quadro de entrega](docs/delivery-board.md)
 
 No GitHub, o contrato separa a permissão técnica em cada recurso da autorização para agir. O responsável pelo quadro segue o contrato aceito e só move o item para revisão humana após todos os revisores aplicáveis darem `PASS` para a revisão atual, com evidências na mesma Issue. [Contrato de governança](skills/TFD-devops/references/project-governance.md)
 
 Ao aprovar, cite a fase e a revisão apresentada. Por exemplo, “Aprovo a spec e a task da fase Cadastro na revisão apresentada `r2`. Registre meu aceite no `workflow.json`.” Se pedir ajuste, descreva o comportamento esperado na mesma tarefa e peça nova verificação.
+
+### Ciclo completo dentro de cada etapa
+
+Workflows com `stage_loop_version: 1` exigem consulta Graphify ou reutilização comprovada, leitura das fontes pertinentes, verificações do autor e QA independente antes do aceite. Isso cobre PRD, prontidão, planejamento, documentação e operação, além de Discovery/spec e implementação. G2 entrega a pesquisa internamente a G3, sem duplicar QA. G9 prepara o candidato e registra autorização específica de deploy; G10 verifica a publicação antes de concluir.
+
+Os scripts validam evidências; o principal executa a coordenação no host. Workflows antigos não são migrados nem recebem PASS retroativo. A atualização está em revisão e não altera instalações personalizadas automaticamente. [Protocolo, recibos e limites](docs/stage-loop.md)
 
 ### Conferir os artefatos pelo terminal
 
@@ -123,6 +130,7 @@ O manifesto define a versão do pacote. O commit identifica a revisão exata pub
 
 | Data | Commit | Motivo | Correção ou melhoria |
 | --- | --- | --- | --- |
+| 2026-11-17 | [Em revisão — INC-005](docs/office/incidents/INC-005.json) | Fazer o ciclo completo ocorrer dentro de cada etapa. | Consulta e verificações do autor e do QA, aceite vinculado à revisão, checkpoints de implementação e gates de preparo/publicação. [Contrato](docs/stage-loop.md) |
 | 2026-11-17 | [Em revisão local](docs/CHANGELOG.md#conferência-independente-do-qa-e-reconciliação-da-instalação) | Exigir evidência própria do QA e corrigir atualização de instalações personalizadas. | Novos fluxos vinculam consulta independente, inventário aprovado e revisão dos artefatos; atualização preserva conflitos reais. [Contrato](docs/discovery-coverage.md#independent-qa-evidence) |
 | 2026-11-17 | [Em revisão](https://github.com/guilhermedemorais-dev/TFD/tree/codex/discovery-coverage) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
 | 2026-11-11 | [`10eb0f2`](https://github.com/guilhermedemorais-dev/TFD/commit/10eb0f28818165381ae1196da9dcb46f57947ffd) | Retomar entregas e limitar o contexto enviado a cada agente. | Adiciona checkpoints, verificação de caminhos, roteamento de modelos e medição de compactação. Documenta o quadro e permite consultar a branch de revisão no instalador. |
@@ -141,6 +149,7 @@ Veja a motivação, o efeito e as verificações de cada atualização no [hist�
 | --- | --- |
 | Instalar, atualizar ou recuperar um perfil | [Guia do Codex](docs/GUIA-CODEX.md) |
 | Entender arquitetura, setores e decisões | [Arquitetura do TFD](docs/00-arquitetura.md) |
+| Entregar cada etapa com consulta, verificações e QA antes do aceite | [Protocolo por etapa](docs/stage-loop.md) |
 | Escrever ou revisar uma task | [Modelo de revisão humana](docs/sector-task.md#human-review) · [Exemplo](examples/task-review.example.md) · [Contrato dos gates](skills/TFD-harness/references/gates.md) |
 | Preparar repositório, CI e quadro | [Prontidão do GitHub](skills/TFD-devops/references/github-readiness.md) · [Quadro de entrega](docs/delivery-board.md) |
 | Consultar evidências e limites de verificação | [Estado do projeto](docs/ESTADO.md) · [Preparação revisada](docs/reviewed-delivery/README.md) |

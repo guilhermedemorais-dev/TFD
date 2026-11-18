@@ -1,4 +1,4 @@
-# Contexto TFD · 665 palavras · 1660 tokens (o200k_base)
+# Contexto TFD · 671 palavras · 1673 tokens (o200k_base)
 
 """Testes da skill TFD-qa_spec e do validador de findings.
 
@@ -96,7 +96,7 @@ class TestSkillFile(unittest.TestCase):
     def test_frontmatter(self):
         fm = frontmatter(skill_text())
         self.assertEqual(fm["name"], "TFD-qa_spec")
-        self.assertEqual(fm["version"], "1.7.0")
+        self.assertEqual(fm["version"], "1.8.0")
         self.assertEqual(fm["owner"], "qa_spec")
         self.assertIn("description", fm)
         words = re.findall(r"\S+", fm["description"])
@@ -135,7 +135,7 @@ class TestSkillFile(unittest.TestCase):
         self.assertEqual(agent["name"], "TFD-qa_spec")
         self.assertEqual(agent["sector"], "qa_spec")
         self.assertEqual(agent["outputs"], ["findings.json"])
-        self.assertEqual(agent["gate"], "G3/G6")
+        self.assertEqual(agent["gate"], "G0/G1/G3/G4/G5/G6/G8-review/G8")
         self.assertEqual(agent["validator"], "harness")
         self.assertEqual(agent["skills"], ["TFD-qa_spec"])
         self.assertGreaterEqual(len(agent["activates_on"]), 2)

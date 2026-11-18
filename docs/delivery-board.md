@@ -1,4 +1,4 @@
-> Contexto TFD · 905 palavras · 1312 tokens (o200k_base)
+> Contexto TFD · 988 palavras · 1431 tokens (o200k_base)
 
 # Phase-based delivery board
 
@@ -7,6 +7,13 @@ Apply this profile when the project explicitly adopts it. Use the [gate contract
 ## Status options
 
 Use this `Status` display order. Return to `Discovery / Spec` for each new phase's G6 work.
+
+For workflows using [stage loop version 1](stage-loop.md), each production column
+contains the knowledge → author checks → independent QA → scoped correction loop.
+Use current workflow receipts, not a board movement, to establish completion.
+G2 is an internal research handoff to G3; G9/G10 bind release and post-deploy
+verification. This profile keeps its 13 statuses; gates are not extra columns.
+Existing logs keep their original approval protocol.
 
 | Status | Entry and next decision |
 | --- | --- |
@@ -24,7 +31,7 @@ Use this `Status` display order. Return to `Discovery / Spec` for each new phase
 | `Deploy` | Deploy the exact candidate to the authorized target after explicit human deploy approval. Record execution and verification. |
 | `Done` | Record successful deployment and post-deploy verification in the approved environment. |
 
-Preserve human gates. Only explicit `preparation.mode=reviewed_task` authorization permits coordinator completion of G2–G5 after applicable QA. Record G8-review in the last applicable development review. Require separate explicit deploy and merge decisions for their respective operations. Keep board, QA and human approval evidence distinct.
+Preserve human gates. Only explicit `preparation.mode=reviewed_task` authorization permits coordinator completion of G2–G5 in legacy mode or G3–G5 in stage-loop mode after applicable QA; new-mode G2 is an internal handoff to G3. Record G8-review in the last applicable development review. Require separate explicit deploy and merge decisions for their respective operations. Keep board, QA and human approval evidence distinct.
 
 Use the [full Task review](sector-task.md#human-review) for Human Review handoffs that include a Task. Use its Markdown in the linked Issue when authorized and keep the user's decision in a revision-specific comment.
 

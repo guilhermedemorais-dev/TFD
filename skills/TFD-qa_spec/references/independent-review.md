@@ -1,6 +1,10 @@
+> Contexto TFD · 474 palavras · 721 tokens (o200k_base)
+
 # Independent source consultation
 
 Use at G3/G6 when workflow `review_version` is 1. Keep the four-field `findings.json` unchanged. The reviewer writes a separate project-local consultation JSON and adds its relative path as `consultation` and content hash as `consultation_sha256` to the review event. Never generate a reviewer receipt from the author's claims automatically.
+
+When `stage_loop_version: 1`, also supply the [stage receipt](../../TFD-harness/references/stage-loop.md). Its source/check bindings complement this G3/G6 record; neither replaces the reviewer's own canonical-source consultation. At other documentary gates use the stage receipt without inventing a G3/G6 inventory consultation.
 
 The consultation records:
 

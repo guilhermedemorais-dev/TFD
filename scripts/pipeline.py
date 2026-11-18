@@ -12,6 +12,8 @@ from context_budget import markdown_body
 from render_task import render_task
 from validate_task import validate_task
 from check_qa_consultation import require_consultation
+from stage_loop import (require_stage_receipt, require_handoff, require_execution, require_task_snapshot, release_candidate,
+                        require_deploy_authorization, require_deployment)
 
 
 PREFIX = (
@@ -32,10 +34,13 @@ TASK_ARTIFACTS = ("task", "task_view")
 PREPARATION_GATES = {"G2", "G3", "G4", "G5"}
 
 
-def stages(phases):
+def stages(phases, stage_loop=False):
     if not isinstance(phases, list):
         raise ValueError("phases must be a list")
     result = [(gate, None, outputs, reviewers) for gate, outputs, reviewers in PREFIX]
+    if stage_loop:
+        required = {"G0": ("qa_spec",), "G0.5": ("qa_backend",), "G1": ("qa_spec",), "G5": ("qa_spec",)}
+        result = [(gate, phase, outputs, required.get(gate, reviewers)) for gate, phase, outputs, reviewers in result]
     if not phases:
         return result
     seen = set()
@@ -53,9 +58,18 @@ def stages(phases):
         reviewers = tuple(role for track, role in TRACKS.items() if phase[track])
         result.extend((
             ("G6", phase_id, ("spec", "discovery", "task", "task_view"), ("qa_spec",)),
-            ("G7", phase_id, ("implementation", "self_tests"), reviewers),
+            ("G7", phase_id, ("implementation", "self_tests") +
+             (("task_snapshot", "execution_checkpoint", "sector_receipts") if stage_loop else ()), reviewers),
         ))
-    return result + [(gate, None, outputs, reviewers) for gate, outputs, reviewers in SUFFIX]
+    if not stage_loop:
+        return result + [(gate, None, outputs, reviewers) for gate, outputs, reviewers in SUFFIX]
+    ui_review = ("qa_ui",) if any(phase["ui"] for phase in phases) else ()
+    return result + [
+        ("G8-review", None, ("review_packet", "local_verification"), ("qa_spec",)),
+        ("G8", None, ("technical_docs", "user_help"), ("qa_spec",) + ui_review),
+        ("G9", None, ("release_candidate", "operations", "rollback"), ("qa_backend", "security")),
+        ("G10", None, ("deployment", "post_deploy_checks"), ("qa_backend", "security") + ui_review),
+    ]
 
 
 def require_file(path, root):
@@ -109,10 +123,38 @@ def discovery_coverage(artifacts, root):
     return values["coverage"], blocked
 
 
+def require_task_context(task, artifacts, hashes, phases, reviewed_coverage, discovery_submission,
+                         *, require_spec=False, coverage_required=False):
+    """Apply the same G6 bindings to the active Task and its historical G7 snapshot."""
+    if require_spec and task.get("spec") != artifacts["spec"]:
+        raise ValueError("G6: task.spec must match the submitted spec")
+    if ("coverage_version" in task or "technical_coverage" in task) and not coverage_required:
+        raise ValueError("G6: covered tasks require workflow coverage_version 1")
+    if coverage_required:
+        if reviewed_coverage is None:
+            raise ValueError("G6 requires independent Discovery coverage PASS")
+        if (artifacts["discovery"], hashes["discovery"]) != (
+                discovery_submission[0]["coverage"], discovery_submission[1]["coverage"]):
+            raise ValueError("G6 Discovery must match the G3 reviewed coverage")
+        for field, task_field in (("requirement_ids", "requirements"), ("business_rule_ids", "business_rules")):
+            if {row["id"] for row in task[task_field]} != set(reviewed_coverage[field]):
+                raise ValueError(f"G6: task {task_field} must match reviewed Discovery coverage")
+        for area, cell in task["technical_coverage"].items():
+            if cell["status"] == "COVERED" and reviewed_coverage["areas"][area]["status"] != "COVERED":
+                raise ValueError(f"G6: {area} requires reviewed Discovery evidence")
+    if "phases" in task and [entry["id"] for entry in task["phases"]] != [entry["id"] for entry in phases]:
+        raise ValueError("G6: task phases must match the G5 plan order")
+
+
 def evaluate(log, root):
     if not isinstance(log, dict) or not isinstance(log.get("events"), list):
         raise ValueError("workflow must contain phases and an events list")
-    plan = stages(log.get("phases"))
+    if "stage_loop_version" in log and (type(log["stage_loop_version"]) is not int or log["stage_loop_version"] != 1):
+        raise ValueError("unsupported workflow stage_loop_version")
+    stage_loop = log.get("stage_loop_version") == 1
+    if stage_loop and (log.get("coverage_version") != 1 or log.get("review_version") != 1):
+        raise ValueError("stage_loop_version 1 requires coverage_version 1 and review_version 1")
+    plan = stages(log.get("phases"), stage_loop=stage_loop)
     root = Path(root).resolve()
     preparation = reviewed_preparation(log, root)
     if "coverage_version" in log and (type(log["coverage_version"]) is not int or log["coverage_version"] != 1):
@@ -138,6 +180,10 @@ def evaluate(log, root):
                                   if isinstance(event, dict) and event.get("gate") == "G6"
                                   and event.get("action") == "submit"), default=-1)
     previous_task = None
+    phase_tasks = {}
+    deploy_authorization = candidate = None
+    deploy_attempts = 0
+    author_checks_pass = True
     for index, event in enumerate(log["events"]):
         if not isinstance(event, dict):
             raise ValueError("event must be an object")
@@ -186,6 +232,9 @@ def evaluate(log, root):
                     if contract_revision < old_revision or (task_hashes != old_hashes and contract_revision == old_revision):
                         raise ValueError("G6: changing the task requires a higher contract_revision")
                 previous_task = (task_id, contract_revision, task_paths, task_hashes)
+                phase_tasks[phase] = {"identity": (task_id, contract_revision, hashes["task"]),
+                                      "artifacts": artifacts.copy(), "hashes": hashes.copy(),
+                                      "coverage": reviewed_coverage, "discovery": discovery_submission}
             for key, path in artifacts.items():
                 if gate == "G6" and key in TASK_ARTIFACTS and index != latest_task_submission:
                     continue  # Past task revisions are receipts, not active task files.
@@ -215,29 +264,29 @@ def evaluate(log, root):
                     raise ValueError("invalid task: " + "; ".join(errors))
                 if (task["task_id"], task["contract_revision"]) != (task_id, contract_revision):
                     raise ValueError("G6: active task does not match submitted identity and revision")
-                if (preparation or coverage_required) and task.get("spec") != artifacts["spec"]:
-                    raise ValueError("G6: task.spec must match the submitted spec")
-                if ("coverage_version" in task or "technical_coverage" in task) and not coverage_required:
-                    raise ValueError("G6: covered tasks require workflow coverage_version 1")
-                if coverage_required:
-                    if reviewed_coverage is None:
-                        raise ValueError("G6 requires independent Discovery coverage PASS")
-                    if (artifacts["discovery"], hashes["discovery"]) != (
-                            discovery_submission[0]["coverage"], discovery_submission[1]["coverage"]):
-                        raise ValueError("G6 Discovery must match the G3 reviewed coverage")
-                    for field, task_field in (("requirement_ids", "requirements"), ("business_rule_ids", "business_rules")):
-                        if {row["id"] for row in task[task_field]} != set(reviewed_coverage[field]):
-                            raise ValueError(f"G6: task {task_field} must match reviewed Discovery coverage")
-                    for area, cell in task["technical_coverage"].items():
-                        if cell["status"] == "COVERED" and reviewed_coverage["areas"][area]["status"] != "COVERED":
-                            raise ValueError(f"G6: {area} requires reviewed Discovery evidence")
-                if "phases" in task and [entry["id"] for entry in task["phases"]] != [
-                    entry["id"] for entry in log["phases"]
-                ]:
-                    raise ValueError("G6: task phases must match the G5 plan order")
+                require_task_context(task, artifacts, hashes, log["phases"], reviewed_coverage, discovery_submission,
+                                     require_spec=preparation or coverage_required, coverage_required=coverage_required)
                 view = submitted_files["task_view"].decode("utf-8").replace("\r\n", "\n")
                 if markdown_body(view) != render_task(task, PurePosixPath(task_paths[0]).name):
                     raise ValueError("G6: task_view must be generated from the submitted task JSON")
+            if stage_loop:
+                skipped = tuple(artifacts[k] for k in TASK_ARTIFACTS) if gate == "G6" and index < latest_task_submission else ()
+                receipt = require_stage_receipt(event, artifacts, hashes, root, require_file, skip_paths=skipped)
+                author_checks_pass = all(check["result"] == "PASS" for check in receipt["checks"])
+                if gate == "G7":
+                    context = phase_tasks[phase]
+                    task, task_hash = require_task_snapshot(event, context["identity"], root, require_file)
+                    require_task_context(task, context["artifacts"], context["hashes"], log["phases"],
+                                         context["coverage"], context["discovery"], require_spec=True, coverage_required=True)
+                    require_execution(event, task, task_hash, attempts + 1, root, require_file)
+                if gate == "G9":
+                    candidate = release_candidate(artifacts, root, require_file)
+                    deploy_authorization = None
+                if gate == "G10":
+                    if deploy_attempts >= 4:
+                        raise ValueError("stage loop: deployment retry limit reached")
+                    require_deployment(event, artifacts, deploy_authorization, deploy_attempts + 1, root, require_file)
+                    deploy_attempts += 1
             revisions.add(revision)
             if gate == "G1":
                 product_submission = (artifacts["prd"], hashes["prd"], revision)
@@ -249,13 +298,27 @@ def evaluate(log, root):
             submission = (revision, actor, artifacts.get("spec"))
             reviews = {}
             attempts += 1
-            status = "AWAITING_QA" if reviewers else "AWAITING_APPROVAL"
+            status = "AWAITING_HANDOFF" if stage_loop and gate == "G2" else ("AWAITING_QA" if reviewers else "AWAITING_APPROVAL")
+            if stage_loop and gate == "G2" and not author_checks_pass:
+                status = "BLOCKED" if attempts >= 4 else "REWORK"
             continue
         if submission is None or revision != submission[0]:
             raise ValueError("event must reference the current submitted revision")
         if actor == submission[1]:
             raise ValueError("the author cannot review or approve their own work")
         evidence = require_file(event.get("evidence"), root)
+        if stage_loop and gate == "G2":
+            if action != "handoff" or status != "AWAITING_HANDOFF":
+                raise ValueError("stage loop: G2 requires internal handoff to G3, not approval or completion")
+            require_handoff(event, submitted_artifacts, submitted_hashes)
+            if not evidence.read_bytes().strip():
+                raise ValueError("stage loop: handoff evidence must be nonempty")
+            step += 1
+            attempts = 0
+            submission = None
+            reviews = {}
+            status = "AWAITING_SUBMISSION"
+            continue
         if action == "review":
             reviewer = event.get("reviewer")
             verdict = event.get("verdict")
@@ -265,6 +328,15 @@ def evaluate(log, root):
                 raise ValueError("each required review needs a distinct reviewer")
             if verdict not in ("PASS", "REWORK", "BLOCKED"):
                 raise ValueError("invalid reviewer verdict")
+            if stage_loop:
+                skipped = tuple(submitted_artifacts[k] for k in TASK_ARTIFACTS) if gate == "G6" and index < latest_task_submission else ()
+                require_stage_receipt(event, submitted_artifacts, submitted_hashes, root, require_file,
+                                      role=reviewer, skip_paths=skipped)
+                if verdict == "PASS" and not author_checks_pass:
+                    raise ValueError("stage loop: unresolved author self-check cannot PASS")
+                if gate == "G10" and verdict == "PASS":
+                    require_deployment(event, submitted_artifacts, deploy_authorization, deploy_attempts,
+                                       root, require_file, require_pass=True)
             if review_required and gate in ("G3", "G6") and reviewer == "qa_spec":
                 target = submitted_artifacts["coverage" if gate == "G3" else "spec"]
                 require_spec_pass(evidence, target, revision, gate, verdict)
@@ -294,9 +366,21 @@ def evaluate(log, root):
                 status = "REWORK"
             elif all(role in reviews for role in reviewers):
                 status = "AWAITING_APPROVAL"
+            if stage_loop and gate == "G10" and verdict == "REWORK":
+                if deploy_attempts >= 4:
+                    status = "BLOCKED"
+                else:
+                    # Every fresh deployment attempt needs G9 QA and new human authorization.
+                    step -= 1
+                    attempts = 0
+                    submission = None
+                    reviews = {}
+                    deploy_authorization = None
+                    status = "AWAITING_SUBMISSION"
         elif action in ("approve", "complete"):
             if action == "complete":
-                if not preparation or gate not in PREPARATION_GATES:
+                terminal_deploy = stage_loop and gate == "G10"
+                if not terminal_deploy and (not preparation or gate not in PREPARATION_GATES):
                     raise ValueError("complete requires authorized preparation at G2-G5 only")
                 if not evidence.read_bytes().strip():
                     raise ValueError("completion evidence must be nonempty")
@@ -304,6 +388,17 @@ def evaluate(log, root):
                 raise ValueError("completion requires current QA passes and an independent coordinator"
                                  if action == "complete" else
                                  "approval requires current QA passes and an independent human")
+            if stage_loop and not evidence.read_bytes().strip():
+                raise ValueError("stage loop: approval/completion evidence must be nonempty")
+            if stage_loop and gate == "G9":
+                if action != "approve":
+                    raise ValueError("stage loop: G9 requires explicit human deploy approval")
+                deploy_authorization = require_deploy_authorization(event, candidate, deploy_attempts + 1, root, require_file)
+            if stage_loop and gate == "G10":
+                if action != "complete":
+                    raise ValueError("stage loop: G10 completes under the preserved G9 authorization")
+                require_deployment(event, submitted_artifacts, deploy_authorization, deploy_attempts,
+                                   root, require_file, require_pass=True)
             if gate == "G1":
                 path, sha256, prd_revision = product_submission
                 approved_product = ({"prd": (path, sha256),
@@ -337,7 +432,8 @@ def main():
     try:
         if args.init:
             with args.workflow.open("x", encoding="utf-8") as stream:
-                json.dump({"coverage_version": 1, "review_version": 1, "phases": [], "events": []}, stream, indent=2)
+                json.dump({"stage_loop_version": 1, "coverage_version": 1, "review_version": 1,
+                           "phases": [], "events": []}, stream, indent=2)
                 stream.write("\n")
         result = evaluate(json.loads(args.workflow.read_text(encoding="utf-8")), args.project_root)
     except (OSError, ValueError) as exc:

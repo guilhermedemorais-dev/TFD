@@ -15,7 +15,7 @@
     "Versioned user tutorial"
   ],
   "gate": "G8",
-  "validator": "harness",
+  "validator": "TFD-qa_spec",
   "skills": [
     "TFD-documentation"
   ]

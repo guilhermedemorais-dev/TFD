@@ -1,20 +1,23 @@
 {
   "name": "TFD-qa_backend",
   "sector": "qa_backend",
-  "description": "Independently verify backend behavior, APIs and persistence against approved criteria.",
+  "description": "Independently verify backend behavior, APIs, persistence, readiness and release operations against approved criteria.",
   "activates_on": [
     "validar o backend da etapa",
-    "testar a API e a persistência"
+    "testar a API e a persistência",
+    "validar a prontidão do ambiente antes do aceite",
+    "validar o candidato de release e as verificações pós-deploy"
   ],
   "inputs": [
     "Approved phase and criteria",
     "Current implementation revision",
-    "Disposable environment"
+    "Disposable environment",
+    "Current readiness or release evidence and authorized target"
   ],
   "outputs": [
     "Backend QA verdict and executed evidence"
   ],
-  "gate": "G7",
+  "gate": "G0.5/G7/G9/G10",
   "validator": "harness",
   "skills": [
     "TFD-qa_backend"

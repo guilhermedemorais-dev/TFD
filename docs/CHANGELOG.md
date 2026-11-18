@@ -17,13 +17,22 @@ quando a mudança afetar quem instala ou usa o framework. [Referência de estrut
 
 ## Em revisão
 
+### Ciclo completo de consulta, execução e QA em cada etapa
+
+- **Motivação.** O fluxo visual exigia entrega revisada em cada etapa, mas o pipeline não exigia QA antes de prontidão, PRD, planejamento e documentação e encerrava o log antes da preparação/publicação.
+- **Corrige.** O protocolo `stage_loop_version: 1` vincula consulta seletiva ou reutilização comprovada, fontes canônicas, verificações do autor e do revisor independente à revisão e aos artefatos atuais. O aceite depende dos pareceres aplicáveis. G7 também confere snapshots dos checkpoints e pareceres das microtarefas. Cada microtarefa citada em uma área técnica precisa de critério de aceite naquela área.
+- **Melhora.** G2 transfere a pesquisa internamente a G3 para revisar a cobertura sem duplicar QA. G9 registra candidato, operação, rollback e autorização humana de deploy; G10 exige execução e verificações posteriores compatíveis com essa autorização. Correções preservam histórico, revalidam dependências afetadas e respeitam os limites de tentativas.
+- **Economia de contexto.** As skills encaminham a uma referência curta por etapa. As bibliotecas permanecem consultáveis, com fontes lidas seletivamente e reutilização de registros aplicáveis. Não há cópia integral do guia nem carregamento de todos os setores.
+- **Compatibilidade e limites.** Logs antigos continuam no seu protocolo; não se fabrica consulta ou PASS retroativo. O principal coordena os agentes no host. O CLI valida registros e não autentica pessoas, comprova leitura semântica ou executa deploy por conta própria. Instalações personalizadas e a adaptação OpenBot não são sobrescritas por esta PR; uma atualização delas precisa conciliar seus contratos e schemas extras.
+- **Verificação.** A base anterior passou 226 testes, exit 0. A regressão do novo gate falhou antes e passou depois da correção. A suíte final passou 261 testes com `unittest`, exit 0; `pytest -q -p no:cacheprovider` passou 261 testes e 393 subtestes, exit 0. O QA independente encontrou e retestou duas falhas históricas: checkpoints de fases anteriores e vínculos da Task com a spec/cobertura aprovadas. No fechamento, oito casos próprios dessa família e 88 testes aplicáveis passaram, exit 0. Dois casos positivos e um negativo foram executados no Codex com dados sintéticos do protocolo; isso não comprova Discovery de um produto real nem o fluxo nativo do OpenBot. As 17 skills passaram na auditoria estática, com referências de até 993 tokens. [Protocolo](stage-loop.md) · [INC-005](office/incidents/INC-005.json)
+
 ### Conferência independente do QA e reconciliação da instalação
 
 - **Motivação.** Uma reprodução sintética avançou para G4 com um requisito aprovado omitido e um PASS sem registro próprio de consulta do revisor. A instalação Codex também carregava skills anteriores às melhorias já presentes na fonte e na biblioteca compartilhada do OpenBot.
 - **Corrige.** Novos workflows habilitam `review_version: 1`. G3/G6 exigem o registro independente do QA, vinculado ao PRD aprovado, aos inventários e à revisão exata dos artefatos. O QA consulta capítulos pertinentes do guia e fontes oficiais para afirmações técnicas decisivas, registra contradições e devolve lacunas materiais ao autor. O atualizador preservador aceita conteúdo instalado igual à base mesmo quando há trechos repetidos; conflitos reais continuam interrompendo a aplicação.
 - **Melhora.** A conferência deixa evidências verificáveis de requisitos, regras, fontes, limites e decisões sem carregar o guia inteiro. Atualizações preservam personalizações e distinguem versão instalada de comportamento efetivamente executado.
 - **Compatibilidade.** Pareceres e workflows anteriores permanecem válidos no protocolo que usavam. A task JSON e o formato de quatro campos de findings não mudam. Não há migração silenciosa de um PASS antigo.
-- **Verificação.** Em andamento nesta revisão local. Regressões reproduzidas antes do patch; resultados finais e limites de host serão registrados após os checks. [Contrato](discovery-coverage.md#independent-qa-evidence) · [Incidente INC-004](office/incidents/INC-004.json)
+- **Verificação.** A base desta melhoria passou 226 testes, exit 0. A regressão externa falhou antes e passou depois da correção; revisão independente de código e teste semântico isolado foram registrados no INC-004. Uma sessão nova do Harness confirmou a carga instalada e rejeitou o workflow sem consulta exigida. A prova nativa completa do OpenBot continua pendente. [Contrato](discovery-coverage.md#independent-qa-evidence) · [Incidente INC-004](office/incidents/INC-004.json)
 
 ### Discovery com cobertura e geração autônoma de tasks
 

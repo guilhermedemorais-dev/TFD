@@ -102,6 +102,7 @@ class TestCoveragePipeline(unittest.TestCase):
         self.assertEqual(first.returncode, 0, first.stderr + first.stdout)
         self.assertEqual(json.loads(path.read_bytes())["coverage_version"], 1)
         self.assertEqual(json.loads(path.read_bytes())["review_version"], 1)
+        self.assertEqual(json.loads(path.read_bytes())["stage_loop_version"], 1)
         second = subprocess.run(command, capture_output=True, text=True)
         self.assertNotEqual(second.returncode, 0)
 

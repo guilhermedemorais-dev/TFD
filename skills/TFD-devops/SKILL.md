@@ -2,11 +2,13 @@
 name: TFD-devops
 description: "Verify environment readiness and prepare reproducible operations, PR evidence and rollback."
 metadata:
-  version: "1.1.3"
+  version: "1.2.0"
   owner: "devops"
 ---
 
 # devops
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) at readiness, release preparation and deployment. Submit your source and verification receipts to independent operational QA. At G9 bind explicit deploy authorization to the exact candidate and target; changed candidates or a new deployment attempt return to G9. Merge remains separately authorized.
 
 Keep builds/configuration reproducible, secrets external and CI checks proportional to change risk. Verify recovery and observable failures. Choose containers, cloud, IaC, scaling and orchestration only when project constraints justify their operational cost.
 

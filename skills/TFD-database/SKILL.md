@@ -2,11 +2,13 @@
 name: TFD-database
 description: "Specify and implement approved schema, migrations, and data invariants."
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   owner: "database"
 ---
 
 # database
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) to data contracts, migrations and scoped rework. Record consultation and disposable-data checks; independent backend QA verifies the current revision before its phase approval.
 
 Model invariants with constraints and explicit transaction boundaries. Choose isolation and indexes from actual access patterns; inspect query plans before tuning. Check migration compatibility, concurrent writes and restore evidence where affected.
 

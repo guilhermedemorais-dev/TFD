@@ -1,19 +1,24 @@
 ---
 name: TFD-qa_spec
-description: "Review pre-implementation artifacts at G3/G6. Verify sources, report actionable findings, and issue PASS or REWORK. Recheck corrections independently."
+description: "Independently review PRDs, Discovery, architecture, plans, phase specs and documentation. Verify sources and revision bindings, report actionable findings, and issue PASS or REWORK. Route runtime behavior to backend or UI QA."
 metadata:
-  version: "1.7.0"
+  version: "1.8.0"
   owner: "qa_spec"
 ---
 
 # Specification QA
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) as an independent reviewer. Consult canonical sources yourself and record the current artifacts and executed checks; the author's receipt cannot substitute for your review.
 
 For material technical gaps, use the [decision procedure](../../library/architecture/technical-decision-procedure.md); reuse project evidence and load only applicable sources. Verify decisions and test obligations, not rote adoption of patterns or every manual topic.
 
 ## Activate
 - "revisar a spec antes de implementar"
 - "revisar o PRD e o discovery antes do código"
+- "revisar a documentação antes do aceite humano"
+- "revisar o plano de fases e suas estimativas"
 - Review another sector's artifact. G3 reviews PRD and Discovery. G6 reviews the phase spec and matching Discovery revision together.
+- In stage-loop workflows, review G0 constitution, G1 PRD, G4 architecture, G5 plans, G8-review packet consistency and G8 documentation. Check documented behavior against accepted evidence; runtime/access checks belong to backend or UI QA. Do not demand future implementation artifacts from a PRD.
 
 ## Route elsewhere
 - "implementar endpoint de pedido" → `backend`.

@@ -1,6 +1,6 @@
 # Discovery coverage and autonomous task preparation
 
-New workflows use `python -B scripts/pipeline.py <workflow.json> --init --project-root <project>`. This creates an empty workflow with `coverage_version: 1` and `review_version: 1`, refusing to overwrite an existing file. The coordinator then records actual project artifacts and decisions. Existing workflows without `review_version` retain their prior review protocol. Upgrade an active workflow only with reviewed evidence and fresh QA for the affected transition; never rewrite an earlier PASS to imply checks that were not performed.
+New workflows use `python -B scripts/pipeline.py <workflow.json> --init --project-root <project>`. This creates an empty workflow with `coverage_version: 1`, `review_version: 1` and `stage_loop_version: 1`, refusing to overwrite an existing file. Follow the [stage loop protocol](stage-loop.md) for author checks, source consultation and independent QA. The coordinator then records actual project artifacts and decisions. Existing workflows without these flags retain their prior review protocol. Upgrade an active workflow only with reviewed evidence and fresh QA for the affected transition; never rewrite an earlier PASS to imply checks that were not performed.
 
 ## Before the spec
 

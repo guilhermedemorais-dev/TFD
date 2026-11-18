@@ -1,4 +1,4 @@
-> Contexto TFD · 1284 palavras · 2117 tokens (o200k_base)
+> Contexto TFD · 1377 palavras · 2283 tokens (o200k_base)
 
 # Estado do TFD
 
@@ -69,6 +69,15 @@ decisões que informam. [Fundamentos e fontes](00-arquitetura.md#fundamentos-e-f
 Para rodar a suíte local a partir da raiz do TFD, use `python -B -m unittest discover -s tests`.
 
 ## Fluxo em uso
+
+A revisão de `stage_loop_version: 1` acrescenta recibos de consulta/verificação
+do autor e do QA, prontidão/PRD/planejamento/documentação com revisão obrigatória,
+checkpoints vinculados à implementação e preparo/autorização/pós-deploy em
+G9/G10. [Contrato e limites](stage-loop.md). Workflows anteriores mantêm suas
+aprovações. A suíte passou 261 testes, exit 0, em `unittest` e `pytest`; o QA
+independente fechou os achados de checkpoint e vínculos históricos em duas fases. Consulte
+os comandos e limites no [histórico](CHANGELOG.md). Esses checks não comprovam execução nativa completa
+no OpenBot. Instalações e adaptações existentes não foram substituídas.
 
 O Discovery consulta o índice da biblioteca local do TFD em
 `library/indexes/resources.json`,

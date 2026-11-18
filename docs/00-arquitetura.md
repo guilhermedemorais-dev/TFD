@@ -1,4 +1,4 @@
-> Contexto TFD · 2624 palavras · 5122 tokens (o200k_base)
+> Contexto TFD · 2789 palavras · 5380 tokens (o200k_base)
 
 # Arquitetura — The Factory Developer (TFD)
 
@@ -108,10 +108,12 @@ G7   Por etapa da task:
        build + autoteste (backend/frontend)
        → QA independente (qa_backend/qa_ui)
        → segurança/UX/devops quando o gatilho aplicar
-       → rework até cumprir a spec (no fim da etapa)
+       → rework do item/MT afetado e nova verificação de integração
        → aprovação humana da etapa
 G8-review  Pacote de revisão + verificação local → aceite humano
 G8         Documentação técnica e de usuário → aceite humano
+G9         No protocolo por etapa: candidato + operação + QA → autorização de deploy
+G10        No protocolo por etapa: execução + pós-deploy + QA → conclusão
 ```
 
 Gates que falham param a transição afetada. Registre o comando e a evidência de
@@ -119,9 +121,11 @@ prontidão que falta quando houver bloqueio. No perfil de quadro por fases, apó
 DevOps prepara e verifica o candidato para revisão humana. Merge e deploy exigem
 autorizações próprias. [Fluxo de entrega e publicação](delivery-board.md)
 
-O padrão continua manual. Com `preparation.mode=reviewed_task` e registro da
-autorização humana, G2-G5 permitem `complete` por coordenador independente,
-depois do QA aplicável. G1 mantém o briefing interativo; G6 exige task apontando
+Os gates de decisão continuam humanos por padrão. Com
+`preparation.mode=reviewed_task` e registro da autorização humana, o coordenador
+pode concluir G2-G5 no protocolo anterior, ou G3-G5 no protocolo por etapa;
+neste último, G2 é uma transferência interna a G3. As conclusões dependem do QA
+aplicável. G1 mantém o briefing interativo; G6 exige task apontando
 para a mesma spec do PASS estruturado e aprovação humana. G7 e G8 mantêm suas
 aprovações. [Contrato executável e limites](../skills/TFD-harness/references/gates.md)
 
@@ -131,6 +135,19 @@ técnicas materiais podem abrir pesquisa em qualquer etapa, além dos 80 conceit
 ou do PDF, incluindo guias externos avaliados criticamente. Reutilizam-se fontes
 compatíveis; decisões, versões, limites e evidências ficam no projeto. Referências
 obrigatórias nunca são eliminadas para reduzir contexto.
+
+No [protocolo `stage_loop_version: 1`](stage-loop.md), cada etapa de produção
+registra o ciclo responsável → consulta e leitura das fontes → execução e
+verificações → QA independente → correção → novo QA antes do aceite. Os
+recibos vinculam ator, gate/fase, revisão e hashes; o QA registra sua própria
+consulta. G2 usa transferência interna para G3, onde a cobertura é revisada,
+sem uma segunda execução de QA idêntica. Fontes válidas podem ser reutilizadas
+com prova de origem e aplicabilidade. Logs antigos mantêm seu contrato original.
+
+O principal chama os setores e os verificadores, acompanha seus resultados e
+apresenta a etapa pronta. O CLI não dispara agentes nem publica o produto sozinho.
+A validação de recibos não prova compreensão semântica, leitura real ou identidade
+humana por autenticação.
 
 ## 5. G4 — Arquitetura e contratos (completo)
 

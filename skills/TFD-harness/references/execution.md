@@ -1,6 +1,8 @@
-> Contexto TFD · 576 palavras · 928 tokens (o200k_base)
+> Contexto TFD · 605 palavras · 974 tokens (o200k_base)
 
 # Routed execution
+
+For `stage_loop_version: 1`, apply the [stage loop](stage-loop.md); every G7 binds its approved `task_snapshot`, checkpoint and independent MT receipts, including historical phases. Item checks never replace phase QA.
 
 Run from the project root. Pass `--project-root` if working elsewhere. Use the canonical `workflow.json` and its submitted `task.json`. `resume_task.py` calls the gate evaluator first and returns the approved constitution and environment paths when present. Read those records and recheck readiness facts that changed. `FOLLOW_GATE` follows the existing gates, including pre-Task G0.5. `LEGACY_TASK_ROUTE` uses the existing manual route. Keep pre-existing approvals and current project restrictions authoritative.
 

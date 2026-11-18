@@ -82,7 +82,7 @@ flowchart LR
 | Orquestração | O agente principal coordena com `TFD-harness`. O Tradutor concentra o pedido do usuário no repasse ao setor ativo. O subagente `tfd_harness` consulta status e evidências. [Harness](skills/TFD-harness/SKILL.md) |
 | Setores e QA | Cada especialista recebe a microtarefa, os limites e as referências aplicáveis. Um revisor independente avalia a revisão entregue. [Mapa de setores](docs/00-arquitetura.md) |
 | Contratos e evidências | O `task.json` é o contrato do módulo. Sua visão Markdown é gerada. O `workflow.json` registra gates, revisões, evidências e decisões. [Tasks por setor](docs/sector-task.md) |
-| Conhecimento | O Discovery consulta evidências e decisões do projeto antes de pesquisar novas fontes. O Graphify navega o bundle do TFD. Seu runtime isolado exige configuração à parte em Linux ou WSL 2. [Biblioteca](library/README.md) · [Graphify](library/docs/operations/graphify.md) |
+| Conhecimento | O Discovery consulta evidências e decisões do projeto antes de pesquisar novas fontes. Pode delegar investigações ao [plugin REAP completo e separado](skills/TFD-discovery/references/rea-prompts.md), receber as evidências e submetê-las ao QA. O Graphify navega o bundle do TFD; seu runtime isolado exige configuração à parte em Linux ou WSL 2. [Biblioteca](library/README.md) · [Graphify](library/docs/operations/graphify.md) |
 | Execução e medição | O adaptador Codex integra agentes, seleção opcional de modelos autorizados, retomada por item e recibos de uso. A medição separa entrada nova, cache, saída e ocupação da janela. [Execução de microtarefas](skills/TFD-harness/references/execution.md) · [Recibos e compactação](hosts/codex/README.md#token-receipts) |
 
 ### O que fica nas skills e no Python

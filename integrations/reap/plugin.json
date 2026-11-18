@@ -1,0 +1,9 @@
+{
+  "name": "reap-prompts",
+  "description": "Complete upstream REAP prompt collection for REA investigations. The host agent executes the selected skills using available REA tools.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "REAP — Complete Collection",
+    "shortDescription": "All upstream REAP investigation skills, separately packaged"
+  }
+}

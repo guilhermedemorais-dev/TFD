@@ -17,6 +17,14 @@ quando a mudança afetar quem instala ou usa o framework. [Referência de estrut
 
 ## Em revisão
 
+### REAP completo como plugin externo da Discovery
+
+- **Motivação.** Disponibilizar a capacidade completa solicitada, sem reduzir o REA-Prompts a três referências dentro do TFD.
+- **Melhora.** A Discovery 1.10.0 delega ao executor nativo usando o plugin externo completo e recebe achados, evidências e limites. Todos os 26 packs permanecem disponíveis; o executor carrega a skill aplicável à tarefa.
+- **Distribuição.** Origem fixada em `9756618f25af1920c8965f8969820eed22247936`, todos os arquivos upstream e licença preservados fora do bundle TFD. O empacotador expõe a coleção inteira e corrige apenas as descrições YAML inválidas nas cópias carregáveis, mantendo corpos e nomes completos. O manifesto não instala outro motor REA.
+- **Governança.** Discovery mantém a responsabilidade; QA independente e aceites continuam obrigatórios. Instalação, reconstrução e execução de alvos dependem da autorização da operação, não da presença de um prompt.
+- **Verificação.** Consulte o [INC-007](office/incidents/INC-007.json) para o recorte de testes e evidências. A integração parcial anterior foi retirada e preservada apenas como diagnóstico externo.
+
 ### Ciclo completo de consulta, execução e QA em cada etapa
 
 - **Motivação.** O fluxo visual exigia entrega revisada em cada etapa, mas o pipeline não exigia QA antes de prontidão, PRD, planejamento e documentação e encerrava o log antes da preparação/publicação.

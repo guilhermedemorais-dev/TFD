@@ -4,6 +4,7 @@ import importlib.util
 import json
 import io
 from pathlib import Path
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -14,6 +15,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import graphify
+import install_codex_agents
 
 
 class GraphifyDispatchTests(unittest.TestCase):
@@ -111,6 +113,63 @@ class GraphifyDispatchTests(unittest.TestCase):
                 else:
                     self.assertIn('scripts/graphify.py', instructions)
                     self.assertIn('mandatory', instructions)
+
+    def test_generated_routes_bind_active_profile_and_bundle_explicitly(self):
+        with tempfile.TemporaryDirectory(prefix='TFD profile ') as directory:
+            profile = Path(directory).resolve()
+            with patch.dict('os.environ', {'CODEX_HOME': str(profile)}):
+                profiles = list(install_codex_agents.native_profiles())
+            for name, _, instructions in profiles:
+                with self.subTest(role=name):
+                    if name == 'tfd_translator':
+                        self.assertNotIn('--bundle', instructions)
+                        self.assertIn('Do not use tools or delegate.', instructions)
+                        continue
+                    command = instructions.split('first run Python ', 1)[1].split('. Treat graph output', 1)[0]
+                    self.assertEqual(shlex.split(command), [
+                        (ROOT / 'scripts/graphify.py').as_posix(), 'query', '<focused question>',
+                        '--bundle', ROOT.as_posix(),
+                        '--config', (profile / 'tfd-graphify.json').as_posix(),
+                        '--index', (profile / 'tfd-graphify/index.json').as_posix(),
+                    ])
+
+    def test_route_uses_home_profile_when_codex_home_is_empty_or_absent(self):
+        with tempfile.TemporaryDirectory(prefix='TFD home ') as directory:
+            home = Path(directory).resolve()
+            for environment in ({}, {'CODEX_HOME': ''}):
+                with self.subTest(environment=environment), patch.dict('os.environ', environment, clear=True), \
+                        patch.object(install_codex_agents.Path, 'home', return_value=home):
+                    route = install_codex_agents.graph_route()
+                    self.assertIn(f'--config "{(home / ".codex/tfd-graphify.json").as_posix()}"', route)
+                    self.assertIn(f'--index "{(home / ".codex/tfd-graphify/index.json").as_posix()}"', route)
+
+    def test_explicit_route_arguments_reach_dispatcher_parser(self):
+        with tempfile.TemporaryDirectory(prefix='TFD requested ') as directory:
+            bundle = Path(directory) / 'requested bundle'
+            profile = Path(directory) / 'requested profile'
+            route = install_codex_agents.graph_route(bundle=bundle, profile=profile)
+            command = route.split('first run Python ', 1)[1].split('. Treat graph output', 1)[0]
+            arguments = shlex.split(command)
+            self.assertEqual(arguments[0], (bundle / 'scripts/graphify.py').as_posix())
+            config = {'python': '/reviewed/python'}
+            with patch.object(graphify, 'settings', return_value=config) as settings, \
+                    patch.object(graphify, 'execute', return_value={'status': 'TEST'}) as execute, \
+                    patch.object(sys, 'argv', arguments), patch.object(sys, 'stdout', io.StringIO()):
+                self.assertEqual(graphify.main(), 0)
+            settings.assert_called_once_with(profile / 'tfd-graphify.json')
+            execute.assert_called_once_with(config, 'query', bundle, profile / 'tfd-graphify/index.json',
+                                            '<focused question>')
+
+    def test_install_rejects_custom_profile_without_partial_writes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            destination = Path(directory)
+            custom = destination / 'tfd_harness.toml'
+            content = 'name = "personal harness"\n'
+            custom.write_text(content, encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'custom profile'):
+                install_codex_agents.install(destination)
+            self.assertEqual(list(destination.iterdir()), [custom])
+            self.assertEqual(custom.read_text(encoding='utf-8'), content)
 
 
 if __name__ == '__main__':

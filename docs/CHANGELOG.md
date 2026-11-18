@@ -17,6 +17,13 @@ quando a mudança afetar quem instala ou usa o framework. [Referência de estrut
 
 ## Em revisão
 
+### Graphify compartilhado entre hosts da mesma máquina
+
+- **Motivação.** Evitar que Codex e OpenBot consultem bundles diferentes contra um índice padrão comum, provocando consultas desatualizadas e contexto divergente.
+- **Corrige.** As rotas de navegação fixam o mesmo entrypoint, bundle canônico, configuração de runtime e índice. A geração dos perfis Codex explicita esses caminhos; o roteador OpenBot resolve os resultados no bundle retornado.
+- **Preserva.** Skills, conhecimentos, modelos, permissões e aceites próprios dos hosts permanecem preservados. Não há nova dependência, indexação de projetos clientes ou reconstrução automática durante consultas.
+- **Verificação.** A regressão falhou antes e passou após a correção; 273 testes locais passaram, exit 0, com QA independente de preservação. O índice compartilhado foi reconstruído explicitamente após backup. O primeiro teste nativo OpenBot R1 falhou com `GRAPHIFY_UNAVAILABLE`; um trace separado comprovou timeout interno de 20 segundos. Consultas posteriores inalteradas e o reteste nativo R2 retornaram `GRAPHIFY`, contexto preenchido, mesmo fingerprint e configuração/índice preservados. A causa subjacente do atraso não foi reproduzida nem comprovada; não houve alteração especulativa do IPC ou dos limites do worker. A execução nativa foi iniciada pelo usuário no TFD; o ID da mensagem não foi exposto. [INC-008](office/incidents/INC-008.json).
+
 ### REAP completo como plugin externo da Discovery
 
 - **Motivação.** Disponibilizar a capacidade completa solicitada, sem reduzir o REA-Prompts a três referências dentro do TFD.

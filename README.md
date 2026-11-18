@@ -4,9 +4,11 @@ O **The Factory Developer** é um plugin para conduzir entregas de software no C
 
 **TFD `0.1.6`** · [Revisões publicadas em `office/reviewed-delivery`](https://github.com/guilhermedemorais-dev/TFD/commits/office/reviewed-delivery/) · [Histórico completo de atualizações](docs/CHANGELOG.md)
 
+**Revisão atual: [PR #8 aberta](https://github.com/guilhermedemorais-dev/TFD/pull/8)**, ainda sem merge. A revisão funcional [`7f3c0b4`](https://github.com/guilhermedemorais-dev/TFD/commit/7f3c0b404adbe8e7097ba53043e24edb782eea80) passou 261 testes em `unittest` e `pytest` (393 subtestes no `pytest`), recebeu `PASS` do QA independente e teve [CI concluída com sucesso](https://github.com/guilhermedemorais-dev/TFD/actions/runs/44206708628). As cópias instaladas foram preservadas; esta revisão não foi aplicada a elas.
+
 ## Instalação
 
-Copie e cole o prompt abaixo em um agente com acesso ao terminal e à rede da máquina onde o Codex será usado. O agente obtém o TFD direto do repositório oficial.
+Copie e cole o prompt abaixo em um agente com acesso ao terminal e à rede da máquina onde o Codex será usado. O agente obtém o TFD direto do repositório oficial. O prompt seleciona explicitamente a branch `office/reviewed-delivery`; ele não instala a revisão da PR #8.
 
 ```text
 Instale o The Factory Developer no perfil ativo do Codex. Use o repositório
@@ -83,6 +85,14 @@ flowchart LR
 | Conhecimento | O Discovery consulta evidências e decisões do projeto antes de pesquisar novas fontes. O Graphify navega o bundle do TFD. Seu runtime isolado exige configuração à parte em Linux ou WSL 2. [Biblioteca](library/README.md) · [Graphify](library/docs/operations/graphify.md) |
 | Execução e medição | O adaptador Codex integra agentes, seleção opcional de modelos autorizados, retomada por item e recibos de uso. A medição separa entrada nova, cache, saída e ocupação da janela. [Execução de microtarefas](skills/TFD-harness/references/execution.md) · [Recibos e compactação](hosts/codex/README.md#token-receipts) |
 
+### O que fica nas skills e no Python
+
+O `SKILL.md` orienta o agente: responsabilidade do setor, fontes obrigatórias, procedimento e limites. O modelo interpreta o pedido, pesquisa, produz e revisa os artefatos. Os scripts Python fazem verificações reproduzíveis sobre os registros; eles não substituem esse raciocínio.
+
+Somente Discovery e `qa_spec` têm validadores próprios dentro da pasta da skill: [`check_evidence.py`](skills/TFD-discovery/scripts/check_evidence.py) verifica fontes e evidências; [`check_findings.py`](skills/TFD-qa_spec/scripts/check_findings.py) confere a forma e a coerência do parecer. O julgamento dos achados continua com o revisor.
+
+Os setores usam, conforme a tarefa, ferramentas compartilhadas: [`pipeline.py`](scripts/pipeline.py) confere o fluxo e os gates; [`resume_task.py`](scripts/resume_task.py) resolve a próxima ação e os checkpoints; [`render_task_review.py`](scripts/render_task_review.py) gera a revisão humana; [`context_budget.py`](scripts/context_budget.py) mede o contexto; [`model_router.py`](scripts/model_router.py) confere o roteamento autorizado; e [`graphify.py`](scripts/graphify.py) consulta as referências do bundle. A coordenação e a execução continuam com os agentes no host.
+
 ## Da abertura à entrega
 
 | Etapa | O que pedir e o que conferir |
@@ -130,9 +140,9 @@ O manifesto define a versão do pacote. O commit identifica a revisão exata pub
 
 | Data | Commit | Motivo | Correção ou melhoria |
 | --- | --- | --- | --- |
-| 2026-11-17 | [Em revisão — INC-005](docs/office/incidents/INC-005.json) | Fazer o ciclo completo ocorrer dentro de cada etapa. | Consulta e verificações do autor e do QA, aceite vinculado à revisão, checkpoints de implementação e gates de preparo/publicação. [Contrato](docs/stage-loop.md) |
-| 2026-11-17 | [Em revisão local](docs/CHANGELOG.md#conferência-independente-do-qa-e-reconciliação-da-instalação) | Exigir evidência própria do QA e corrigir atualização de instalações personalizadas. | Novos fluxos vinculam consulta independente, inventário aprovado e revisão dos artefatos; atualização preserva conflitos reais. [Contrato](docs/discovery-coverage.md#independent-qa-evidence) |
-| 2026-11-17 | [Em revisão](https://github.com/guilhermedemorais-dev/TFD/tree/codex/discovery-coverage) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
+| 2026-11-17 | [`7f3c0b4`](https://github.com/guilhermedemorais-dev/TFD/commit/7f3c0b404adbe8e7097ba53043e24edb782eea80) · [PR #8 aberta](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Fazer o ciclo completo ocorrer dentro de cada etapa. | Consulta e verificações do autor e do QA, aceite vinculado à revisão, checkpoints de implementação e gates de preparo/publicação. [Contrato](docs/stage-loop.md) · [INC-005](docs/office/incidents/INC-005.json) |
+| 2026-11-17 | [`0d5c2cb`](https://github.com/guilhermedemorais-dev/TFD/commit/0d5c2cbcd2d7c59aab2485a51004aa906938a4b6) · [PR #8 aberta](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Exigir evidência própria do QA e corrigir atualização de instalações personalizadas. | Novos fluxos vinculam consulta independente, inventário aprovado e revisão dos artefatos; atualização preserva conflitos reais. [Contrato](docs/discovery-coverage.md#independent-qa-evidence) |
+| 2026-11-17 | [`af75eca`](https://github.com/guilhermedemorais-dev/TFD/commit/af75ecab0ec99d5d532a4b5f3c400910f24f88dd) · [PR #7 integrada](https://github.com/guilhermedemorais-dev/TFD/pull/7) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
 | 2026-11-11 | [`10eb0f2`](https://github.com/guilhermedemorais-dev/TFD/commit/10eb0f28818165381ae1196da9dcb46f57947ffd) | Retomar entregas e limitar o contexto enviado a cada agente. | Adiciona checkpoints, verificação de caminhos, roteamento de modelos e medição de compactação. Documenta o quadro e permite consultar a branch de revisão no instalador. |
 | 2026-11-11 | [`e138636`](https://github.com/guilhermedemorais-dev/TFD/commit/e1386369b6f9d529d7850b0d27a6c41045c545fa) | Esclarecer qual contrato rege a task. | Distingue o schema nativo do TFD dos exemplos de contratos da biblioteca. |
 | 2026-11-10 | [`91e92f4`](https://github.com/guilhermedemorais-dev/TFD/commit/91e92f4efb310bcf3a83094004ef40601359a562) | Reproduzir a suíte no Windows. | Corrige importações entre testes e documenta o preparo do `pytest`. |

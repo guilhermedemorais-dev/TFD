@@ -1,4 +1,4 @@
-# Contexto TFD · 469 palavras · 898 tokens (o200k_base)
+# Contexto TFD · 476 palavras · 907 tokens (o200k_base)
 
 """Register TFD roles as native Codex subagents."""
 
@@ -27,8 +27,8 @@ def graph_route(bundle=ROOT, profile=None):
     )
 
 
-def native_profiles():
-    route = graph_route()
+def native_profiles(profile=None):
+    route = graph_route(profile=profile)
     for path in sorted((ROOT / "agents").glob("*/agent.json")):
         agent = json.loads(path.read_text(encoding="utf-8"))
         sector = agent["sector"]
@@ -57,7 +57,7 @@ def native_profiles():
 def install(destination):
     destination.mkdir(parents=True, exist_ok=True)
     outputs = {}
-    for name, description, instructions in native_profiles():
+    for name, description, instructions in native_profiles(profile=destination.parent):
         path = destination / f"{name}.toml"
         if path.is_symlink() or (path.exists() and not path.read_text(encoding="utf-8").startswith(MANAGED)):
             raise ValueError(f"existing custom profile would be overwritten: {path}")

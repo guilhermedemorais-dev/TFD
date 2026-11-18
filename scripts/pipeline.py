@@ -1,4 +1,4 @@
-# Contexto TFD · 1387 palavras · 2866 tokens (o200k_base)
+# Contexto TFD · 2708 palavras · 6011 tokens (o200k_base)
 
 """Check a project-local TFD workflow log and print its next gate."""
 
@@ -234,7 +234,8 @@ def evaluate(log, root):
                 previous_task = (task_id, contract_revision, task_paths, task_hashes)
                 phase_tasks[phase] = {"identity": (task_id, contract_revision, hashes["task"]),
                                       "artifacts": artifacts.copy(), "hashes": hashes.copy(),
-                                      "coverage": reviewed_coverage, "discovery": discovery_submission}
+                                      "coverage": reviewed_coverage, "discovery": discovery_submission,
+                                      "consultations": []}
             for key, path in artifacts.items():
                 if gate == "G6" and key in TASK_ARTIFACTS and index != latest_task_submission:
                     continue  # Past task revisions are receipts, not active task files.
@@ -273,12 +274,6 @@ def evaluate(log, root):
                 skipped = tuple(artifacts[k] for k in TASK_ARTIFACTS) if gate == "G6" and index < latest_task_submission else ()
                 receipt = require_stage_receipt(event, artifacts, hashes, root, require_file, skip_paths=skipped)
                 author_checks_pass = all(check["result"] == "PASS" for check in receipt["checks"])
-                if gate == "G7":
-                    context = phase_tasks[phase]
-                    task, task_hash = require_task_snapshot(event, context["identity"], root, require_file)
-                    require_task_context(task, context["artifacts"], context["hashes"], log["phases"],
-                                         context["coverage"], context["discovery"], require_spec=True, coverage_required=True)
-                    require_execution(event, task, task_hash, attempts + 1, root, require_file)
                 if gate == "G9":
                     candidate = release_candidate(artifacts, root, require_file)
                     deploy_authorization = None
@@ -287,6 +282,32 @@ def evaluate(log, root):
                         raise ValueError("stage loop: deployment retry limit reached")
                     require_deployment(event, artifacts, deploy_authorization, deploy_attempts + 1, root, require_file)
                     deploy_attempts += 1
+            if gate == "G7" and (stage_loop or review_required):
+                context = phase_tasks[phase]
+                if stage_loop or "task_snapshot" in artifacts:
+                    task, task_hash = require_task_snapshot(event, context["identity"], root, require_file)
+                else:
+                    # Older review workflows need no new artifact when the approved
+                    # Task bytes are still available. A later revision cannot stand in.
+                    content = require_file(context["artifacts"]["task"], root).read_bytes()
+                    task_hash = hashlib.sha256(content).hexdigest()
+                    if task_hash != context["identity"][2]:
+                        raise ValueError("G7: authentic historical Task unavailable; preserve its approved snapshot")
+                    task = json.loads(content)
+                    errors = validate_task(task, require_coverage=True)
+                    if errors:
+                        raise ValueError("G7: invalid approved Task: " + "; ".join(errors))
+                    if (task["task_id"], task["contract_revision"]) != context["identity"][:2]:
+                        raise ValueError("G7: historical Task identity/revision must match approved G6")
+                require_task_context(task, context["artifacts"], context["hashes"], log["phases"],
+                                     context["coverage"], context["discovery"], require_spec=True, coverage_required=True)
+                inventory = {"requirement_ids": [row["id"] for row in task["requirements"]],
+                             "business_rule_ids": [row["id"] for row in task["business_rules"]]}
+                for review, target, references in context["consultations"]:
+                    require_consultation(review, root, require_file, target, references, inventory,
+                                         approved_product[1], historical_task=True)
+                if stage_loop:
+                    require_execution(event, task, task_hash, attempts + 1, root, require_file)
             revisions.add(revision)
             if gate == "G1":
                 product_submission = (artifacts["prd"], hashes["prd"], revision)
@@ -347,6 +368,8 @@ def evaluate(log, root):
                              if gate == "G3" else submitted_inventory)
                 require_consultation(event, root, require_file, target, references, inventory,
                                      approved_product[1], historical_task=index < latest_task_submission)
+                if gate == "G6" and index < latest_task_submission:
+                    phase_tasks[phase]["consultations"].append((event, target, references))
             if coverage_required and gate == "G3" and verdict == "PASS":
                 original, original_hashes = discovery_submission
                 for key in ("sources", "evidence", "coverage"):

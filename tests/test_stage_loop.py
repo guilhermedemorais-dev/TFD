@@ -442,6 +442,85 @@ class TestStageLoop(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "checkpoint does not match"):
             evaluate(self.log, self.root)
 
+    def test_historical_g6_review_inventory_matches_its_frozen_phase_task(self):
+        self.historical_execution()
+        self.assert_historical_review_inventory()
+
+    def legacy_historical_execution(self):
+        execution = self.historical_execution()
+        self.log.pop("stage_loop_version")
+        self.log["events"] = [event for event in self.log["events"] if not (
+            event["action"] == "review" and event["gate"] in {"G0", "G0.5", "G1", "G5"})]
+        for event in self.log["events"]:
+            if event["action"] == "handoff":
+                event["action"] = "approve"
+        return execution
+
+    def test_review_version_without_stage_loop_binds_historical_inventory(self):
+        self.legacy_historical_execution()
+        self.assert_historical_review_inventory()
+
+    def test_review_version_rejects_missing_authentic_historical_task(self):
+        execution = self.legacy_historical_execution()
+        execution["artifacts"].pop("task_snapshot")
+        execution["sha256"].pop("task_snapshot")
+        with self.assertRaisesRegex(ValueError, "authentic historical Task"):
+            evaluate(self.log, self.root)
+
+    def test_review_version_binds_available_historical_task_without_snapshot(self):
+        from render_task import render_task
+        execution = self.legacy_historical_execution()
+        contents = (self.root / execution["artifacts"].pop("task_snapshot")).read_bytes()
+        execution["sha256"].pop("task_snapshot")
+        task = json.loads(contents)
+        self.write("task.json", contents)
+        self.write("task.md", render_task(task))
+        current = self.log["events"][-1]
+        current["contract_revision"] = task["contract_revision"]
+        current["sha256"] = {key: self.sha(path) for key, path in current["artifacts"].items()}
+        self.assert_historical_review_inventory()
+
+    def test_workflow_without_review_version_keeps_legacy_snapshot_optional(self):
+        execution = self.legacy_historical_execution()
+        self.log.pop("review_version")
+        execution["artifacts"].pop("task_snapshot")
+        execution["sha256"].pop("task_snapshot")
+        self.assertEqual(evaluate(self.log, self.root)["status"], "AWAITING_QA")
+
+    def test_review_version_accepts_unchanged_task_without_snapshot(self):
+        self.terminal(self.task_submission)
+        execution = self.submit("G7")
+        self.log.pop("stage_loop_version")
+        self.log["events"] = [event for event in self.log["events"] if not (
+            event["action"] == "review" and event["gate"] in {"G0", "G0.5", "G1", "G5"})]
+        for event in self.log["events"]:
+            if event["action"] == "handoff":
+                event["action"] = "approve"
+        execution["artifacts"].pop("task_snapshot")
+        execution["sha256"].pop("task_snapshot")
+        self.assertEqual(evaluate(self.log, self.root)["status"], "AWAITING_QA")
+
+    def assert_historical_review_inventory(self):
+        self.assertEqual(evaluate(self.log, self.root)["status"], "AWAITING_QA")
+        review = next(e for e in self.log["events"] if e["gate"] == "G6" and e["action"] == "review")
+        original = json.loads((self.root / review["consultation"]).read_bytes())
+        for field, values in (("requirement_ids", ["REQ-01"]),
+                              ("requirement_ids", ["REQ-01", "REQ-02", "REQ-03"]),
+                              ("business_rule_ids", []),
+                              ("business_rule_ids", ["RULE-01", "RULE-02"])):
+            with self.subTest(field=field, values=values):
+                data = copy.deepcopy(original)
+                data["approved_inventory"][field] = values
+                # Keep the declaration internally valid so only the task binding detects the drift.
+                claims = data["approved_inventory"]["business_rule_ids"] or ["REQ-01"]
+                for check in data["checks"]:
+                    check["claim_ids"] = claims
+                review["consultation_sha256"] = self.write(review["consultation"], data)
+                with self.assertRaisesRegex(ValueError, "approved inventory"):
+                    evaluate(self.log, self.root)
+        review["consultation_sha256"] = self.write(review["consultation"], original)
+        self.assertEqual(evaluate(self.log, self.root)["status"], "AWAITING_QA")
+
     def test_historical_task_snapshot_cannot_be_replaced_with_active_contract(self):
         execution = self.historical_execution()
         path = execution["artifacts"]["task_snapshot"]

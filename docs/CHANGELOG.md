@@ -15,7 +15,16 @@ a versão, a revisão publicada no canal e o link deste histórico no topo do
 [README](../README.md). Atualize a [tabela de mudanças recentes](../README.md#atualizações-recentes)
 quando a mudança afetar quem instala ou usa o framework. [Referência de estrutura](https://keepachangelog.com/en/1.1.0/)
 
-## Em revisão
+## 0.1.6 · Pacote por etapa — 2026-11-18
+
+Canal de integração: `main`. [PR #8 e estado da revisão](https://github.com/guilhermedemorais-dev/TFD/pull/8).
+
+### Vínculos históricos de QA e perfis alternativos
+
+- **Motivação.** O code review final apontou que revisões G6 de fases anteriores podiam deixar de conferir o inventário aprovado e que a geração de agentes ignorava o perfil de destino na rota Graphify.
+- **Corrige.** Cada fase conserva os vínculos do QA com seu inventário e evidências históricos, também nos fluxos com `review_version: 1` sem `stage_loop_version`. A revisão histórica usa o snapshot autêntico ou a Task ainda idêntica ao hash aprovado; sem esses bytes, registra erro em vez de aceitar um inventário sem comprovação. Os agentes usam a configuração e o índice do perfil em que foram instalados. O tradutor continua sem ferramentas e os perfis personalizados continuam protegidos.
+- **Melhora.** O prompt de instalação e os exemplos do README selecionam a `main`. Canais de revisão continuam opcionais e instalações personalizadas exigem atualização preservadora.
+- **Verificação.** Regressões falharam antes e passaram após a correção; a primeira solução foi reprovada pelo QA por não cobrir o protocolo anterior e foi corrigida. A suíte completa passou com 288 testes, exit 0. O QA independente conferiu omissões e IDs inventados de requisitos/regras em fases antigas, falta de evidência histórica, compatibilidade dos fluxos sem `review_version`, os 15 perfis gerados e a proteção de perfis personalizados. Esta mudança não aplica atualizações locais nem comprova um novo turno nativo do OpenBot. [INC-010](office/incidents/INC-010.json).
 
 ### Bloqueio fundamentado no QA de especificação
 

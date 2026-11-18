@@ -171,6 +171,27 @@ class GraphifyDispatchTests(unittest.TestCase):
             self.assertEqual(list(destination.iterdir()), [custom])
             self.assertEqual(custom.read_text(encoding='utf-8'), content)
 
+    def test_install_routes_every_tool_using_role_to_requested_profile(self):
+        with tempfile.TemporaryDirectory(prefix='TFD profiles ') as directory:
+            profile = Path(directory).resolve() / 'requested profile'
+            other = Path(directory).resolve() / 'environment profile'
+            destination = profile / 'agents'
+            with patch.dict('os.environ', {'CODEX_HOME': str(other)}):
+                count = install_codex_agents.install(destination)
+                self.assertEqual(install_codex_agents.install(destination), count)
+            paths = list(destination.glob('*.toml'))
+            self.assertEqual(len(paths), count)
+            for path in paths:
+                with self.subTest(role=path.stem):
+                    contents = path.read_text(encoding='utf-8')
+                    if path.stem == 'tfd_translator':
+                        self.assertNotIn('scripts/graphify.py', contents)
+                        self.assertIn('Do not use tools or delegate.', contents)
+                    else:
+                        self.assertIn((profile / 'tfd-graphify.json').as_posix(), contents)
+                        self.assertIn((profile / 'tfd-graphify/index.json').as_posix(), contents)
+                        self.assertNotIn(other.as_posix(), contents)
+
 
 if __name__ == '__main__':
     unittest.main()

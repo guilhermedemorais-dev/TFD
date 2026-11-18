@@ -2,29 +2,29 @@
 
 O **The Factory Developer** é um plugin para conduzir entregas de software no Codex. O coordenador organiza o trabalho por módulo, encaminha microtarefas a especialistas e reúne os artefatos, testes e revisões que sustentam cada decisão, do briefing à entrega.
 
-**TFD `0.1.6`** · [Revisões publicadas em `office/reviewed-delivery`](https://github.com/guilhermedemorais-dev/TFD/commits/office/reviewed-delivery/) · [Histórico completo de atualizações](docs/CHANGELOG.md)
+**TFD `0.1.6`** · [Canal principal: `main`](https://github.com/guilhermedemorais-dev/TFD/commits/main/) · [Histórico completo de atualizações](docs/CHANGELOG.md)
 
-**Revisão atual: [PR #8 aberta](https://github.com/guilhermedemorais-dev/TFD/pull/8)**, ainda sem merge. Inclui o ciclo por etapa, o REAP completo como plugin separado e a rota Graphify compartilhada entre hosts da mesma máquina. A correção da rota passou 273 testes locais e revisão independente; o reteste nativo R2 no TFD do OpenBot retornou `GRAPHIFY`, com configuração e índice preservados. O timeout anterior de 20 segundos não voltou a ocorrer; sua causa subjacente continua inconclusiva. As aplicações locais desta máquina estão registradas no [INC-008](docs/office/incidents/INC-008.json); outras instalações exigem atualização própria.
+**Pacote por etapa: [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8)**. Inclui o ciclo por etapa, o REAP completo como plugin separado e a rota Graphify compartilhada entre hosts da mesma máquina. O link da PR informa seu estado de integração. A correção da rota passou 273 testes locais e revisão independente; o reteste nativo R2 no TFD do OpenBot retornou `GRAPHIFY`, com configuração e índice preservados. O timeout anterior de 20 segundos não voltou a ocorrer; sua causa subjacente continua inconclusiva. As aplicações locais desta máquina estão registradas no [INC-008](docs/office/incidents/INC-008.json); outras instalações exigem atualização própria.
 
 ## Instalação
 
-Copie e cole o prompt abaixo em um agente com acesso ao terminal e à rede da máquina onde o Codex será usado. O agente obtém o TFD direto do repositório oficial. O prompt seleciona explicitamente a branch `office/reviewed-delivery`; ele não instala a revisão da PR #8.
+Copie e cole o prompt abaixo em um agente com acesso ao terminal e à rede da máquina onde o Codex será usado. O agente obtém o TFD direto do repositório oficial, usando a `main`. Revisões ainda não integradas exigem a seleção explícita da branch ou do commit da PR.
 
 ```text
 Instale o The Factory Developer no perfil ativo do Codex. Use o repositório
-https://github.com/guilhermedemorais-dev/TFD.git e a branch office/reviewed-delivery.
+https://github.com/guilhermedemorais-dev/TFD.git e a branch main.
 
 1. Confirme acesso ao terminal e à rede, sistema operacional, arquitetura,
    perfil do Codex, Git, Codex CLI e Python 3.10+ com venv e pip. Use as
    ferramentas e o perfil do mesmo ambiente quando o Codex rodar no WSL.
-2. Clone o repositório com git clone --branch office/reviewed-delivery em
+2. Clone o repositório com git clone --branch main em
    uma pasta nova fora do projeto em que estou trabalhando. Confira a URL da
    origem, a branch e o commit em relação ao GitHub. Leia docs/GUIA-CODEX.md.
 3. Na pasta clonada, use Python com -B para executar scripts/install_tfd.py
-   check --ref office/reviewed-delivery. Confira também o catálogo tfd-local.
-   Se o perfil não tiver esse catálogo, use install --ref office/reviewed-delivery.
+   check --ref main. Confira também o catálogo tfd-local.
+   Se o perfil não tiver esse catálogo, use install --ref main.
    Para um catálogo Git limpo nesse canal, sem origem local no recibo, use
-   update --ref office/reviewed-delivery se o resultado for UPDATE_AVAILABLE
+   update --ref main se o resultado for UPDATE_AVAILABLE
    ou INSTALL_REQUIRED.
    Em instalações locais, personalizadas ou de outra branch, preserve o catálogo.
    Mostre o plano com --source, --base e --dry-run usando uma base confirmada
@@ -38,13 +38,13 @@ https://github.com/guilhermedemorais-dev/TFD.git e a branch office/reviewed-deli
 **Pelo terminal.** Em um perfil sem catálogo TFD, escolha uma pasta nova fora do seu projeto e rode os comandos. No Linux, use `python3` no lugar de `python`. O instalador requer Git, Codex CLI e Python 3.10+ com `venv` e `pip`.
 
 ```powershell
-git clone --branch office/reviewed-delivery https://github.com/guilhermedemorais-dev/TFD.git tfd-reviewed
-cd tfd-reviewed
-python -B scripts/install_tfd.py check --ref office/reviewed-delivery
-python -B scripts/install_tfd.py install --ref office/reviewed-delivery
+git clone --branch main https://github.com/guilhermedemorais-dev/TFD.git tfd-main
+cd tfd-main
+python -B scripts/install_tfd.py check --ref main
+python -B scripts/install_tfd.py install --ref main
 ```
 
-O instalador usa `main` como canal padrão em novas instalações. Os comandos acima selecionam `office/reviewed-delivery` explicitamente. O `check` informa `INSTALL_REQUIRED`, `UPDATE_AVAILABLE` ou `UP_TO_DATE`. Para um catálogo Git limpo já nesse canal, use `update --ref office/reviewed-delivery`. Para instalações locais, personalizadas ou de outra branch, confira primeiro a atualização preservadora com `--dry-run`. [Guia de instalação e atualização](docs/GUIA-CODEX.md)
+O instalador usa `main` como canal padrão em novas instalações. O `check` informa `INSTALL_REQUIRED`, `UPDATE_AVAILABLE` ou `UP_TO_DATE`. Para um catálogo Git limpo já nesse canal, use `update --ref main`. Para instalações locais, personalizadas ou de outra branch, confira primeiro a atualização preservadora com `--dry-run`; mudar a branch de origem não substitui a reconciliação. [Guia de instalação e atualização](docs/GUIA-CODEX.md)
 
 ## Primeira entrega
 
@@ -140,11 +140,12 @@ O manifesto define a versão do pacote. O commit identifica a revisão exata pub
 
 | Data | Commit | Motivo | Correção ou melhoria |
 | --- | --- | --- | --- |
-| 2026-11-18 | [PR #8 em revisão](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Registrar bloqueios do QA de especificação sem erro de contrato. | Alinha `BLOCKED` entre findings e pipeline, preservando evidências, revisão e aceites; 281 testes passaram. [INC-009](docs/office/incidents/INC-009.json) |
-| 2026-11-18 | [PR #8 em revisão](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Unificar a navegação Graphify entre hosts da mesma máquina. | Bundle, runtime e índice explícitos; perfis preservados e reteste nativo OpenBot R2 com PASS. O timeout histórico permanece documentado sem atribuir uma causa não comprovada. [Contrato](integrations/graphify/README.md) · [INC-008](docs/office/incidents/INC-008.json) |
-| 2026-11-17 | [`cffa897`](https://github.com/guilhermedemorais-dev/TFD/commit/cffa897a869253d25ecc6f033f2c41266665034d) · [PR #8 aberta](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Disponibilizar o REAP completo para a Discovery. | Plugin externo com 26 skills completas, preservação de origem/licença e retorno de evidências ao setor responsável. [Integração](skills/TFD-discovery/references/rea-prompts.md) |
-| 2026-11-17 | [`7f3c0b4`](https://github.com/guilhermedemorais-dev/TFD/commit/7f3c0b404adbe8e7097ba53043e24edb782eea80) · [PR #8 aberta](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Fazer o ciclo completo ocorrer dentro de cada etapa. | Consulta e verificações do autor e do QA, aceite vinculado à revisão, checkpoints de implementação e gates de preparo/publicação. [Contrato](docs/stage-loop.md) · [INC-005](docs/office/incidents/INC-005.json) |
-| 2026-11-17 | [`0d5c2cb`](https://github.com/guilhermedemorais-dev/TFD/commit/0d5c2cbcd2d7c59aab2485a51004aa906938a4b6) · [PR #8 aberta](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Exigir evidência própria do QA e corrigir atualização de instalações personalizadas. | Novos fluxos vinculam consulta independente, inventário aprovado e revisão dos artefatos; atualização preserva conflitos reais. [Contrato](docs/discovery-coverage.md#independent-qa-evidence) |
+| 2026-11-18 | [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Conferir revisões históricas e o perfil real dos agentes antes da integração. | Vincula o inventário de cada fase ao QA e resolve a rota Graphify pelo perfil de destino; instalação normal pela `main`. [INC-010](docs/office/incidents/INC-010.json) |
+| 2026-11-18 | [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Registrar bloqueios do QA de especificação sem erro de contrato. | Alinha `BLOCKED` entre findings e pipeline, preservando evidências, revisão e aceites; 281 testes passaram. [INC-009](docs/office/incidents/INC-009.json) |
+| 2026-11-18 | [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Unificar a navegação Graphify entre hosts da mesma máquina. | Bundle, runtime e índice explícitos; perfis preservados e reteste nativo OpenBot R2 com PASS. O timeout histórico permanece documentado sem atribuir uma causa não comprovada. [Contrato](integrations/graphify/README.md) · [INC-008](docs/office/incidents/INC-008.json) |
+| 2026-11-17 | [`cffa897`](https://github.com/guilhermedemorais-dev/TFD/commit/cffa897a869253d25ecc6f033f2c41266665034d) · [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Disponibilizar o REAP completo para a Discovery. | Plugin externo com 26 skills completas, preservação de origem/licença e retorno de evidências ao setor responsável. [Integração](skills/TFD-discovery/references/rea-prompts.md) |
+| 2026-11-17 | [`7f3c0b4`](https://github.com/guilhermedemorais-dev/TFD/commit/7f3c0b404adbe8e7097ba53043e24edb782eea80) · [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Fazer o ciclo completo ocorrer dentro de cada etapa. | Consulta e verificações do autor e do QA, aceite vinculado à revisão, checkpoints de implementação e gates de preparo/publicação. [Contrato](docs/stage-loop.md) · [INC-005](docs/office/incidents/INC-005.json) |
+| 2026-11-17 | [`0d5c2cb`](https://github.com/guilhermedemorais-dev/TFD/commit/0d5c2cbcd2d7c59aab2485a51004aa906938a4b6) · [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Exigir evidência própria do QA e corrigir atualização de instalações personalizadas. | Novos fluxos vinculam consulta independente, inventário aprovado e revisão dos artefatos; atualização preserva conflitos reais. [Contrato](docs/discovery-coverage.md#independent-qa-evidence) |
 | 2026-11-17 | [`af75eca`](https://github.com/guilhermedemorais-dev/TFD/commit/af75ecab0ec99d5d532a4b5f3c400910f24f88dd) · [PR #7 integrada](https://github.com/guilhermedemorais-dev/TFD/pull/7) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
 | 2026-11-11 | [`10eb0f2`](https://github.com/guilhermedemorais-dev/TFD/commit/10eb0f28818165381ae1196da9dcb46f57947ffd) | Retomar entregas e limitar o contexto enviado a cada agente. | Adiciona checkpoints, verificação de caminhos, roteamento de modelos e medição de compactação. Documenta o quadro e permite consultar a branch de revisão no instalador. |
 | 2026-11-11 | [`e138636`](https://github.com/guilhermedemorais-dev/TFD/commit/e1386369b6f9d529d7850b0d27a6c41045c545fa) | Esclarecer qual contrato rege a task. | Distingue o schema nativo do TFD dos exemplos de contratos da biblioteca. |

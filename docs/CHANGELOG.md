@@ -15,7 +15,55 @@ a versão, a revisão publicada no canal e o link deste histórico no topo do
 [README](../README.md). Atualize a [tabela de mudanças recentes](../README.md#atualizações-recentes)
 quando a mudança afetar quem instala ou usa o framework. [Referência de estrutura](https://keepachangelog.com/en/1.1.0/)
 
-## Em revisão
+## 0.1.6 · Pacote por etapa — 2026-11-18
+
+Canal de integração: `main`. [PR #8 e estado da revisão](https://github.com/guilhermedemorais-dev/TFD/pull/8).
+
+### Vínculos históricos de QA e perfis alternativos
+
+- **Motivação.** O code review final apontou que revisões G6 de fases anteriores podiam deixar de conferir o inventário aprovado e que a geração de agentes ignorava o perfil de destino na rota Graphify.
+- **Corrige.** Cada fase conserva os vínculos do QA com seu inventário e evidências históricos, também nos fluxos com `review_version: 1` sem `stage_loop_version`. A revisão histórica usa o snapshot autêntico ou a Task ainda idêntica ao hash aprovado; sem esses bytes, registra erro em vez de aceitar um inventário sem comprovação. Os agentes usam a configuração e o índice do perfil em que foram instalados. O tradutor continua sem ferramentas e os perfis personalizados continuam protegidos.
+- **Melhora.** O prompt de instalação e os exemplos do README selecionam a `main`. Canais de revisão continuam opcionais e instalações personalizadas exigem atualização preservadora.
+- **Verificação.** Regressões falharam antes e passaram após a correção; a primeira solução foi reprovada pelo QA por não cobrir o protocolo anterior e foi corrigida. A suíte completa passou com 288 testes, exit 0. O QA independente conferiu omissões e IDs inventados de requisitos/regras em fases antigas, falta de evidência histórica, compatibilidade dos fluxos sem `review_version`, os 15 perfis gerados e a proteção de perfis personalizados. Esta mudança não aplica atualizações locais nem comprova um novo turno nativo do OpenBot. [INC-010](office/incidents/INC-010.json).
+
+### Bloqueio fundamentado no QA de especificação
+
+- **Motivação.** O code review da PR #8 encontrou um conflito entre o pipeline, que aceita `BLOCKED`, e o validador de findings, que aceitava apenas `PASS` e `REWORK`.
+- **Corrige.** O parecer de bloqueio pode identificar um pré-requisito ausente com achado `blocker`, evidência e recomendação. Os vínculos com o artefato e a revisão continuam obrigatórios em G3/G6; o bloqueio não autoriza avanço nem aceite humano.
+- **Preserva.** O contrato JSON mantém seus campos, `PASS` e `REWORK` mantêm suas regras e nenhuma instalação ou configuração do OpenBot é alterada por esta publicação na PR #8.
+- **Verificação.** A reprodução anterior falhou em G3 e G6; após a correção, passou com exit 0. Os 59 testes focados e os 281 testes da suíte completa passaram, exit 0. Os casos conferem bloqueio válido, CLI exit 2, rejeição de avanço, campos obrigatórios e vínculos de artefato, revisão e consulta. A skill 1.8.1 passou na auditoria estática; skill e duas referências somam 2.524 tokens, contra 2.353 da base, com cada referência abaixo de 1.000 tokens. O validador genérico da Skill Creator continua rejeitando o ID legado `TFD-qa_spec`; esse ID publicado foi preservado conforme o padrão do TFD. A veracidade do pré-requisito continua sendo julgamento do QA, não prova do validador estrutural. [INC-009](office/incidents/INC-009.json).
+
+### Graphify compartilhado entre hosts da mesma máquina
+
+- **Motivação.** Evitar que Codex e OpenBot consultem bundles diferentes contra um índice padrão comum, provocando consultas desatualizadas e contexto divergente.
+- **Corrige.** As rotas de navegação fixam o mesmo entrypoint, bundle canônico, configuração de runtime e índice. A geração dos perfis Codex explicita esses caminhos; o roteador OpenBot resolve os resultados no bundle retornado.
+- **Preserva.** Skills, conhecimentos, modelos, permissões e aceites próprios dos hosts permanecem preservados. Não há nova dependência, indexação de projetos clientes ou reconstrução automática durante consultas.
+- **Verificação.** A regressão falhou antes e passou após a correção; 273 testes locais passaram, exit 0, com QA independente de preservação. O índice compartilhado foi reconstruído explicitamente após backup. O primeiro teste nativo OpenBot R1 falhou com `GRAPHIFY_UNAVAILABLE`; um trace separado comprovou timeout interno de 20 segundos. Consultas posteriores inalteradas e o reteste nativo R2 retornaram `GRAPHIFY`, contexto preenchido, mesmo fingerprint e configuração/índice preservados. A causa subjacente do atraso não foi reproduzida nem comprovada; não houve alteração especulativa do IPC ou dos limites do worker. A execução nativa foi iniciada pelo usuário no TFD; o ID da mensagem não foi exposto. [INC-008](office/incidents/INC-008.json).
+
+### REAP completo como plugin externo da Discovery
+
+- **Motivação.** Disponibilizar a capacidade completa solicitada, sem reduzir o REA-Prompts a três referências dentro do TFD.
+- **Melhora.** A Discovery 1.10.0 delega ao executor nativo usando o plugin externo completo e recebe achados, evidências e limites. Todos os 26 packs permanecem disponíveis; o executor carrega a skill aplicável à tarefa.
+- **Distribuição.** Origem fixada em `9756618f25af1920c8965f8969820eed22247936`, todos os arquivos upstream e licença preservados fora do bundle TFD. O empacotador expõe a coleção inteira e corrige apenas as descrições YAML inválidas nas cópias carregáveis, mantendo corpos e nomes completos. O manifesto não instala outro motor REA.
+- **Governança.** Discovery mantém a responsabilidade; QA independente e aceites continuam obrigatórios. Instalação, reconstrução e execução de alvos dependem da autorização da operação, não da presença de um prompt.
+- **Verificação.** Consulte o [INC-007](office/incidents/INC-007.json) para o recorte de testes e evidências. A integração parcial anterior foi retirada e preservada apenas como diagnóstico externo.
+
+### Ciclo completo de consulta, execução e QA em cada etapa
+
+- **Motivação.** O fluxo visual exigia entrega revisada em cada etapa, mas o pipeline não exigia QA antes de prontidão, PRD, planejamento e documentação e encerrava o log antes da preparação/publicação.
+- **Corrige.** O protocolo `stage_loop_version: 1` vincula consulta seletiva ou reutilização comprovada, fontes canônicas, verificações do autor e do revisor independente à revisão e aos artefatos atuais. O aceite depende dos pareceres aplicáveis. G7 também confere snapshots dos checkpoints e pareceres das microtarefas. Cada microtarefa citada em uma área técnica precisa de critério de aceite naquela área.
+- **Melhora.** G2 transfere a pesquisa internamente a G3 para revisar a cobertura sem duplicar QA. G9 registra candidato, operação, rollback e autorização humana de deploy; G10 exige execução e verificações posteriores compatíveis com essa autorização. Correções preservam histórico, revalidam dependências afetadas e respeitam os limites de tentativas.
+- **Economia de contexto.** As skills encaminham a uma referência curta por etapa. As bibliotecas permanecem consultáveis, com fontes lidas seletivamente e reutilização de registros aplicáveis. Não há cópia integral do guia nem carregamento de todos os setores.
+- **Compatibilidade e limites.** Logs antigos continuam no seu protocolo; não se fabrica consulta ou PASS retroativo. O principal coordena os agentes no host. O CLI valida registros e não autentica pessoas, comprova leitura semântica ou executa deploy por conta própria. Instalações personalizadas e a adaptação OpenBot não são sobrescritas por esta PR; uma atualização delas precisa conciliar seus contratos e schemas extras.
+- **Verificação.** A base anterior passou 226 testes, exit 0. A regressão do novo gate falhou antes e passou depois da correção. A suíte final passou 261 testes com `unittest`, exit 0; `pytest -q -p no:cacheprovider` passou 261 testes e 393 subtestes, exit 0. O QA independente encontrou e retestou duas falhas históricas: checkpoints de fases anteriores e vínculos da Task com a spec/cobertura aprovadas. No fechamento, oito casos próprios dessa família e 88 testes aplicáveis passaram, exit 0. Dois casos positivos e um negativo foram executados no Codex com dados sintéticos do protocolo; isso não comprova Discovery de um produto real nem o fluxo nativo do OpenBot. As 17 skills passaram na auditoria estática, com referências de até 993 tokens. [Protocolo](stage-loop.md) · [INC-005](office/incidents/INC-005.json)
+
+### Conferência independente do QA e reconciliação da instalação
+
+- **Motivação.** Uma reprodução sintética avançou para G4 com um requisito aprovado omitido e um PASS sem registro próprio de consulta do revisor. A instalação Codex também carregava skills anteriores às melhorias já presentes na fonte e na biblioteca compartilhada do OpenBot.
+- **Corrige.** Novos workflows habilitam `review_version: 1`. G3/G6 exigem o registro independente do QA, vinculado ao PRD aprovado, aos inventários e à revisão exata dos artefatos. O QA consulta capítulos pertinentes do guia e fontes oficiais para afirmações técnicas decisivas, registra contradições e devolve lacunas materiais ao autor. O atualizador preservador aceita conteúdo instalado igual à base mesmo quando há trechos repetidos; conflitos reais continuam interrompendo a aplicação.
+- **Melhora.** A conferência deixa evidências verificáveis de requisitos, regras, fontes, limites e decisões sem carregar o guia inteiro. Atualizações preservam personalizações e distinguem versão instalada de comportamento efetivamente executado.
+- **Compatibilidade.** Pareceres e workflows anteriores permanecem válidos no protocolo que usavam. A task JSON e o formato de quatro campos de findings não mudam. Não há migração silenciosa de um PASS antigo.
+- **Verificação.** A base desta melhoria passou 226 testes, exit 0. A regressão externa falhou antes e passou depois da correção; revisão independente de código e teste semântico isolado foram registrados no INC-004. Uma sessão nova do Harness confirmou a carga instalada e rejeitou o workflow sem consulta exigida. A prova nativa completa do OpenBot continua pendente. [Contrato](discovery-coverage.md#independent-qa-evidence) · [Incidente INC-004](office/incidents/INC-004.json)
 
 ### Discovery com cobertura e geração autônoma de tasks
 

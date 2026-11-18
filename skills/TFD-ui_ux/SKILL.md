@@ -2,11 +2,13 @@
 name: TFD-ui_ux
 description: "Specify interaction and design system behavior and review visual alignment."
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   owner: "ui_ux"
 ---
 
 # ui_ux
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) to design production and rework. Record source consultation and state/accessibility self-checks; independent UI QA verifies the design deliverable before its applicable phase approval.
 
 Specify reusable component behavior, state ownership, keyboard/focus and measurable accessibility acceptance. Justify exceptions to the project design system with user-flow evidence; route uncertain platform behavior to bounded research.
 

@@ -2,11 +2,13 @@
 name: TFD-documentation
 description: "Write internal docs and user help from verified, human-reviewed module behavior."
 metadata:
-  version: "1.1.1"
+  version: "1.2.0"
   owner: "documentation"
 ---
 
 # documentation
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) to documentation production and rework. Self-check content against accepted behavior; submit to independent documentary QA and applicable UI access checks before human G8 acceptance. Coordinate integration with its implementation owner.
 
 Explain public contracts, nonobvious intent, operating steps and observed limits. Link project ADRs and reusable sources instead of copying manuals; keep examples aligned with the verified revision and omit redundant inline commentary.
 

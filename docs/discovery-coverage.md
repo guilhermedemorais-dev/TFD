@@ -1,6 +1,6 @@
 # Discovery coverage and autonomous task preparation
 
-New workflows use `python -B scripts/pipeline.py <workflow.json> --init --project-root <project>`. This creates an empty workflow with `coverage_version: 1` and refuses to overwrite an existing file. The coordinator then records actual project artifacts and decisions. Existing unversioned workflows remain readable. Upgrade an active workflow only with reviewed evidence and fresh QA for the affected transition.
+New workflows use `python -B scripts/pipeline.py <workflow.json> --init --project-root <project>`. This creates an empty workflow with `coverage_version: 1`, `review_version: 1` and `stage_loop_version: 1`, refusing to overwrite an existing file. Follow the [stage loop protocol](stage-loop.md) for author checks, source consultation and independent QA. The coordinator then records actual project artifacts and decisions. Existing workflows without these flags retain their prior review protocol. Upgrade an active workflow only with reviewed evidence and fresh QA for the affected transition; never rewrite an earlier PASS to imply checks that were not performed.
 
 ## Before the spec
 
@@ -9,6 +9,14 @@ Discovery writes sources, evidence, findings and a compact coverage matrix under
 G2 submits all four artifacts with hashes. G3 submits findings plus the same sources, evidence and coverage. Independent QA compares the inventory against the approved PRD, actual code/tests and sources. It checks every applicable perspective and end-to-end flow. Its PASS receipt uses the existing findings format with `artifact` equal to the coverage path and `revision` equal to the G3 submission revision. The pipeline verifies those bindings and rejects unresolved coverage on PASS. This structural verification complements the reviewer's semantic assessment.
 
 For REWORK, preserve earlier snapshots. Discovery corrects the affected research and G3 resubmits the full revised bundle under a new revision. The existing retry limit applies. G4 and subsequent spec authoring wait for the current independent coverage PASS and the applicable approval or authorized coordinator completion.
+
+## Independent QA evidence
+
+In `review_version: 1`, G3/G6 `qa_spec` review events also name a project-local `consultation` JSON and its `consultation_sha256`. The reviewer follows the [independent review contract](../skills/TFD-qa_spec/references/independent-review.md). The existing four-field findings format remains unchanged.
+
+QA independently extracts the approved requirement/rule inventory from the actual G1 PRD, checks business behavior and applicable guide chapters, and verifies decisive technical claims in original official documentation. Its record binds the real review actor, submission revision, current findings hash, approved PRD/approval and current coverage/spec/task hashes. It records sections checked, conclusions, unresolved claims and applicability limits. Reusing a valid source record does not substitute for the reviewer's own check.
+
+A new-mode PASS without this record is rejected. PASS also rejects inventory differences, unresolved checks, contradictory decisions and changed bindings. REWORK preserves the same evidence obligations while permitting documented gaps for the author to correct. The script cannot infer the full approved inventory from prose, authenticate an actor, prove consultation or judge source truth. An honestly recorded independent comparison is still required; equal IDs alone cannot establish correct behavior. These checks concern documentary QA, not application runtime.
 
 ## Task and review
 

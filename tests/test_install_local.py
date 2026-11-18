@@ -85,6 +85,19 @@ class TestLocalUpdate(unittest.TestCase):
         self.assertEqual(local.patch_bytes(old, b"        changed()\n", current), b"        changed()\n            work()\n")
         self.assertEqual(local.patch_bytes(b"title\n", b"header\ntitle\n", b"title\n"), b"header\ntitle\n")
 
+    def test_unchanged_base_with_repeated_blocks_accepts_update(self):
+        old = b"# package header\nfirst:\n    work()\nsecond:\n    work()\n"
+        new = b"# package header\nfirst:\n    changed()\nsecond:\n    work()\n"
+        for current in (old, old.replace(b"\n", b"\r\n")):
+            with self.subTest(crlf=b"\r\n" in current):
+                self.assertEqual(local.patch_bytes(old, new, current), new)
+
+    def test_repeated_blocks_with_custom_content_still_conflict(self):
+        old = b"first:\n    work()\nsecond:\n    work()\n"
+        new = b"first:\n    changed()\nsecond:\n    work()\n"
+        with self.assertRaisesRegex(ValueError, "ambiguous or conflicting"):
+            local.patch_bytes(old, new, old + b"# keep local customization\n")
+
     def test_repeated_update_is_idempotent_with_retained_extensions(self):
         local.update_local(self.profile, self.source, self.base, self.codex)
         first = [local.snapshot(target) for target in (self.origin, self.cache)]

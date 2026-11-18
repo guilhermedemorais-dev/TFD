@@ -1,4 +1,4 @@
-> Contexto TFD · 883 palavras · 1262 tokens (o200k_base)
+> Contexto TFD · 1069 palavras · 1530 tokens (o200k_base)
 
 # Sector task
 
@@ -9,6 +9,18 @@ From the TFD root, validate the project task with `python -B scripts/validate_ta
 For new authoring, follow the [Discovery coverage handoff](discovery-coverage.md), use [coverage version 1](../examples/task-coverage.example.json), and add `--require-coverage` to task validation. G3 coverage QA precedes spec authoring. Technical areas summarize applicable contracts and link microtasks, references, business rules and acceptance tests. Both views display this coverage. Legacy JSON remains readable; migrate only the affected active contract with revised evidence and QA.
 
 ## Human review
+
+In [stage loop version 1](stage-loop.md), G7 submits an immutable `task_snapshot`
+whose bytes match the phase's approved G6 Task hash, plus execution-checkpoint
+and microtask-review snapshots. Each historical phase is checked against its own
+approved contract, even after the active Task evolves. Gate approval requires the current checklist and
+independent microtask PASS evidence as well as phase QA. An unchecked item or
+invalidated dependency cannot be hidden by an aggregate PASS. Legacy logs retain
+their original protocol.
+
+`task_snapshot` is revision evidence, not another active Task or Issue. Keep one
+canonical Task path and identity; resolve execution from the workflow's submitted
+contract instead of choosing among JSON filenames.
 
 Generate the complete, collapsible review when handing the task to a human. Save it alongside the project's review evidence and use its Markdown as the body of the authorized linked Issue. If the body exceeds GitHub's limit, use a short summary and link to the complete review in an authorized location. The canonical `task.md` is the artifact bound to G6. Keep its original command and filename.
 
@@ -31,7 +43,7 @@ Dispatch independent microtasks only after their dependencies and approval gates
 
 Keep the full active skill, routed global constraints and every applicable mandatory reference; retrieval ranking cannot remove them. Consult supplemental theory only for the affected decision. Save concise, versioned research and local decisions in existing project records, then hand off their paths instead of repeated source dumps. Missing material context can reopen Discovery from any sector. Resolve technical facts within authorized research; missing business decisions or scope changes return to the user.
 
-The [reviewed preparation contract](../skills/TFD-harness/references/gates.md) permits explicitly authorized coordinator completion of G2-G5. Present the canonical task, matching spec/Discovery and independent spec QA PASS at human G6 approval. Each G7 phase still completes self-test, applicable independent QA, scoped rework and human approval. This does not authorize publication, merge or deploy.
+The [reviewed preparation contract](../skills/TFD-harness/references/gates.md) permits explicitly authorized coordinator completion of G2-G5 in legacy mode, or G3-G5 in stage-loop mode; new-mode G2 only hands research to G3. Present the canonical task, matching spec/Discovery and independent spec QA PASS at human G6 approval. Each G7 phase still completes self-test, applicable independent QA, scoped rework and human approval. This does not authorize publication, merge or deploy.
 
 Keep mutable evidence in the module's existing workflow ledger. Set `task_id` and `contract_revision` for the displayed receipts. Add `sector_receipts` keyed by sector. Each entry may carry `summary`, `blockers`, observed `total_tokens` and the `token_receipt` path. Its `reviews` object is keyed by microtask ID. A review includes `role` matching the validator, distinct `reviewer` and `executor` identities, `verdict` (`PASS`, `REWORK` or `BLOCKED`), `observation` and `evidence`. Record sanitized token receipts per run and aggregate only runs attributed to that sector. Keep unavailable totals empty.
 

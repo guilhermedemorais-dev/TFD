@@ -1,0 +1,120 @@
+{
+  "id": "INC-009",
+  "when": "2026-11-18T09:20:59+00:00",
+  "task": "TFD-QA-SPEC-BLOCKED",
+  "symptom": "QA Spec BLOCKED at G3/G6 is rejected before the blocked transition",
+  "root_cause": "Pipeline accepts BLOCKED while findings validator accepts only PASS and REWORK",
+  "fix": "Validate BLOCKED with prerequisite evidence and preserve artifact/revision bindings; add G3/G6 regressions and align QA instructions",
+  "risk": "No gate advancement or approval on BLOCKED; preserve PASS REWORK and active host configurations",
+  "evidence": "PR8 discussion_r4607669655 reproduced on f8b9843; maintainer asks aplica in main chat",
+  "author": "Codex TFD Backend",
+  "paths": [
+    "README.md",
+    "docs/CHANGELOG.md",
+    "skills/TFD-qa_spec/SKILL.md",
+    "skills/TFD-qa_spec/scripts/check_findings.py",
+    "tests/test_qa_consultation.py",
+    "tests/test_qa_spec_skill.py",
+    "skills/TFD-qa_spec/references/independent-review.md",
+    "skills/TFD-qa_spec/references/review-checklist.md"
+  ],
+  "status": "verified",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-inc009-before.py"
+      ],
+      "exit": 1,
+      "matched": true,
+      "when": "2026-11-18T09:22:52+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "62f9266e8a98337f526b27237724f1f2065d896418ede7292d4dfc625a0fad88"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-inc009-before.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-18T09:26:52+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "45f4a2ff358898babb55ff02d9385a71b04282d63a8980b28185394084d47102"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-inc009-before.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-18T09:33:54+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "65d9920ff257389ea5b01b0f5237e0fa95f43fc735377ceb5cc1dc6e5ac589dd"
+    }
+  ],
+  "branch": "office/qa-evidence-reconciliation",
+  "base": "f8b9843562bbc39101798d7bb4ba19e831b2fce7",
+  "approval": {
+    "maintainer": "Guilherme",
+    "evidence": "Latest user aplica approves local correction and tests of confirmed PR8 BLOCKED bug; no merge/deploy or live host update",
+    "when": "2026-11-18T09:20:59+00:00"
+  },
+  "verified_paths": {
+    "README.md": "fa680bdcc6f83e220d8a8958f6d44f1891b371677173eba62aa43a287b003503",
+    "docs/CHANGELOG.md": "cb14dac524322a8cc7295a98dd0ff91c43cec6a89c63f4bba8d9fe17be89160e",
+    "skills/TFD-qa_spec/SKILL.md": "69a36efa7036ad28959cdc0137934d6a8d3b174b814b0846871578a54b93212a",
+    "skills/TFD-qa_spec/references/independent-review.md": "6133cedbdd4418fbf175d1133310e5a18f85aca04c978c970a381c74557d8546",
+    "skills/TFD-qa_spec/references/review-checklist.md": "1fd27201a1005647f9994d2b74b083402a7a0f6ed3d5dcf10c98ec81ae9ecec6",
+    "skills/TFD-qa_spec/scripts/check_findings.py": "8a7e9038c4631b9b6bae7e3a7c78301869dea09259a333c065d48b44b6078ef2",
+    "tests/test_qa_consultation.py": "9b4b6c7880b77be120a23abaa54e36a9c99ab8c310f4fe4df84cb79571f27948",
+    "tests/test_qa_spec_skill.py": "55a418bc1a9926fa13678f86b1dcb100f2b17310998a31478d1c89daf554d3a3"
+  },
+  "verification": {
+    "reviewer": "TFD DevOps publication finalization",
+    "evidence": "Documentation-only publication finalization: README links existing PR8 em revisão; CHANGELOG identifies publication scope. Identical stable G3/G6 regression rerun exit0 after wording changes. Six skill/reference/checker/test files have unchanged SHA256 against preserved independent QA verification_history[0]. Previous independent code QA remains the authority for the unchanged code; no fresh independent code QA or host runtime retest claimed. Publication authorization is separate from original local approval. Final hashes bound by Oficina; no merge or deploy.",
+    "when": "2026-11-18T09:33:55+00:00"
+  },
+  "publication_authorization": {
+    "maintainer": "Guilherme",
+    "evidence": "Latest main-chat request então faz, in response to the completed local fix report explicitly stating no commit/push/OpenBot update, authorizes committing the scoped correction and pushing the existing PR #8 branch. Coordinator handoff to TFD DevOps confirms commit, normal push and PR description update; no merge or deploy.",
+    "target": "https://github.com/guilhermedemorais-dev/TFD/pull/8",
+    "branch": "office/qa-evidence-reconciliation",
+    "base": "f8b9843562bbc39101798d7bb4ba19e831b2fce7",
+    "when": "2026-11-18T09:33:37+00:00"
+  },
+  "verification_history": [
+    {
+      "status": "verified",
+      "verified_paths": {
+        "README.md": "b3510a3387e5f9a856e2634ffecf7f8c105d18ce358947017bf4b1356dcf8e7b",
+        "docs/CHANGELOG.md": "a6dac53d1f2d629f18628bdbd244653043c56cadd5d5f17cd3a4565aa7d1839d",
+        "skills/TFD-qa_spec/SKILL.md": "69a36efa7036ad28959cdc0137934d6a8d3b174b814b0846871578a54b93212a",
+        "skills/TFD-qa_spec/references/independent-review.md": "6133cedbdd4418fbf175d1133310e5a18f85aca04c978c970a381c74557d8546",
+        "skills/TFD-qa_spec/references/review-checklist.md": "1fd27201a1005647f9994d2b74b083402a7a0f6ed3d5dcf10c98ec81ae9ecec6",
+        "skills/TFD-qa_spec/scripts/check_findings.py": "8a7e9038c4631b9b6bae7e3a7c78301869dea09259a333c065d48b44b6078ef2",
+        "tests/test_qa_consultation.py": "9b4b6c7880b77be120a23abaa54e36a9c99ab8c310f4fe4df84cb79571f27948",
+        "tests/test_qa_spec_skill.py": "55a418bc1a9926fa13678f86b1dcb100f2b17310998a31478d1c89daf554d3a3"
+      },
+      "verification": {
+        "reviewer": "Independent TFD QA Backend",
+        "evidence": "PASS technical local fix discussion_r4607669655: 19 focused tests exit0, independent eight-negative-case stdin supplement exit0, final two G3/G6 integrity regressions exit0. Checker SHA256 8a7e9038c4631b9b6bae7e3a7c78301869dea09259a333c065d48b44b6078ef2; final tests SHAs 55a418bc1a9926fa13678f86b1dcb100f2b17310998a31478d1c89daf554d3a3 and 9b4b6c7880b77be120a23abaa54e36a9c99ab8c310f4fe4df84cb79571f27948. Author59 focused exit0 then34 final exit0; full unittest discover -s tests 281 passed exit0 before test-only refinement. Stable external before regression exit1 after exit0. Static audit PASS0 with skill925 and refs789/810 tokens. Generic Skill Creator naming check exit1 on unchanged legacy published ID preserved by TFD standard. No source change pipeline.py; no host update, native OpenBot retest, publication, merge or deploy.",
+        "when": "2026-11-18T09:27:44+00:00"
+      },
+      "reason": "Preserve independent code QA before publication-only README/CHANGELOG wording and ledger finalization."
+    }
+  ],
+  "finalization": {
+    "actor": "TFD DevOps",
+    "scope": "README publication link, CHANGELOG publication wording and separate publication authorization only. Six skill/reference/code/test paths retain the exact SHA-256 values of the independent QA. No fresh code QA claimed.",
+    "when": "2026-11-18T09:33:37+00:00",
+    "transition": "verified -> approved solely to rerun the identical stable regression and rebind final documentation bytes through Oficina; original local approval and QA preserved."
+  }
+}

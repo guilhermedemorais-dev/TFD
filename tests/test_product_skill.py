@@ -137,9 +137,9 @@ class TestSkillFrontmatter(unittest.TestCase):
             f"description com {len(description.split())} palavras",
         )
 
-    def test_metadata_version_is_1_4_0(self):
+    def test_metadata_version_is_1_5_0(self):
         self.assertIsInstance(self.metadata, dict)
-        self.assertEqual(self.metadata.get("version"), "1.4.0")
+        self.assertEqual(self.metadata.get("version"), "1.5.0")
 
     def test_metadata_owner_is_product(self):
         self.assertEqual(self.metadata.get("owner"), "product")

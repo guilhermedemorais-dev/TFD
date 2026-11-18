@@ -2,27 +2,29 @@
 
 O **The Factory Developer** é um plugin para conduzir entregas de software no Codex. O coordenador organiza o trabalho por módulo, encaminha microtarefas a especialistas e reúne os artefatos, testes e revisões que sustentam cada decisão, do briefing à entrega.
 
-**TFD `0.1.6`** · [Revisões publicadas em `office/reviewed-delivery`](https://github.com/guilhermedemorais-dev/TFD/commits/office/reviewed-delivery/) · [Histórico completo de atualizações](docs/CHANGELOG.md)
+**TFD `0.1.6`** · [Canal principal: `main`](https://github.com/guilhermedemorais-dev/TFD/commits/main/) · [Histórico completo de atualizações](docs/CHANGELOG.md)
+
+**Pacote por etapa: [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8)**. Inclui o ciclo por etapa, o REAP completo como plugin separado e a rota Graphify compartilhada entre hosts da mesma máquina. O link da PR informa seu estado de integração. A correção da rota passou 273 testes locais e revisão independente; o reteste nativo R2 no TFD do OpenBot retornou `GRAPHIFY`, com configuração e índice preservados. O timeout anterior de 20 segundos não voltou a ocorrer; sua causa subjacente continua inconclusiva. As aplicações locais desta máquina estão registradas no [INC-008](docs/office/incidents/INC-008.json); outras instalações exigem atualização própria.
 
 ## Instalação
 
-Copie e cole o prompt abaixo em um agente com acesso ao terminal e à rede da máquina onde o Codex será usado. O agente obtém o TFD direto do repositório oficial.
+Copie e cole o prompt abaixo em um agente com acesso ao terminal e à rede da máquina onde o Codex será usado. O agente obtém o TFD direto do repositório oficial, usando a `main`. Revisões ainda não integradas exigem a seleção explícita da branch ou do commit da PR.
 
 ```text
 Instale o The Factory Developer no perfil ativo do Codex. Use o repositório
-https://github.com/guilhermedemorais-dev/TFD.git e a branch office/reviewed-delivery.
+https://github.com/guilhermedemorais-dev/TFD.git e a branch main.
 
 1. Confirme acesso ao terminal e à rede, sistema operacional, arquitetura,
    perfil do Codex, Git, Codex CLI e Python 3.10+ com venv e pip. Use as
    ferramentas e o perfil do mesmo ambiente quando o Codex rodar no WSL.
-2. Clone o repositório com git clone --branch office/reviewed-delivery em
+2. Clone o repositório com git clone --branch main em
    uma pasta nova fora do projeto em que estou trabalhando. Confira a URL da
    origem, a branch e o commit em relação ao GitHub. Leia docs/GUIA-CODEX.md.
 3. Na pasta clonada, use Python com -B para executar scripts/install_tfd.py
-   check --ref office/reviewed-delivery. Confira também o catálogo tfd-local.
-   Se o perfil não tiver esse catálogo, use install --ref office/reviewed-delivery.
+   check --ref main. Confira também o catálogo tfd-local.
+   Se o perfil não tiver esse catálogo, use install --ref main.
    Para um catálogo Git limpo nesse canal, sem origem local no recibo, use
-   update --ref office/reviewed-delivery se o resultado for UPDATE_AVAILABLE
+   update --ref main se o resultado for UPDATE_AVAILABLE
    ou INSTALL_REQUIRED.
    Em instalações locais, personalizadas ou de outra branch, preserve o catálogo.
    Mostre o plano com --source, --base e --dry-run usando uma base confirmada
@@ -36,13 +38,13 @@ https://github.com/guilhermedemorais-dev/TFD.git e a branch office/reviewed-deli
 **Pelo terminal.** Em um perfil sem catálogo TFD, escolha uma pasta nova fora do seu projeto e rode os comandos. No Linux, use `python3` no lugar de `python`. O instalador requer Git, Codex CLI e Python 3.10+ com `venv` e `pip`.
 
 ```powershell
-git clone --branch office/reviewed-delivery https://github.com/guilhermedemorais-dev/TFD.git tfd-reviewed
-cd tfd-reviewed
-python -B scripts/install_tfd.py check --ref office/reviewed-delivery
-python -B scripts/install_tfd.py install --ref office/reviewed-delivery
+git clone --branch main https://github.com/guilhermedemorais-dev/TFD.git tfd-main
+cd tfd-main
+python -B scripts/install_tfd.py check --ref main
+python -B scripts/install_tfd.py install --ref main
 ```
 
-O instalador usa `main` como canal padrão em novas instalações. Os comandos acima selecionam `office/reviewed-delivery` explicitamente. O `check` informa `INSTALL_REQUIRED`, `UPDATE_AVAILABLE` ou `UP_TO_DATE`. Para um catálogo Git limpo já nesse canal, use `update --ref office/reviewed-delivery`. Para instalações locais, personalizadas ou de outra branch, confira primeiro a atualização preservadora com `--dry-run`. [Guia de instalação e atualização](docs/GUIA-CODEX.md)
+O instalador usa `main` como canal padrão em novas instalações. O `check` informa `INSTALL_REQUIRED`, `UPDATE_AVAILABLE` ou `UP_TO_DATE`. Para um catálogo Git limpo já nesse canal, use `update --ref main`. Para instalações locais, personalizadas ou de outra branch, confira primeiro a atualização preservadora com `--dry-run`; mudar a branch de origem não substitui a reconciliação. [Guia de instalação e atualização](docs/GUIA-CODEX.md)
 
 ## Primeira entrega
 
@@ -69,6 +71,7 @@ flowchart LR
     Q -->|PASS| H
     H -->|evidências para aceite| U
     B["Biblioteca TFD · fontes e Graphify"] --> S
+    B --> Q
     H --> P["Projeto · task, fluxo, decisões e recibos"]
     S --> P
     Q --> P
@@ -79,8 +82,16 @@ flowchart LR
 | Orquestração | O agente principal coordena com `TFD-harness`. O Tradutor concentra o pedido do usuário no repasse ao setor ativo. O subagente `tfd_harness` consulta status e evidências. [Harness](skills/TFD-harness/SKILL.md) |
 | Setores e QA | Cada especialista recebe a microtarefa, os limites e as referências aplicáveis. Um revisor independente avalia a revisão entregue. [Mapa de setores](docs/00-arquitetura.md) |
 | Contratos e evidências | O `task.json` é o contrato do módulo. Sua visão Markdown é gerada. O `workflow.json` registra gates, revisões, evidências e decisões. [Tasks por setor](docs/sector-task.md) |
-| Conhecimento | O Discovery consulta evidências e decisões do projeto antes de pesquisar novas fontes. O Graphify navega o bundle do TFD. Seu runtime isolado exige configuração à parte em Linux ou WSL 2. [Biblioteca](library/README.md) · [Graphify](library/docs/operations/graphify.md) |
+| Conhecimento | O Discovery consulta evidências e decisões do projeto antes de pesquisar novas fontes. Pode delegar investigações ao [plugin REAP completo e separado](skills/TFD-discovery/references/rea-prompts.md), receber as evidências e submetê-las ao QA. O Graphify navega o bundle do TFD; seu runtime isolado exige configuração à parte em Linux ou WSL 2. [Biblioteca](library/README.md) · [Graphify](library/docs/operations/graphify.md) |
 | Execução e medição | O adaptador Codex integra agentes, seleção opcional de modelos autorizados, retomada por item e recibos de uso. A medição separa entrada nova, cache, saída e ocupação da janela. [Execução de microtarefas](skills/TFD-harness/references/execution.md) · [Recibos e compactação](hosts/codex/README.md#token-receipts) |
+
+### O que fica nas skills e no Python
+
+O `SKILL.md` orienta o agente: responsabilidade do setor, fontes obrigatórias, procedimento e limites. O modelo interpreta o pedido, pesquisa, produz e revisa os artefatos. Os scripts Python fazem verificações reproduzíveis sobre os registros; eles não substituem esse raciocínio.
+
+Somente Discovery e `qa_spec` têm validadores próprios dentro da pasta da skill: [`check_evidence.py`](skills/TFD-discovery/scripts/check_evidence.py) verifica fontes e evidências; [`check_findings.py`](skills/TFD-qa_spec/scripts/check_findings.py) confere a forma e a coerência do parecer. O julgamento dos achados continua com o revisor.
+
+Os setores usam, conforme a tarefa, ferramentas compartilhadas: [`pipeline.py`](scripts/pipeline.py) confere o fluxo e os gates; [`resume_task.py`](scripts/resume_task.py) resolve a próxima ação e os checkpoints; [`render_task_review.py`](scripts/render_task_review.py) gera a revisão humana; [`context_budget.py`](scripts/context_budget.py) mede o contexto; [`model_router.py`](scripts/model_router.py) confere o roteamento autorizado; e [`graphify.py`](scripts/graphify.py) consulta as referências do bundle. A coordenação e a execução continuam com os agentes no host.
 
 ## Da abertura à entrega
 
@@ -99,11 +110,17 @@ flowchart LR
 | **G8 · Documentação** | Peça a documentação técnica e a ajuda ao usuário da revisão aceita. Confira os fluxos documentados e os perfis de acesso. No perfil de quadro, o conteúdo técnico é restrito a administradores e os tutoriais ficam disponíveis também aos usuários regulares. Registre o aceite final da documentação. |
 | **DevOps e entrega** | Se o projeto adotou o perfil de quadro, peça o candidato com implementação e documentação aceitas, evidências de staging autorizado, segurança e rollback. Confira o artefato e o ambiente de destino. Autorize merge e deploy separadamente. Depois do deploy, confira os testes no ambiente autorizado antes de marcar `Done`. |
 
-Por padrão, cada gate exige aceite humano após as revisões aplicáveis. Com `reviewed_task` explicitamente autorizado e registrado, o coordenador pode concluir G2–G5 depois das verificações aplicáveis. Um `PASS` vale para a revisão registrada. `REWORK` volta ao responsável, seguido de nova revisão independente. `BLOCKED` pede que se resolva a causa antes de seguir. No perfil opcional de GitHub Projects, a issue acompanha a fase e exibe as etiquetas `QA em andamento` ou `Em ajustes`, conforme o trabalho observado e as permissões disponíveis. [Gates e aprovações](skills/TFD-harness/references/gates.md) · [Quadro de entrega](docs/delivery-board.md)
+Por padrão, os gates de decisão exigem aceite humano após as revisões aplicáveis. Com `reviewed_task` explicitamente autorizado e registrado, o coordenador pode concluir G2–G5 no protocolo anterior, ou G3–G5 no protocolo por etapa; neste último, G2 é uma transferência interna para G3. Um `PASS` vale para a revisão registrada. `REWORK` volta ao responsável, seguido de nova revisão independente. `BLOCKED` pede que se resolva a causa antes de seguir. No perfil opcional de GitHub Projects, a issue acompanha a fase e exibe as etiquetas `QA em andamento` ou `Em ajustes`, conforme o trabalho observado e as permissões disponíveis. [Gates e aprovações](skills/TFD-harness/references/gates.md) · [Quadro de entrega](docs/delivery-board.md)
 
 No GitHub, o contrato separa a permissão técnica em cada recurso da autorização para agir. O responsável pelo quadro segue o contrato aceito e só move o item para revisão humana após todos os revisores aplicáveis darem `PASS` para a revisão atual, com evidências na mesma Issue. [Contrato de governança](skills/TFD-devops/references/project-governance.md)
 
 Ao aprovar, cite a fase e a revisão apresentada. Por exemplo, “Aprovo a spec e a task da fase Cadastro na revisão apresentada `r2`. Registre meu aceite no `workflow.json`.” Se pedir ajuste, descreva o comportamento esperado na mesma tarefa e peça nova verificação.
+
+### Ciclo completo dentro de cada etapa
+
+Workflows com `stage_loop_version: 1` exigem consulta Graphify ou reutilização comprovada, leitura das fontes pertinentes, verificações do autor e QA independente antes do aceite. Isso cobre PRD, prontidão, planejamento, documentação e operação, além de Discovery/spec e implementação. G2 entrega a pesquisa internamente a G3, sem duplicar QA. G9 prepara o candidato e registra autorização específica de deploy; G10 verifica a publicação antes de concluir.
+
+Os scripts validam evidências; o principal executa a coordenação no host. Workflows antigos não são migrados nem recebem PASS retroativo. A atualização está em revisão e não altera instalações personalizadas automaticamente. [Protocolo, recibos e limites](docs/stage-loop.md)
 
 ### Conferir os artefatos pelo terminal
 
@@ -123,7 +140,13 @@ O manifesto define a versão do pacote. O commit identifica a revisão exata pub
 
 | Data | Commit | Motivo | Correção ou melhoria |
 | --- | --- | --- | --- |
-| 2026-11-17 | [Em revisão](https://github.com/guilhermedemorais-dev/TFD/tree/codex/discovery-coverage) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
+| 2026-11-18 | [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Conferir revisões históricas e o perfil real dos agentes antes da integração. | Vincula o inventário de cada fase ao QA e resolve a rota Graphify pelo perfil de destino; instalação normal pela `main`. [INC-010](docs/office/incidents/INC-010.json) |
+| 2026-11-18 | [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Registrar bloqueios do QA de especificação sem erro de contrato. | Alinha `BLOCKED` entre findings e pipeline, preservando evidências, revisão e aceites; 281 testes passaram. [INC-009](docs/office/incidents/INC-009.json) |
+| 2026-11-18 | [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Unificar a navegação Graphify entre hosts da mesma máquina. | Bundle, runtime e índice explícitos; perfis preservados e reteste nativo OpenBot R2 com PASS. O timeout histórico permanece documentado sem atribuir uma causa não comprovada. [Contrato](integrations/graphify/README.md) · [INC-008](docs/office/incidents/INC-008.json) |
+| 2026-11-17 | [`cffa897`](https://github.com/guilhermedemorais-dev/TFD/commit/cffa897a869253d25ecc6f033f2c41266665034d) · [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Disponibilizar o REAP completo para a Discovery. | Plugin externo com 26 skills completas, preservação de origem/licença e retorno de evidências ao setor responsável. [Integração](skills/TFD-discovery/references/rea-prompts.md) |
+| 2026-11-17 | [`7f3c0b4`](https://github.com/guilhermedemorais-dev/TFD/commit/7f3c0b404adbe8e7097ba53043e24edb782eea80) · [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Fazer o ciclo completo ocorrer dentro de cada etapa. | Consulta e verificações do autor e do QA, aceite vinculado à revisão, checkpoints de implementação e gates de preparo/publicação. [Contrato](docs/stage-loop.md) · [INC-005](docs/office/incidents/INC-005.json) |
+| 2026-11-17 | [`0d5c2cb`](https://github.com/guilhermedemorais-dev/TFD/commit/0d5c2cbcd2d7c59aab2485a51004aa906938a4b6) · [PR #8](https://github.com/guilhermedemorais-dev/TFD/pull/8) | Exigir evidência própria do QA e corrigir atualização de instalações personalizadas. | Novos fluxos vinculam consulta independente, inventário aprovado e revisão dos artefatos; atualização preserva conflitos reais. [Contrato](docs/discovery-coverage.md#independent-qa-evidence) |
+| 2026-11-17 | [`af75eca`](https://github.com/guilhermedemorais-dev/TFD/commit/af75ecab0ec99d5d532a4b5f3c400910f24f88dd) · [PR #7 integrada](https://github.com/guilhermedemorais-dev/TFD/pull/7) | Reduzir retrabalho na preparação. | Cobertura de Discovery revisada antes da spec, contratos técnicos na task e produção autônoma até o aceite humano. [Procedimento](docs/discovery-coverage.md) |
 | 2026-11-11 | [`10eb0f2`](https://github.com/guilhermedemorais-dev/TFD/commit/10eb0f28818165381ae1196da9dcb46f57947ffd) | Retomar entregas e limitar o contexto enviado a cada agente. | Adiciona checkpoints, verificação de caminhos, roteamento de modelos e medição de compactação. Documenta o quadro e permite consultar a branch de revisão no instalador. |
 | 2026-11-11 | [`e138636`](https://github.com/guilhermedemorais-dev/TFD/commit/e1386369b6f9d529d7850b0d27a6c41045c545fa) | Esclarecer qual contrato rege a task. | Distingue o schema nativo do TFD dos exemplos de contratos da biblioteca. |
 | 2026-11-10 | [`91e92f4`](https://github.com/guilhermedemorais-dev/TFD/commit/91e92f4efb310bcf3a83094004ef40601359a562) | Reproduzir a suíte no Windows. | Corrige importações entre testes e documenta o preparo do `pytest`. |
@@ -140,6 +163,7 @@ Veja a motivação, o efeito e as verificações de cada atualização no [hist�
 | --- | --- |
 | Instalar, atualizar ou recuperar um perfil | [Guia do Codex](docs/GUIA-CODEX.md) |
 | Entender arquitetura, setores e decisões | [Arquitetura do TFD](docs/00-arquitetura.md) |
+| Entregar cada etapa com consulta, verificações e QA antes do aceite | [Protocolo por etapa](docs/stage-loop.md) |
 | Escrever ou revisar uma task | [Modelo de revisão humana](docs/sector-task.md#human-review) · [Exemplo](examples/task-review.example.md) · [Contrato dos gates](skills/TFD-harness/references/gates.md) |
 | Preparar repositório, CI e quadro | [Prontidão do GitHub](skills/TFD-devops/references/github-readiness.md) · [Quadro de entrega](docs/delivery-board.md) |
 | Consultar evidências e limites de verificação | [Estado do projeto](docs/ESTADO.md) · [Preparação revisada](docs/reviewed-delivery/README.md) |

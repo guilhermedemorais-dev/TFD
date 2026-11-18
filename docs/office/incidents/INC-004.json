@@ -1,0 +1,90 @@
+{
+  "id": "INC-004",
+  "when": "2026-11-17T18:21:21-03:00",
+  "task": "TFD-QA-INDEPENDENT-EVIDENCE",
+  "symptom": "Stale Codex skills and empty QA PASS allow incomplete Discovery to advance",
+  "root_cause": "Installed profiles resolve older skills; G3 binds author coverage but has no independent review inventory/source consultation record",
+  "fix": "Preserving installation reconciliation and versioned independent QA consultation bound to approved PRD, coverage and current spec/task",
+  "risk": "Legacy PASS compatibility and customized strict host adapters must remain intact; receipts cannot prove semantic truth",
+  "evidence": "Local synthetic pipeline reproduction on af75eca advanced to G4 with an omitted approved requirement and no reviewer consultation; source/caches versions compared read-only; user authorized correcting agents, scripts and installation in main chat 2026-11-17",
+  "author": "Codex coordinator with sector authors",
+  "paths": [
+    "README.md",
+    "docs/CHANGELOG.md",
+    "docs/discovery-coverage.md",
+    "scripts/check_qa_consultation.py",
+    "scripts/install_local.py",
+    "scripts/pipeline.py",
+    "skills/TFD-architecture/SKILL.md",
+    "skills/TFD-discovery/SKILL.md",
+    "skills/TFD-harness/SKILL.md",
+    "skills/TFD-harness/references/gates.md",
+    "skills/TFD-qa_spec/SKILL.md",
+    "skills/TFD-qa_spec/references/independent-review.md",
+    "skills/TFD-qa_spec/references/review-checklist.md",
+    "tests/test_coverage_pipeline.py",
+    "tests/test_install_local.py",
+    "tests/test_qa_consultation.py",
+    "tests/test_qa_spec_skill.py"
+  ],
+  "status": "verified",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-review-consultation-regression.py"
+      ],
+      "exit": 1,
+      "matched": true,
+      "when": "2026-11-17T18:27:00-03:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b171b66c5d654bd37b99fea16b59918136bff714481f7256e8e6b7aeffeb4ddc"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-review-consultation-regression.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-17T21:27:01+00:00",
+      "stdout_sha256": "eb3c21e9381588cdc501f59af601a87d9f0d9100be55416ae1f759c7b4c8363b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "branch": "office/qa-evidence-reconciliation",
+  "base": "af75ecab0ec99d5d532a4b5f3c400910f24f88dd",
+  "approval": {
+    "maintainer": "user",
+    "evidence": "Main chat 2026-11-17: explicit user authorization to correct stale installations and inadequate agent instructions/scripts. This approval baseline is isolated at unchanged af75eca; ongoing authorized patches in the working folder are preserved. No board, merge, deploy or publication.",
+    "when": "2026-11-17T18:24:37-03:00"
+  },
+  "verified_paths": {
+    "README.md": "e8a27aa99aaa76beab32606785ff977a78e6330c35dab628303e5ec6917b6d1e",
+    "docs/CHANGELOG.md": "f5a50997b370e18840be0b1b3211eee65d73418e6716547d364f906dbf2a3b3a",
+    "docs/discovery-coverage.md": "50e350b67e924e6f5840356480215711f37e24a74a4231acf3a2f56ff376466d",
+    "scripts/check_qa_consultation.py": "7d13b717669ef7d881b6efa8838ebcd17bb4e6206394bdccb73e4eaba2afb8eb",
+    "scripts/install_local.py": "eadc9173275ebf7cbcc0d1c09dbdf2b4dc228138bb3b93ff9ba21dd3eff99a29",
+    "scripts/pipeline.py": "06ec59393d0ea65db3298935ac26726d82977f643f3cb79ea61c9b9271828173",
+    "skills/TFD-architecture/SKILL.md": "553d8811e73eb31088ae53884b8d0a6dcafa7d180782fd85e4f3d87f56428b86",
+    "skills/TFD-discovery/SKILL.md": "99a4e07a104f7467221e6bd53b96964ff625675472e2081f2e9fd968a0ca0628",
+    "skills/TFD-harness/SKILL.md": "743e63fa4b49f6a20fbb8a7f499fe7f2fa790a3eda38002bb96183f4616bb571",
+    "skills/TFD-harness/references/gates.md": "6eb29fc8d5dfc7fee7eafa2b3f9634296ae63eccbd4163c985b0e0f54a17d2f7",
+    "skills/TFD-qa_spec/SKILL.md": "d395e3de9273448f619d28fdfdcd38de3d7ca9432c0d2c9e472924ed6e76fef9",
+    "skills/TFD-qa_spec/references/independent-review.md": "38857940bb713d7dec11413c6d8e6493851c5c3048170c5041129d0a7dd433f4",
+    "skills/TFD-qa_spec/references/review-checklist.md": "6ee0590a5872238fc18ff052285986090327841e001f06e9f8c555dfb211a80a",
+    "tests/test_coverage_pipeline.py": "3d7ac93a58e9fac0f04987cd50be52c31d2a51812a552ba4f6a68e47dcc26200",
+    "tests/test_install_local.py": "adac486e9eba151d3a1992edc6a353616a79c760b23c86efac9aa25b7aaab2d3",
+    "tests/test_qa_consultation.py": "b26cd1658fe17f793b588f3d073b163ddab30238bc9d084bd22265cbefc52e50",
+    "tests/test_qa_spec_skill.py": "c6ce76a2b1e3d9d37f0233a74613b84f309e99cb18b42fc4496a68dbac87e787"
+  },
+  "verification": {
+    "reviewer": "independent Codex qa_patch_independent and pr7_isolated_qa",
+    "evidence": "Independent code PASS in external source-independent-qa/code-review-report.json; 37 targeted plus 12 independent tests exit0; independent semantic fixture review returned REWORK with three supported findings; preserving host candidates/applicators separately reviewed with pinned hashes and local CLI postchecks. Native OpenBot remains pending.",
+    "when": "2026-11-17T22:05:00+00:00"
+  }
+}

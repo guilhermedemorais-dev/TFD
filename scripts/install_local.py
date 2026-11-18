@@ -29,7 +29,7 @@ def patch_bytes(old, new, current):
         if current == old:
             return new
         raise ValueError('binary file conflicts with installed content')
-    if actual == new:
+    if actual == old or actual == new:
         return new.encode('utf-8')
     before, after = old.splitlines(True), new.splitlines(True)
     for tag, a, b, c, d in reversed(difflib.SequenceMatcher(a=before, b=after, autojunk=False).get_opcodes()):

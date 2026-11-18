@@ -13,7 +13,7 @@ import re
 import sys
 from pathlib import Path
 
-VERDICTS = {"PASS", "REWORK"}
+VERDICTS = {"PASS", "REWORK", "BLOCKED"}
 SEVERITIES = {"blocker", "major", "minor"}
 BLOCKING = {"blocker", "major"}
 TOP_KEYS = ("artifact", "revision", "verdict", "findings")
@@ -45,7 +45,7 @@ def validate_findings(data: object) -> list[str]:
     verdict = data.get("verdict")
     valid_verdict = isinstance(verdict, str) and verdict in VERDICTS
     if "verdict" in data and not valid_verdict:
-        errors.append(f"verdict: esperado PASS ou REWORK, recebido {verdict!r}")
+        errors.append(f"verdict: esperado PASS, REWORK ou BLOCKED, recebido {verdict!r}")
 
     findings = data.get("findings")
     findings_ok = isinstance(findings, list)
@@ -110,6 +110,8 @@ def validate_findings(data: object) -> list[str]:
             )
         if verdict == "REWORK" and not blocking:
             errors.append("verdict REWORK exige ao menos um achado blocker ou major")
+        if verdict == "BLOCKED" and "blocker" not in severities:
+            errors.append("verdict BLOCKED exige ao menos um achado blocker")
 
     return errors
 

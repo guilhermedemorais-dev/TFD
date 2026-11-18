@@ -1,4 +1,4 @@
-# Contexto TFD · 665 palavras · 1660 tokens (o200k_base)
+# Contexto TFD · 868 palavras · 2140 tokens (o200k_base)
 
 """Testes da skill TFD-qa_spec e do validador de findings.
 
@@ -96,7 +96,7 @@ class TestSkillFile(unittest.TestCase):
     def test_frontmatter(self):
         fm = frontmatter(skill_text())
         self.assertEqual(fm["name"], "TFD-qa_spec")
-        self.assertEqual(fm["version"], "1.6.0")
+        self.assertEqual(fm["version"], "1.8.1")
         self.assertEqual(fm["owner"], "qa_spec")
         self.assertIn("description", fm)
         words = re.findall(r"\S+", fm["description"])
@@ -135,13 +135,57 @@ class TestSkillFile(unittest.TestCase):
         self.assertEqual(agent["name"], "TFD-qa_spec")
         self.assertEqual(agent["sector"], "qa_spec")
         self.assertEqual(agent["outputs"], ["findings.json"])
-        self.assertEqual(agent["gate"], "G3/G6")
+        self.assertEqual(agent["gate"], "G0/G1/G3/G4/G5/G6/G8-review/G8")
         self.assertEqual(agent["validator"], "harness")
         self.assertEqual(agent["skills"], ["TFD-qa_spec"])
         self.assertGreaterEqual(len(agent["activates_on"]), 2)
 
 
 class TestCheckFindings(unittest.TestCase):
+    def test_blocked_with_prerequisite_blocker_is_valid(self):
+        payload = copy.deepcopy(VALID_FINDINGS)
+        payload["verdict"] = "BLOCKED"
+        payload["findings"][0].update(
+            evidence="Required official source is inaccessible",
+            recommendation="Restore access and verify the source before resuming review.")
+        result = run_checker(payload)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_blocked_requires_a_blocker(self):
+        for severity in (None, "major", "minor"):
+            with self.subTest(severity=severity):
+                payload = copy.deepcopy(VALID_FINDINGS)
+                payload["verdict"] = "BLOCKED"
+                payload["findings"] = [] if severity is None else [payload["findings"][0]]
+                if severity:
+                    payload["findings"][0]["severity"] = severity
+                result = run_checker(payload)
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertIn("BLOCKED exige ao menos um achado blocker", result.stdout)
+
+    def test_blocked_keeps_required_finding_fields(self):
+        for field in ("id", "severity", "dimension", "evidence", "recommendation"):
+            for invalid in (None, "", " "):
+                with self.subTest(field=field, invalid=invalid):
+                    payload = copy.deepcopy(VALID_FINDINGS)
+                    payload["verdict"] = "BLOCKED"
+                    payload["findings"][0][field] = invalid
+                    result = run_checker(payload)
+                    self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                    self.assertIn(field, result.stdout)
+
+    def test_pass_without_findings_and_rework_with_major_remain_valid(self):
+        for verdict in ("PASS", "REWORK"):
+            with self.subTest(verdict=verdict):
+                payload = copy.deepcopy(VALID_FINDINGS)
+                payload["verdict"] = verdict
+                if verdict == "PASS":
+                    payload["findings"] = []
+                else:
+                    payload["findings"][0]["severity"] = "major"
+                result = run_checker(payload)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_valid_findings_exit_zero(self):
         result = run_checker(VALID_FINDINGS)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

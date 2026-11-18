@@ -127,7 +127,7 @@ def coverage_errors(task: dict, *, require_coverage: bool = False) -> list[str]:
         for field in ("reference_ids", "microtask_ids", "acceptance_ids"):
             if not cell[field]:
                 errors.append(f"{label}: COVERED exige {field}")
-        cell_rules = set()
+        cell_rules, cell_micros = set(), set()
         for ac_id in cell["acceptance_ids"]:
             ac = criteria.get(ac_id)
             if ac is None:
@@ -135,9 +135,13 @@ def coverage_errors(task: dict, *, require_coverage: bool = False) -> list[str]:
             if not set(ac["microtask_ids"]).intersection(cell["microtask_ids"]):
                 errors.append(f"{label}: {ac_id} sem vínculo com microtask_ids da área")
                 continue
-            covered_micros.update(set(ac["microtask_ids"]).intersection(cell["microtask_ids"]) & micros)
+            linked_micros = set(ac["microtask_ids"]).intersection(cell["microtask_ids"]) & micros
+            cell_micros.update(linked_micros)
+            covered_micros.update(linked_micros)
             covered_reqs.update(ac["requirement_ids"])
             cell_rules.update(ac.get("rule_ids", []))
+        for micro_id in sorted(set(cell["microtask_ids"]) - cell_micros):
+            errors.append(f"{label}: {micro_id} sem critério de aceite vinculado na área")
         covered_rules.update(cell_rules)
         if area == "business":
             for rule_id in sorted(rules - set(cell["rule_ids"])):

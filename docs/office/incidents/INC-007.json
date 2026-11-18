@@ -1,0 +1,82 @@
+{
+  "id": "INC-007",
+  "when": "2026-11-17T21:50:25-03:00",
+  "task": "TFD-REAP-COMPLETE",
+  "symptom": "Partial REAP route does not satisfy requested full standalone capability delegation",
+  "root_cause": "Prior uncommitted proposal narrowed complete external collection to three references",
+  "fix": "Expose complete separately packaged REAP collection with native executor handoff and source-bound results; remove partial integration",
+  "risk": "Prompt packs do not provide an executor or engine; preserve operation authorization and existing REA and TFD installations",
+  "evidence": "User explicitly rejects partial integration and requests complete plugin capability invoked by Discovery; prior partial patch preserved outside plugin then removed",
+  "author": "Codex with Discovery ownership",
+  "paths": [
+    "README.md",
+    "docs/CHANGELOG.md",
+    "integrations/reap/plugin.json",
+    "integrations/reap/source.json",
+    "skills/TFD-discovery/SKILL.md",
+    "skills/TFD-discovery/references/rea-prompts.md",
+    "scripts/reap_plugin.py",
+    "tests/test_reap_plugin.py"
+  ],
+  "status": "verified",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-reap-route-check.py"
+      ],
+      "exit": 1,
+      "matched": true,
+      "when": "2026-11-17T21:50:26-03:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "5d63419ad67f51b211a1fc31be627824325119f14fc70d948e5e018cac003823"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-reap-route-check.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-17T21:55:42-03:00",
+      "stdout_sha256": "d8b40c24c7618519a4088684564aee4dfd4633d3268a019c4ab69728d6606663",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "branch": "office/qa-evidence-reconciliation",
+  "base": "34c7223a973b5497c5d6c1be6e3485032437c279",
+  "approval": {
+    "maintainer": "Guilherme",
+    "evidence": "Latest user correction explicitly requires the entire REA-Prompts capability available separately to Discovery with delegated execution and returned results; no publication merge or deploy.",
+    "when": "2026-11-17T21:50:25-03:00"
+  },
+  "verified_paths": {
+    "README.md": "bb26ca608db98e448a97a4e2ce81b758d7cd66b30c739fa5dfd1fffdc9ffb6da",
+    "docs/CHANGELOG.md": "897803384f5f2850c5040b9b8694a433e90f1cdc826134d1b6c4ecfe456c7f1a",
+    "integrations/reap/plugin.json": "f02d1c4e230eeac040a4da7d15745ddd60b623f98eca4c4401cb033f91b63151",
+    "integrations/reap/source.json": "8ea1b6c7ecaa20c18f268b5373e0a371a50338724694eedd2ff11bc16296acdc",
+    "scripts/reap_plugin.py": "a306c47bb9d4836615cbb642d43d32198f6a4482a29721b7382e7c25423825ee",
+    "skills/TFD-discovery/SKILL.md": "0b7b91b70cace2f5130d1c07ffb2807e53ccad03d5ea41b91de427f0a320c2ea",
+    "skills/TFD-discovery/references/rea-prompts.md": "7337ff6f65110c2d66b00f2514222e8421629ba4912cfaf6407d4b9f3c754709",
+    "tests/test_reap_plugin.py": "2d8f84f12493358d1645f222f5abc2a3962f2d226cadf35564b664ee382e87da"
+  },
+  "verification": {
+    "reviewer": "Independent TFD QA Spec",
+    "evidence": "PASS preactivation C:/Users/teste/.codex/tfd-install-evidence/reap-discovery/review-full-plugin.json SHA256 cb72401053c082dc21d1f8c1e7c91b93fc6e9b0843e4064f90c20e3773ca3973: all31 upstream Git files, all26 complete bodies/names, description-only normalization and YAML validity. Full unittest269PASS exit0. Engine directCLI help exit1 missingzod; activation and engine health separate, unproven.",
+    "when": "2026-11-17T21:58:04-03:00"
+  },
+  "native_validation": {
+    "evidence": "C:/Users/teste/.codex/tfd-install-evidence/reap-discovery/native-install-verification.json",
+    "test_command": "codex exec --ephemeral --sandbox read-only --skip-git-repo-check: advertised catalog only",
+    "native_exit": 0,
+    "cache_files_verified": 60,
+    "limits": "Catalog load and pack selection proved; no product investigation or REA engine execution proved. Direct existing engine CLI missing zod. TFD source routing remains uncommitted; existing TFD installation and OpenBot were not updated.",
+    "plugin": "reap-prompts@reap-local",
+    "enabled": true,
+    "catalog_skills": 26
+  }
+}

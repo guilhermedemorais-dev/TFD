@@ -18,6 +18,7 @@ Create one row per operation. Fill in **exact target**, **responsible actor**, *
 | Operation | Target to bind |
 | --- | --- |
 | Edit Kanban or Project configuration | Exact Project and permitted fields or actions |
+| Create Issues | Exact Issues repository and authorized scope |
 | Manage or apply labels | Issues repository and Issue when applicable |
 | Comment or record QA evidence | Same linked Issue |
 | Create commit | Working repository and branch |

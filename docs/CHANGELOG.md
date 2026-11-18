@@ -15,6 +15,18 @@ a versão, a revisão publicada no canal e o link deste histórico no topo do
 [README](../README.md). Atualize a [tabela de mudanças recentes](../README.md#atualizações-recentes)
 quando a mudança afetar quem instala ou usa o framework. [Referência de estrutura](https://keepachangelog.com/en/1.1.0/)
 
+## Em revisão
+
+[PR #6](https://github.com/guilhermedemorais-dev/TFD/pull/6), atualização sobre a `main`.
+
+### Diagnóstico de acesso ao GitHub e CI pelo DevOps
+
+- **Motivação.** Quando uma operação falha depois da configuração inicial, o DevOps precisa dizer quem corrige o acesso e em qual tela.
+- **Corrige.** A skill aciona o diagnóstico em qualquer fase. O roteiro distingue a conta do `gh`, a instalação do GitHub App, o acesso do colaborador, o Project e as permissões do job do Actions. A matriz de governança agora inclui criação de Issues.
+- **Melhora.** Cada bloqueio retorna o erro observado, o ajuste mínimo e como confirmar a recuperação. Em Projects, o DevOps distingue permissão ausente no registro do App de concessão pendente na instalação. O roteiro é consultado só quando necessário. [Roteiro](../skills/TFD-devops/references/github-access-recovery.md)
+- **Compatibilidade.** A conciliação com a `main` preserva o ciclo por etapa da PR #8 e publica a skill DevOps como `1.2.3`. O diagnóstico distingue permissão insuficiente em GraphQL (401) e REST (403), sem inferir a causa apenas pelo status. Para Issues, o mantenedor solicita a permissão no registro do App e o dono da instalação aprova a atualização pendente antes de conferir a concessão efetiva. Uma conta `gh` válida sem acesso ao repositório segue a concessão mínima pelo dono, com conferência da mesma conta; a reconexão fica restrita a identidade ou credenciais inválidas.
+- **Verificação.** A revisão conciliada passou 11 testes focados e 290 testes da suíte completa, exit 0. Após os ajustes documentais e a versão `1.2.3`, os 11 testes focados passaram novamente, exit 0. A auditoria da Oficina passou, exit 0; a referência de recuperação permanece abaixo de 1.000 tokens e preserva as fontes oficiais. O validador genérico da Skill Creator rejeita o ID legado `TFD-devops`, preservado pelo padrão do TFD. Os 165 testes da revisão anterior permanecem como evidência histórica. A ativação no OpenBot ainda não foi validada.
+
 ## 0.1.6 · Pacote por etapa — 2026-11-18
 
 Canal de integração: `main`. [PR #8 e estado da revisão](https://github.com/guilhermedemorais-dev/TFD/pull/8).

@@ -2,7 +2,7 @@
 name: TFD-devops
 description: "Verify environment readiness, diagnose GitHub access and CI failures, and prepare reproducible operations, PR evidence and rollback."
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
   owner: "devops"
 ---
 

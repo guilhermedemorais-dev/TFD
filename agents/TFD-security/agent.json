@@ -14,7 +14,7 @@
   "outputs": [
     "Threats, mitigations and security review evidence"
   ],
-  "gate": "G4/G6/G7",
+  "gate": "G4/G6/G7/G9/G10",
   "validator": "harness",
   "skills": [
     "TFD-security"

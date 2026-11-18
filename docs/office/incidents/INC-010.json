@@ -1,0 +1,71 @@
+{
+  "id": "INC-010",
+  "when": "2026-11-18T09:47:49+00:00",
+  "task": "TFD-PR8-PREMERGE-REVIEW",
+  "symptom": "Code review identifies historical G6 inventory bypass and cross-profile Graphify routing before requested merge",
+  "root_cause": "Earlier G6 inventory is omitted by latest-task-only guard; native profile generation ignores installation destination",
+  "fix": "Bind every G6 review to its phase inventory and generate routes for requested profile; add regressions",
+  "risk": "Preserve historical phase evidence and custom-profile protection; no live host changes or deploy",
+  "evidence": "User authorizes check everything and merge main; PR8 findings discussion_r4611781868 and discussion_r4611781875",
+  "author": "Codex TFD Backend",
+  "paths": [
+    "README.md",
+    "docs/CHANGELOG.md",
+    "docs/GUIA-CODEX.md",
+    "scripts/install_codex_agents.py",
+    "scripts/pipeline.py",
+    "tests/test_graphify_dispatch.py",
+    "tests/test_qa_consultation.py",
+    "tests/test_stage_loop.py"
+  ],
+  "status": "verified",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:\\Users\\teste\\AppData\\Local\\Temp/tfd_inc010_regression.py"
+      ],
+      "exit": 1,
+      "matched": true,
+      "when": "2026-11-18T09:49:21+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "099540bbc6d1b3d1d341f453f1d4dba4f41431bd505dbbbad08d6e9327d055cd"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:\\Users\\teste\\AppData\\Local\\Temp/tfd_inc010_regression.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-18T09:57:19+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "4c8930c4bcb463d372e955f58840b2a1bc74c4e4ea0cff16dad61e759198c964"
+    }
+  ],
+  "branch": "office/qa-evidence-reconciliation",
+  "base": "74b899ddd3d5b13c0937fa0896ec727ac917781d",
+  "approval": {
+    "maintainer": "Guilherme",
+    "evidence": "Latest main request cofere tudo e faz o marge na main authorizes scoped review fixes, checks, commit push and merge validated PRs; no deploy",
+    "when": "2026-11-18T09:47:49+00:00"
+  },
+  "verified_paths": {
+    "README.md": "392ddd52cc52b7f0db83f408a8384575fc59471157670fa771c72fda61d1328c",
+    "docs/CHANGELOG.md": "165048d441f7502ac04bc9c1e68ba1e2eb5c950132916479c9692a0a0bce842c",
+    "docs/GUIA-CODEX.md": "ca29a36400477c6b6153fea34124da1383af9e6b72748e9c3a5f27b7f38821f9",
+    "scripts/install_codex_agents.py": "cb1e35fceecd6595ba7e04ddd40e7ed999963ea2de0ccf69b6a6494f0cf2ee31",
+    "scripts/pipeline.py": "c688b0946625a7c58ee5567b6f977cdc075fc910ecea2634d005fc6b6ecc86e0",
+    "tests/test_graphify_dispatch.py": "5006e9e19bdd07398c52102fb5e195b88bccb057ab08c2078362d5b7e91b3189",
+    "tests/test_stage_loop.py": "5bce8a6747ca10edfa055b940cdf2af82724fabcbe0e1c6daacc56e6f0dd01ba"
+  },
+  "verification": {
+    "reviewer": "Independent TFD QA Backend",
+    "evidence": "PASS correction2 for both PR8 P2 findings: historical G6 inventory with/without stage_loop in review_version1, authentic Task fallback, failclosed missing history, old workflows preserved; independent historical/profile checks and own adversarial scripts exit0; full local unittest 288 pass exit0. Only size comments stamped after technical QA and exact baseline regression command rerun on final bytes exit0. Main user authorizes commit push and reviewed merge main, no deploy. Hosts unchanged.",
+    "when": "2026-11-18T09:57:33+00:00"
+  }
+}

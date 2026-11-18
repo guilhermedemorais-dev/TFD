@@ -1,4 +1,4 @@
-> Contexto TFD · 1298 palavras · 2296 tokens (o200k_base)
+> Contexto TFD · 1329 palavras · 2344 tokens (o200k_base)
 
 # TFD no Codex
 
@@ -9,7 +9,7 @@ uma vez por máquina. Abra os chats de trabalho na pasta do projeto.
 
 Para instalação assistida, cole o [prompt do README](../README.md#instalação)
 em um agente com terminal e rede na máquina do Codex. Ele obtém a origem
-oficial e seleciona o canal de revisão.
+oficial e seleciona o canal principal `main`.
 
 Para instalação pelo terminal no canal padrão, clone a `main` em uma pasta
 nova fora do seu projeto e execute os comandos na raiz do clone. Use Git,
@@ -36,6 +36,8 @@ GitHub. A instalação baixa a cópia de execução sem `tests/`. Depois de
 instalar ou atualizar, abra uma nova sessão para carregar as mudanças.
 
 ## Canal de revisão
+
+Uso opcional para uma revisão ainda não integrada: escolha a branch indicada na PR. Os comandos abaixo exemplificam o canal histórico `office/reviewed-delivery`; ele não substitui a `main` nas instalações normais.
 
 Obtenha a branch `office/reviewed-delivery` da origem oficial em uma pasta
 nova fora do seu projeto. Em Linux, substitua `python` por `python3`.

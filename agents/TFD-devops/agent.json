@@ -17,8 +17,8 @@
     "Runbook and rollback plan",
     "PR review evidence"
   ],
-  "gate": "G0.5/G4/G7/G8",
-  "validator": "harness",
+  "gate": "G0.5/G4/G7/G8/G9/G10",
+  "validator": "TFD-qa_backend",
   "skills": [
     "TFD-devops"
   ]

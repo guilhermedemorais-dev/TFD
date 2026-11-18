@@ -2,11 +2,13 @@
 name: TFD-backend
 description: "Implement approved API and domain behavior with reproducible self-tests."
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   owner: "backend"
 ---
 
 # backend
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) to production and scoped rework. Record your source consultation and self-tests; independent backend QA reviews the current revision before human acceptance.
 
 Use intention-revealing names, cohesive functions, explicit errors and stable API contracts. Apply DRY/SOLID where they simplify this change; avoid speculative abstractions. Test observable regressions, integration boundaries and relevant idempotency/races; coverage alone is insufficient.
 

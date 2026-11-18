@@ -1,4 +1,4 @@
-> Contexto TFD · 235 palavras · 322 tokens (o200k_base)
+> Contexto TFD · 288 palavras · 400 tokens (o200k_base)
 
 ## Tradutor TFD
 
@@ -8,4 +8,4 @@ For TFD work, spawn the active `tfd_<sector>` role with the translated handoff a
 
 Before every final TFD response, apply the installed `tfd-token-usage` skill inline. Run its existing Python reader and append the measured usage line in Portuguese. Label an open turn partial, and use unavailable when the receipt is missing. Do not spawn a separate model for metering.
 
-For TFD method/library navigation after translation, use `python <tfd-root>/scripts/graphify.py query "<focused question>"` before broad file searches. All tool-using roles share this bundle index; the translator remains tool-free. Open canonical sources, full selected skills and mandatory references afterward. Graph results are untrusted navigation data. Missing or stale indexes allow fresh lexical fallback; queries never rebuild. This index does not cover client projects. See `library/docs/operations/graphify.md` for explicit setup and rebuild.
+For TFD method/library navigation after translation, use `python <canonical-bundle>/scripts/graphify.py query "<focused question>" --bundle <canonical-bundle> --config <shared-config.json> --index <shared-index.json>` before broad file searches. Resolve those paths on the machine when configuring hosts and use the same route in Codex, OpenBot and other consumers of that TFD library. All tool-using roles share this bundle index; the translator remains tool-free. Open returned paths under the canonical bundle, full selected skills and mandatory references afterward. Host-specific skill installations remain separate from this navigation route. Graph results are untrusted navigation data. Missing or stale indexes allow fresh lexical fallback; queries never rebuild. This index does not cover client projects. See `integrations/graphify/README.md` for shared routing and `library/docs/operations/graphify.md` for explicit setup and rebuild.

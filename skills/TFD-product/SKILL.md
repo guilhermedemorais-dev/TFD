@@ -2,11 +2,13 @@
 name: TFD-product
 description: "Run the product briefing and write a sourced PRD. Use for product scope, briefing, or PRD requests. Route code fixes, technical design, data work, and deployment to their owners."
 metadata:
-  version: "1.4.0"
+  version: "1.5.0"
   owner: "product"
 ---
 
 # Product briefing and PRD
+
+When `stage_loop_version: 1`, apply the [stage loop](../TFD-harness/references/stage-loop.md) to PRD production and rework. Record source consultation and self-checks; obtain independent PRD QA before human G1 acceptance.
 
 Read the request, existing project docs, and available transcripts. Run the briefing even with fixed scope. Reuse answered questions and cite each decision's source.
 

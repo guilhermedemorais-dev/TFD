@@ -20,6 +20,21 @@
     "goal": { "type": "string", "minLength": 20 },
     "complexity": { "enum": ["trivial", "normal", "complex"] },
     "spec": { "type": "string", "minLength": 3 },
+    "coverage_version": { "type": "integer", "enum": [1] },
+    "technical_coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["business", "ui_ux", "frontend", "backend", "data", "security", "quality", "operations"],
+      "properties": {
+        "business": { "$ref": "#/$defs/business_coverage" },
+        "ui_ux": { "$ref": "#/$defs/coverage_cell" },
+        "frontend": { "$ref": "#/$defs/coverage_cell" },
+        "backend": { "$ref": "#/$defs/coverage_cell" },
+        "data": { "$ref": "#/$defs/coverage_cell" },
+        "security": { "$ref": "#/$defs/coverage_cell" },
+        "quality": { "$ref": "#/$defs/coverage_cell" },
+        "operations": { "$ref": "#/$defs/coverage_cell" }
+      }
+    },
     "scope": {
       "type": "array", "minItems": 1,
       "items": { "type": "string", "minLength": 3 }
@@ -73,7 +88,72 @@
     "estimate": { "$ref": "#/$defs/estimate" },
     "status": { "enum": ["draft", "ready", "in_progress", "blocked", "done"] }
   },
+  "allOf": [
+    {
+      "if": { "anyOf": [{ "required": ["coverage_version"] }, { "required": ["technical_coverage"] }] },
+      "then": { "required": ["technical_coverage", "spec"] }
+    }
+  ],
   "$defs": {
+    "coverage_cell": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "summary", "reference_ids", "microtask_ids", "acceptance_ids"],
+      "properties": {
+        "status": { "enum": ["COVERED", "N/A"] },
+        "summary": { "type": "string" },
+        "reference_ids": { "type": "array", "items": { "type": "string", "pattern": "^REF-[0-9]{2,}$" } },
+        "microtask_ids": { "type": "array", "items": { "type": "string", "pattern": "^MT-[0-9]{2,}$" } },
+        "acceptance_ids": { "type": "array", "items": { "type": "string", "pattern": "^AC-[0-9]{2,}$" } },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "COVERED" } } },
+          "then": { "properties": {
+            "summary": { "minLength": 1 }, "reference_ids": { "minItems": 1 },
+            "microtask_ids": { "minItems": 1 }, "acceptance_ids": { "minItems": 1 }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "N/A" } } },
+          "then": { "required": ["reason"], "properties": {
+            "reference_ids": { "maxItems": 0 }, "microtask_ids": { "maxItems": 0 }, "acceptance_ids": { "maxItems": 0 }
+          } }
+        }
+      ]
+    },
+    "business_coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "summary", "reference_ids", "microtask_ids", "acceptance_ids", "rule_ids"],
+      "properties": {
+        "status": { "enum": ["COVERED", "N/A"] },
+        "summary": { "type": "string" },
+        "reference_ids": { "type": "array", "items": { "type": "string", "pattern": "^REF-[0-9]{2,}$" } },
+        "microtask_ids": { "type": "array", "items": { "type": "string", "pattern": "^MT-[0-9]{2,}$" } },
+        "acceptance_ids": { "type": "array", "items": { "type": "string", "pattern": "^AC-[0-9]{2,}$" } },
+        "rule_ids": { "type": "array", "items": { "type": "string", "pattern": "^RULE-[0-9]{2,}$" } },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [{ "$ref": "#/$defs/coverage_cell_conditions" }]
+    },
+    "coverage_cell_conditions": {
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "COVERED" } } },
+          "then": { "properties": {
+            "summary": { "minLength": 1 }, "reference_ids": { "minItems": 1 },
+            "microtask_ids": { "minItems": 1 }, "acceptance_ids": { "minItems": 1 }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "N/A" } } },
+          "then": { "required": ["reason"], "properties": {
+            "reference_ids": { "maxItems": 0 }, "microtask_ids": { "maxItems": 0 },
+            "acceptance_ids": { "maxItems": 0 }, "rule_ids": { "maxItems": 0 }
+          } }
+        }
+      ]
+    },
     "phase": {
       "type": "object", "additionalProperties": false, "required": ["id", "title"],
       "properties": {
@@ -164,6 +244,10 @@
       "properties": {
         "id": { "type": "string", "pattern": "^AC-[0-9]{2,}$" },
         "description": { "type": "string", "minLength": 10 },
+        "rule_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^RULE-[0-9]{2,}$" }
+        },
         "requirement_ids": {
           "type": "array", "minItems": 1,
           "items": { "type": "string", "pattern": "^REQ-[0-9]{2,}$" }

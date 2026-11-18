@@ -1,0 +1,126 @@
+{
+  "id": "INC-008",
+  "when": "2026-11-17T22:38:49-03:00",
+  "task": "TFD-SHARED-GRAPHIFY",
+  "symptom": "Same-machine consumers can query distinct TFD bundle identities against one default graph index",
+  "root_cause": "OpenBot router lacks an explicit canonical route and native profile commands leave bundle config and index implicit",
+  "fix": "Bind host navigation to one existing canonical entrypoint bundle config and index; make native profile generation explicit; rebuild stale shared index once with backup",
+  "risk": "Preserve host-specific sector knowledge and permissions; do not index projects or overwrite valid approvals; no dependency changes or automatic query rebuilds",
+  "evidence": "User explicitly directs Codex and OpenBot to use same Graphify on same machine; scoped local routing and index refresh authorized, no publication merge or deploy",
+  "author": "Codex with TFD Architecture and DevOps",
+  "paths": [
+    "docs/CHANGELOG.md",
+    "hosts/codex/automatic-agents.md",
+    "integrations/graphify/README.md",
+    "scripts/install_codex_agents.py",
+    "tests/test_graphify_dispatch.py",
+    "README.md"
+  ],
+  "status": "verified",
+  "checks": [
+    {
+      "stage": "before",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-shared-graphify-route-check.py"
+      ],
+      "exit": 1,
+      "matched": true,
+      "when": "2026-11-17T22:38:51-03:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b9e19d0af993ff29e47b2a68fa84d55f09a2e32f8e351622e038e77a10d848ba"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-shared-graphify-route-check.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-17T22:42:06-03:00",
+      "stdout_sha256": "7c9b32c8f44159530932fd47d4f873e958a6e0630d76dfe6a541e1cd8328ce00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-shared-graphify-route-check.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-17T22:43:52-03:00",
+      "stdout_sha256": "7c9b32c8f44159530932fd47d4f873e958a6e0630d76dfe6a541e1cd8328ce00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "after",
+      "command": [
+        "C:/Users/teste/Documents/deepseek-harness/default-workspace/.venv-tfd/Scripts/python.exe",
+        "-B",
+        "C:/Users/teste/AppData/Local/Temp/tfd-shared-graphify-route-check.py"
+      ],
+      "exit": 0,
+      "matched": true,
+      "when": "2026-11-18T05:43:56-03:00",
+      "stdout_sha256": "7c9b32c8f44159530932fd47d4f873e958a6e0630d76dfe6a541e1cd8328ce00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "branch": "office/qa-evidence-reconciliation",
+  "base": "cffa897a869253d25ecc6f033f2c41266665034d",
+  "approval": {
+    "maintainer": "Guilherme",
+    "evidence": "Latest main-chat request authorizes aligning both local hosts to one Graphify route while preserving existing knowledge and config. Canonical existing Codex-cache bundle retained; local route files and index backed up before changes.",
+    "when": "2026-11-17T22:38:49-03:00"
+  },
+  "verified_paths": {
+    "README.md": "65ee6f79841655a47ed36b6ddb47c4e8552afdff2779b5e76fe7d4766d637628",
+    "docs/CHANGELOG.md": "d98e88591266121e30e6d5a4deef96d2539a6a4ac2b5c58ccda712f250fa9d8f",
+    "hosts/codex/automatic-agents.md": "0abeff16ab6f8ede2dbb135b0478ed19d0fcf41a6065b44705625542477f01c2",
+    "integrations/graphify/README.md": "a9e1d853872a7b710663b4b8d2cabe5bd79fff6dd0d8962cbbc50fb19837c516",
+    "scripts/install_codex_agents.py": "5d15d526f9a2bd1a826ac0f7e23d386503fc7510b57ea50c1c554cc6f6311712",
+    "tests/test_graphify_dispatch.py": "7e041257b6b7abe0b478cd7fc94ddd112fc163416ad5f2549ab24b8147890a8b"
+  },
+  "finalization": "Only generated size headers were stamped after the first successful regression; repeat the same check to bind the final file bytes.",
+  "verification": {
+    "reviewer": "Independent TFD QA Backend final native R2",
+    "evidence": "PASS99of99 exit0 C:/Users/teste/.codex/tfd-install-evidence/shared-graphify/qa-native-r2-final.json SHA256 6ced13713d115768ead4330ebec8d09e3535fa83ff0b6040230ed8e353b95713. FreshnativeR2SHA b2af44b7d69d78d188be6f4c231091974047fade6e5bdc0152f7c464b4b3b8ff: GRAPHIFY exit0 nonemptycontext currentfingerprint config/index/routercorrectandpreserved. UserinitiatednativeTFD message/turnIDsunavailable. Sixfinalsourcesmatch;273priorfulltests+current31retrieval/9workerPASS. R1FAIL retained; timeout20s rootcauseUNKNOWN; no runtimecodechange. Conditionalcommit/pushPR8 authorized; no merge/deploy.",
+    "when": "2026-11-18T05:46:15-03:00"
+  },
+  "local_runtime": {
+    "backup_manifest": "C:/Users/teste/.codex/tfd-install-evidence/shared-graphify/paths.json",
+    "dependency_changes": false,
+    "publication": "CONDITION_MET_USER_AUTHORIZED_COMMIT_PUSH_PR8_NO_MERGE_DEPLOY",
+    "query_exits": [
+      0,
+      0
+    ],
+    "fingerprint": "1b2781adb6af9a5b603dbed707d7f45111519bc57cae5dc63b6c2abc865df56b",
+    "native_openbot_chat": "PASS_USER_INITIATED_R2",
+    "query_status": "GRAPHIFY",
+    "evidence": "C:/Users/teste/.codex/tfd-install-evidence/shared-graphify/query-comparison.json",
+    "host_updates": [
+      "Codex global graph navigation block",
+      "14 managed Codex query commands only",
+      "OpenBot shared router graph paragraph",
+      "canonical bundle native-profile generator"
+    ],
+    "rebuild_exit": 0
+  },
+  "native_finalization": {
+    "reason": "Finalize README/history with native R1 failure, current recovery and native R2 verdict; runtime code unchanged and historical underlying timeout cause unknown",
+    "publication_gate": "PASS_INDEPENDENT_NATIVE_R2",
+    "underlying_timeout_cause": "UNKNOWN",
+    "authorization": "User explicitly authorizes repair/investigation, native retest and conditional commit/push PR8 after PASS, preserving configurations, no merge/deploy",
+    "runtime_code_changed": false,
+    "r1": "C:/Users/teste/OpenBot/Shared/tfd-native-adaptation/inc008-native-shared-graph-test-20261118/result-20261118T0800386375215Z.json",
+    "r2": "C:/Users/teste/OpenBot/Shared/tfd-native-adaptation/inc008-native-shared-graph-test-20261118/result-R2-20261118T0841446893536Z.json",
+    "native_r2_sha256": "b2af44b7d69d78d188be6f4c231091974047fade6e5bdc0152f7c464b4b3b8ff",
+    "qa_report_sha256": "6ced13713d115768ead4330ebec8d09e3535fa83ff0b6040230ed8e353b95713"
+  }
+}
